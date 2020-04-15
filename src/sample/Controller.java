@@ -10,12 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -25,7 +21,7 @@ public class Controller {
     private String mUsernameData = "kaczynskiChuj"; // usunąć sztywne dane i pobrać je z bazy.
     private String mPasswordData = "dudakutas123"; // usunąć sztywne dane i pobrać je z bazy.
 
-    private static final String PATH = "file:\\C:\\Users\\Cyprian\\Desktop\\DevslogCSS\\imgs\\";
+    private static final String PATH_IMAGES = "/sample/imgs/";
     @FXML
     private Button mBtnLogin;
     @FXML
@@ -47,8 +43,8 @@ public class Controller {
 
 
     public void initialize(){
-        mLogoImage.setImage(new Image(PATH + "log.png"));
-        mLoginImage.setImage(new Image(PATH + "loginImage.png"));
+        mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
+        mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
 
         //Popup visible
         mPopup.setVisible(false);
