@@ -1,0 +1,16 @@
+.main {
+    -fx-background-color: #1C1C1E;
+}
+
+.navbar {
+    -fx-background-color: #FFFFFF;
+}
+
+.welcome {
+    -fx-font-family: Lato;
+    -fx-font-size: 30px;
+}
+
+.user {
+    -fx-text-fill: #2343E4;
+}

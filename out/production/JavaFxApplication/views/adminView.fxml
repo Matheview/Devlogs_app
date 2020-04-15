@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <AnchorPane fx:id="wrapper" prefHeight="768.0" prefWidth="1024.0" styleClass="wrapper">
+         <children>
+            <Pane fx:id="main" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" styleClass="main" stylesheets="@../styles/admin.css" />
+            <Pane fx:id="navbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
+               <children>
+                  <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="444.0" layoutY="18.0" styleClass="welcome" stylesheets="@../styles/admin.css" text="Witaj" />
+                  <Label layoutX="518.0" layoutY="18.0" stylesheets="@../styles/admin.css" text="Mateusz !">
+                     <styleClass>
+                        <String fx:value="welcome" />
+                        <String fx:value="user" />
+                     </styleClass></Label>
+                  <FontAwesomeIconView fill="#2343e4" glyphName="HOME" layoutX="852.0" layoutY="52.0" size="30" text="" />
+                  <Label layoutX="695.0" layoutY="32.0" text="administrator" />
+               </children></Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>
