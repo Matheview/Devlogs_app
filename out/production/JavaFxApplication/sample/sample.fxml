@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="395.0" style="-fx-background-color: black; -fx-border-radius: 150px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <Pane layoutX="26.0" layoutY="75.0" prefHeight="473.0" prefWidth="335.0" style="-fx-background-color: white; -fx-background-radius: 30px; -fx-font-family: &quot;Lato&quot;;" />
+      <ImageView fx:id="mLoginImage" fitHeight="123.0" fitWidth="133.0" layoutX="135.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="mDomain" alignment="TOP_LEFT" cache="true" layoutX="72.0" layoutY="283.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj domenę..." style="-fx-border-radius: 30; -fx-background-color: black; -fx-text-fill: white;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <Text layoutX="120.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zaloguj się aby kontynuować" />
+      <TextField fx:id="mUsername" alignment="TOP_LEFT" layoutX="72.0" layoutY="336.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj login..." style="-fx-border-radius: 30; -fx-background-color: black; -fx-text-fill: white;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <Button fx:id="mBtnLogin" layoutX="129.0" layoutY="469.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" style="-fx-background-color: #2343E4; -fx-text-fill: white; -fx-background-radius: 30px;" text="Zaloguj">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Text fill="#2343e4" layoutX="218.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: #2343E4;" text="Zapomniałem hasła" />
+      <PasswordField fx:id="mPassword" layoutX="72.0" layoutY="388.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj hasło..." style="-fx-background-color: black; -fx-text-fill: white; -fx-border-radius: 30;" />
+      <Pane prefHeight="63.0" prefWidth="395.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fx:id="mLogoImage" fitHeight="48.0" fitWidth="47.0" layoutX="7.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="login" layoutX="54.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Devslog" wrappingWidth="250.0">
+               <font>
+                  <Font size="41.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Pane fx:id="mBlurPopup" layoutY="63.0" opacity="0.68" prefHeight="506.0" prefWidth="395.0" style="-fx-background-color: gray;" />
+      <Pane fx:id="mPopup" layoutX="38.0" layoutY="148.0" prefHeight="250.0" prefWidth="312.0" style="-fx-background-color: white; -fx-border-color: black;">
+         <children>
+            <Button fx:id="mBtnClose" layoutX="92.0" layoutY="201.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" style="-fx-background-color: #2343E4; -fx-text-fill: white; -fx-background-radius: 30px;" text="Zamknij">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Text layoutX="29.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Błąd w logowaniu. Proszę spróbować ponownie." />
+         </children>
+      </Pane>
+   </children>
+</Pane>

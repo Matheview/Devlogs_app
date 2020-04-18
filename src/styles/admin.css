@@ -44,7 +44,7 @@
 
 .workspace-creator {
     -fx-pref-width: 320px;
-    -fx-pref-height: 500px;
+    -fx-pref-height: 350px;
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 30px;
 }
@@ -87,4 +87,5 @@
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #2343E4;
     -fx-padding: 10px 20px;
+    -fx-font-family: Righteous;
 }

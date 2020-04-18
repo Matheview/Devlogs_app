@@ -13,6 +13,8 @@ import javafx.scene.layout.Pane;
 
 public class AdminController {
 
+    //ZMIENNE DO OBSŁUŻENIA BACKEND
+
     @FXML
     private AnchorPane mWrapper;
 
@@ -44,13 +46,7 @@ public class AdminController {
     private TextField mWorkspaceName;
 
     @FXML
-    private TextField mProjectName;
-
-    @FXML
     private Button mNewWorkspaceBtn;
-
-    @FXML
-    private TextField mProjectBoss;
 
     @FXML
     private TextField mWorkspaceSearch;
@@ -78,5 +74,62 @@ public class AdminController {
 
     @FXML
     private ImageView mLogoutIcon;
+
+    //FUNKCJE DO OBSŁUŻENIA BACKEND
+
+    @FXML
+    void handleAdminCheck(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleBossCheck(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleEmailChange(InputMethodEvent event) {
+
+    }
+
+    @FXML
+    void handleFindUser(InputMethodEvent event) {
+
+    }
+
+    @FXML
+    void handleFindWorkspace(InputMethodEvent event) {
+
+    }
+
+    @FXML
+    void handlePasswordChange(InputMethodEvent event) {
+
+    }
+
+    @FXML
+    void handleUserCheck(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleUserNameChange(InputMethodEvent event) {
+
+    }
+
+    @FXML
+    void handleWorkspaceNameChange(InputMethodEvent event) {
+
+    }
+
+    @FXML
+    void makeNewUser(ActionEvent event) {
+
+    }
+
+    @FXML
+    void makeNewWorkspace(ActionEvent event) {
+
+    }
 
 }

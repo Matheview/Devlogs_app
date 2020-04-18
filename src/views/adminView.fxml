@@ -24,53 +24,51 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <AnchorPane fx:id="wrapper" prefHeight="768.0" prefWidth="1024.0" styleClass="wrapper">
+      <AnchorPane fx:id="mWrapper" prefHeight="768.0" prefWidth="1024.0" styleClass="wrapper">
          <children>
-            <Pane fx:id="main" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" styleClass="main" stylesheets="@../styles/admin.css">
+            <Pane fx:id="mMain" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" styleClass="main" stylesheets="@../styles/admin.css">
                <children>
                   <Pane layoutX="45.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="user-creator" stylesheets="@../styles/admin.css">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <children>
-                        <TextField fx:id="userName" alignment="CENTER" layoutX="30.0" layoutY="210.0" promptText="nazwa użytkownika..." styleClass="text-input" stylesheets="@../styles/admin.css" />
-                        <TextField fx:id="email" alignment="CENTER" layoutX="29.0" layoutY="260.0" promptText="email..." styleClass="text-input" stylesheets="@../styles/admin.css" />
-                        <PasswordField fx:id="password" alignment="CENTER" layoutX="30.0" layoutY="308.0" promptText="hasło..." stylesheets="@../styles/admin.css" />
+                        <TextField fx:id="mUserName" alignment="CENTER" layoutX="30.0" layoutY="210.0" onInputMethodTextChanged="#handleUserNameChange" promptText="nazwa użytkownika..." styleClass="text-input" stylesheets="@../styles/admin.css" />
+                        <TextField fx:id="mEmail" alignment="CENTER" layoutX="29.0" layoutY="260.0" onInputMethodTextChanged="#handleEmailChange" promptText="email..." styleClass="text-input" stylesheets="@../styles/admin.css" />
+                        <PasswordField fx:id="mPassword" alignment="CENTER" layoutX="30.0" layoutY="308.0" onInputMethodTextChanged="#handlePasswordChange" promptText="hasło..." stylesheets="@../styles/admin.css" />
                         <Label layoutX="114.0" layoutY="370.0" styleClass="user-type-label" stylesheets="@../styles/admin.css" text="typ konta:" />
-                        <CheckBox layoutX="30.0" layoutY="403.0" mnemonicParsing="false" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="admin" />
-                        <CheckBox layoutX="95.0" layoutY="403.0" mnemonicParsing="false" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="kierownik" />
-                        <CheckBox layoutX="175.0" layoutY="403.0" mnemonicParsing="false" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="użytkownik" />
-                        <Button fx:id="newUserBtn" layoutX="84.0" layoutY="440.0" mnemonicParsing="false" styleClass="creator-btn" stylesheets="@../styles/admin.css" text="Utwórz konto" />
+                        <CheckBox fx:id="mAdminType" layoutX="30.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleAdminCheck" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="admin" />
+                        <CheckBox fx:id="mBossType" layoutX="95.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleBossCheck" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="kierownik" />
+                        <CheckBox fx:id="mUserType" layoutX="175.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleUserCheck" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="użytkownik" />
+                        <Button fx:id="mNewUserBtn" layoutX="84.0" layoutY="440.0" mnemonicParsing="false" onAction="#makeNewUser" styleClass="creator-btn" stylesheets="@../styles/admin.css" text="Utwórz konto" />
                         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="65.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imgs/user.png" />
                            </image>
                         </ImageView>
                      </children></Pane>
-                  <Pane layoutX="352.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="workspace-creator" stylesheets="@../styles/admin.css">
+                  <Pane layoutX="352.0" layoutY="94.0" prefHeight="265.0" prefWidth="200.0" styleClass="workspace-creator" stylesheets="@../styles/admin.css">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <children>
-                        <TextField fx:id="workspaceName" alignment="CENTER" layoutX="50.0" layoutY="210.0" prefHeight="25.0" prefWidth="174.0" promptText="nazwa przestrzeni roboczej..." styleClass="text-input" stylesheets="@../styles/admin.css" />
-                        <TextField fx:id="projectName" alignment="CENTER" layoutX="50.0" layoutY="260.0" prefHeight="25.0" prefWidth="174.0" promptText="nazwa nowego projektu..." styleClass="text-input" stylesheets="@../styles/admin.css" />
-                        <Button fx:id="newWorkspaceBtn" layoutX="92.0" layoutY="441.0" mnemonicParsing="false" styleClass="creator-btn" stylesheets="@../styles/admin.css" text="Utwórz przestrzeń" />
+                        <TextField fx:id="mWorkspaceName" alignment="CENTER" layoutX="50.0" layoutY="217.0" onInputMethodTextChanged="#handleWorkspaceNameChange" prefHeight="25.0" prefWidth="174.0" promptText="nazwa przestrzeni roboczej..." styleClass="text-input" stylesheets="@../styles/admin.css" />
+                        <Button fx:id="mNewWorkspaceBtn" layoutX="92.0" layoutY="290.0" mnemonicParsing="false" onAction="#makeNewWorkspace" styleClass="creator-btn" stylesheets="@../styles/admin.css" text="Utwórz przestrzeń" />
                         <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="85.0" layoutY="40.0">
                            <image>
                               <Image url="@../imgs/workspace.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="projectBoss" alignment="CENTER" layoutX="50.0" layoutY="308.0" prefHeight="25.0" prefWidth="174.0" promptText="kierownik projektu..." styleClass="text-input" stylesheets="@../styles/admin.css" />
                      </children>
                   </Pane>
                   <Pane layoutX="700.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="information-container" stylesheets="@../styles/admin.css">
                      <children>
                         <Label layoutX="98.0" layoutY="26.0" styleClass="information-label" text="Lista przestrzeni" textAlignment="CENTER" />
                         <Label layoutX="89.0" layoutY="275.0" styleClass="information-label" text="Lista użytkowników" textAlignment="CENTER" />
-                        <TextField fx:id="workspaceSearch" layoutX="30.0" layoutY="63.0" promptText="podaj szukaną nazwę..." styleClass="search-input" />
-                        <ListView layoutX="40.0" layoutY="118.0" prefHeight="108.0" prefWidth="200.0" />
-                        <TextField fx:id="userSearch" layoutX="30.0" layoutY="307.0" promptText="podaj szukaną nazwę..." styleClass="search-input" />
-                        <ListView layoutX="40.0" layoutY="363.0" prefHeight="108.0" prefWidth="200.0" />
+                        <TextField fx:id="mWorkspaceSearch" layoutX="30.0" layoutY="63.0" onInputMethodTextChanged="#handleFindWorkspace" promptText="podaj szukaną nazwę..." styleClass="search-input" />
+                        <ListView fx:id="mWorkspaceList" layoutX="40.0" layoutY="118.0" prefHeight="108.0" prefWidth="200.0" />
+                        <TextField fx:id="mUserSearch" layoutX="30.0" layoutY="307.0" onInputMethodTextChanged="#handleFindUser" promptText="podaj szukaną nazwę..." styleClass="search-input" />
+                        <ListView fx:id="mUserlist" layoutX="40.0" layoutY="363.0" prefHeight="108.0" prefWidth="200.0" />
                         <ImageView fitHeight="17.0" fitWidth="14.0" layoutX="217.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imgs/search.png" />
@@ -85,7 +83,7 @@
                   </Pane>
                   <Pane layoutX="685.0" layoutY="329.0" prefHeight="30.0" prefWidth="310.0" styleClass="divider" stylesheets="@../styles/admin.css" />
                </children></Pane>
-            <Pane fx:id="navbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
+            <Pane fx:id="mNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
                <children>
                   <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -93,7 +91,7 @@
                      </image>
                   </ImageView>
                   <Label layoutX="418.0" layoutY="18.0" styleClass="welcome" stylesheets="@../styles/admin.css" text="Witaj" />
-                  <Label layoutX="492.0" layoutY="18.0" stylesheets="@../styles/admin.css" text="Mateusz !">
+                  <Label fx:id="mWelcomeUserName" layoutX="492.0" layoutY="18.0" stylesheets="@../styles/admin.css" text="Mateusz !">
                      <styleClass>
                         <String fx:value="welcome" />
                         <String fx:value="user" />
@@ -104,17 +102,17 @@
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
                      </children>
                   </Pane>
-                  <ImageView fx:id="homeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imgs/home.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="notificationIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imgs/notification-bell.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="logoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imgs/logout.png" />
                      </image>
