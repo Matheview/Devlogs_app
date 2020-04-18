@@ -1,35 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<Pane prefHeight="700.0" prefWidth="850.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SecondViewController">
-   <children>
-      <Pane prefHeight="74.0" prefWidth="850.0" style="-fx-background-color: white;">
-         <children>
-            <ImageView fx:id="mLogoImage" fitHeight="48.0" fitWidth="47.0" layoutX="7.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-            <Text fx:id="login" layoutX="54.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Devslog" wrappingWidth="250.0">
-               <font>
-                  <Font size="41.0" />
-               </font>
-            </Text>
-            <Text layoutX="289.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Witaj ">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Text>
-            <Text fx:id="mNameUser" fill="#2343e4" layoutX="365.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nieznajomy">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Text>
-            <Text fill="#2343e4" layoutX="554.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="użytkownik">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Text>
-         </children>
-      </Pane>
-   </children>
-</Pane>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.SecondViewController"
+            prefHeight="400.0" prefWidth="600.0">
+
+</AnchorPane>

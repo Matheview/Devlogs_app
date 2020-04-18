@@ -17,34 +17,29 @@ import java.io.IOException;
 
 public class Controller {
 
-    public String getmUsernameData() {
-        return mUsernameData;
-    }
-
-    private String mDomainData = "123"; // usunąć sztywne dane i pobrać je z bazy.
-    private String mUsernameData = "Kaczyński"; // usunąć sztywne dane i pobrać je z bazy.
-    private String mPasswordData = "123"; // usunąć sztywne dane i pobrać je z bazy.
+    private String mDomainData = "kaczynski123@wp.pl"; // usunąć sztywne dane i pobrać je z bazy.
+    private String mUsernameData = "kaczynskiChuj"; // usunąć sztywne dane i pobrać je z bazy.
+    private String mPasswordData = "dudakutas123"; // usunąć sztywne dane i pobrać je z bazy.
 
     private static final String PATH_IMAGES = "/sample/imgs/";
-
     @FXML
-    private PasswordField mPassword;
-    @FXML
-    private TextField mUsername;
-    @FXML
-    private TextField mDomain;
+    private Button mBtnLogin;
     @FXML
     private ImageView mLogoImage;
     @FXML
+    private TextField mDomain;
+    @FXML
     private ImageView mLoginImage;
     @FXML
-    private Button mBtnClose;
+    private TextField mUsername;
     @FXML
-    private Button mBtnLogin;
+    private Button mBtnClose;
     @FXML
     private Pane mPopup;
     @FXML
     private Pane mBlurPopup;
+    @FXML
+    private PasswordField mPassword;
 
 
     public void initialize(){
@@ -55,24 +50,32 @@ public class Controller {
         mPopup.setVisible(false);
         mBlurPopup.setVisible(false);
 
+
+
         mBtnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 if(mDomain.getText().equals(mDomainData) && mUsername.getText().equals(mUsernameData) && mPassword.getText().equals(mPasswordData)) {
+                    System.out.println(mDomain.getText());
+
                     Parent root;
+
                     try {
                         FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(this.getClass().getResource("/sample/SecondView.fxml"));
+                        loader.setLocation(this.getClass().getResource("SecondView.fxml"));
                         Pane pane = loader.load();
                         Scene scene = new Scene(pane);
                         Stage stage = new Stage();
                         stage.setTitle("SecondView");
                         stage.setScene(scene);
                         stage.show();
+                        ((Node)(e.getSource())).getScene().getWindow().hide();
                     }
                     catch (IOException er){
                         er.printStackTrace();
                     }
+
+
                 } else {
                    mPopup.setVisible(true);
                     mBlurPopup.setVisible(true);

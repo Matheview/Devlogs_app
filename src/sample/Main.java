@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public static void main(String[] args) {launch(args);}
-
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -29,5 +27,13 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+
+    public static void main(String[] args) {
+        launch(args);
+
+    }
+
+
     }
 
