@@ -13,6 +13,5 @@ public class SecondViewController {
     private Text mNameUser;
 
     public void initialize(){
-        mNameUser.setText(controller.getmUsernameData());
     }
 }
