@@ -7,11 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../LoginPanel/lib/gson-2.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/jars/gson-2.8.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -20,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../LoginPanel/lib/jackson-core-asl-1.9.13.jar!/" />
+          <root url="jar://$MODULE_DIR$/jars/jackson-core-asl-1.9.13.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -29,7 +28,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../LoginPanel/lib/jackson-mapper-asl-1.9.13.jar!/" />
+          <root url="jar://$MODULE_DIR$/jars/jackson-mapper-asl-1.9.13.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -38,7 +37,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../LoginPanel/lib/jackson-mrbean-1.9.13.jar!/" />
+          <root url="jar://$MODULE_DIR$/jars/jackson-mrbean-1.9.13.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -47,7 +46,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../LoginPanel/lib/org.apache.commons.io.jar!/" />
+          <root url="jar://$MODULE_DIR$/jars/org.apache.commons.io.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -56,12 +55,24 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/java-json.jar/java-json.jar!/" />
+          <root url="jar://$MODULE_DIR$/jars/java-json.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://$USER_HOME$/Downloads/java-json.jar/java-json.jar!/" />
+          <root url="jar://$MODULE_DIR$/jars/java-json.jar!/" />
         </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="bin" level="project" />
+    <orderEntry type="library" name="JavaFX14" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/javafx-sdk-14.0.1/legal" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib/javafx-sdk-14.0.1/legal" recursive="false" />
       </library>
     </orderEntry>
   </component>
