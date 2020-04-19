@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="395.0" style="-fx-background-color: black; -fx-border-radius: 150px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="395.0" style="-fx-background-color: black; -fx-border-radius: 150px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <children>
       <Pane layoutX="26.0" layoutY="75.0" prefHeight="473.0" prefWidth="335.0" style="-fx-background-color: white; -fx-background-radius: 30px; -fx-font-family: &quot;Lato&quot;;" />
       <ImageView fx:id="mLoginImage" fitHeight="123.0" fitWidth="133.0" layoutX="135.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />

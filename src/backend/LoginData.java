@@ -1,4 +1,4 @@
-package sample;
+package backend;
 
 public class LoginData {
 	

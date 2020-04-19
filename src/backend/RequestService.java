@@ -1,10 +1,7 @@
-package sample;
+package backend;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

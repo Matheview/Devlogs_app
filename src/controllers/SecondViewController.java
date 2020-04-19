@@ -1,9 +1,7 @@
-package sample;
+package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
-
-import java.awt.*;
 
 public class SecondViewController {
 

@@ -1,4 +1,4 @@
-package sample;
+package controllers;
 
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
@@ -14,21 +14,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.json.JSONException;
+import backend.LoginData;
+import backend.RequestService;
+import backend.ResponseObject;
 
 import java.io.IOException;
 
 public class Controller {
 
-//    private String mDomainData = "123"; // usunąć sztywne dane i pobrać je z bazy.
-//    private String mUsernameData = "Kaczyński"; // usunąć sztywne dane i pobrać je z bazy.
-//    private String mPasswordData = "123"; // usunąć sztywne dane i pobrać je z bazy.
-
     private static final String PATH_IMAGES = "/sample/imgs/";
-    private static final String ADMIN_VIEW = "/sample/AdminView.fxml";
-    private static final String PM_VIEW = "/sample/SecondView.fxml";
+    private static final String ADMIN_VIEW = "../views/AdminView.fxml";
+    private static final String PM_VIEW = "../views/SecondView.fxml";
 
     @FXML
     private PasswordField mPassword;
@@ -49,6 +46,7 @@ public class Controller {
     @FXML
     private Pane mBlurPopup;
 
+    //Login function
     public void logowaniePane(String fxml){
         Parent root;
         try {
@@ -65,17 +63,18 @@ public class Controller {
         }
     }
 
+    //Popup visible
     public void visiblePopUp(Boolean visible){
         mPopup.setVisible(visible);
         mBlurPopup.setVisible(visible);
     }
 
+    //Views initialize
     public void initialize() {
         mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
         mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
         ResponseObject ro = new ResponseObject();
 
-        //Popup visible
         visiblePopUp(false);
 
         mBtnLogin.setOnAction(new EventHandler<ActionEvent>() {
@@ -108,4 +107,3 @@ public class Controller {
         });
     }
 }
-
