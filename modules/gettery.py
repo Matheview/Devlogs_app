@@ -79,7 +79,10 @@ class GettersUsers(MethodView, Responses):
             if users is None or len(users) == 0:
                 return self.response(200, success=True, msg="Not found users", users=[])
             for user in users:
-                self.keys.append({"id": user[0], "user": user[1], "privilege": user[2]})
+                shortcut = str(user[1])[:1]
+                if " " in str(user[1]):
+                    shortcut = "{0}{1}".format(shortcut, str(user[1]).split(" ")[1][:1])
+                self.keys.append({"id": user[0], "user": user[1], "privilege": user[2], 'shortcut': shortcut.upper()})
             return self.response(200, success=True, msg="Users({0})".format(len(users)), users=self.keys)
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
