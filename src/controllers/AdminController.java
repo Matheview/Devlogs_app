@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -8,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -75,61 +77,42 @@ public class AdminController {
     @FXML
     private ImageView mLogoutIcon;
 
+    public void handleUserNameChange(InputMethodEvent inputMethodEvent) {
+
+    }
+
+    public void handleEmailChange(InputMethodEvent inputMethodEvent) {
+    }
+
+    public void handlePasswordChange(InputMethodEvent inputMethodEvent) {
+    }
+
+    public void handleAdminCheck(ActionEvent actionEvent) {
+        System.out.println("elox");
+    }
+
+    public void handleBossCheck(ActionEvent actionEvent) {
+    }
+
+    public void handleUserCheck(ActionEvent actionEvent) {
+    }
+
+    public void makeNewUser(ActionEvent actionEvent) {
+    }
+
+    public void handleWorkspaceNameChange(InputMethodEvent inputMethodEvent) {
+    }
+
+    public void makeNewWorkspace(ActionEvent actionEvent) {
+    }
+
+    public void handleFindWorkspace(InputMethodEvent inputMethodEvent) {
+    }
+
+    public void handleFindUser(InputMethodEvent inputMethodEvent) {
+    }
+
     //FUNKCJE DO OBSŁUŻENIA BACKEND
-
-    @FXML
-    void handleAdminCheck(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleBossCheck(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleEmailChange(InputMethodEvent event) {
-
-    }
-
-    @FXML
-    void handleFindUser(InputMethodEvent event) {
-
-    }
-
-    @FXML
-    void handleFindWorkspace(InputMethodEvent event) {
-
-    }
-
-    @FXML
-    void handlePasswordChange(InputMethodEvent event) {
-
-    }
-
-    @FXML
-    void handleUserCheck(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleUserNameChange(InputMethodEvent event) {
-
-    }
-
-    @FXML
-    void handleWorkspaceNameChange(InputMethodEvent event) {
-
-    }
-
-    @FXML
-    void makeNewUser(ActionEvent event) {
-
-    }
-
-    @FXML
-    void makeNewWorkspace(ActionEvent event) {
-
-    }
+    
 
 }
