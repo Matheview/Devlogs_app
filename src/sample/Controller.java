@@ -65,14 +65,18 @@ public class Controller {
         }
     }
 
+    public void visiblePopUp(Boolean visible){
+        mPopup.setVisible(visible);
+        mBlurPopup.setVisible(visible);
+    }
+
     public void initialize() {
         mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
         mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
         ResponseObject ro = new ResponseObject();
 
         //Popup visible
-        mPopup.setVisible(false);
-        mBlurPopup.setVisible(false);
+        visiblePopUp(false);
 
         mBtnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -92,13 +96,11 @@ public class Controller {
                     logowaniePane(PM_VIEW);
                     ((Node)(e.getSource())).getScene().getWindow().hide();
                 } else {
-                    mPopup.setVisible(true);
-                    mBlurPopup.setVisible(true);
+                    visiblePopUp(true);
                     mBtnClose.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
-                            mPopup.setVisible(false);
-                            mBlurPopup.setVisible(false);
+                            visiblePopUp(false);
                         }
                     });
                 }
