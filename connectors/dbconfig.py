@@ -58,6 +58,17 @@ class DBConnector(Responses):
             self.logs.save_msg(e, localisation="DBConnector.login_user[{0}]".format(exc_tb.tb_lineno), args=keys)
             return [False, 500, "Unexpected exception on {}".format(datetime.now())]
 
+    def get_name(self, user):
+        try:
+            user = self.query(GET_USERNAME.format(user)).fetchone()
+            if not user:
+                return [False, "", ""]
+            return [True, user[0], user[1]]
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.get_name[{0}]".format(exc_tb.tb_lineno), args=keys)
+            return [False, "", ""]
+
     def save_logging(self, user_id, token):
         self.query(ADD_LOG_ACTION.format(user_id, token))
 
@@ -113,6 +124,16 @@ class DBConnector(Responses):
             self.logs.save_msg(e, localisation="DBConnector.create_user[{0}]".format(exc_tb.tb_lineno), args=keys)
             return [False, 0]
 
+    def generate_password(self, password, user):
+        try:
+            self.query(GENERATE_PASSWORD.format(self.hash_data(password), user))
+            return True
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.generate_password[{0}]".format(exc_tb.tb_lineno),
+                               args=[password, user])
+            return False
+
     def check_privileges(self, privilege):
         try:
             priv = self.query(CHECK_PRIV.format(privilege)).fetchone()
@@ -127,37 +148,37 @@ class DBConnector(Responses):
 
     def check_user(self, user):
         try:
-            is_user = self.db.query(CHECK_USER_EXIST.format(user)).fetchone()
+            is_user = self.query(CHECK_USER_EXIST.format(user)).fetchone()
             if not is_user:
                 raise Exception("User not found")
             return True
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
             self.logs.save_msg(e, localisation="DBConnector.check_user[{0}]".format(exc_tb.tb_lineno),
-                               args=privilege)
+                               args=user)
             return False
 
     def check_admin(self, user):
         try:
-            is_user = self.db.query(CHECK_ADMIN_EXIST.format(user)).fetchone()
+            is_user = self.query(CHECK_ADMIN_EXIST.format(user)).fetchone()
             if not is_user:
                 raise Exception("Permission Denied")
             return True
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
             self.logs.save_msg(e, localisation="DBConnector.check_admin[{0}]".format(exc_tb.tb_lineno),
-                               args=privilege)
+                               args=user)
             return False
 
     def check_kierownik(self, user):
         try:
-            is_user = self.db.query(CHECK_KIEROWNIK_EXIST.format(user)).fetchone()
+            is_user = self.query(CHECK_KIEROWNIK_EXIST.format(user)).fetchone()
             if not is_user:
                 raise Exception("Permission Denied")
             return True
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
             self.logs.save_msg(e, localisation="DBConnector.check_kierownik[{0}]".format(exc_tb.tb_lineno),
-                               args=privilege)
+                               args=user)
             return False
 

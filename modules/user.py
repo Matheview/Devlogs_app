@@ -4,6 +4,35 @@ from connectors.dbconfig import DBConnector
 from modules.responses import *
 from modules.gettery import *
 import re
+import secrets
+import string
+
+
+class GeneratePassword(MethodView, Responses):
+
+    def __init__(self):
+        super(GeneratePassword, self).__init__()
+        self.db = DBConnector()
+
+    def get(self):
+        return self.method_not_allowed("GenerateAdmin.get", 'get')
+
+    def put(self):
+        return self.method_not_allowed("GenerateAdmin.get", 'put')
+
+    def delete(self):
+        return self.method_not_allowed("GenerateAdmin.get", 'delete')
+
+    def post(self):
+        if not request.json['user_id']:
+            return self.response(202, success=False, msg="Key 'user_id' not found")
+        user = self.db.check_user(request.json['user_id'])
+        if not user:
+            return self.response(202, success=False, msg="User not found")
+        alphabet = string.ascii_letters + string.digits
+        password = str(''.join(secrets.choice(alphabet) for i in range(12)))
+        self.db.generate_password(password, request.json['user_id'])
+        return self.response(200, success=True, msg="Password generated", password=password)
 
 
 class Register(MethodView, Responses):
@@ -103,8 +132,9 @@ class Login(MethodView, Responses):
             return self.response(query[1], success=query[0], msg=query[2])
         self.token = "{0}##{1}".format(query[2]['user_id'], self.hash)
         self.db.save_logging(query[2]['user_id'], self.token)
+        user = self.db.get_name(query[2]['user_id'])
         return self.response(query[1], self.token, success=query[0], msg="Zalogowano",
-                             privilege=self.getter.get_privileges(query[2]['user_id']))
+                             privilege=self.getter.get_privileges(query[2]['user_id']), user_id=user[1], username=user[2])
 
 
 # tutaj potrzebny jest token

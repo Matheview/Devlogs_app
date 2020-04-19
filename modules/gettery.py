@@ -163,16 +163,16 @@ class GettersUserAdmin(MethodView, Responses):
         super(GettersUserAdmin, self).__init__()
 
     def get(self):
-        return render_template("docs.html", message="response")
+        return self.method_not_allowed("GettersUserAdmin.get", 'get')
 
     def post(self):
-        return self.method_not_allowed("GettersDocs.post", 'post')
+        return self.method_not_allowed("GettersUserAdmin.post", 'post')
 
     def put(self):
-        return self.method_not_allowed("GettersDocs.put", 'put')
+        return self.method_not_allowed("GettersUserAdmin.put", 'put')
 
     def delete(self):
-        return self.method_not_allowed("GettersDocs.delete", 'delete')
+        return self.method_not_allowed("GettersUserAdmin.delete", 'delete')
 
 
 class GettersUserKierownik(MethodView, Responses):
@@ -181,13 +181,31 @@ class GettersUserKierownik(MethodView, Responses):
         super(GettersUserKierownik, self).__init__()
 
     def get(self):
-        return render_template("docs.html", message="response")
+        return self.method_not_allowed("GettersUserKierownik.get", 'get')
 
     def post(self):
-        return self.method_not_allowed("GettersDocs.post", 'post')
+        return self.method_not_allowed("GettersUserKierownik.post", 'post')
 
     def put(self):
-        return self.method_not_allowed("GettersDocs.put", 'put')
+        return self.method_not_allowed("GettersUserKierownik.put", 'put')
 
     def delete(self):
-        return self.method_not_allowed("GettersDocs.delete", 'delete')
+        return self.method_not_allowed("GettersUserKierownik.delete", 'delete')
+
+
+class GettersUserWorker(MethodView, Responses):
+
+    def __init__(self):
+        super(GettersUserWorker, self).__init__()
+
+    def get(self):
+        return self.method_not_allowed("GettersUserWorker.get", 'get')
+
+    def post(self):
+        return self.method_not_allowed("GettersUserWorker.post", 'post')
+
+    def put(self):
+        return self.method_not_allowed("GettersUserWorker.put", 'put')
+
+    def delete(self):
+        return self.method_not_allowed("GettersUserWorker.delete", 'delete')

@@ -24,35 +24,27 @@ class DomainsRegister(MethodView, Responses):
     def post(self):
         try:
             self.data = request.json
-            for key in ['domain', 'project', 'kierownik', 'user_id']:
+            for key in ['domain', 'user_id']:
                 self.keys[key] = request.json[key]
             if not self.keys['user_id']:
                 return self.response(202, success=False, msg="Key 'user_id' required for check admin privileges")
-            elif self.keys['domain'] and not self.keys['project'] and not self.keys['kierownik']:
-                if not self.check_user(self.keys['user_id']):
+            if not self.keys['domain']:
+                return self.response(202, success=False, msg="Key 'domain' required")
+            elif self.keys['domain']:
+                is_user = self.check_admin(self.keys['user_id'])
+                if not is_user:
                     return self.response(403, success=False, msg="Permission denied")
                 domain = self.db.create_domain(self.keys['domain'])
                 if not domain[0]:
                     return self.response(409, success=False, msg="Domain already exists")
+                self.db.add_to_domain(domain[1], is_user[1])
                 return self.response(200, success=True, msg="Domain created")
-            elif self.keys['domain'] and self.keys['project'] and self.keys['kierownik']:
-                if not self.check_user(self.keys['user_id']):
-                    return self.response(403, success=False, msg="Permission denied")
-                if not self.db.check_kierownik(self.keys['kierownik']):
-                    return self.response(409, success=False, msg="User have not properly privileges")
-                if not self.db.add_kierownik_to_project(self.keys['domain'], self.keys['kierownik']):
-                    return self.response(409, success=False, msg="User not ")
-                domain = self.db.create_domain(self.keys['domain'])
-                self.db.add_kierownik_to_project(domain[1], self.keys['user_id'])
-                return self.response(200, success=True, msg="Kierownik added to project")
             else:
-                if not self.keys['domain']:
-                    return self.response(202, success=False, msg="Key 'domain' required")
-                elif self.keys['domain'] and not self.keys['project'] and self.keys['kierownik']:
-                    return self.response(202, success=False, msg="When key 'kierownik' added key 'project' required")
-                elif self.keys['domain'] and self.keys['project'] and not self.keys['kierownik']:
-                    return self.response(202, success=False, msg="When key 'project' added key 'kierownik' required")
-            self.logs.save_msg("Method not allowed", localisation="DomainsRegister.post", args=self.keys)
-            return self.response(403, success=False, msg="Unexpected sequence")
+                self.logs.save_msg("Unexpected sequence", localisation="DomainsRegister.post", args=self.keys)
+                return self.response(403, success=False, msg="Unexpected sequence")
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DomainsRegister.post[{0}]".format(exc_tb.tb_lineno), args=keys)
+            return self.response(403, success=False, msg="Unexpected error: reported")
 
 
