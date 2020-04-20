@@ -68,6 +68,7 @@
     -fx-border-width: 1px;
     -fx-border-color: #1C1C1E;
     -fx-prompt-text-fill: #1C1C1E;
+    -fx-color-label-visible: #1C1C1E;
 }
 
 .user-type-label {

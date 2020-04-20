@@ -1,6 +1,5 @@
 package controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -9,16 +8,30 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class AdminController {
 
-    //ZMIENNE DO OBSŁUŻENIA BACKEND
+    //ZMIENNE - NIE WSZYSTKIE BĘDĄ POTRZEBNE
 
     @FXML
     private AnchorPane mWrapper;
+
+    @FXML
+    private Pane mNavbar;
+
+    @FXML
+    private Label mWelcomeUserName;
+
+    @FXML
+    private ImageView mHomeIcon;
+
+    @FXML
+    private ImageView mNotificationsIcon;
+
+    @FXML
+    private ImageView mLogoutIcon;
 
     @FXML
     private Pane mMain;
@@ -63,56 +76,88 @@ public class AdminController {
     private ListView<?> mUserlist;
 
     @FXML
-    private Pane mNavbar;
+    private ImageView mCloseNotificationPanelIcon;
 
     @FXML
-    private Label mWelcomeUserName;
+    private ListView<?> mNotificationsList;
 
-    @FXML
-    private ImageView mHomeIcon;
+    //Metody----------------------------------------------------
 
-    @FXML
-    private ImageView mNotificationsIcon;
-
-    @FXML
-    private ImageView mLogoutIcon;
-
-    public void handleUserNameChange(InputMethodEvent inputMethodEvent) {
+    @FXML //Metoda obsługująca powrót do strony głównej
+    void backToHome(MouseEvent event) {
 
     }
 
-    public void handleEmailChange(InputMethodEvent inputMethodEvent) {
+    @FXML //Metoda zamykająca panel powiadomień
+    void closeNotificationsPanel(MouseEvent event) {
+
     }
 
-    public void handlePasswordChange(InputMethodEvent inputMethodEvent) {
+    @FXML //Metoda sprawdzająca czy checkbox z typem konta admin jest true
+    void handleAdminCheck(ActionEvent event) {
+
     }
 
-    public void handleAdminCheck(ActionEvent actionEvent) {
-        System.out.println("elox");
+    @FXML //Metoda sprawdzająca czy checkbox z typem konta kierownik jest true
+    void handleBossCheck(ActionEvent event) {
+
     }
 
-    public void handleBossCheck(ActionEvent actionEvent) {
+    @FXML //Metoda sprawdzająca zawartość inputa do emaila
+    void handleEmailChange(InputMethodEvent event) {
+
     }
 
-    public void handleUserCheck(ActionEvent actionEvent) {
+    @FXML //Metoda filtrująca userów i listująca ich na liście
+    void handleFindUser(InputMethodEvent event) {
+
     }
 
-    public void makeNewUser(ActionEvent actionEvent) {
+    @FXML //Metoda filtrująca przestrzenie i listująca je na liście
+    void handleFindWorkspace(InputMethodEvent event) {
+
     }
 
-    public void handleWorkspaceNameChange(InputMethodEvent inputMethodEvent) {
+    @FXML //Metoda sprawdzająca zawartość inputa hasła
+    void handlePasswordChange(InputMethodEvent event) {
+
     }
 
-    public void makeNewWorkspace(ActionEvent actionEvent) {
+    @FXML //Metoda sprawdzająca czy checkbox z typem konta użytkownik jest true
+    void handleUserCheck(ActionEvent event) {
+
     }
 
-    public void handleFindWorkspace(InputMethodEvent inputMethodEvent) {
+    @FXML //Metoda sprawdzająca zawartość inputa z nazwą użytkownika
+    void handleUserNameChange(InputMethodEvent event) {
+
     }
 
-    public void handleFindUser(InputMethodEvent inputMethodEvent) {
+    @FXML //Metoda sprawdzająca zawartość inputa z nazwą przestrzeni
+    void handleWorkspaceNameChange(InputMethodEvent event) {
+
     }
 
-    //FUNKCJE DO OBSŁUŻENIA BACKEND
-    
+    @FXML //Metoda wylogowywująca usera
+    void logoutUser(MouseEvent event) {
+
+    }
+
+    @FXML //Metoda do przycisku wysyłająca dane z inputów na serwer w celu stworzenia nowego usera
+    void makeNewUser(ActionEvent event) {
+
+    }
+
+    @FXML //Metoda do przycisku wysyłająca dane z inputa na serwer w celu stworzenia nowej przestrzeni
+    void makeNewWorkspace(ActionEvent event) {
+
+    }
+
+    @FXML //Metoda wywołująca panel powiadomień
+    void showNotificationPanel(MouseEvent event) {
+
+    }
+
+
 
 }
