@@ -38,9 +38,10 @@ public class RequestService {
 			Gson gson = new Gson();
 			ro = gson.fromJson(result, ResponseObject.class);
 
-			System.out.println(ro.isSuccess());
-			System.out.println(ro.getPrivilege());
-			System.out.println(ro.getMsg());
+			// System.out.println(ro.isSuccess());
+			// System.out.println(ro.getPrivilege());
+			// System.out.println(ro.getMsg());
+			// System.out.println(ro.getUserId());
 
 			in.close();
 			conn.disconnect();

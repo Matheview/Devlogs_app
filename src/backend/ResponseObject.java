@@ -5,6 +5,8 @@ public class ResponseObject
     private String msg;
     private String privilege;
     private boolean success;
+    private int user_id;
+    private String username;
 
     public String getMsg() {
         return msg;
@@ -24,5 +26,15 @@ public class ResponseObject
     }
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+    public int getUserId() {
+        return user_id;
+    }
+    public void setUserId(int userId) {
+        this.user_id = userId;
+    }
+    public String getUsername() { return username; }
+    public void setUserName(int userId) {
+        this.user_id = userId;
     }
 }
