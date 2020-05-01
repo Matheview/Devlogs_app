@@ -10,6 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.input.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputMethodEvent;
 
 public class AdminController {
 
@@ -81,7 +84,7 @@ public class AdminController {
     @FXML
     private ListView<?> mNotificationsList;
 
-    //Metody----------------------------------------------------
+    //Metody ( nie wszystkie metody i zmienne będą potrzebne, ale są wyciągnięte w razie W )----------------------------------------------------
 
     @FXML //Metoda obsługująca powrót do strony głównej
     void backToHome(MouseEvent event) {

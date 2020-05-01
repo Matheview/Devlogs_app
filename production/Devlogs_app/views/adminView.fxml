@@ -26,6 +26,41 @@
    <children>
       <AnchorPane fx:id="mWrapper" prefHeight="768.0" prefWidth="1024.0" styleClass="wrapper">
          <children>
+            <Pane fx:id="mNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
+               <children>
+                  <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="418.0" layoutY="18.0" styleClass="welcome" stylesheets="@../styles/admin.css" text="Witaj" />
+                  <Label fx:id="mWelcomeUserName" layoutX="492.0" layoutY="18.0" stylesheets="@../styles/admin.css" text="Mateusz !">
+                     <styleClass>
+                        <String fx:value="welcome" />
+                        <String fx:value="user" />
+                     </styleClass></Label>
+                  <Label layoutX="634.0" layoutY="32.0" styleClass="user-type" stylesheets="@../styles/admin.css" text="administrator" />
+                  <Pane layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" styleClass="notification-circle" stylesheets="@../styles/admin.css">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
+                     </children>
+                  </Pane>
+                  <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="26.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/home.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/notification-bell.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/logout.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
             <Pane fx:id="mMain" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" styleClass="main" stylesheets="@../styles/admin.css">
                <children>
                   <Pane layoutX="45.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="user-creator" stylesheets="@../styles/admin.css">
@@ -65,10 +100,10 @@
                      <children>
                         <Label layoutX="98.0" layoutY="26.0" styleClass="information-label" text="Lista przestrzeni" textAlignment="CENTER" />
                         <Label layoutX="89.0" layoutY="275.0" styleClass="information-label" text="Lista użytkowników" textAlignment="CENTER" />
-                        <TextField fx:id="mWorkspaceSearch" layoutX="30.0" layoutY="63.0" onInputMethodTextChanged="#handleFindWorkspace" promptText="podaj szukaną nazwę..." styleClass="search-input" />
-                        <ListView fx:id="mWorkspaceList" layoutX="40.0" layoutY="118.0" prefHeight="108.0" prefWidth="200.0" />
-                        <TextField fx:id="mUserSearch" layoutX="30.0" layoutY="307.0" onInputMethodTextChanged="#handleFindUser" promptText="podaj szukaną nazwę..." styleClass="search-input" />
-                        <ListView fx:id="mUserlist" layoutX="40.0" layoutY="363.0" prefHeight="108.0" prefWidth="200.0" />
+                        <TextField fx:id="mWorkspaceSearch" layoutX="30.0" layoutY="63.0" onInputMethodTextChanged="#handleFindWorkspace" promptText="podaj szukaną nazwę..." styleClass="search-input" stylesheets="@../styles/admin.css" />
+                        <ListView fx:id="mWorkspaceList" layoutX="40.0" layoutY="118.0" prefHeight="108.0" prefWidth="200.0" styleClass="workspace-list" stylesheets="@../styles/admin.css" />
+                        <TextField fx:id="mUserSearch" layoutX="30.0" layoutY="307.0" onInputMethodTextChanged="#handleFindUser" promptText="podaj szukaną nazwę..." styleClass="search-input" stylesheets="@../styles/admin.css" />
+                        <ListView fx:id="mUserlist" layoutX="40.0" layoutY="363.0" prefHeight="108.0" prefWidth="200.0" styleClass="users-list" stylesheets="@../styles/admin.css" />
                         <ImageView fitHeight="17.0" fitWidth="14.0" layoutX="217.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imgs/search.png" />
@@ -82,41 +117,21 @@
                      </children>
                   </Pane>
                   <Pane layoutX="685.0" layoutY="329.0" prefHeight="30.0" prefWidth="310.0" styleClass="divider" stylesheets="@../styles/admin.css" />
-               </children></Pane>
-            <Pane fx:id="mNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
-               <children>
-                  <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/logo.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="418.0" layoutY="18.0" styleClass="welcome" stylesheets="@../styles/admin.css" text="Witaj" />
-                  <Label fx:id="mWelcomeUserName" layoutX="492.0" layoutY="18.0" stylesheets="@../styles/admin.css" text="Mateusz !">
-                     <styleClass>
-                        <String fx:value="welcome" />
-                        <String fx:value="user" />
-                     </styleClass></Label>
-                  <Label layoutX="634.0" layoutY="32.0" styleClass="user-type" stylesheets="@../styles/admin.css" text="administrator" />
-                  <Pane layoutX="905.0" layoutY="46.0" prefHeight="200.0" prefWidth="200.0" styleClass="notification-circle" stylesheets="@../styles/admin.css">
+                  <Pane layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/notification-bell.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mCloseNotificationPanelIcon" fitHeight="14.0" fitWidth="20.0" layoutX="264.0" layoutY="20.0" onMouseClicked="#closeNotificationsPanel" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                        </ImageView>
+                        <ListView fx:id="mNotificationsList" layoutX="35.0" layoutY="105.0" prefHeight="180.0" prefWidth="230.0" />
                      </children>
                   </Pane>
-                  <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/home.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/notification-bell.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/logout.png" />
-                     </image>
-                  </ImageView>
                </children></Pane>
          </children>
       </AnchorPane>
