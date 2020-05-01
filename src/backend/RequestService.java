@@ -9,9 +9,33 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 
 public class RequestService {
+
+	public HttpURLConnection setConnection(String endAddress, String method)
+	{
+		ResponseObject ro = new ResponseObject();
+		try {
+			URL url = new URL("http://ssh-vps.nazwa.pl:4742" + endAddress);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			conn.setConnectTimeout(5000);
+			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+			conn.setDoInput(true);
+			conn.setDoOutput(true);
+			conn.setRequestMethod(method);
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	public ResponseObject request(String jsonInputString)
 	{

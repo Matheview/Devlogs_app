@@ -17,7 +17,7 @@ public class SecondViewController {
 
     public void initialize(){
     }
-    
+
     public ResponseObject getUser() {
         return user;
     }
