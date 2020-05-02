@@ -16,7 +16,6 @@ public class RequestService {
 
 	public HttpURLConnection setConnection(String endAddress, String method)
 	{
-		ResponseObject ro = new ResponseObject();
 		try {
 			URL url = new URL("http://ssh-vps.nazwa.pl:4742" + endAddress);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -26,7 +25,7 @@ public class RequestService {
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
 			conn.setRequestMethod(method);
-
+			return conn;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (ProtocolException e) {
@@ -34,7 +33,7 @@ public class RequestService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		return null;
 	}
 
 	public ResponseObject request(String jsonInputString)

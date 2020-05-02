@@ -1,1 +1,1 @@
-VM Options = --module-path C:\Users\chokm\AppData\Local\Temp\openjfx-14.0.1_windows-x64_bin-sdk\javafx-sdk-14.0.1\lib --add-modules javafx.controls,javafx.fxm
+VM Options = --module-path --module-path lib\javafx-sdk-14.0.1\lib --add-modules javafx.controls,javafx.fxml

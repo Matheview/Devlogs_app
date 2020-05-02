@@ -24,7 +24,7 @@
                   <Font size="30.0" />
                </font>
             </Text>
-            <Text fx:id="mPrivilegeUser" fill="#2343e4" layoutX="554.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="administrator">
+            <Text fill="#2343e4" layoutX="554.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="administrator">
                <font>
                   <Font size="13.0" />
                </font>
