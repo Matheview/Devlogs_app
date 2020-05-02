@@ -14,47 +14,39 @@ import java.net.URL;
 
 public class RequestService {
 
-	public HttpURLConnection setConnection(String endAddress, String method)
-	{
-		try {
-			URL url = new URL("http://ssh-vps.nazwa.pl:4742" + endAddress);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	private static final String CHARSET = "UTF-8";	// Kodowanie tekstu używane przy zapytaniach i odpowiedziach Http
 
-			conn.setConnectTimeout(5000);
-			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			conn.setDoInput(true);
-			conn.setDoOutput(true);
-			conn.setRequestMethod(method);
-			return conn;
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+	/**
+	 * Metoda ustawiająca połączenie z serwerem, z którego pobierane są dane.
+	 * Zwraca obiekt HttpURLConnection, z którego można pobierać strumienie IO.
+	 *
+	 * @param endAddress końcówka adresu serwera (podstawowy adres jest zapisany w funkcji)
+	 * @param method jaka metoda zostanie użyta przy zapytaniu
+	 * @return obiekt połączenia z serwerem (HttpURLConnection)
+	 */
+	public HttpURLConnection setConnection(String endAddress, String method) throws IOException {
+		URL url = new URL("http://ssh-vps.nazwa.pl:4742" + endAddress);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+		conn.setConnectTimeout(5000);
+		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		conn.setDoInput(true);
+		conn.setDoOutput(true);
+		conn.setRequestMethod(method);
+		return conn;
 	}
 
-	public ResponseObject request(String jsonInputString)
+	public ResponseObject logIn(String jsonInputString)
 	{
 		ResponseObject ro = new ResponseObject();
 		try {
-			URL url = new URL("http://ssh-vps.nazwa.pl:4742/users/login");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-			conn.setConnectTimeout(5000);
-			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			conn.setDoInput(true);
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
-
+			HttpURLConnection conn = this.setConnection("/users/login", "POST");
 			OutputStream os = conn.getOutputStream();
-			os.write(jsonInputString.getBytes("UTF-8"));
+			os.write(jsonInputString.getBytes(CHARSET));
 			os.close();
 
 			InputStream in = new BufferedInputStream(conn.getInputStream());
-			String result = IOUtils.toString(in, "UTF-8");
+			String result = IOUtils.toString(in, CHARSET);
 
 			System.out.println("Odpowiedz z serwera : " + result );
 
@@ -75,7 +67,12 @@ public class RequestService {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return ro;
 	}
+
+
 }

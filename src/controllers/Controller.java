@@ -24,7 +24,8 @@ import java.io.IOException;
 public class Controller {
 
     private static final String PATH_IMAGES = "/sample/imgs/";
-    private static final String ADMIN_VIEW = "../views/AdminView.fxml";
+    private static final String ADMIN_VIEW = "../views/adminView.fxml";
+    private static final String BOSS_VIEW = "../views/bossView.fxml";
     private static final String PM_VIEW = "../views/SecondView.fxml";
 
     @FXML
@@ -53,12 +54,15 @@ public class Controller {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(this.getClass().getResource(fxml));
             Pane pane = loader.load();
+
             Scene scene = new Scene(pane);
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(scene);
-            SecondViewController controller =  loader.<SecondViewController>getController();
+
+            BaseController controller =  loader.<BaseController>getController();
             controller.setUser(user);
+
             stage.show();
         } catch (IOException er) {
             er.printStackTrace();
@@ -71,10 +75,21 @@ public class Controller {
         mBlurPopup.setVisible(visible);
     }
 
+    // Metoda do wypełniania pól danymi do logowania się jako kierownik (do szybkiego logowania,
+    // nie używać jej w finalnej wersji aplikacji, do usunięcia lub zakomentowania)
+    private void loginKierownik() {
+        mDomain.setText("devslog.pl");
+        mUsername.setText("kierownik@devslog.pl");
+        mPassword.setText("kierownikhaslo");
+    }
+
     //Views initialize
     public void initialize() {
         mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
         mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
+
+        // TODO: metoda do usunięcia
+        loginKierownik();
 
         visiblePopUp(false);
 
@@ -85,12 +100,12 @@ public class Controller {
                 Gson json = new Gson();
                 String jsonInputString = json.toJson(mDataLogin);
                 RequestService rs = new RequestService();
-                ResponseObject ro = rs.request(jsonInputString);
+                ResponseObject ro = rs.logIn(jsonInputString);
                 if (ro.getPrivilege() != null && ro.getPrivilege().equals("Administrator") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
                     logowaniePane(ADMIN_VIEW, "Administrator", ro);
                     ((Node)(e.getSource())).getScene().getWindow().hide();
                 } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Kierownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                   logowaniePane(PM_VIEW, "Kierownik", ro);
+                   logowaniePane(BOSS_VIEW, "Kierownik", ro);
                     ((Node)(e.getSource())).getScene().getWindow().hide();
                 } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Pracownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
                     logowaniePane(PM_VIEW, "Pracownik", ro);

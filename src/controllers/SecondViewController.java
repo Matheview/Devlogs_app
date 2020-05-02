@@ -4,7 +4,7 @@ import backend.ResponseObject;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
-public class SecondViewController {
+public class SecondViewController extends BaseController {
 
     private Controller controller = new Controller();
 
@@ -13,17 +13,18 @@ public class SecondViewController {
     @FXML
     private Text mPrivilegeUser;
 
-    private ResponseObject user;
-
     public void initialize(){
+
     }
 
-    public ResponseObject getUser() {
-        return user;
-    }
+    @Override
     public void setUser(ResponseObject user) {
-        this.user = user;
+        super.setUser(user);
         mNameUser.setText(user.getUsername());
         mPrivilegeUser.setText(user.getPrivilege());
+    }
+
+    public void drawElements() {
+
     }
 }
