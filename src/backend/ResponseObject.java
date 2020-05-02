@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.List;
+
 public class ResponseObject
 {
     private String msg;
@@ -7,6 +9,12 @@ public class ResponseObject
     private boolean success;
     private int user_id;
     private String username;
+    private List<Domain> listOfDomains;
+    private List<User> listOfUsers;
+    private String token;
+    private List<Notifications> notifications;
+    private int qty;
+
 
     public String getMsg() {
         return msg;
@@ -27,14 +35,58 @@ public class ResponseObject
     public void setSuccess(boolean success) {
         this.success = success;
     }
-    public int getUserId() {
+
+    public List getListOfDomains() {
+        return listOfDomains;
+    }
+
+    public int getUser_id() {
         return user_id;
     }
-    public void setUserId(int userId) {
-        this.user_id = userId;
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
-    public String getUsername() { return username; }
-    public void setUserName(int userId) {
-        this.user_id = userId;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setListOfDomains(List<Domain> listOfDomains) {
+        this.listOfDomains = listOfDomains;
+    }
+
+    public List<User> getListOfUsers() {
+        return listOfUsers;
+    }
+
+    public void setListOfUsers(List<User> users) {
+        this.listOfUsers = users;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    @Override
+    public String toString() {
+        return "ResponseObject{" +
+                "msg='" + msg + '\'' +
+                ", privilege='" + privilege + '\'' +
+                ", success=" + success +
+                ", user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", listOfDomains=" + listOfDomains +
+                ", listOfUsers=" + listOfUsers +
+                ", token='" + token + '\'' +
+                '}';
     }
 }

@@ -145,7 +145,5 @@ public class AdminController {
     void showNotificationPanel(MouseEvent event) {
 
     }
-
-
-
+    //FUNKCJE DO OBSŁUŻENIA BACKEND
 }
