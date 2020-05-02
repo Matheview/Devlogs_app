@@ -23,28 +23,32 @@ class DomainsRegister(MethodView, Responses):
 
     def post(self):
         try:
+#            print(request.data)
             self.data = request.json
             for key in ['domain', 'user_id']:
+                if key not in request.json and 'user_id' not in request.json:
+                    self.logs.save_msg("Key 'user_id' required for check admin privileges", localisation="DomainsRegister.post[]", args=self.data)
+                    return self.response(202, success=False, msg="Key '{0}' required for check admin privileges".format(key))
+                if key not in request.json and 'domain' not in request.json:
+                    self.logs.save_msg("Key 'domain' required",
+                                       localisation="DomainsRegister.post[]", args=self.data)
+                    return self.response(202, success=False, msg="Key '{0}' required".format(key))
                 self.keys[key] = request.json[key]
-            if not self.keys['user_id']:
-                return self.response(202, success=False, msg="Key 'user_id' required for check admin privileges")
-            if not self.keys['domain']:
-                return self.response(202, success=False, msg="Key 'domain' required")
-            elif self.keys['domain']:
-                is_user = self.check_admin(self.keys['user_id'])
+            if self.keys['domain']:
+                is_user = self.db.check_admin(self.keys['user_id'])
                 if not is_user:
                     return self.response(403, success=False, msg="Permission denied")
-                domain = self.db.create_domain(self.keys['domain'])
+                domain = self.db.create_domain(self.keys['domain'], self.keys['user_id'])
                 if not domain[0]:
-                    return self.response(409, success=False, msg="Domain already exists")
-                self.db.add_to_domain(domain[1], is_user[1])
+                    return self.response(202, success=False, msg="Domain already exists")
+                # self.db.add_to_domain(domain[1], is_user[1])
                 return self.response(200, success=True, msg="Domain created")
             else:
                 self.logs.save_msg("Unexpected sequence", localisation="DomainsRegister.post", args=self.keys)
                 return self.response(403, success=False, msg="Unexpected sequence")
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
-            self.logs.save_msg(e, localisation="DomainsRegister.post[{0}]".format(exc_tb.tb_lineno), args=keys)
+            self.logs.save_msg(e, localisation="DomainsRegister.post[{0}]".format(exc_tb.tb_lineno), args=self.keys)
             return self.response(403, success=False, msg="Unexpected error: reported")
 
 

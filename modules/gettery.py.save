@@ -43,37 +43,6 @@ class GettersDomains(MethodView, Responses):
         return self.method_not_allowed("GettersDomains.delete", 'delete')
 
 
-class GetProjects(MethodView, Responses):
-
-    def __init__(self):
-        super(GetProjects, self).__init__()
-        self.keys = {}
-        self.db = DBConnector()
-        self.data = ""
-        self.token = ""
-
-    def get(self):
-        try:
-            if request.data != b'':
-                self.data['user_id'] = request.json['user_id']
-            else:
-                self.data['user_id'] = request.args.get('user_id')
-            result = self.db.get_projects_plus_user_counts(self.data)
-        except Exception as e:
-            _, _, exc_tb = sys.exc_info()
-            self.logs.save_msg(e, localisation="GettersDomains.get[{0}]".format(exc_tb.tb_lineno), args=self.data)
-            return self.response(202, success=False, msg="Unexpected exception: reported")
-
-    def post(self):
-        return self.method_not_allowed("GetProjects.post", 'post')
-
-    def put(self):
-        return self.method_not_allowed("GetProjects.put", 'put')
-
-    def delete(self):
-        return self.method_not_allowed("GetProjects.delete", 'delete')
-
-
 class GettersProjects(MethodView, Responses):
 
     def __init__(self):
@@ -82,23 +51,9 @@ class GettersProjects(MethodView, Responses):
         self.db = DBConnector()
         self.data = ""
         self.token = ""
-        self.arr = []
 
     def get(self):
-        self.data = request.args.get('user_id')
-        if not self.data:
-            self.logs.save_msg(e, localisation="GettersProjects.get[{0}]".format(exc_tb.tb_lineno), args=self.data)
-            return self.response(202, success=False, msg="Key 'user_id' not found")
-        result = self.db.get_projects_users(self.data)
-        if not result[0]:
-            self.logs.save_msg("Nieoczekiwany bład DB", localisation="GettersProjects.get[]", args=self.data)
-            return self.response(202, success=False, msg="Unexpected exception: reported")
-        if result[1][0] == 0:
-            return self.response(200, success=True, msg="Projects(0)".format(len(result[1])), projects=[])
-        else:
-            for i in result[1]:
-                self.arr.append({'user_count': i[0], 'project_id': i[1], 'project_name': i[2], 'domain_name': i[3], 'privilege': i[4]})
-            return self.response(200, success=True, msg="Projects({0})".format(len(result[1])), projects=self.arr)
+        return self.method_not_allowed("GettersUsers.get", 'get')
 
     def post(self):
         return self.method_not_allowed("GettersProjects.post", 'post')
@@ -116,19 +71,19 @@ class GettersUsers(MethodView, Responses):
         super(GettersUsers, self).__init__()
         self.keys = []
         self.db = DBConnector()
-        self.data = {}
+        self.data = ""
         self.token = ""
 
     def get(self):
         try:
-            # if request.headers.get('token') == SECRET_HASH:
             if request.data != b'':
+            # if request.headers.get('token') == SECRET_HASH:
                 self.data['user_id'] = request.json['user_id']
             else:
                 self.data['user_id'] = request.args.get('user_id')
-            users = self.db.query(GET_USERS_FROM_DOMAIN.format(self.data['user_id'])).fetchall()
+            users = self.db.query(GET_USERS_FROM_DOMAIN.format(request.json['user_id'])).fetchall()
             if users is None or len(users) == 0:
-                return selfresponse(200, success=True, msg="Not found users", users=[])
+                return self.response(200, success=True, msg="Not found users", users=[])
             for user in users:
                 shortcut = str(user[1])[:1]
                 if " " in str(user[1]):

@@ -213,7 +213,7 @@
     </section>
     <hr>
     <!-- PANEL LOGOWANIA -->
-    <!-- POST  /users/login -->
+    <!-- POST  /users/login 0-->
     <div class="opblock-section">
         <h2>Panel Logowania</h2>
         <hr>
@@ -451,7 +451,7 @@
     <br>
 
 
-    <!-- POST  /users/reset -->
+    <!-- POST  /users/reset 1-->
     <div class="opblock-section">
         <div id="panel-info" >
             <span class="opblock-section-method-post" onclick="hideElement(1)">POST</span>
@@ -585,16 +585,211 @@
         </div>
         </div>
     </div>
+    <br>
+
+
+    <!-- POST  /users/changepasswd 2-->
+    <div class="opblock-section">
+        <div id="panel-info" >
+            <span class="opblock-section-method-post" onclick="hideElement(2)">POST</span>
+            <span class="opblock-section-method-link">/users/changepasswd</span>
+            <span class="opblock-section-description"> Pozwala na wygenerowanie linku do generowania linku do zmiany hasła</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>email</td>
+                        <td id="type">string/int</td>
+                        <td id="tak">tak</td>
+                        <td>adres email użytkownika</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Link generated</td>
+                        <td>wiadomość potwierdzająca</td></tr>
+                    <tr><td>link</td>
+                        <td id="type">string</td>
+                        <td>www.link.pl</td>
+                        <td>zwraca link do kliknięcia</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - key/user nie znaleziony</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Email not found</td>
+                        <td>Brakujący klucz user_id/użytkownik nie znaleziony</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+        </div>
+    </div>
+    <br>
+
+
+    <!-- GET  /changepassword 3-->
+    <div class="opblock-section">
+        <div id="panel-info" >
+            <span class="opblock-section-method-get" onclick="hideElement(3)">GET</span>
+            <span class="opblock-section-method-link">/changepassword?[params]</span>
+            <span class="opblock-section-description"> [API GENERATE]Wywołuje link do zmiany hasła zwracany przez generator linków</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>token</td>
+                        <td id="type">string/int</td>
+                        <td id="tak">tak</td>
+                        <td>token zwrócony przez aplikację/td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <br><br>
+        </div>
+        </div>
+    </div>
+    <br>
 
 
 
     <!-- PANEL ADMINISTRATORA -->
-    <!-- POST   /users/register -->
+    <!-- POST   /users/register 4-->
     <div class="opblock-section">
         <h2>Panel Administratora</h2>
         <hr>
         <div id="panel-info" >
-            <span class="opblock-section-method-post" onclick="hideElement(2)">POST</span>
+            <span class="opblock-section-method-post" onclick="hideElement(4)">POST</span>
             <span class="opblock-section-method-link">/users/register</span>
             <span class="opblock-section-description"> Pozwala na tworzenie użytkownika (sprawdzane uprawnienia administratora)</span>
         </div>
@@ -644,10 +839,14 @@
                         <td id="type">string</td>
                         <td id="tak">tak</td>
                         <td>nazwa uprawnienia (tabela accesses)</td></tr>
-                    <tr><td>name</td>
+                    <tr><td>username</td>
                         <td id="type">string</td>
                         <td id="tak">tak</td>
                         <td>nazwa użytkownika</td></tr>
+                    <tr><td>user_id</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id administratora potrzebne do sprawdzenia uprawnień</td></tr>
                 </tbody>
             </table>
             <div>
@@ -689,8 +888,8 @@
                         <td>powodzenie</td></tr>
                     <tr><td>msg</td>
                         <td id="type">string</td>
-                        <td>Zalogowano</td>
-                        <td>wiadomość potwierdzająca</td></tr>
+                        <td>Użytkownik utworzony</td>
+                        <td>Utworzono konto</td></tr>
                     <tr><td>privilege</td>
                         <td id="type">string</td>
                         <td>Administrator</td>
@@ -825,10 +1024,10 @@
 
 
 
-    <!-- POST   /domains/register -->
+    <!-- POST   /domains/register 5-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-get" onclick="hideElement(3)">GET</span>
+            <span class="opblock-section-method-post" onclick="hideElement(5)">POST</span>
             <span class="opblock-section-method-link">/domains/register</span>
             <span class="opblock-section-description"> Utworzenie domeny</span>
         </div>
@@ -1047,10 +1246,12 @@
     </div>
     <br>
 
-    <!-- GET   /getinfo/users -->
+
+
+    <!-- GET   /getinfo/users 6-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-get" onclick="hideElement(4)">GET</span>
+            <span class="opblock-section-method-get" onclick="hideElement(6)">GET</span>
             <span class="opblock-section-method-link">/getinfo/users</span>
             <span class="opblock-section-description"> Lista użytkowników wewnątrz domeny/przestrzeni</span>
         </div>
@@ -1186,11 +1387,10 @@
 
 
 
-
-    <!-- GET   /getinfo/domains -->
+    <!-- GET   /getinfo/domains 7-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-get" onclick="hideElement(5)">GET</span>
+            <span class="opblock-section-method-get" onclick="hideElement(7)">GET</span>
             <span class="opblock-section-method-link">/getinfo/domains</span>
             <span class="opblock-section-description"> Lista zarządzanych przez administratora przestrzeni roboczych</span>
         </div>
@@ -1322,42 +1522,1223 @@
         </div>
             
     </div>
+    <br>
 
-    <!-- PANEL KIEROWNIKA -->
-    <!-- not implemented -->
+
+
+    <!-- PUT   /users/permission 8-->
     <div class="opblock-section">
-        <h2>Panel kierownika</h2>
-        <hr>
-        <div>
-            This panel not implemented for now
+        <div id="panel-info" >
+            <span class="opblock-section-method-put" onclick="hideElement(8)">PUT</span>
+            <span class="opblock-section-method-link">/users/permission</span>
+            <span class="opblock-section-description"> Aktualizacja uprawnień dla użytkowników przez administratora</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">int/string</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id admina</td></tr>
+                    <tr><td>granted_to</td>
+                        <td id="type">int/string</td>
+                        <td id="tak">tak</td>
+                        <td>id użytkownika przydzielanemu</td></tr>
+                    <tr><td>domain</td>
+                        <td id="type">string</td>
+                        <td id="tak">tak</td>
+                        <td>obecna nazwa domeny/przestrzeni roboczej</td></tr>
+                    <tr><td>privilege</td>
+                        <td id="type">string</td>
+                        <td id="tak">tak</td>
+                        <td>rodzaj nadawanych uprawnień</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Privileges granted</td>
+                        <td>wiadomość potwierdzająca</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane logowania</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>User not found/Domain not found/Privileges not found</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(192, 0, 0);">403</font> - brak uprawnień</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Permission denied</td>
+                        <td>nibrak uprawnień</td></tr>
+                </tbody>
+            </table>
+            <br><br>
         </div>
             
     </div>
+    <br>
 
+
+    <!-- DELETE   /users/permission 9-->
+    <div class="opblock-section">
+        <div id="panel-info" >
+            <span class="opblock-section-method-delete" onclick="hideElement(9)">DELETE</span>
+            <span class="opblock-section-method-link">/users/permission</span>
+            <span class="opblock-section-description"> Wycofanie uprawnień użytkowników przez administratora</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">int/string</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id admina</td></tr>
+                    <tr><td>granted_to</td>
+                        <td id="type">int/string</td>
+                        <td id="tak">tak</td>
+                        <td>id użytkownika przydzielanemu</td></tr>
+                    <tr><td>domain</td>
+                        <td id="type">string</td>
+                        <td id="tak">tak</td>
+                        <td>obecna nazwa domeny/przestrzeni roboczej</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Privileges removed</td>
+                        <td>wiadomość potwierdzająca</td></tr>
+                    
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>User not found/Domain not found/Privileges not found</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(192, 0, 0);">403</font> - brak uprawnień</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Permission denied</td>
+                        <td>brak uprawnień</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+            
+    </div>
+    <br>
+
+
+
+    <!-- PANEL KIEROWNIKA -->
+    <!-- GET /getinfo/projects?[params] 10-->
+    <div class="opblock-section">
+        <h2>Panel Kierownika</h2>
+        <hr>
+        <div id="panel-info" >
+            <span class="opblock-section-method-get" onclick="hideElement(10)">GET</span>
+            <span class="opblock-section-method-link">/getinfo/projects?[params]</span>
+            <span class="opblock-section-description"> Pobranie projektów użytkownika</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">int/string</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id usera</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Projects(%d)</td>
+                        <td>wiadomość potwierdzająca</td></tr>
+                    <tr><td>projects</td>
+                        <td id="type">List[{domain_name:string, privilege:string, project_id:int, project_name:string, user_count:int}]</td>
+                        <td>[{"domain_name": "devslog.pl",
+                            "privilege": "Kierownik",
+                            "project_id": 1,
+                            "project_name": "Project Test 1",
+                            "user_count": 2}]</td>
+                        <td>Lista projektów i  informacji</td></tr>
+                    
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Key 'user_id' not found/Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+            
+    </div>
+    <br>
+
+
+    <!-- GET /getinfo/domains?[params] 10-->
+    <div class="opblock-section">
+        <div id="panel-info" >
+            <span class="opblock-section-method-get" onclick="hideElement(10)">GET</span>
+            <span class="opblock-section-method-link">/getinfo/domains?[params]</span>
+            <span class="opblock-section-description"> Lista domen</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">string</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id użytkownika</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Not found domains/Domains(%d)</td>
+                        <td>wiadomość potwierdzająca</td></tr>
+                    <tr><td>domains</td>
+                        <td id="type">List[{domain: string, id: int}]</td>
+                        <td>[{"domain": "devslog.pl", "id": 1}]</td>
+                        <td>lista domen zarejestrowanych przez administratora</td></tr>
+                    
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane logowania</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+            
+    </div>
+    <br>
 
 
     <!-- PANEL UŻYTKOWNIKA -->
-    <!-- not implemented -->
+    <!-- GET /getinfo/projects?[params] 12 -->
     <div class="opblock-section">
-        <h2>Panel użytownika</h2>
+        <h2>Panel Użytkownika</h2>
         <hr>
-        <div>
-            This panel not implemented for now
+        <div id="panel-info" >
+            <span class="opblock-section-method-get" onclick="hideElement(12)">GET</span>
+            <span class="opblock-section-method-link">/getinfo/projects?[params]</span>
+            <span class="opblock-section-description"> Pobranie projektów użytkownika</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">int/string</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id usera</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Projects(%d)</td>
+                        <td>wiadomość potwierdzająca</td></tr>
+                    <tr><td>projects</td>
+                        <td id="type">List[{domain_name:string, privilege:string, project_id:int, project_name:string, user_count:int}]</td>
+                        <td>[{"domain_name": "devslog.pl",
+                            "privilege": "Kierownik",
+                            "project_id": 1,
+                            "project_name": "Project Test 1",
+                            "user_count": 2}]</td>
+                        <td>Lista projektów i  informacji</td></tr>
+                    
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Key 'user_id' not found/Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
         </div>
             
     </div>
+    <br>
+
+
+    <!-- GET /getinfo/domains?[params] 13-->
+    <div class="opblock-section">
+        <div id="panel-info" >
+            <span class="opblock-section-method-get" onclick="hideElement(13)">GET</span>
+            <span class="opblock-section-method-link">/getinfo/domains?[params]</span>
+            <span class="opblock-section-description"> Lista domen</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">string</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id użytkownika</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Not found domains/Domains(%d)</td>
+                        <td>wiadomość potwierdzająca</td></tr>
+                    <tr><td>domains</td>
+                        <td id="type">List[{domain: string, id: int}]</td>
+                        <td>[{"domain": "devslog.pl", "id": 1}]</td>
+                        <td>lista domen zarejestrowanych przez administratora</td></tr>
+                    
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane logowania</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+            
+    </div>
+    <br>
 
 
 
     <!-- NOTIFICATIONS -->
-    <!-- not implemented -->
+    <!-- GET /users/notifications 14-->
     <div class="opblock-section">
         <h2>Powiadomienia</h2>
         <hr>
-        <div>
-            This panel not implemented for now
+        <div id="panel-info" >
+            <span class="opblock-section-method-get" onclick="hideElement(14)">GET</span>
+            <span class="opblock-section-method-link">/users/notifications?[params]</span>
+            <span class="opblock-section-description"> Powiadomienia dla użytkownika - pobieranie notyfikacji z array'a</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">string</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id użytkownika</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Not found notifications(%d)/Notifications(%d)</td>
+                        <td>wiadomość potwierdzająca</td></tr>
+                    <tr><td>notifications</td>
+                        <td id="type">List[{description: string, id: int, created_at: string(YYYY-MM-DD HH:MM:SS)}, readed: bool]</td>
+                        <td>[{"created_at": "2020-04-21 19:05:45", "description": "Powiadmienie testowe nr.6", "id": 6, "readed": true}]</td>
+                        <td>lista powiadomień dla użytkownika</td></tr>
+                    <tr><td>qty</td>
+                        <td id="type">int</td>
+                        <td>6</td>
+                        <td>zwracana liczba nieodczytanych powiadomień</td></tr>                  
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane/brakuje klucza</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
         </div>
             
     </div>
+    <br>
+
+
+    <!-- PUT /users/notifications 15-->
+    <div class="opblock-section">
+        <div id="panel-info" >
+            <span class="opblock-section-method-put" onclick="hideElement(15)">PUT</span>
+            <span class="opblock-section-method-link">/users/notifications</span>
+            <span class="opblock-section-description"> Oznaczanie notyfikacji jako przeczytane</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="10%">Required</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">string/int</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id użytkownika</td></tr>
+                    <tr><td>notify_id</td>
+                        <td id="type">string/int</td>
+                        <td id="tak">tak</td>
+                        <td>id powiadomienia do odklikania(zwracane przy innej końcówce)</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Notification marked ad readed</td>
+                        <td>wiadomość potwierdzająca</td></tr>                
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane/brakuje klucza</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+            
+    </div>
+    <br>
 </body>
 </html>

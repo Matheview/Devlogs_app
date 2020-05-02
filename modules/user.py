@@ -57,14 +57,17 @@ class Register(MethodView, Responses):
         try:
             # if request.headers.get('token') == SECRET_HASH:
                 self.data = request.json
-                for key in ['email', 'password', 'domain', 'privilege', 'name']:
+                for key in ['email', 'password', 'domain', 'privilege', 'username', 'user_id']:
                     self.keys[key] = request.json[key]
                     if not self.keys[key] or self.keys[key] is None:
                         return self.response(202, success=False, msg="Key '{0}' not found".format(key))
-                    elif len(self.keys[key]) == 0 or self.keys[key] == "":
+                    elif self.keys[key] == 0 or self.keys[key] == "":
                         return self.response(202, success=False, msg="Value '{0}' cannot be empty".format(key))
                     elif self.keys[key] is None or self.keys[key] == "None" or self.keys[key] == "null":
                         return self.response(202, success=False, msg="Value'{0}' cannot be null".format(key))
+                is_user = self.db.check_admin(self.keys['user_id'])
+                if not is_user:
+                    return self.response(403, success=False, msg="Permission denied")
                 self.keys['privilege'] = self.keys['privilege'].capitalize()
                 privileges = self.db.check_privileges(self.keys['privilege'])
                 if not privileges[0]:
@@ -73,7 +76,13 @@ class Register(MethodView, Responses):
                 if not re.search(EMAIL_REGEX, self.keys['email']):
                     self.logs.save_msg("Email or password validation error", localisation="Register.post", args=self.keys)
                     return self.response(202, success=False, msg="Email validation error")
-                account = self.create_user(self.keys)
+                user_exists = self.db.check_user_exists(self.keys['email'])
+                if not user_exists:
+                    return self.response(202, success=False, msg="Email already exists")
+                domain = self.db.query(CHECK_DOMAIN_AVAILABLE.format(self.keys['domain'])).fetchone()
+                if not domain:
+                    return self.response(202, success=False, msg="Domain not found")
+                account = self.db.create_user(self.keys)
                 if not account[0]:
                     return self.response(500, success=False, msg="Wystapil blad podczas tworzenia konta")
                 return self.response(200, success=True, msg="Utworzono konto")
@@ -134,7 +143,8 @@ class Login(MethodView, Responses):
         self.db.save_logging(query[2]['user_id'], self.token)
         user = self.db.get_name(query[2]['user_id'])
         return self.response(query[1], self.token, success=query[0], msg="Zalogowano",
-                             privilege=self.getter.get_privileges(query[2]['user_id']), user_id=user[1], username=user[2])
+                             privilege=self.getter.get_privileges(query[2]['user_id']), user_id=user[1], username=user[2],
+                             domain=self.keys['domain'])
 
 
 # tutaj potrzebny jest token
@@ -159,8 +169,8 @@ class GenerateAdmin(MethodView, Responses):
     def post(self):
         if request.headers.get('token') == SECRET_HASH:
             self.data = request.json
-            for key in ['email', 'password', 'domain', 'name']:
-                request.form.get(key)
+            for key in ['user_id', 'privilege']:
+                #request.form.get(key)
                 self.keys[key] = request.json[key]
             account = self.create_admin(self.keys)
             if not account[0]:
@@ -172,5 +182,149 @@ class GenerateAdmin(MethodView, Responses):
             self.logs.save_msg("Permission denied", localisation="GenerateAdmin.post[{0}]".format(exc_tb.tb_lineno), args=request.headers.get('token'))
             return self.response(403, success=False, msg="Permission denied")
 
+
+class UpdatePermission(MethodView, Responses):
+
+    def __init__(self):
+        super(UpdatePermission, self).__init__()
+        self.keys = {}
+        self.db = DBConnector()
+        self.data = ""
+        self.token = ""
+
+    def get(self):
+        return self.method_not_allowed("UpdatePermission.get", 'get')
+
+    def put(self):
+        try:
+            self.data = request.json
+            for key in ['user_id', 'privilege', 'domain', 'granted_to']:
+                # request.form.get(key)
+                self.keys[key] = request.json[key]
+                if not self.keys[key] or self.keys[key] is None:
+                    return self.response(202, success=False, msg="Key '{0}' not found".format(key))
+                elif self.keys[key] == 0 or self.keys[key] == "":
+                    return self.response(202, success=False, msg="Value '{0}' cannot be empty".format(key))
+                elif self.keys[key] is None or self.keys[key] == "None" or self.keys[key] == "null":
+                    return self.response(202, success=False, msg="Value'{0}' cannot be null".format(key))
+            is_admin = self.db.check_admin(self.keys['user_id'])
+            if not is_admin:
+                self.logs.save_msg("Permission failed: self.keys['privilege']", localisation="UpdatePermission.put",
+                                   args=self.keys)
+                return self.response(403, success=False, msg="Permission denied")
+            self.keys['privilege'] = self.keys['privilege'].capitalize()
+            privileges = self.db.check_privileges(self.keys['privilege'])
+            if not privileges[0]:
+                self.logs.save_msg("Privilege failed: self.keys['privilege']", localisation="UpdatePermission.put",
+                                   args=self.keys)
+                return self.response(202, success=False, msg="Privileges not found")
+            domain = self.db.query(CHECK_DOMAIN_AVAILABLE.format(self.keys['domain'])).fetchone()
+            if not domain:
+                return self.response(202, success=False, msg="Domain not found")
+            is_user = self.db.check_user_by_id(self.keys['user_id'])
+            if not is_user:
+                return self.response(202, success=False, msg="User not found")
+            self.db.update_permission(self.keys)
+            return self.response(200, success=True, msg="Privileges granted")
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="UpdatePermission.put[{0}]".format(exc_tb.tb_lineno), args=self.data)
+            return self.response(202, success=False, msg="Unexpected exception: reported")
+
+    def delete(self):
+        try:
+            self.data = request.json
+            for key in ['user_id', 'domain', 'granted_to']:
+                # request.form.get(key)
+                self.keys[key] = request.json[key]
+                if not self.keys[key] or self.keys[key] is None:
+                    return self.response(202, success=False, msg="Key '{0}' not found".format(key))
+                elif self.keys[key] == 0 or self.keys[key] == "":
+                    return self.response(202, success=False, msg="Value '{0}' cannot be empty".format(key))
+                elif self.keys[key] is None or self.keys[key] == "None" or self.keys[key] == "null":
+                    return self.response(202, success=False, msg="Value'{0}' cannot be null".format(key))
+            is_admin = self.db.check_admin(self.keys['user_id'])
+            if not is_admin:
+                self.logs.save_msg("Permission failed: self.keys['privilege']", localisation="UpdatePermission.delete",
+                                   args=self.keys)
+                return self.response(403, success=False, msg="Permission denied")
+            domain = self.db.query(CHECK_DOMAIN_AVAILABLE.format(self.keys['domain'])).fetchone()
+            if not domain:
+                return self.response(202, success=False, msg="Domain not found")
+            is_user = self.db.check_user_by_id(self.keys['granted_to'])
+            if not is_user:
+                return self.response(202, success=False, msg="User not found")
+            self.db.remove_permission(self.keys)
+            return self.response(200, success=True, msg="Privileges removed")
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="UpdatePermission.delete[{0}]".format(exc_tb.tb_lineno), args=self.data)
+            return self.response(202, success=False, msg="Unexpected exception: reported")
+
+    def post(self):
+        return self.method_not_allowed("UpdatePermission.post", 'post')
+
+
+class ChangePasswd(MethodView, Responses):
+
+    def __init__(self):
+        super(ChangePasswd, self).__init__()
+        self.keys = {}
+        self.db = DBConnector()
+        self.data = ""
+        self.token = ""
+
+    def get(self):
+        return self.method_not_allowed("ChangePasswd.get", 'get')
+
+    def put(self):
+        return self.method_not_allowed("ChangePasswd.put", 'put')
+
+    def delete(self):
+        return self.method_not_allowed("ChangePasswd.delete", 'delete')
+
+    def post(self):
+        self.data = request.json
+        for key in ['email']:
+            self.keys[key] = request.json[key]
+        account = self.check_user_exists_change_passwd(self.keys['email'])
+        if not account[0]:
+            return self.response(202, self.token, success=False, msg="Email not found")
+        self.token = "{0}##{1}".format(account[1]['user_id'], self.hash)
+        self.db.save_logging(account[1], self.token)
+        return self.response(200, success=True, msg="Link generated", link="http://http://ssh-vps.nazwa.pl:4742/changepassword?token={0}".format(self.token.replace("##", "@")))
+
+
+class ChangePasswdLink(MethodView, Responses):
+
+    def __init__(self):
+        super(ChangePasswdLink, self).__init__()
+        self.keys = {}
+        self.db = DBConnector()
+        self.data = ""
+        self.token = ""
+
+    def get(self):
+        self.data = request.args.get('token')
+        print(self.data)
+        if not self.data:
+            return render_template("notexists.html", msg="Not found param token")
+        if "@" not in self.data:
+            return render_template("notexists.html", msg="Invalid token ##")
+        token = self.db.checktoken(self.data.replace("@", "##"))
+        if token:
+            return render_template("passchanger.html", token=self.data.replace("##", "@"))
+        return render_template("notexists.html", msg="Invalid token")
+
+    def put(self):
+        return self.method_not_allowed("ChangePasswd.put", 'put')
+
+    def delete(self):
+        return self.method_not_allowed("ChangePasswd.delete", 'delete')
+
+    def post(self):
+        print(request.form['token'])
+        print(request.form['new-password'])
+        return render_template("change_password.html", msg="parsed")
 
 
