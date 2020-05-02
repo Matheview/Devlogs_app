@@ -1,5 +1,6 @@
 package controllers;
 
+import backend.CurrentlyLoggedAccount;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,7 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import backend.LoginData;
+import backend.RequestData;
 import backend.RequestService;
 import backend.ResponseObject;
 
@@ -26,6 +27,8 @@ public class Controller {
     private static final String PATH_IMAGES = "/sample/imgs/";
     private static final String ADMIN_VIEW = "../views/AdminView.fxml";
     private static final String PM_VIEW = "../views/SecondView.fxml";
+
+    public static CurrentlyLoggedAccount currAcc;
 
     @FXML
     private PasswordField mPassword;
@@ -73,18 +76,24 @@ public class Controller {
     public void initialize() {
         mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
         mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
-        ResponseObject ro = new ResponseObject();
 
         visiblePopUp(false);
 
         mBtnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                LoginData mDataLogin = new LoginData(mUsername.getText(), mPassword.getText(), mDomain.getText());
+                RequestData mDataLogin = new RequestData(mUsername.getText(), mPassword.getText(), mDomain.getText());
                 Gson json = new Gson();
                 String jsonInputString = json.toJson(mDataLogin);
                 RequestService rs = new RequestService();
-                ResponseObject ro = rs.request(jsonInputString);
+                ResponseObject ro = rs.requestLoginSuccess(jsonInputString);
+
+                if(ro.isSuccess())
+                {
+                    currAcc = new CurrentlyLoggedAccount(ro.getUser_id(), ro.getUsername(), ro.getPrivilege(), mDomain.getText());
+                    System.out.println(currAcc.toString());
+                }
+
                 if (ro.getPrivilege() != null && ro.getPrivilege().equals("Administrator") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
                     logowaniePane(ADMIN_VIEW);
                     ((Node)(e.getSource())).getScene().getWindow().hide();

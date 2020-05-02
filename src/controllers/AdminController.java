@@ -78,7 +78,6 @@ public class AdminController {
     private ImageView mLogoutIcon;
 
     public void handleUserNameChange(InputMethodEvent inputMethodEvent) {
-
     }
 
     public void handleEmailChange(InputMethodEvent inputMethodEvent) {
@@ -111,8 +110,5 @@ public class AdminController {
 
     public void handleFindUser(InputMethodEvent inputMethodEvent) {
     }
-
     //FUNKCJE DO OBSŁUŻENIA BACKEND
-    
-
 }
