@@ -2,9 +2,9 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -81,7 +81,7 @@
                         </ImageView>
                         <Label layoutX="211.0" layoutY="201.0" styleClass="project-label" stylesheets="@../styles/boss.css" text="Nowy projekt" />
                         <TextField fx:id="mNewProjectInput" layoutX="162.0" layoutY="250.0" onInputMethodTextChanged="#checkNewProjectInputValue" promptText="nazwa nowego projektu..." styleClass="new-project-input" stylesheets="@../styles/boss.css" />
-                        <MenuButton fx:id="mChooseWorkspace" layoutX="205.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#showWorkspaces" styleClass="workspaces-list" stylesheets="@../styles/boss.css" text="Wybierz przestrzeń" textFill="#2343e4" />
+                        <ComboBox fx:id="mChooseWorkspace" layoutX="205.0" layoutY="316.0" prefWidth="150.0" />
                         <Button fx:id="mAddNewProject" layoutX="213.0" layoutY="415.0" mnemonicParsing="false" onMouseClicked="#createNewProject" styleClass="create-project-btn" stylesheets="@../styles/boss.css" text="Utwórz projekt" />
                      </children>
                   </Pane>
