@@ -88,7 +88,7 @@ class GettersProjects(MethodView, Responses):
     def get(self):
         self.data = request.args.get('user_id')
         if not self.data:
-            self.logs.save_msg(e, localisation="GettersProjects.get[{0}]".format(exc_tb.tb_lineno), args=self.data)
+            self.logs.save_msg("Key 'user_id' not found", localisation="GettersProjects.get[{0}]".format(exc_tb.tb_lineno), args=self.data)
             return self.response(202, success=False, msg="Key 'user_id' not found")
         result = self.db.get_projects_users(self.data)
         if not result[0]:

@@ -144,8 +144,8 @@ class DBConnector(Responses):
         try:
             result = self.query(CHECK_USER_EXISTS.format(email)).fetchone()
             if not result:
-                return [True, result[0]]
-            return [False, 0]
+                return [False, 0]
+            return [True, result[0]]
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
             self.logs.save_msg(e, localisation="DBConnector.check_user_exists_change_passwd[{0}]".format(exc_tb.tb_lineno), args=keys)

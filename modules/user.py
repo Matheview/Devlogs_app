@@ -271,6 +271,7 @@ class ChangePasswd(MethodView, Responses):
         super(ChangePasswd, self).__init__()
         self.keys = {}
         self.db = DBConnector()
+        self.hash = self.db.get_token()
         self.data = ""
         self.token = ""
 
@@ -284,15 +285,18 @@ class ChangePasswd(MethodView, Responses):
         return self.method_not_allowed("ChangePasswd.delete", 'delete')
 
     def post(self):
-        self.data = request.json
-        for key in ['email']:
-            self.keys[key] = request.json[key]
-        account = self.check_user_exists_change_passwd(self.keys['email'])
+        try:
+            self.data = request.json
+            for key in ['email']:
+                self.keys[key] = request.json[key]
+        except Exception as e:
+            return self.response(202, self.token, success=False, msg="Key errors")
+        account = self.db.check_user_exists_change_passwd(self.keys['email'])
         if not account[0]:
             return self.response(202, self.token, success=False, msg="Email not found")
-        self.token = "{0}##{1}".format(account[1]['user_id'], self.hash)
+        self.token = "{0}##{1}".format(account[1], self.hash)
         self.db.save_logging(account[1], self.token)
-        return self.response(200, success=True, msg="Link generated", link="http://http://ssh-vps.nazwa.pl:4742/changepassword?token={0}".format(self.token.replace("##", "@")))
+        return self.response(200, success=True, msg="Link generated", link="http://ssh-vps.nazwa.pl:4742/changepassword?token={0}".format(self.token.replace("##", "@")))
 
 
 class ChangePasswdLink(MethodView, Responses):
