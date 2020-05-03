@@ -88,9 +88,6 @@ public class Controller {
         mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
         mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
 
-        // TODO: metoda do usunięcia
-        loginKierownik();
-
         visiblePopUp(false);
 
         mBtnLogin.setOnAction(new EventHandler<ActionEvent>() {
