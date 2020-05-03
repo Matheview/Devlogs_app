@@ -50,7 +50,7 @@ public class BossController extends BaseController {
     private TextField mNewProjectInput;
 
     @FXML
-    private MenuButton mChooseWorkspace;
+    private ComboBox<Domain> mChooseWorkspace;
 
     @FXML
     private Button mAddNewProject;
@@ -79,9 +79,8 @@ public class BossController extends BaseController {
         mProjectsList.getItems().addAll(projects.getProjects());
 
         RsDomains domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
-        for (Domain domain : domains.getDomains()) {
-            mChooseWorkspace.getItems().add(new MenuItem(domain.toString()));
-        }
+        mChooseWorkspace.getItems().addAll(domains.getDomains());
+
     }
 
     @FXML

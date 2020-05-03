@@ -376,6 +376,7 @@ public class RequestService {
 			String result = IOUtils.toString(in, "UTF-8");
 
 			System.out.println("Odpowiedz z serwera : " + result);
+			System.out.println("Response code : " + conn.getResponseCode());
 
 			Gson gson = new Gson();
 			ro = gson.fromJson(result, ResponseObject.class);
@@ -409,6 +410,42 @@ public class RequestService {
 			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
+			conn.setRequestMethod("PUT");
+
+			OutputStream os = conn.getOutputStream();
+			os.write(jsonInputString.getBytes("UTF-8"));
+			os.close();
+
+			InputStream in = new BufferedInputStream(conn.getInputStream());
+			String result = IOUtils.toString(in, "UTF-8");
+
+			Gson gson = new Gson();
+			ro = gson.fromJson(result, ResponseObject.class);
+
+			in.close();
+			conn.disconnect();
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ro;
+	}
+
+	public ResponseObject requestChangePassword(String jsonInputString)
+	{
+		ResponseObject ro = new ResponseObject();
+		try {
+			URL url = new URL("http://ssh-vps.nazwa.pl:4742/users/changepasswd");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			conn.setConnectTimeout(5000);
+			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+			conn.setDoInput(true);
+			conn.setDoOutput(true);
 			conn.setRequestMethod("POST");
 
 			OutputStream os = conn.getOutputStream();
@@ -417,6 +454,8 @@ public class RequestService {
 
 			InputStream in = new BufferedInputStream(conn.getInputStream());
 			String result = IOUtils.toString(in, "UTF-8");
+
+			System.out.println("Odpowiedz z serwera : " + result );
 
 			Gson gson = new Gson();
 			ro = gson.fromJson(result, ResponseObject.class);

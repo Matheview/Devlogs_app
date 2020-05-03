@@ -14,6 +14,7 @@ public class ResponseObject
     private String token;
     private List<Notifications> notifications;
     private int qty;
+    private String link;
 
 
     public String getMsg() {
@@ -74,6 +75,30 @@ public class ResponseObject
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public List<Notifications> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notifications> notifications) {
+        this.notifications = notifications;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     @Override
