@@ -12,9 +12,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
 import java.awt.event.InputMethodEvent;
 
-public class AdminController {
+public class AdminController extends BaseController {
 
     //ZMIENNE - NIE WSZYSTKIE BĘDĄ POTRZEBNE
 
@@ -68,6 +70,9 @@ public class AdminController {
 
     @FXML
     private ListView<?> mNotificationsList;
+
+    @FXML
+    private ImageView mLogoutIcon;
 
     //Metody ( nie wszystkie metody i zmienne będą potrzebne, ale są wyciągnięte w razie W )----------------------------------------------------
 
@@ -128,7 +133,13 @@ public class AdminController {
 
     @FXML //Metoda wylogowywująca usera
     void logoutUser(MouseEvent event) {
-
+        Controller.currAcc = null;
+        getController().clearFields();
+        getController().showWindow();
+        // get a handle to the stage
+        Stage stage = (Stage) mLogoutIcon.getScene().getWindow();
+        // do what you have to do
+        stage.close();
     }
 
     @FXML //Metoda do przycisku wysyłająca dane z inputów na serwer w celu stworzenia nowego usera

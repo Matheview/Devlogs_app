@@ -117,7 +117,7 @@
                      </children>
                   </Pane>
                   <Pane layoutX="685.0" layoutY="329.0" prefHeight="30.0" prefWidth="310.0" styleClass="divider" stylesheets="@../styles/admin.css" />
-                  <Pane layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css">
+                  <Pane layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css" visible="false">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
                            <image>

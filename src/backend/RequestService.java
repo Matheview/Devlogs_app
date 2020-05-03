@@ -479,7 +479,7 @@ public class RequestService {
     /**
      * Metoda służżca do pobierania listy projektów
      * @param userId Id użytkownika
-     * @return
+     * @return Obiekt listy projektów
      */
     public RsProjects getUserProjects(int userId)
     {
@@ -510,9 +510,52 @@ public class RequestService {
     }
 
 	/**
+	 * Metoda sluzaca do stworzenia nowego projektu
+	 * @param jsonInputString
+	 * @return ResponseObject success, msg, privilege
+	 */
+	public ResponseObject createNewProject(String jsonInputString)
+	{
+		// TODO funkcja do przebudowy
+		ResponseObject ro = new ResponseObject();
+		try {
+			URL url = new URL("http://ssh-vps.nazwa.pl:4742/users/register");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			System.out.println("Przesylany jSON = " + jsonInputString);
+			conn.setConnectTimeout(5000);
+			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+			conn.setDoInput(true);
+			conn.setDoOutput(true);
+			conn.setRequestMethod("POST");
+
+			OutputStream os = conn.getOutputStream();
+			os.write(jsonInputString.getBytes("UTF-8"));
+			os.close();
+
+			InputStream in = new BufferedInputStream(conn.getInputStream());
+			String result = IOUtils.toString(in, "UTF-8");
+
+			Gson gson = new Gson();
+			ro = gson.fromJson(result, ResponseObject.class);
+
+			in.close();
+			conn.disconnect();
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ro;
+	}
+
+
+	/**
 	 * Metoda służaca do pobierania listy domen
 	 * @param userId Id użytkownika
-	 * @return
+	 * @return obiekt listy domen
 	 */
 	public RsDomains getUserDomains(int userId)
 	{
