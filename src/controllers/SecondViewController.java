@@ -17,14 +17,4 @@ public class SecondViewController extends BaseController {
 
     }
 
-    @Override
-    public void setUser(ResponseObject user) {
-        super.setUser(user);
-        mNameUser.setText(user.getUsername());
-        mPrivilegeUser.setText(user.getPrivilege());
-    }
-
-    public void drawElements() {
-
-    }
 }

@@ -1,5 +1,10 @@
 package controllers;
 
+import backend.RequestService;
+import backend.responseObjects.Project;
+import backend.responseObjects.rsProjects;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -12,10 +17,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.InputMethodEvent;
 
-public class BossController {
+public class BossController extends BaseController {
+
+    ObservableList<Project> olProjects;
 
     @FXML
     private AnchorPane mWrapper;
@@ -25,6 +34,9 @@ public class BossController {
 
     @FXML
     private Label mWelcomeUserName;
+
+    @FXML
+    private Label mPrivilegeUser;
 
     @FXML
     private ImageView mHomeIcon;
@@ -39,7 +51,7 @@ public class BossController {
     private Pane mMain;
 
     @FXML
-    private ListView<?> mProjectsList;
+    private ListView<Project> mProjectsList;
 
     @FXML
     private TextField mNewProjectInput;
@@ -61,6 +73,17 @@ public class BossController {
 
     @FXML
     private Pane mAddNewTask;
+
+
+    //Views initialize
+    public void initialize() {
+        mWelcomeUserName.setText(Controller.currAcc.getUsername());
+        mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
+
+        RequestService requestService = new RequestService();
+        rsProjects projects = requestService.getUserProjects(Controller.currAcc.getUser_id());
+        mProjectsList.getItems().addAll(projects.getProjects());
+    }
 
     @FXML
     void backToHome(MouseEvent event) {
@@ -102,4 +125,8 @@ public class BossController {
 
     }
 
+    @FXML
+    public void checkNewProjectInputValue(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+
+    }
 }

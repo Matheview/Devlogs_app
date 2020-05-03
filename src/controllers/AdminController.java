@@ -145,5 +145,25 @@ public class AdminController {
     void showNotificationPanel(MouseEvent event) {
 
     }
+
+    @FXML
+    public void showNotificationsPanel(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    public void checkNewProjectInputValue(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+    }
+
+    @FXML
+    public void showWorkspaces(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    public void createNewProject(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    public void handleUserNameChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+    }
     //FUNKCJE DO OBSŁUŻENIA BACKEND
 }

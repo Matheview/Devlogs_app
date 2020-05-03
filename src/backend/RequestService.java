@@ -1,7 +1,7 @@
 package backend;
 
+import backend.responseObjects.rsProjects;
 import com.google.gson.Gson;
-import controllers.Controller;
 import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedInputStream;
@@ -10,11 +10,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 
 public class RequestService {
 
+    private static final String ADDRESS = "http://ssh-vps.nazwa.pl:4742"; // adres serwera
 	private static final String CHARSET = "UTF-8";	// Kodowanie tekstu używane przy zapytaniach i odpowiedziach Http
 
 	/**
@@ -25,16 +25,32 @@ public class RequestService {
 	 * @param method jaka metoda zostanie użyta przy zapytaniu
 	 * @return obiekt połączenia z serwerem (HttpURLConnection)
 	 */
-	public HttpURLConnection setConnection(String endAddress, String method) throws IOException {
-		URL url = new URL("http://ssh-vps.nazwa.pl:4742" + endAddress);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	private HttpURLConnection getConnection(String endAddress, String method) throws IOException {
+		URL url = new URL(ADDRESS + endAddress);
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-		conn.setConnectTimeout(5000);
-		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-		conn.setDoInput(true);
-		conn.setDoOutput(true);
-		conn.setRequestMethod(method);
-		return conn;
+		connection.setRequestMethod(method);
+		connection.setConnectTimeout(5000);
+		connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		connection.setDoInput(true);
+
+		if (method.equals("POST"))
+			connection.setDoOutput(true);
+
+		return connection;
+	}
+
+	/**
+	 * Metoda do pobierania odpowiedzi z serwera przez strumień
+	 * @param connection Ustawione już połączenie z serwerem
+	 * @return JSON w postaci Stringa
+	 * @throws IOException
+	 */
+	private String getServerResponse (HttpURLConnection connection) throws IOException {
+		InputStream in = new BufferedInputStream(connection.getInputStream());
+		String result = IOUtils.toString(in, CHARSET);
+		in.close();
+		return result;
 	}
 
 	/**
@@ -46,7 +62,7 @@ public class RequestService {
 	{
 		ResponseObject ro = new ResponseObject();
 		try {
-			HttpURLConnection conn = this.setConnection("/users/login", "POST");
+			HttpURLConnection conn = this.getConnection("/users/login", "POST");
 			OutputStream os = conn.getOutputStream();
 			os.write(jsonInputString.getBytes(CHARSET));
 			os.close();
@@ -96,7 +112,7 @@ public class RequestService {
 			conn.setDoInput(true);
 
 			InputStream in = new BufferedInputStream(conn.getInputStream());
-			String result = IOUtils.toString(in, "UTF-8");
+			String result = IOUtils.toString(in, CHARSET);
 
 			System.out.println("Odpowiedz z serwera : " + result);
 
@@ -420,5 +436,39 @@ public class RequestService {
 		return ro;
 	}
 
+
+    /**
+     * Metoda sluzaca do pobrania listy projektów
+     * @param userId Id użytkownika
+     * @return
+     */
+    public rsProjects getUserProjects(int userId)
+    {
+        String addressEnd = "/getinfo/projects?user_id=" + Integer.toString(userId);
+
+		rsProjects responseObject = new rsProjects();
+
+        try {
+            HttpURLConnection connection = getConnection(addressEnd, "GET");
+
+            String result = getServerResponse(connection);
+
+            System.out.println("Odpowiedz z serwera : " + result);
+
+            Gson gson = new Gson();
+			responseObject = gson.fromJson(result, rsProjects.class);
+			System.out.println(responseObject.toString());
+
+            connection.disconnect();
+
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return responseObject;
+    }
 
 }

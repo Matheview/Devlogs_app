@@ -8,14 +8,4 @@ import backend.ResponseObject;
  */
 public class BaseController {
 
-    private ResponseObject user;
-
-    // Metody do pobierania referencji na obiekt użytkownika (ResponseObject)
-    public ResponseObject getUser() {
-        return user;
-    }
-    public void setUser(ResponseObject user) {
-        this.user = user;
-    }
-
 }

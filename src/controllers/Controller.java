@@ -63,9 +63,6 @@ public class Controller {
             stage.setTitle(title);
             stage.setScene(scene);
 
-            BaseController controller =  loader.<BaseController>getController();
-            controller.setUser(user);
-
             stage.show();
         } catch (IOException er) {
             er.printStackTrace();
