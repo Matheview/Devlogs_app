@@ -8,17 +8,14 @@ public class Main {
 
 
         Gson gson = new Gson();
-
-
-        RequestData rq2 = new RequestData(1,9, "pornhubpremium.com");
-        String jsonInputString = gson.toJson(rq2);
+        RequestData data = new RequestData("jakub.rucki@gmail.com");
+        String jsonInputString = gson.toJson(data);
         RequestService rs = new RequestService();
-        System.out.println("Presylany jSON : " + jsonInputString);
-//        ResponseObject ro = rs.requestDeletePermission(jsonInputString);
-//        System.out.println(ro);
+        ResponseObject ro = rs.requestChangePassword(jsonInputString);
 
-        ResponseObject ro2 = rs.requestListOfUsers(1);
-        System.out.println(ro2);
+        System.out.println(ro.getMsg());
+        System.out.println(ro.isSuccess());
+        System.out.println(ro.getLink());
 
 
 
