@@ -1,0 +1,10 @@
+.notifications-container {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 300px;
+    -fx-background-color: #ffffff;
+
+}
+
+.notifications-list {
+    -fx-color-label-visible: #1C1C1E;
+}
