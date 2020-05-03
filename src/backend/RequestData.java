@@ -17,6 +17,10 @@ public class RequestData {
 		this.password = password;
 		this.domain = domain;
 	}
+	public RequestData(String email)
+	{
+		this.email = email;
+	}
 
 	//Konstruktor do requesta tworzenia domeny
 	public RequestData(int user_id, String domain)

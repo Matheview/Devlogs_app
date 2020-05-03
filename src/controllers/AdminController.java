@@ -165,5 +165,25 @@ public class AdminController {
     @FXML
     public void handleUserNameChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
     }
+
+    @FXML
+    public void handleEmailChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+    }
+
+    @FXML
+    public void handlePasswordChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+    }
+
+    @FXML
+    public void handleWorkspaceNameChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+    }
+
+    @FXML
+    public void handleFindWorkspace(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+    }
+
+    @FXML
+    public void handleFindUser(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+    }
     //FUNKCJE DO OBSŁUŻENIA BACKEND
 }
