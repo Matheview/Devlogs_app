@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import backend.RequestData;
 import backend.RequestService;
 import backend.ResponseObject;
+import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -63,6 +64,9 @@ public class Controller {
             stage.setTitle(title);
             stage.setScene(scene);
 
+            BaseController baseController = loader.getController();
+            baseController.setController(this);
+
             stage.show();
         } catch (IOException er) {
             er.printStackTrace();
@@ -81,6 +85,22 @@ public class Controller {
         mDomain.setText("devslog.pl");
         mUsername.setText("kierownik@devslog.pl");
         mPassword.setText("kierownikhaslo");
+    }
+
+    public void clearFields() {
+        mDomain.setText("");
+        mUsername.setText("");
+        mPassword.setText("");
+    }
+
+    public void showWindow() {
+        Scene scene = mBtnClose.getScene();
+        if (scene != null) {
+            Stage window = (Stage) scene.getWindow();
+            if (window != null) {
+                window.show();
+            }
+        }
     }
 
     //Views initialize

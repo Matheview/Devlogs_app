@@ -12,12 +12,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.awt.event.InputMethodEvent;
 
 public class BossController extends BaseController {
-
-    ObservableList<Project> olProjects;
 
     @FXML
     private AnchorPane mWrapper;
@@ -105,7 +104,13 @@ public class BossController extends BaseController {
 
     @FXML
     void logoutUser(MouseEvent event) {
-
+        Controller.currAcc = null;
+        getController().clearFields();
+        getController().showWindow();
+        // get a handle to the stage
+        Stage stage = (Stage) mLogoutIcon.getScene().getWindow();
+        // do what you have to do
+        stage.close();
     }
 
     @FXML
@@ -127,4 +132,5 @@ public class BossController extends BaseController {
     public void checkNewProjectInputValue(javafx.scene.input.InputMethodEvent inputMethodEvent) {
 
     }
+
 }

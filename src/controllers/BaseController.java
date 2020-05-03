@@ -8,4 +8,12 @@ import backend.ResponseObject;
  */
 public class BaseController {
 
+    private Controller controller;
+
+    public Controller getController() {
+        return controller;
+    }
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
 }
