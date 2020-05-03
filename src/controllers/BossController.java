@@ -1,25 +1,18 @@
 package controllers;
 
+import backend.Domain;
 import backend.RequestService;
 import backend.responseObjects.Project;
-import backend.responseObjects.rsProjects;
-import javafx.beans.Observable;
+import backend.responseObjects.RsDomains;
+import backend.responseObjects.RsProjects;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.InputMethodEvent;
 
 public class BossController extends BaseController {
@@ -81,8 +74,14 @@ public class BossController extends BaseController {
         mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
         RequestService requestService = new RequestService();
-        rsProjects projects = requestService.getUserProjects(Controller.currAcc.getUser_id());
+
+        RsProjects projects = requestService.getUserProjects(Controller.currAcc.getUser_id());
         mProjectsList.getItems().addAll(projects.getProjects());
+
+        RsDomains domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+        for (Domain domain : domains.getDomains()) {
+            mChooseWorkspace.getItems().add(new MenuItem(domain.toString()));
+        }
     }
 
     @FXML

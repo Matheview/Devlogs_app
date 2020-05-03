@@ -2,7 +2,7 @@ package backend.responseObjects;
 
 import java.util.List;
 
-public class rsProjects extends BaseResponseObject {
+public class RsProjects extends BaseResponseObject {
     private List<Project> projects;
 
     public List<Project> getProjects() {
@@ -14,7 +14,7 @@ public class rsProjects extends BaseResponseObject {
 
     @Override
     public String toString() {
-        return "rsProjects{" +
+        return "RsProjects{" +
                 "msg='" + super.getMsg() + '\'' +
                 ", projects=" + projects +
                 ", success='" + super.isSuccess() + '\'' +

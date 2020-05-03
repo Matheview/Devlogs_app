@@ -1,6 +1,7 @@
 package backend;
 
-import backend.responseObjects.rsProjects;
+import backend.responseObjects.RsDomains;
+import backend.responseObjects.RsProjects;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 
@@ -436,17 +437,16 @@ public class RequestService {
 		return ro;
 	}
 
-
     /**
-     * Metoda sluzaca do pobrania listy projektów
+     * Metoda służżca do pobierania listy projektów
      * @param userId Id użytkownika
      * @return
      */
-    public rsProjects getUserProjects(int userId)
+    public RsProjects getUserProjects(int userId)
     {
         String addressEnd = "/getinfo/projects?user_id=" + Integer.toString(userId);
 
-		rsProjects responseObject = new rsProjects();
+		RsProjects responseObject = new RsProjects();
 
         try {
             HttpURLConnection connection = getConnection(addressEnd, "GET");
@@ -456,8 +456,7 @@ public class RequestService {
             System.out.println("Odpowiedz z serwera : " + result);
 
             Gson gson = new Gson();
-			responseObject = gson.fromJson(result, rsProjects.class);
-			System.out.println(responseObject.toString());
+			responseObject = gson.fromJson(result, RsProjects.class);
 
             connection.disconnect();
 
@@ -470,5 +469,38 @@ public class RequestService {
         }
         return responseObject;
     }
+
+	/**
+	 * Metoda służaca do pobierania listy domen
+	 * @param userId Id użytkownika
+	 * @return
+	 */
+	public RsDomains getUserDomains(int userId)
+	{
+		String addressEnd = "/getinfo/domains?user_id=" + Integer.toString(userId);
+
+		RsDomains responseObject = new RsDomains();
+
+		try {
+			HttpURLConnection connection = getConnection(addressEnd, "GET");
+
+			String result = getServerResponse(connection);
+
+			System.out.println("Odpowiedz z serwera : " + result);
+
+			Gson gson = new Gson();
+			responseObject = gson.fromJson(result, RsDomains.class);
+
+			connection.disconnect();
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return responseObject;
+	}
 
 }

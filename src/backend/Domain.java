@@ -28,9 +28,6 @@ public class Domain {
 
     @Override
     public String toString() {
-        return "Domain{" +
-                "domain='" + domain + '\'' +
-                ", id=" + id +
-                '}';
+        return domain;
     }
 }

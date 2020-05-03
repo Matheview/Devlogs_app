@@ -44,12 +44,6 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" +
-                "domain_name='" + domain_name + '\'' +
-                ", privilege='" + privilege + '\'' +
-                ", project_id=" + project_id +
-                ", project_name='" + project_name + '\'' +
-                ", user_count=" + user_count +
-                '}';
+        return project_name;
     }
 }
