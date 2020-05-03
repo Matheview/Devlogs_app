@@ -38,15 +38,17 @@ GET_PROJECTS_PLUS_USER_COUNTS = """SELECT COUNT(u.name), p.id, p.project_name, d
     RIGHT JOIN privileges pr ON acc.privilege_id=pr.id
     WHERE acc.project_id IN (SELECT DISTINCT(project_id) FROM accesses ac WHERE ac.granted_to='{0}' AND ac.project_id IS NOT NULL)
     GROUP BY p.id;"""
+CHANGE_PASSWORD = "UPDATE users SET password='{0}' WHERE id={1}"
 CHECK_PRIV = "SELECT id FROM privileges WHERE privilege='{0}'"
 CHECK_DOMAIN_AVAILABLE = "SELECT id FROM domains WHERE domain_desc='{0}'"
 CHECK_USER_EXIST = "SELECT id FROM users WHERE id='{0}' OR name='{0}' OR email='{0}'"
 CHECK_ADMIN_EXIST = "SELECT id, granted_to FROM accesses WHERE granted_to=(SELECT id FROM users WHERE id='{0}' OR name='{0}' OR email='{0}') AND privilege_id=1"
-CHECK_KIEROWNIK_EXIST = "SELECT id FROM accesses WHERE granted_to=(SELECT id FROM users WHERE id='{0}' OR email='{0}' or name='{0}') AND privilege_id=1"
+CHECK_KIEROWNIK_EXIST = "SELECT id FROM accesses WHERE granted_to=(SELECT id FROM users WHERE id='{0}' OR email='{0}' or name='{0}') AND privilege_id=2"
 CHECK_TOKEN = "SELECT token FROM loginactions WHERE user_id='{}' ORDER BY created_at DESC LIMIT 1"
 CHECK_PERMISSION = "SELECT id FROM accesses WHERE granted_to='{0}' AND domain_id=(SELECT id FROM domains WHERE domain_desc='{1}')"
 CHECK_USER_EXISTS = """SELECT id FROM users WHERE email='{0}'"""
 CHECK_USER_EXIST_BY_ID = """SELECT id FROM users WHERE id='{0}'"""
+CHECK_PROJECT_EXIST = """SELECT id FROM projects WHERE project_name='{0}' AND domain_id={1}"""
 CREATE_USER = "INSERT INTO users(email, password, name, created_at) VALUES ('{0}', '{1}', '{2}', NOW())"
 CREATE_DOMAIN = "INSERT INTO domains(domain_desc, creator_id, created_at) VALUES ('{0}', {1}, NOW())"
 CREATE_ACCESS_ADMIN = "INSERT INTO accesses(creator_id, domain_id, privilege_id, granted_to, created_at) VALUES ({0}, (SELECT id FROM domains WHERE domain_desc='{1}'), 1, {0}, NOW());"
@@ -55,14 +57,19 @@ CREATE_ACCESS_DOMAIN = """INSERT INTO accesses(creator_id, domain_id, privilege_
                                 ({3}, (SELECT id FROM domains WHERE domain_desc='{1}'), 
                                 (SELECT id FROM privileges WHERE privilege='{2}'), 
                                 {0}, NOW());"""
+CREATE_ACCESS_PROJECT_KIEROWNIK = """INSERT INTO accesses(creator_id, domain_id, privilege_id, granted_to, created_at) VALUES ({0}, {1}, {2}, {0}, NOW());"""
 CREATE_PERMISSION = """INSERT INTO accesses(creator_id, granted_to, domain_id, privilege_id, created_at) VALUES ('{0}' ,'{2}' ,(SELECT id FROM domains WHERE domain_desc='{3}') ,(SELECT id FROM privileges WHERE privilege_id='{1}') , NOW());"""
+CREATE_PROJECT = """INSERT INTO projects(creator_id, project_name, domain_id, created_at) VALUES ({0}, '{2}', {1}, NOW())"""
 GENERATE_PASSWORD = "UPDATE users SET password='{0}' WHERE id='{1CHECK_USER_EXIST}' OR email='{1}' OR name='{1}'"
-GET_DOMAINS = "SELECT id, domain_desc FROM domains WHERE id IN (SELECT domain_id FROM accesses WHERE granted_to={0}) ORDER BY id DESC;"
+GET_DOMAINS = "SELECT DISTINCT d.id, d.domain_desc FROM accesses acc INNER JOIN domains d on acc.domain_id = d.id WHERE acc.granted_to='{0}' ORDER BY d.id DESC;"
 GET_DOMAIN = "SELECT id FROM domains WHERE creator_id={0} AND domain_desc='{1}'"
 GET_NOTIFICATIONS = """SELECT id, notify_desc, created_at, is_readed FROM notifications WHERE user_id=(SELECT id FROM users 
                         WHERE id='{0}' OR email='{0}') AND is_readed=false ORDER BY id DESC;"""
+GET_LAST_PROJECT_ID = """SELECT id FROM projects WHERE creator_id={0} AND domain_id={1} AND project_name='{2}'"""
+GET_TOKEN_BY_USER_ID = """SELECT token FROM loginactions WHERE user_id={0} ORDER BY id DESC LIMIT 1"""
 GET_USER = '''SELECT id, password FROM users WHERE email="{0}"'''
 GET_USER_AFTER_CREATE = """SELECT id FROM users WHERE email='{0}' AND password='{1}' AND name='{2}'"""
+GET_USER_INFO_ALL = """SELECT usr.name, usr.email, usr.created_at FROM users usr WHERE id={0}"""
 GET_USERS_FROM_PROJECT = ""
 GET_USERS_FROM_TASK = ""
 GET_USERS_FROM_DOMAIN = """SELECT usr.id, usr.name, priv.privilege FROM accesses ac

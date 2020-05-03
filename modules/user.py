@@ -313,7 +313,7 @@ class ChangePasswdLink(MethodView, Responses):
             return render_template("notexists.html", msg="Invalid token ##")
         token = self.db.checktoken(self.data.replace("@", "##"))
         if token:
-            return render_template("passchanger.html", token=self.data.replace("##", "@"))
+            return render_template("passchanger.html", token=self.data.replace("##", "@"), hidden='''style="display:none"''')
         return render_template("notexists.html", msg="Invalid token")
 
     def put(self):
@@ -323,8 +323,15 @@ class ChangePasswdLink(MethodView, Responses):
         return self.method_not_allowed("ChangePasswd.delete", 'delete')
 
     def post(self):
-        print(request.form['token'])
-        print(request.form['new-password'])
-        return render_template("change_password.html", msg="parsed")
+        try:
+            result = self.db.change_password(request.form['token'], request.form['new-password'])
+            if result[0]:
+                self.db.save_logging(request.form['token'].split("@")[0], request.form['token'])
+                return render_template("passchanger.html", msg=result[1], style="message-panel")
+            return render_template("passchanger.html", msg=result[1], style="message-panel-error")
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="ChangePasswdLink.post[{0}]".format(exc_tb.tb_lineno), args=self.data)
+            return render_template("passchanger.html", msg="Unexpected exception: reported", style="message-panel-error")
 
 

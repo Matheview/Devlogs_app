@@ -20,6 +20,7 @@ handleBtnClick = (e) => {
     password.length < 6
   ) {
     alert("Pole nie może być puste oraz musi zawierać więcej niż 6 znaków !");
+    return;
   } else if (
     repeatPassword === " " ||
     repeatPassword === null ||
@@ -27,14 +28,17 @@ handleBtnClick = (e) => {
     repeatPassword.length < 6
   ) {
     alert("Pole nie może być puste oraz musi zawierać więcej niż 6 znaków !");
+    return;
   } else if (password !== repeatPassword) {
     alert("Pola musza być identyczne !");
+    return;
   } else {
     loader.classList.add("active");
     //po zweryfikowaniu danych z "backendu / serwera" -> loader.classList.remove("active");
     setTimeout(function () {
       loader.classList.remove("active");
-      alert("Zmiana hasła zakończona sukcesem!");
+      // alert("Zmiana hasła zakończona sukcesem!");
+      form.submit();
     }, 3000);
   }
 };

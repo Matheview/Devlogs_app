@@ -3,49 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}" />
+    <link rel="stylesheet" href="/static/style.css" />
     <title>Devlogs | zmiana hasła</title>
   </head>
   <body>
     <div class="wrap">
       <header>
         <div class="logotype">
-          <img src="{{ url_for('static',filename='imgs/logo.png') }}" alt="logotype" />
+          <img src="/static/imgs/logo.png" alt="logotype" />
         </div>
       </header>
       <main>
         <div class="password-change-container">
           <h2>Ustaw swoje nowe hasło</h2>
-          <form method="POST" action="/changepassword">
-	    <input
-              id="token"
-              name="token"
-              type="hidden"
-              value="{{token}}"
-            />
+          <form action="/changepassword" method="POST">
             <input
-              id="new-password"
-              name="new-password"
+	      name="new-password"
               type="password"
               placeholder="podaj nowe hasło..."
               class="new-password"
             />
             <input
-              id="repeat-new-password"
-	      name="repeat-new-password"
+              name="repeat-new-password"
               type="password"
               placeholder="powtórz hasło..."
               class="repeat-new-password"
             />
-            <input type="submit" <!--class="button"--> value="Zmień hasło"/>
-          </input>
+            <input type="submit" class="button" value="Zmień hasło" />
+            <input id="token" name="token" type="hidden" value="{{token}}" />
           </form>
+          <div class="{{style}}" {{hidden}}> 
+              {{msg}}
+          </div>
           <div class="loader">
-            <img src="{{ url_for('static',filename='imgs/loader.svg') }}" alt="loading icon" />
+            <img src="/static/imgs/loader.svg" alt="loading icon" />
           </div>
         </div>
       </main>
     </div>
-    <script src="{{ url_for('static',filename='main.js') }}"></script>
+    <script src="/static/main.js"></script>
   </body>
 </html>

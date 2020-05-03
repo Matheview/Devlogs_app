@@ -13,6 +13,8 @@ class AddProject(MethodView, Responses):
     def __init__(self):
         super(AddProject, self).__init__()
         self.db = DBConnector()
+        self.data = ""
+        self.keys = {}
 
     def get(self):
         return self.method_not_allowed("AddProject.get", 'get')
@@ -24,12 +26,25 @@ class AddProject(MethodView, Responses):
         return self.method_not_allowed("AddProject.get", 'delete')
 
     def post(self):
-        if not request.json['user_id']:
-            return self.response(202, success=False, msg="Key 'user_id' not found")
-        user = self.db.check_user(request.json['user_id'])
+        self.data = request.json
+        for key in ['user_id', 'project_name', 'domain_id']:
+            self.keys[key] = request.json[key]
+            if not self.keys[key] or self.keys[key] is None:
+                return self.response(202, success=False, msg="Key '{0}' not found".format(key))
+            elif self.keys[key] == 0 or self.keys[key] == "":
+                return self.response(202, success=False, msg="Value '{0}' cannot be empty".format(key))
+            elif self.keys[key] is None or self.keys[key] == "None" or self.keys[key] == "null":
+                return self.response(202, success=False, msg="Value'{0}' cannot be null".format(key))
+        user = self.db.check_kierownik(self.keys['user_id'])
         if not user:
-            return self.response(202, success=False, msg="User not found")
-        alphabet = string.ascii_letters + string.digits
-        password = str(''.join(secrets.choice(alphabet) for i in range(12)))
-        self.db.generate_password(password, request.json['user_id'])
-        return self.response(200, success=True, msg="Password generated", password=password)
+            return self.response(202, success=False, msg="Not found privileges as Kierownik")
+        domain = self.db.query(CHECK_DOMAIN_AVAILABLE.format(self.keys['domain'])).fetchone()
+        if not domain:
+            return self.response(202, success=False, msg="Domain not found")
+        project_available = self.db.query(CHECK_PROJECT_EXIST.format(self.keys['project_name'], self.keys['domain_id'])).fetchone()
+        if project_available:
+            return self.response(202, success=False, msg="Project name already exist inside this domain")
+        result = self.db.add_project(self.keys)
+        if not result[0]:
+            return self.response(202, success=False, msg="Unexpected exception: reported")
+        return self.response(200, success=True, msg="Password generated", project_id=result[1], project_name=self.keys['project_name'])

@@ -4,6 +4,7 @@ from flask import request, json, Response, render_template
 from connectors.dbconfig import DBConnector
 from modules.responses import *
 import re
+from datetime import datetime
 
 
 class GettersDomains(MethodView, Responses):
@@ -191,6 +192,49 @@ class GettersUser(MethodView, Responses):
 
     def delete(self):
         return self.method_not_allowed("GettersUser.delete", 'delete')
+
+
+class GettersUserInfo(MethodView, Responses):
+
+    def __init__(self):
+        super(GettersUserInfo, self).__init__()
+        self.keys = {}
+        self.db = DBConnector()
+        self.domains = []
+        self.data = ""
+        self.token = ""
+
+    def get(self):
+        try:
+            for key in ['user_id']:
+                self.keys[key] = request.args.get('user_id')
+                if not self.keys[key] or self.keys[key] is None:
+                    return self.response(202, success=False, msg="Key '{0}' not found".format(key))
+                elif self.keys[key] == 0 or self.keys[key] == "":
+                    return self.response(202, success=False, msg="Value '{0}' cannot be empty".format(key))
+                elif self.keys[key] is None or self.keys[key] == "None" or self.keys[key] == "null":
+                    return self.response(202, success=False, msg="Value'{0}' cannot be null".format(key))
+            user = self.db.query(GET_USER_INFO_ALL.format(self.keys['user_id'])).fetchone()
+            if user is None or len(user) == 0:
+                return self.response(202, success=False, msg="Not found user", domains=[])
+            domains = self.db.query(GET_DOMAINS.format(self.keys['user_id'])).fetchall()
+            for vals in domains:
+                self.domains.append({"id": vals[0], "domain_desc": vals[1]})
+            return self.response(200, success=True, msg="User found", name=user[0], email=user[1],
+                                 created_at=user[2].strftime("%Y-%m-%d %H:%M:%S"), domains=self.domains)
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="GettersUserInfo.get[{0}]".format(exc_tb.tb_lineno), args=self.data)
+            return self.response(202, success=False, msg="Unexpected exception: reported")
+
+    def post(self):
+        return self.method_not_allowed("GettersUserInfo.post", 'post')
+
+    def put(self):
+        return self.method_not_allowed("GettersUserInfo.put", 'put')
+
+    def delete(self):
+        return self.method_not_allowed("GettersUserInfo.delete", 'delete')
 
 
 class GettersDocs(MethodView, Responses):

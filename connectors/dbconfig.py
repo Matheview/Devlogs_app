@@ -299,3 +299,30 @@ class DBConnector(Responses):
                                args=user)
             return False
 
+    def add_project(self, keys):
+        try:
+            self.query(CREATE_PROJECT.format(key['user_id'], keys['domain_id'], keys['project_name']))
+            project_id = self.query(GET_LAST_PROJECT_ID.format(key['user_id'], keys['domain_id'], keys['project_name'])).fetchone()
+            self.query(CREATE_ACCESS_PROJECT_KIEROWNIK.format(key['user_id'], keys['domain_id'], project_id[0]))
+            return [True, project_id]
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.add_project[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return [False, 0]
+
+    def change_password(self, token, passwd):
+        try:
+            user_id = token.split("@")
+            if len(user_id) != 2:
+                return [False, 'Token expired']
+            get_token = self.query(GET_TOKEN_BY_USER_ID.format(user_id[0])).fetchone()
+            if token.replace("@", "##") != get_token[0]:
+                return [False, 'Token expired']
+            self.query(CHANGE_PASSWORD.format(self.hash_data(passwd), user_id[0])).fetchone()
+            return [True, "Password changed"]
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.change_password[{0}]".format(exc_tb.tb_lineno),
+                               args=[token, passwd])
+            return [False, "Unexpected exception: reported"]
