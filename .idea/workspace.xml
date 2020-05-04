@@ -20,20 +20,76 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ffcafb0-1c43-47dd-8b5f-cc164ce4ec31" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/Controller$1$2$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/Controller$1$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/Controller$2$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/Controller$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx_sdk_14_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/Domain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/ResponseObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/ResponseObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/responseObjects/RsDomains.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/responseObjects/RsDomains.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/adminView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/Domain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/Domain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/ResponseObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/ResponseObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/responseObjects/RsDomains.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/RsDomains.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BossController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/adminView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Devlogs_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Devlogs_app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/META-INF/Devlogs_app.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/responseObjects/rsProjects.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/responseObjects/RsProjects.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/Controller$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/Controller$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/Controller$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/Controller$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/SecondViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/SecondViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/add.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/addTask.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/address-book-regular.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/bell-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/close.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/cloud.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/cog-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/comment-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/coworking.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/coworking.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/data-analytics.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/description.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/edit-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/edit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/exclamation-triangle-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/home-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/info-circle-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/log.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/logout.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/long-arrow-alt-right-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/minus.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/newProject.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/notification-bell.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/paper-plane-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/pdf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/personAddGroup.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/personAddTask.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/plus-square-regular.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/projects.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/search-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/search.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/sign-out-alt-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/sort-down-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/team.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/times-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/trash-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/user-edit-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/users-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/workspace.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/sample/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/sample/imgs/log.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/sample/imgs/loginImage.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/loginImage.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/SecondViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/SecondViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imgs/add.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/imgs/log.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/imgs/loginImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/bossView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/login.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,10 +123,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="IntelliLang.Advanced" />
+    <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -81,7 +137,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="sample.Main" />
       <module name="Devlogs_app" />
-      <option name="VM_PARAMETERS" value="--module-path lib\javafx-sdk-14.0.1\lib --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules=javafx.controls,javafx.fxml " />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="sample.*" />
@@ -147,10 +203,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="140" y="117" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588590470730">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="2051" y="128" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588631998853">
+      <screen x="1920" y="0" width="1440" height="900" />
     </state>
     <state x="140" y="117" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1588590470730" />
+    <state x="2051" y="128" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.27.1848.1053/1920.0.1440.900@1920.0.1440.900" timestamp="1588631998853" />
     <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1588506625973">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -171,26 +228,31 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588366931837" />
-    <state width="1493" height="161" key="GridCell.Tab.0.bottom" timestamp="1588594650325">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="697" height="223" key="GridCell.Tab.0.bottom" timestamp="1588632127795">
+      <screen x="1920" y="0" width="1440" height="900" />
     </state>
     <state width="1493" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state width="1493" height="161" key="GridCell.Tab.0.center" timestamp="1588594650325">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="697" height="223" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1440.900@1920.0.1440.900" timestamp="1588632127795" />
+    <state width="697" height="223" key="GridCell.Tab.0.center" timestamp="1588632127795">
+      <screen x="1920" y="0" width="1440" height="900" />
     </state>
     <state width="1493" height="161" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state width="1493" height="161" key="GridCell.Tab.0.left" timestamp="1588594650325">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="697" height="223" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1440.900@1920.0.1440.900" timestamp="1588632127795" />
+    <state width="697" height="223" key="GridCell.Tab.0.left" timestamp="1588632127795">
+      <screen x="1920" y="0" width="1440" height="900" />
     </state>
     <state width="1493" height="161" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state width="1493" height="161" key="GridCell.Tab.0.right" timestamp="1588594650325">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="697" height="223" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1440.900@1920.0.1440.900" timestamp="1588632127795" />
+    <state width="697" height="223" key="GridCell.Tab.0.right" timestamp="1588632127795">
+      <screen x="1920" y="0" width="1440" height="900" />
     </state>
     <state width="1493" height="161" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state x="154" y="0" width="1231" height="824" key="SettingsEditor" timestamp="1588505067326">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="697" height="223" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1440.900@1920.0.1440.900" timestamp="1588632127795" />
+    <state x="2064" y="0" width="1124" height="737" key="SettingsEditor" timestamp="1588631937404">
+      <screen x="1920" y="0" width="1440" height="900" />
     </state>
     <state x="154" y="0" width="1231" height="824" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1588505067326" />
+    <state x="2064" y="0" width="1124" height="737" key="SettingsEditor/72.27.1848.1053/1920.0.1440.900@1920.0.1440.900" timestamp="1588631937404" />
     <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1587313103345">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

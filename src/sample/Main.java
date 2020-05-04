@@ -16,8 +16,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Font.loadFont(Main.class.getResource("../fonts/Righteous.TTF").toExternalForm(), 10);
-        Font.loadFont(Main.class.getResource("../fonts/Lato.TTF").toExternalForm(), 10);
+//        Font.loadFont(Main.class.getResource("../fonts/Righteous.TTF").toExternalForm(), 10);
+//        Font.loadFont(Main.class.getResource("../fonts/Lato.TTF").toExternalForm(), 10);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource("../views/login.fxml"));

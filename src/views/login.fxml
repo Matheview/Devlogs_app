@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="395.0" style="-fx-background-color: black; -fx-border-radius: 150px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="395.0" style="-fx-background-color: black; -fx-border-radius: 150px;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <children>
-      <Pane layoutX="26.0" layoutY="75.0" prefHeight="473.0" prefWidth="335.0" style="-fx-background-color: white; -fx-background-radius: 30px; -fx-font-family: &quot;Lato&quot;;" />
-      <ImageView fx:id="mLoginImage" fitHeight="123.0" fitWidth="133.0" layoutX="135.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
+      <Pane layoutX="26.0" layoutY="75.0" prefHeight="473.0" prefWidth="335.0" style="-fx-background-color: white; -fx-background-radius: 30px; -fx-font-family: &quot;Lato&quot;;">
+         <children>
+            <Button fx:id="mRemindPwd" layoutX="168.0" layoutY="359.0" mnemonicParsing="false" style="-fx-text-fill: #2343E4; -fx-background-color: white;" text="Zapomniałem hasła" />
+         </children></Pane>
       <TextField fx:id="mDomain" alignment="TOP_LEFT" cache="true" layoutX="72.0" layoutY="283.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj domenę..." style="-fx-border-radius: 30; -fx-background-color: black; -fx-text-fill: white;">
          <opaqueInsets>
             <Insets />
@@ -28,8 +27,51 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Text fill="#2343e4" layoutX="218.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: #2343E4;" text="Zapomniałem hasła" />
       <PasswordField fx:id="mPassword" layoutX="72.0" layoutY="388.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj hasło..." style="-fx-background-color: black; -fx-text-fill: white; -fx-border-radius: 30;" />
+      <Pane fx:id="mBlurPopup" layoutY="63.0" opacity="0.68" prefHeight="506.0" prefWidth="395.0" style="-fx-background-color: gray;" />
+      <Pane fx:id="mPopupPwd" layoutX="17.0" layoutY="120.0" prefHeight="325.0" prefWidth="360.0" style="-fx-background-color: #454545; -fx-border-color: white;">
+         <children>
+            <Hyperlink fx:id="mLink" layoutX="43.0" layoutY="108.0" prefHeight="41.0" prefWidth="250.0" text="Hyperlink" visible="false" wrapText="true" />
+            <Button fx:id="mClosePopup" graphicTextGap="5.0" layoutX="322.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white;" text="X">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
+            <TextField fx:id="mEmail" alignment="TOP_LEFT" layoutX="55.0" layoutY="163.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj email..." style="-fx-border-radius: 0; -fx-text-fill: white; -fx-border-color: white; -fx-background-color: black;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextField>
+            <Button fx:id="mGetToken" layoutX="116.0" layoutY="232.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;" text="WYŚLIJ">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Button>
+            <Text fx:id="mGiveEmailTxt" fill="WHITE" layoutX="43.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aby zmienić hasło podaj email." wrappingWidth="280.0">
+               <font>
+                  <Font name="KacstPoster" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="mText" fill="WHITE" layoutX="19.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gratulacje udało się! Kliknij w link poniżej." visible="false" wrappingWidth="321.53515625">
+               <font>
+                  <Font name="Rasa" size="18.0" />
+               </font>
+            </Text>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Pane>
+      <Pane fx:id="mPopup" layoutX="38.0" layoutY="148.0" prefHeight="250.0" prefWidth="312.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
+         <children>
+            <Button fx:id="mBtnClose" layoutX="92.0" layoutY="201.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" style="-fx-background-color: #2343E4; -fx-text-fill: white; -fx-background-radius: 30px;" text="Zamknij">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Text layoutX="35.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Błąd w logowaniu. Proszę spróbować ponownie." wrappingWidth="243.73681640625" />
+         </children>
+      </Pane>
       <Pane prefHeight="63.0" prefWidth="395.0" style="-fx-background-color: white;">
          <children>
             <ImageView fx:id="mLogoImage" fitHeight="48.0" fitWidth="47.0" layoutX="7.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
@@ -38,17 +80,6 @@
                   <Font size="41.0" />
                </font>
             </Text>
-         </children>
-      </Pane>
-      <Pane fx:id="mBlurPopup" layoutY="63.0" opacity="0.68" prefHeight="506.0" prefWidth="395.0" style="-fx-background-color: gray;" />
-      <Pane fx:id="mPopup" layoutX="38.0" layoutY="148.0" prefHeight="250.0" prefWidth="312.0" style="-fx-background-color: white; -fx-border-color: black;">
-         <children>
-            <Button fx:id="mBtnClose" layoutX="92.0" layoutY="201.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" style="-fx-background-color: #2343E4; -fx-text-fill: white; -fx-background-radius: 30px;" text="Zamknij">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <Text layoutX="29.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Błąd w logowaniu. Proszę spróbować ponownie." />
          </children>
       </Pane>
    </children>
