@@ -48,11 +48,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", privilege='" + privilege + '\'' +
-                ", shortcut='" + shortcut + '\'' +
-                ", user='" + user + '\'' +
-                '}';
+        return user;
     }
 }

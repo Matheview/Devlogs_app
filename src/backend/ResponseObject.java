@@ -1,5 +1,7 @@
 package backend;
 
+import backend.responseObjects.Domain;
+
 import java.util.List;
 
 public class ResponseObject
@@ -10,7 +12,7 @@ public class ResponseObject
     private int user_id;
     private String username;
     private List<Domain> listOfDomains;
-    private List<User> listOfUsers;
+    private List<User> users;
     private String token;
     private List<Notifications> notifications;
     private int qty;
@@ -61,12 +63,12 @@ public class ResponseObject
         this.listOfDomains = listOfDomains;
     }
 
-    public List<User> getListOfUsers() {
-        return listOfUsers;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setListOfUsers(List<User> users) {
-        this.listOfUsers = users;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public String getToken() {
@@ -110,7 +112,7 @@ public class ResponseObject
                 ", user_id=" + user_id +
                 ", username='" + username + '\'' +
                 ", listOfDomains=" + listOfDomains +
-                ", listOfUsers=" + listOfUsers +
+                ", listOfUsers=" + users +
                 ", token='" + token + '\'' +
                 '}';
     }

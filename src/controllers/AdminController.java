@@ -1,13 +1,13 @@
 package controllers;
 
+import backend.User;
+import backend.responseObjects.Domain;
+import backend.RequestService;
+import backend.ResponseObject;
+import backend.responseObjects.RsDomains;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -57,13 +57,13 @@ public class AdminController extends BaseController {
     private TextField mWorkspaceSearch;
 
     @FXML
-    private ListView<?> mWorkspaceList;
+    private ListView<Domain> mWorkspaceList;
 
     @FXML
     private TextField mUserSearch;
 
     @FXML
-    private ListView<?> mUserlist;
+    private ListView<User> mUserlist;
 
     @FXML
     private ImageView mCloseNotificationPanelIcon;
@@ -73,6 +73,26 @@ public class AdminController extends BaseController {
 
     @FXML
     private ImageView mLogoutIcon;
+
+    @FXML
+    private Label mWelcomeUserName;
+
+    @FXML
+    private Label mPrivilegeUser;
+
+    //Views initialize
+    public void initialize() {
+        mWelcomeUserName.setText(Controller.currAcc.getUsername());
+        mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
+
+        RequestService requestService = new RequestService();
+
+        RsDomains domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+        mWorkspaceList.getItems().addAll(domains.getDomains());
+
+        ResponseObject responseObject = requestService.requestListOfUsers(Controller.currAcc.getUser_id());
+        mUserlist.getItems().addAll(responseObject.getUsers());
+    }
 
     //Metody ( nie wszystkie metody i zmienne będą potrzebne, ale są wyciągnięte w razie W )----------------------------------------------------
 
