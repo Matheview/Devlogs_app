@@ -20,20 +20,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ffcafb0-1c43-47dd-8b5f-cc164ce4ec31" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/backend/requestObjects/RqNewProject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/backend/responseObjects/RsProject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/DialogsUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/Domain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/RequestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/RequestService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/ResponseObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/ResponseObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/responseObjects/RsDomains.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/responseObjects/RsDomains.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/User.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/adminView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/Domain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/Domain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/RequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/RequestService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backend/ResponseObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/ResponseObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/responseObjects/RsDomains.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/RsDomains.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BossController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/adminView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/bossView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +129,10 @@
       <workItem from="1588590105335" duration="80000" />
       <workItem from="1588590325842" duration="33000" />
       <workItem from="1588590393751" duration="1032000" />
-      <workItem from="1588591914052" duration="2841000" />
+      <workItem from="1588591914052" duration="5009000" />
+      <workItem from="1588599482445" duration="7093000" />
+      <workItem from="1588624262903" duration="630000" />
+      <workItem from="1588627463074" duration="4163000" />
     </task>
     <servers />
   </component>
@@ -151,10 +156,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="140" y="117" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1588590470730" />
-    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1588506625973">
+    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1588605841065">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1588506625973" />
+    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1588605841065" />
     <state x="599" y="123" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1587313440916">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -171,22 +176,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588366931837" />
-    <state width="1493" height="161" key="GridCell.Tab.0.bottom" timestamp="1588594650325">
+    <state width="1493" height="161" key="GridCell.Tab.0.bottom" timestamp="1588630683471">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state width="1493" height="161" key="GridCell.Tab.0.center" timestamp="1588594650325">
+    <state width="1493" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588630683471" />
+    <state width="1493" height="161" key="GridCell.Tab.0.center" timestamp="1588630683470">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state width="1493" height="161" key="GridCell.Tab.0.left" timestamp="1588594650325">
+    <state width="1493" height="161" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588630683470" />
+    <state width="1493" height="161" key="GridCell.Tab.0.left" timestamp="1588630683470">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state width="1493" height="161" key="GridCell.Tab.0.right" timestamp="1588594650325">
+    <state width="1493" height="161" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588630683470" />
+    <state width="1493" height="161" key="GridCell.Tab.0.right" timestamp="1588630683471">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
+    <state width="1493" height="161" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588630683471" />
     <state x="154" y="0" width="1231" height="824" key="SettingsEditor" timestamp="1588505067326">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

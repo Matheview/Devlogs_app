@@ -1,6 +1,6 @@
 package controllers;
 
-import backend.User;
+import backend.responseObjects.User;
 import backend.responseObjects.Domain;
 import backend.RequestService;
 import backend.ResponseObject;

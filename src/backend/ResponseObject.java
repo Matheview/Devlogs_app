@@ -1,6 +1,7 @@
 package backend;
 
 import backend.responseObjects.Domain;
+import backend.responseObjects.User;
 
 import java.util.List;
 

@@ -1,6 +1,8 @@
 package backend;
 
+import backend.requestObjects.RqNewProject;
 import backend.responseObjects.RsDomains;
+import backend.responseObjects.RsProject;
 import backend.responseObjects.RsProjects;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
@@ -34,27 +36,37 @@ public class RequestService {
 		connection.setConnectTimeout(5000);
 		connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 		connection.setDoInput(true);
-
-		if (method.equals("POST"))
-			connection.setDoOutput(true);
+		connection.setDoOutput(true);
 
 		return connection;
 	}
 
 	/**
-	 * Metoda do pobierania odpowiedzi z serwera przez strumień
-	 * @param connection Ustawione już połączenie z serwerem
+	 * Metoda do wysyłania pliku JSON, przez strumień, do serwera
+     * @param connection Ustawione już połączenie z serwerem
+	 * @param jsonInputString plik JSON
 	 * @return JSON w postaci Stringa
-	 * @throws IOException
 	 */
-	private String getServerResponse (HttpURLConnection connection) throws IOException {
-		InputStream in = new BufferedInputStream(connection.getInputStream());
-		String result = IOUtils.toString(in, CHARSET);
-		in.close();
-		return result;
-	}
+	private void sendJSON (HttpURLConnection connection, String jsonInputString) throws IOException {
+        OutputStream out = connection.getOutputStream();
+        out.write(jsonInputString.getBytes("UTF-8"));
+        out.close();
+    }
 
-	/**
+    /**
+     * Metoda do pobierania odpowiedzi z serwera przez strumień
+     * @param connection Ustawione już połączenie z serwerem
+     * @return JSON w postaci Stringa
+     * @throws IOException
+     */
+    private String getServerResponse (HttpURLConnection connection) throws IOException {
+        InputStream in = new BufferedInputStream(connection.getInputStream());
+        String result = IOUtils.toString(in, CHARSET);
+        in.close();
+        return result;
+    }
+
+    /**
 	 * Metoda sluzaca do logowania sie do aplikacji
 	 * @param jsonInputString -> email, password, domain
 	 * @return ResponseObject - success, msg, privilege, username, user_id
@@ -511,35 +523,28 @@ public class RequestService {
 
 	/**
 	 * Metoda sluzaca do stworzenia nowego projektu
-	 * @param jsonInputString
+	 * @param newProject obiekt zawierający dane, które zostaną wysłane w body requesta
 	 * @return ResponseObject success, msg, privilege
 	 */
-	public ResponseObject createNewProject(String jsonInputString)
+	public RsProject createNewProject(RqNewProject newProject)
 	{
-		// TODO funkcja do przebudowy
-		ResponseObject ro = new ResponseObject();
+		RsProject responseObject = new RsProject();
 		try {
-			URL url = new URL("http://ssh-vps.nazwa.pl:4742/users/register");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			System.out.println("Przesylany jSON = " + jsonInputString);
-			conn.setConnectTimeout(5000);
-			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			conn.setDoInput(true);
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
+			HttpURLConnection connection = getConnection("/projects/register", "POST");
 
-			OutputStream os = conn.getOutputStream();
-			os.write(jsonInputString.getBytes("UTF-8"));
-			os.close();
+            Gson gson = new Gson();
+            String jsonInputString = gson.toJson(newProject);
+            System.out.println("Przesylany jSON = " + jsonInputString);
 
-			InputStream in = new BufferedInputStream(conn.getInputStream());
-			String result = IOUtils.toString(in, "UTF-8");
+			sendJSON(connection, jsonInputString);
 
-			Gson gson = new Gson();
-			ro = gson.fromJson(result, ResponseObject.class);
+			String result = getServerResponse(connection);
 
-			in.close();
-			conn.disconnect();
+			System.out.println("Odpowiedz z serwera : " + result);
+
+			responseObject = gson.fromJson(result, RsProject.class);
+
+			connection.disconnect();
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -548,7 +553,7 @@ public class RequestService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ro;
+		return responseObject;
 	}
 
 
