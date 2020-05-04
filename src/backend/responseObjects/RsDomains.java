@@ -1,7 +1,5 @@
 package backend.responseObjects;
 
-import backend.Domain;
-
 import java.util.List;
 
 public class RsDomains extends BaseResponseObject {

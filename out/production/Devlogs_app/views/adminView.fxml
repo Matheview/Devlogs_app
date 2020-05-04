@@ -39,7 +39,7 @@
                         <String fx:value="welcome" />
                         <String fx:value="user" />
                      </styleClass></Label>
-                  <Label layoutX="634.0" layoutY="32.0" styleClass="user-type" stylesheets="@../styles/admin.css" text="administrator" />
+                  <Label fx:id="mPrivilegeUser" layoutX="634.0" layoutY="32.0" styleClass="user-type" stylesheets="@../styles/admin.css" text="administrator" />
                   <Pane layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" styleClass="notification-circle" stylesheets="@../styles/admin.css">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />

@@ -1,11 +1,10 @@
 package controllers;
 
-import backend.Domain;
+import backend.responseObjects.Domain;
 import backend.RequestService;
 import backend.responseObjects.Project;
 import backend.responseObjects.RsDomains;
 import backend.responseObjects.RsProjects;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
