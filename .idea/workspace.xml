@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3ffcafb0-1c43-47dd-8b5f-cc164ce4ec31" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1alYxGAj2Cgli0WLyrxNuYdn60k" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="IntelliLang.Advanced" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="backend.responseObjects" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sample.Main" />
+      <module name="Devlogs_app" />
+      <option name="VM_PARAMETERS" value="--module-path lib\javafx-sdk-14.0.1\lib --add-modules javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3ffcafb0-1c43-47dd-8b5f-cc164ce4ec31" name="Default Changelist" comment="" />
+      <created>1587311892021</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587311892021</updated>
+      <workItem from="1587311896014" duration="1368000" />
+      <workItem from="1587313326877" duration="4206000" />
+      <workItem from="1588011793155" duration="339000" />
+      <workItem from="1588103300019" duration="640000" />
+      <workItem from="1588158126386" duration="692000" />
+      <workItem from="1588252006316" duration="990000" />
+      <workItem from="1588324501454" duration="19794000" />
+      <workItem from="1588366630195" duration="94000" />
+      <workItem from="1588366743201" duration="12000" />
+      <workItem from="1588366780064" duration="503000" />
+      <workItem from="1588368372565" duration="216000" />
+      <workItem from="1588417031190" duration="10996000" />
+      <workItem from="1588438973175" duration="3479000" />
+      <workItem from="1588495386858" duration="18553000" />
+      <workItem from="1588523239503" duration="1399000" />
+      <workItem from="1588534268012" duration="6120000" />
+      <workItem from="1588590105335" duration="80000" />
+      <workItem from="1588590325842" duration="33000" />
+      <workItem from="1588590393751" duration="78000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="140" y="117" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588590470730">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="140" y="117" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1588590470730" />
+    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1588506625973">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1588506625973" />
+    <state x="599" y="123" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1587313440916">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="599" y="123" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1536.824@0.0.1536.824" timestamp="1587313440916" />
+    <state x="471" y="167" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1587322054686">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="471" y="167" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.1536.824@0.0.1536.824" timestamp="1587322054686" />
+    <state x="536" y="287" key="DetectedRootsChooserDialog" timestamp="1587313532411">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="536" y="287" key="DetectedRootsChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1587313532411" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1588366931837">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588366931837" />
+    <state width="1493" height="161" key="GridCell.Tab.0.bottom" timestamp="1588544064174">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588544064174" />
+    <state width="1493" height="161" key="GridCell.Tab.0.center" timestamp="1588544064173">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="161" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588544064173" />
+    <state width="1493" height="161" key="GridCell.Tab.0.left" timestamp="1588544064173">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="161" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588544064173" />
+    <state width="1493" height="161" key="GridCell.Tab.0.right" timestamp="1588544064174">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="161" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588544064174" />
+    <state x="154" y="0" width="1231" height="824" key="SettingsEditor" timestamp="1588505067326">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="154" y="0" width="1231" height="824" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1588505067326" />
+    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1587313103345">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1536.824@0.0.1536.824" timestamp="1587313103345" />
+    <state x="209" y="73" key="new project wizard" timestamp="1588254456902">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="209" y="73" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1588254456902" />
+  </component>
+</project>
