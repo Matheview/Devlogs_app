@@ -69,6 +69,9 @@ public class AdminController extends BaseController {
     private ImageView mCloseNotificationPanelIcon;
 
     @FXML
+    private Pane mNotificationsPanel;
+
+    @FXML
     private ListView<?> mNotificationsList;
 
     @FXML
@@ -79,6 +82,9 @@ public class AdminController extends BaseController {
 
     @FXML
     private Label mPrivilegeUser;
+
+    @FXML
+    private Label mNotificationsCounter;
 
     //Views initialize
     public void initialize() {
@@ -103,7 +109,7 @@ public class AdminController extends BaseController {
 
     @FXML //Metoda zamykająca panel powiadomień
     void closeNotificationsPanel(MouseEvent event) {
-
+    mNotificationsPanel.setVisible(false);
     }
 
     @FXML //Metoda sprawdzająca czy checkbox z typem konta admin jest true
@@ -174,11 +180,12 @@ public class AdminController extends BaseController {
 
     @FXML //Metoda wywołująca panel powiadomień
     void showNotificationPanel(MouseEvent event) {
-
+    mNotificationsPanel.setVisible(true);
     }
 
     @FXML
     public void showNotificationsPanel(MouseEvent mouseEvent) {
+    mNotificationsPanel.setVisible(true);
     }
 
     @FXML

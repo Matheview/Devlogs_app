@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -40,22 +30,22 @@
                         <String fx:value="user" />
                      </styleClass></Label>
                   <Label fx:id="mPrivilegeUser" layoutX="634.0" layoutY="32.0" styleClass="user-type" stylesheets="@../styles/admin.css" text="administrator" />
-                  <Pane layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" styleClass="notification-circle" stylesheets="@../styles/admin.css">
+                  <Pane fx:id="mNotificationsCircle" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
+                        <Label fx:id="mNotificationsCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
                      </children>
                   </Pane>
-                  <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="26.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="26.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="home-icon">
                      <image>
                         <Image url="@../imgs/home.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notification-icon">
                      <image>
                         <Image url="@../imgs/notification-bell.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="logout-icon">
                      <image>
                         <Image url="@../imgs/logout.png" />
                      </image>
@@ -102,7 +92,7 @@
                         <Label layoutX="89.0" layoutY="275.0" styleClass="information-label" text="Lista użytkowników" textAlignment="CENTER" />
                         <TextField fx:id="mWorkspaceSearch" layoutX="30.0" layoutY="63.0" onInputMethodTextChanged="#handleFindWorkspace" promptText="podaj szukaną nazwę..." styleClass="search-input" stylesheets="@../styles/admin.css" />
                         <ListView fx:id="mWorkspaceList" layoutX="40.0" layoutY="118.0" prefHeight="108.0" prefWidth="200.0" styleClass="workspace-list" stylesheets="@../styles/admin.css" />
-                        <TextField fx:id="mUserSearch" layoutX="30.0" layoutY="307.0" onInputMethodTextChanged="#handleFindUser" promptText="podaj szukaną nazwę..." styleClass="search-input" stylesheets="@../styles/admin.css" />
+                        <TextField fx:id="mUserSearch" layoutX="30.0" layoutY="307.0" onInputMethodTextChanged="#handleFindUser" promptText="podaj nazwę użytkownika..." styleClass="search-input" stylesheets="@../styles/admin.css" />
                         <ListView fx:id="mUserlist" layoutX="40.0" layoutY="363.0" prefHeight="108.0" prefWidth="200.0" styleClass="users-list" stylesheets="@../styles/admin.css" />
                         <ImageView fitHeight="17.0" fitWidth="14.0" layoutX="217.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -117,7 +107,7 @@
                      </children>
                   </Pane>
                   <Pane layoutX="685.0" layoutY="329.0" prefHeight="30.0" prefWidth="310.0" styleClass="divider" stylesheets="@../styles/admin.css" />
-                  <Pane layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css" visible="false">
+                  <Pane fx:id="mNotificationsPanel" layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css" visible="false">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
                            <image>
