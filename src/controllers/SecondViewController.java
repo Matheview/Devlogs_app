@@ -14,7 +14,8 @@ public class SecondViewController extends BaseController {
     private Text mPrivilegeUser;
 
     public void initialize(){
-
+        mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
+        
     }
 
 }
