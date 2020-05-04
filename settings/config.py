@@ -41,6 +41,7 @@ GET_PROJECTS_PLUS_USER_COUNTS = """SELECT COUNT(u.name), p.id, p.project_name, d
 CHANGE_PASSWORD = "UPDATE users SET password='{0}' WHERE id={1}"
 CHECK_PRIV = "SELECT id FROM privileges WHERE privilege='{0}'"
 CHECK_DOMAIN_AVAILABLE = "SELECT id FROM domains WHERE domain_desc='{0}'"
+CHECK_DOMAIN_EXIST = "SELECT id FROM domains WHERE id='{0}'"
 CHECK_USER_EXIST = "SELECT id FROM users WHERE id='{0}' OR name='{0}' OR email='{0}'"
 CHECK_ADMIN_EXIST = "SELECT id, granted_to FROM accesses WHERE granted_to=(SELECT id FROM users WHERE id='{0}' OR name='{0}' OR email='{0}') AND privilege_id=1"
 CHECK_KIEROWNIK_EXIST = "SELECT id FROM accesses WHERE granted_to=(SELECT id FROM users WHERE id='{0}' OR email='{0}' or name='{0}') AND privilege_id=2"

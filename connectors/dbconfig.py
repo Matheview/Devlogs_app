@@ -301,9 +301,9 @@ class DBConnector(Responses):
 
     def add_project(self, keys):
         try:
-            self.query(CREATE_PROJECT.format(key['user_id'], keys['domain_id'], keys['project_name']))
-            project_id = self.query(GET_LAST_PROJECT_ID.format(key['user_id'], keys['domain_id'], keys['project_name'])).fetchone()
-            self.query(CREATE_ACCESS_PROJECT_KIEROWNIK.format(key['user_id'], keys['domain_id'], project_id[0]))
+            self.query(CREATE_PROJECT.format(keys['user_id'], keys['domain_id'], keys['project_name']))
+            project_id = self.query(GET_LAST_PROJECT_ID.format(keys['user_id'], keys['domain_id'], keys['project_name'])).fetchone()
+            self.query(CREATE_ACCESS_PROJECT_KIEROWNIK.format(keys['user_id'], keys['domain_id'], project_id[0]))
             return [True, project_id]
         except Exception as e:
             _, _, exc_tb = sys.exc_info()

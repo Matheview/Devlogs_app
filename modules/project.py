@@ -38,7 +38,7 @@ class AddProject(MethodView, Responses):
         user = self.db.check_kierownik(self.keys['user_id'])
         if not user:
             return self.response(202, success=False, msg="Not found privileges as Kierownik")
-        domain = self.db.query(CHECK_DOMAIN_AVAILABLE.format(self.keys['domain'])).fetchone()
+        domain = self.db.query(CHECK_DOMAIN_EXIST.format(self.keys['domain_id'])).fetchone()
         if not domain:
             return self.response(202, success=False, msg="Domain not found")
         project_available = self.db.query(CHECK_PROJECT_EXIST.format(self.keys['project_name'], self.keys['domain_id'])).fetchone()
@@ -47,4 +47,4 @@ class AddProject(MethodView, Responses):
         result = self.db.add_project(self.keys)
         if not result[0]:
             return self.response(202, success=False, msg="Unexpected exception: reported")
-        return self.response(200, success=True, msg="Password generated", project_id=result[1], project_name=self.keys['project_name'])
+        return self.response(200, success=True, msg="Project created", project_id=result[1], project_name=self.keys['project_name'])
