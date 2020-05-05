@@ -19,24 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60934b74-f347-4007-a606-38a0bd34a26d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/META-INF/Devlogs_app.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/RequestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/RequestService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/styles/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/styles/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/styles/boss.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/styles/boss.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/adminView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/RequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/RequestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BossController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/boss.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/boss.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/adminView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/bossView.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="60934b74-f347-4007-a606-38a0bd34a26d" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
