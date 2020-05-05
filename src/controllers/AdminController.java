@@ -13,8 +13,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import utils.DialogsUtils;
 
 import java.awt.event.InputMethodEvent;
+import java.io.IOException;
 
 public class AdminController extends BaseController {
 
@@ -93,8 +95,14 @@ public class AdminController extends BaseController {
 
         RequestService requestService = new RequestService();
 
-        RsDomains domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
-        mWorkspaceList.getItems().addAll(domains.getDomains());
+        RsDomains domains;
+        try {
+            domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+            mWorkspaceList.getItems().addAll(domains.getDomains());
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
 
         ResponseObject responseObject = requestService.requestListOfUsers(Controller.currAcc.getUser_id());
         mUserlist.getItems().addAll(responseObject.getUsers());

@@ -5,7 +5,12 @@ import javafx.scene.control.TextArea;
 
 public class DialogsUtils {
 
-    /** Okno dialogowe informacyjne */
+    /** Okno dialogowe informacyjne
+     *
+     * @param title Tytół na pasku.
+     * @param header Nagłówek
+     * @param text Treść okna
+     */
     public static void infoDialog(String title, String header, String text) {
         Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
         informationAlert.setTitle(title);
@@ -16,7 +21,12 @@ public class DialogsUtils {
     }
 
 
-    /** Okno dialogowe błędów */
+    /** Okno dialogowe błędów
+     *
+     * @param title Tytół na pasku.
+     * @param header Nagłówek
+     * @param text Treść okna
+     */
     public static void errorDialog(String title, String header, String text) {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle(title);
@@ -28,7 +38,11 @@ public class DialogsUtils {
         errorAlert.showAndWait();
     }
 
-    /** Okno dialogowe błędów bez opisu*/
+    /** Okno dialogowe błędów bez opisu
+     *
+     * @param title Tytół na pasku.
+     * @param header Nagłówek oraz w tym przypadku treść główna
+     */
     public static void shortErrorDialog(String title, String header) {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle(title);

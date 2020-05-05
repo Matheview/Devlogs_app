@@ -2,6 +2,8 @@ package backend.responseObjects;
 
 import java.util.List;
 
+// Klasa w której przechowywana jest odpowiedź serwera na zopytanie
+// o pobranie listy domen
 public class RsDomains extends BaseResponseObject {
     private List<Domain> domains;
 
