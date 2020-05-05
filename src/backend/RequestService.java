@@ -150,42 +150,33 @@ public class RequestService {
 	 * @param userId
 	 * @return ResponseObject - success, msg, users ( List )
 	 */
-	public ResponseObject requestListOfUsers(int userId)
-	{
+	public ResponseObject requestListOfUsers(int userId) throws IOException {
 		String adresSerwera = "http://ssh-vps.nazwa.pl:4742/getinfo/users";
 		StringBuilder sb = new StringBuilder(adresSerwera);
 		sb = sb.append("?user_id=").append(userId);
 		String request = sb.toString();
 
 		ResponseObject ro = new ResponseObject();
-		try {
 
-			URL url = new URL(request);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		URL url = new URL(request);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-			conn.setRequestMethod("GET");
-			conn.setConnectTimeout(5000);
-			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			conn.setDoInput(true);
+		conn.setRequestMethod("GET");
+		conn.setConnectTimeout(5000);
+		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		conn.setDoInput(true);
 
-			InputStream in = new BufferedInputStream(conn.getInputStream());
-			String result = IOUtils.toString(in, "UTF-8");
+		InputStream in = new BufferedInputStream(conn.getInputStream());
+		String result = IOUtils.toString(in, "UTF-8");
 
-			System.out.println("Odpowiedz z serwera : " + result);
+		System.out.println("Odpowiedz z serwera : " + result);
 
-			Gson gson = new Gson();
-			ro = gson.fromJson(result, ResponseObject.class);
+		Gson gson = new Gson();
+		ro = gson.fromJson(result, ResponseObject.class);
 
-			in.close();
-			conn.disconnect();
+		in.close();
+		conn.disconnect();
 
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return ro;
 	}
 
@@ -235,39 +226,31 @@ public class RequestService {
 	 * @param jsonInputString - email, password, domain, privilege, username
 	 * @return ResponseObject success, msg, privilege
 	 */
-	public ResponseObject requestCreateNewUser(String jsonInputString)
-	{
+	public ResponseObject requestCreateNewUser(String jsonInputString) throws IOException {
 		ResponseObject ro = new ResponseObject();
-		try {
-			URL url = new URL("http://ssh-vps.nazwa.pl:4742/users/register");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			System.out.println("Przesylany jSON = " + jsonInputString);
-			conn.setConnectTimeout(5000);
-			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			conn.setDoInput(true);
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
 
-			OutputStream os = conn.getOutputStream();
-			os.write(jsonInputString.getBytes("UTF-8"));
-			os.close();
+		URL url = new URL("http://ssh-vps.nazwa.pl:4742/users/register");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		System.out.println("Przesylany jSON = " + jsonInputString);
+		conn.setConnectTimeout(5000);
+		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		conn.setDoInput(true);
+		conn.setDoOutput(true);
+		conn.setRequestMethod("POST");
 
-			InputStream in = new BufferedInputStream(conn.getInputStream());
-			String result = IOUtils.toString(in, "UTF-8");
+		OutputStream os = conn.getOutputStream();
+		os.write(jsonInputString.getBytes("UTF-8"));
+		os.close();
 
-			Gson gson = new Gson();
-			ro = gson.fromJson(result, ResponseObject.class);
+		InputStream in = new BufferedInputStream(conn.getInputStream());
+		String result = IOUtils.toString(in, "UTF-8");
 
-			in.close();
-			conn.disconnect();
+		Gson gson = new Gson();
+		ro = gson.fromJson(result, ResponseObject.class);
 
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		in.close();
+		conn.disconnect();
+
 		return ro;
 	}
 

@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -61,10 +72,14 @@
                         <TextField fx:id="mUserName" alignment="CENTER" layoutX="30.0" layoutY="210.0" onInputMethodTextChanged="#handleUserNameChange" promptText="nazwa użytkownika..." styleClass="text-input" stylesheets="@../styles/admin.css" />
                         <TextField fx:id="mEmail" alignment="CENTER" layoutX="29.0" layoutY="260.0" onInputMethodTextChanged="#handleEmailChange" promptText="email..." styleClass="text-input" stylesheets="@../styles/admin.css" />
                         <PasswordField fx:id="mPassword" alignment="CENTER" layoutX="30.0" layoutY="308.0" onInputMethodTextChanged="#handlePasswordChange" promptText="hasło..." stylesheets="@../styles/admin.css" />
-                        <Label layoutX="114.0" layoutY="370.0" styleClass="user-type-label" stylesheets="@/styles/admin.css" text="typ konta:" />
-                        <CheckBox fx:id="mAdminType" layoutX="30.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleAdminCheck" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="admin" />
-                        <CheckBox fx:id="mBossType" layoutX="95.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleBossCheck" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="kierownik" />
-                        <CheckBox fx:id="mUserType" layoutX="175.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleUserCheck" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="użytkownik" />
+                        <Label layoutX="114.0" layoutY="360.0" styleClass="user-type-label" stylesheets="@/styles/admin.css" text="typ konta:" />
+                        <RadioButton fx:id="mAdminType" layoutX="92.0" layoutY="405.0" mnemonicParsing="false" onAction="#handleAdminCheck" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="Administrator">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="mAccountType" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="mBossType" layoutX="149.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleBossCheck" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="Kierownik" toggleGroup="$mAccountType" />
+                        <RadioButton fx:id="mUserType" layoutX="51.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleUserCheck" selected="true" styleClass="checkbox-input" stylesheets="@../styles/admin.css" text="Pracownik" toggleGroup="$mAccountType" />
                         <Button fx:id="mNewUserBtn" layoutX="84.0" layoutY="440.0" mnemonicParsing="false" onAction="#makeNewUser" styleClass="creator-btn" stylesheets="@../styles/admin.css" text="Utwórz konto" />
                         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="65.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>

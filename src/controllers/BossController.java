@@ -76,21 +76,14 @@ public class BossController extends BaseController {
         mWelcomeUserName.setText(Controller.currAcc.getUsername());
         mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
-        RequestService requestService = new RequestService();
-        refrashProjectsList();
-
-        RsDomains domains;
-        try {
-            domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
-            mChooseWorkspace.getItems().addAll(domains.getDomains());
-        } catch (IOException e) {
-            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
-            e.printStackTrace();
-        }
-
+        refresh();
     }
 
-    public void refrashProjectsList() {
+    /**
+     * Metoda odświeżająca listy projektów i domen
+     */
+    @Override
+    public void refresh() {
         RequestService requestService = new RequestService();
 
         RsProjects projects;
@@ -100,6 +93,15 @@ public class BossController extends BaseController {
             mProjectsList.getItems().addAll(projects.getProjects());
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy projektów z serwera. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
+
+        RsDomains domains;
+        try {
+            domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+            mChooseWorkspace.getItems().addAll(domains.getDomains());
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
         }
     }
@@ -173,8 +175,9 @@ public class BossController extends BaseController {
                     DialogsUtils.shortErrorDialog("Błąd", "Projekt o takiej nazwie już istnieje.");
                 else if (response.isSuccess()) {
                     DialogsUtils.infoDialog("Sukces", "Utworzono nowy projekt", "Utworzono nowy projekt o nazwie: " + response.getProject_name());
-                    refrashProjectsList();
-                }
+                    refresh();
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego projektu. Błąd połączenia z serwerem.");
                 e.printStackTrace();

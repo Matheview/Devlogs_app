@@ -1,10 +1,12 @@
 package controllers;
 
+import backend.RequestData;
 import backend.responseObjects.User;
 import backend.responseObjects.Domain;
 import backend.RequestService;
 import backend.ResponseObject;
 import backend.responseObjects.RsDomains;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -38,13 +40,16 @@ public class AdminController extends BaseController {
     private PasswordField mPassword;
 
     @FXML
-    private CheckBox mAdminType;
+    private ToggleGroup mAccountType;
 
     @FXML
-    private CheckBox mBossType;
+    private RadioButton mAdminType;
 
     @FXML
-    private CheckBox mUserType;
+    private RadioButton mBossType;
+
+    @FXML
+    private RadioButton mUserType;
 
     @FXML
     private Button mNewUserBtn;
@@ -93,6 +98,14 @@ public class AdminController extends BaseController {
         mWelcomeUserName.setText(Controller.currAcc.getUsername());
         mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
+        refresh();
+    }
+
+    /**
+     * Metoda odświeżająca listy domen i użytkowników
+     */
+    @Override
+    public void refresh() {
         RequestService requestService = new RequestService();
 
         RsDomains domains;
@@ -104,8 +117,13 @@ public class AdminController extends BaseController {
             e.printStackTrace();
         }
 
-        ResponseObject responseObject = requestService.requestListOfUsers(Controller.currAcc.getUser_id());
-        mUserlist.getItems().addAll(responseObject.getUsers());
+        try {
+            ResponseObject responseObject = requestService.requestListOfUsers(Controller.currAcc.getUser_id());
+            mUserlist.getItems().addAll(responseObject.getUsers());
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
     }
 
     //Metody ( nie wszystkie metody i zmienne będą potrzebne, ale są wyciągnięte w razie W )----------------------------------------------------
@@ -178,7 +196,38 @@ public class AdminController extends BaseController {
 
     @FXML //Metoda do przycisku wysyłająca dane z inputów na serwer w celu stworzenia nowego usera
     void makeNewUser(ActionEvent event) {
+        RadioButton selectedButton = (RadioButton) mAccountType.getSelectedToggle();
 
+        String email = mEmail.getText();
+        String password = mPassword.getText();
+        String domain = Controller.currAcc.getDomain();
+        String privilage = selectedButton.getText();
+        String username = mUserName.getText();
+        int user_id = Controller.currAcc.getUser_id();
+
+        if ((!username.isEmpty()) && (!email.isEmpty()) && (!password.isEmpty())) {
+            RequestService requestService = new RequestService();
+            RequestData requestData = new RequestData(email, password, domain, user_id, privilage, username);
+
+            Gson gson = new Gson();
+            String inputJSON = gson.toJson(requestData);
+            ResponseObject response;
+            try {
+                response = requestService.requestCreateNewUser(inputJSON);
+
+                if (response.getMsg().equals("Email alredy exists"))
+                    DialogsUtils.shortErrorDialog("Błąd", "Użytkownik o takim emailu już istnieje..");
+                else if (response.isSuccess()) {
+                    DialogsUtils.infoDialog("Sukces", "Utworzono nowego użytkownika", "Utworzono nowego użytkownika: " + response.getUsername());
+                    refresh();
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego użytkownika. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        } else
+            DialogsUtils.shortErrorDialog("Błąd", "Proszę wypełnić wszystkie pola.");
     }
 
     @FXML //Metoda do przycisku wysyłająca dane z inputa na serwer w celu stworzenia nowej przestrzeni
@@ -188,12 +237,12 @@ public class AdminController extends BaseController {
 
     @FXML //Metoda wywołująca panel powiadomień
     void showNotificationPanel(MouseEvent event) {
-    mNotificationsPanel.setVisible(true);
+        mNotificationsPanel.setVisible(true);
     }
 
     @FXML
     public void showNotificationsPanel(MouseEvent mouseEvent) {
-    mNotificationsPanel.setVisible(true);
+        mNotificationsPanel.setVisible(true);
     }
 
     @FXML
