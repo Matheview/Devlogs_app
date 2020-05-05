@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="395.0" style="-fx-background-color: black; -fx-border-radius: 150px;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="395.0" style="-fx-background-color: black; -fx-border-radius: 150px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <children>
       <Pane layoutX="26.0" layoutY="75.0" prefHeight="473.0" prefWidth="335.0" style="-fx-background-color: white; -fx-background-radius: 30px; -fx-font-family: &quot;Lato&quot;;">
          <children>
             <Button fx:id="mRemindPwd" layoutX="168.0" layoutY="359.0" mnemonicParsing="false" style="-fx-text-fill: #2343E4; -fx-background-color: white;" text="Zapomniałem hasła" />
          </children></Pane>
+      <ImageView fx:id="mLoginImage" fitHeight="123.0" fitWidth="133.0" layoutX="145.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
       <TextField fx:id="mDomain" alignment="TOP_LEFT" cache="true" layoutX="72.0" layoutY="283.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj domenę..." style="-fx-border-radius: 30; -fx-background-color: black; -fx-text-fill: white;">
          <opaqueInsets>
             <Insets />
