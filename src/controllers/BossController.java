@@ -1,10 +1,9 @@
 package controllers;
 
-import backend.responseObjects.Domain;
+import backend.requestObjects.RqNewProject;
+import backend.responseObjects.*;
 import backend.RequestService;
-import backend.responseObjects.Project;
-import backend.responseObjects.RsDomains;
-import backend.responseObjects.RsProjects;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -12,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import utils.DialogsUtils;
 
 import java.awt.event.InputMethodEvent;
 
@@ -72,13 +72,19 @@ public class BossController extends BaseController {
         mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
         RequestService requestService = new RequestService();
-
-        RsProjects projects = requestService.getUserProjects(Controller.currAcc.getUser_id());
-        mProjectsList.getItems().addAll(projects.getProjects());
+        refrashProjectsList();
 
         RsDomains domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
         mChooseWorkspace.getItems().addAll(domains.getDomains());
 
+    }
+
+    public void refrashProjectsList() {
+        RequestService requestService = new RequestService();
+
+        RsProjects projects = requestService.getUserProjects(Controller.currAcc.getUser_id());
+        mProjectsList.getItems().clear();
+        mProjectsList.getItems().addAll(projects.getProjects());
     }
 
     @FXML
@@ -132,4 +138,30 @@ public class BossController extends BaseController {
 
     }
 
+    @FXML
+    public void addNewProjectActionEvetnt(ActionEvent actionEvent) {
+        String project_name = mNewProjectInput.getText();
+        if (!project_name.isEmpty()){
+            int user_id = Controller.currAcc.getUser_id();
+            int domain_id = mChooseWorkspace.getValue().getId();
+
+            RequestService requestService = new RequestService();
+            RqNewProject newProject = new RqNewProject(user_id, project_name, domain_id);
+            RsProject response = requestService.createNewProject(newProject);
+
+            if (response.getMsg().equals("Project name already exist inside this domain"))
+                DialogsUtils.shortErrorDialog("Błąd", "Projekt o takiej nazwie już istnieje.");
+            else if (response.isSuccess()) {
+                DialogsUtils.infoDialog("Sukces", "Utworzono nowy projekt", "Utworzono nowy projekt o nazwie: " + response.getProject_name());
+                refrashProjectsList();
+            }
+        } else {
+            DialogsUtils.shortErrorDialog("Błąd", "Proszę podać nazwę projetu.");
+        }
+    }
+
+    @FXML
+    public void workspaceSelectedActionEvent(ActionEvent actionEvent) {
+        mAddNewProject.setDisable(false);
+    }
 }
