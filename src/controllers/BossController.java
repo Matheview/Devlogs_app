@@ -59,6 +59,10 @@ public class BossController extends BaseController {
     @FXML
     private ListView<?> mNotificationsList;
 
+
+    @FXML
+    private Pane mNotificationsPanel;
+
     @FXML
     private Pane mInProjectContainer;
 
@@ -99,6 +103,7 @@ public class BossController extends BaseController {
 
     @FXML
     void closeNotificationsPanel(MouseEvent event) {
+        mNotificationsPanel.setVisible(false);
 
     }
 
@@ -120,12 +125,12 @@ public class BossController extends BaseController {
 
     @FXML
     void showNotificationPanel(MouseEvent event) {
-
+    mNotificationsPanel.setVisible(true);
     }
 
     @FXML
     void showNotificationsPanel(MouseEvent event) {
-
+    mNotificationsPanel.setVisible(true);
     }
 
     @FXML

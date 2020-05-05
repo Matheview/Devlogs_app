@@ -494,7 +494,7 @@ public class RequestService {
      * @return Obiekt listy projektów
      */
     public RsProjects getUserProjects(int userId)
-    {
+	{
         String addressEnd = "/getinfo/projects?user_id=" + Integer.toString(userId);
 
 		RsProjects responseObject = new RsProjects();
@@ -567,6 +567,7 @@ public class RequestService {
 		String addressEnd = "/getinfo/domains?user_id=" + Integer.toString(userId);
 
 		RsDomains responseObject = new RsDomains();
+
 
 		try {
 			HttpURLConnection connection = getConnection(addressEnd, "GET");
