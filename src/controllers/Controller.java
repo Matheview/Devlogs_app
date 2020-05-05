@@ -2,6 +2,7 @@ package controllers;
 
 import backend.CurrentlyLoggedAccount;
 import com.google.gson.Gson;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,22 +11,30 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import backend.RequestData;
 import backend.RequestService;
 import backend.ResponseObject;
 import javafx.stage.Window;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 
-public class Controller {
+public class Controller extends Application {
 
-    private static final String PATH_IMAGES = "/sample/imgs/";
+    private static final String PATH_IMAGES = "/imgs/";
     private static final String ADMIN_VIEW = "../views/adminView.fxml";
     private static final String BOSS_VIEW = "../views/bossView.fxml";
     private static final String PM_VIEW = "../views/SecondView.fxml";
@@ -50,6 +59,23 @@ public class Controller {
     private Pane mPopup;
     @FXML
     private Pane mBlurPopup;
+    @FXML
+    private Button mRemindPwd;
+    @FXML
+    private Pane mPopupPwd;
+    @FXML
+    private Button mClosePopup;
+    @FXML
+    private Button mGetToken;
+    @FXML
+    private TextField mEmail;
+    @FXML
+    private Hyperlink mLink;
+    @FXML
+    private Text mText;
+    @FXML
+    private Text mGiveEmailTxt;
+
 
     //Login function
     public void logowaniePane(String fxml, String title, ResponseObject user){
@@ -74,9 +100,15 @@ public class Controller {
     }
 
     //Popup visible
-    public void visiblePopUp(Boolean visible){
+    public void visibleErrorPopUp(Boolean visible){
         mPopup.setVisible(visible);
         mBlurPopup.setVisible(visible);
+    }
+
+    //Popup change password visible
+    public void visibleChangePwdPopUp(Boolean visible){
+        mBlurPopup.setVisible(visible);
+        mPopupPwd.setVisible(visible);
     }
 
     // Metoda do wypełniania pól danymi do logowania się jako kierownik (do szybkiego logowania,
@@ -102,13 +134,59 @@ public class Controller {
             }
         }
     }
-
     //Views initialize
     public void initialize() {
         mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
         mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
 
-        visiblePopUp(false);
+        mPopupPwd.setVisible(false);
+
+        mRemindPwd.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("dziala");
+                visibleChangePwdPopUp(true);
+                mLink.setVisible(false);
+//                mPwdImage.setImage(new Image(PATH_IMAGES + "log.png"));
+                mClosePopup.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                    visibleChangePwdPopUp(false);
+                    }
+                });
+                mGetToken.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        Gson gson = new Gson();
+                        RequestData data = new RequestData(mEmail.getText());
+                        String jsonInputString = gson.toJson(data);
+                        RequestService rs = new RequestService();
+                        ResponseObject ro = rs.requestChangePassword(jsonInputString);
+                        if(ro.isSuccess()){
+                            mEmail.setVisible(false);
+                            mLink.setVisible(true);
+                            mLink.setText(ro.getLink());
+                            mGetToken.setVisible(false);
+                            mText.setVisible(true);
+                            mGiveEmailTxt.setVisible(false);
+                            mLink.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent actionEvent) {
+                                    getHostServices().showDocument(ro.getLink());
+                                }
+                            });
+                        } else {
+                            mEmail.setVisible(false);
+                            mLink.setVisible(false);
+                            mGetToken.setVisible(false);
+                            mGiveEmailTxt.setText("Niepoprawny adres email, spróbuj ponownie");
+                        }
+                    }
+                });
+            }
+        });
+
+        visibleErrorPopUp(false);
 
         mBtnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -135,15 +213,18 @@ public class Controller {
                     logowaniePane(PM_VIEW, "Pracownik", ro);
                     ((Node)(e.getSource())).getScene().getWindow().hide();
                 } else {
-                    visiblePopUp(true);
+                    visibleErrorPopUp(true);
                     mBtnClose.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
-                            visiblePopUp(false);
+                            visibleErrorPopUp(false);
                         }
                     });
                 }
             }
         });
     }
+
+    @Override
+    public void start(Stage stage) throws Exception {}
 }
