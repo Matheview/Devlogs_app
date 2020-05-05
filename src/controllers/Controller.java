@@ -34,7 +34,7 @@ import java.net.URISyntaxException;
 
 public class Controller extends Application {
 
-    private static final String PATH_IMAGES = "../imgs/";
+    private static final String PATH_IMAGES = "/imgs/";
     private static final String ADMIN_VIEW = "../views/adminView.fxml";
     private static final String BOSS_VIEW = "../views/bossView.fxml";
     private static final String PM_VIEW = "../views/SecondView.fxml";
@@ -136,9 +136,9 @@ public class Controller extends Application {
     }
     //Views initialize
     public void initialize() {
-        //Odkomentować to ze wzgledu iż Linux nie współpracuje ze mna i przez te linijki mi błędami sypie...
-//        mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
-//        mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
+        mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
+        mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
+
         mPopupPwd.setVisible(false);
 
         mRemindPwd.setOnAction(new EventHandler<ActionEvent>() {
@@ -185,8 +185,6 @@ public class Controller extends Application {
                 });
             }
         });
-        // TODO: metoda do usunięcia
-        loginKierownik();
 
         visibleErrorPopUp(false);
 

@@ -16,4 +16,8 @@ public class BaseController {
     public void setController(Controller controller) {
         this.controller = controller;
     }
+
+    public void refresh(){
+
+    }
 }

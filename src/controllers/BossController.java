@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import utils.DialogsUtils;
 
 import java.awt.event.InputMethodEvent;
+import java.io.IOException;
 
 public class BossController extends BaseController {
 
@@ -59,6 +60,10 @@ public class BossController extends BaseController {
     @FXML
     private ListView<?> mNotificationsList;
 
+
+    @FXML
+    private Pane mNotificationsPanel;
+
     @FXML
     private Pane mInProjectContainer;
 
@@ -71,20 +76,34 @@ public class BossController extends BaseController {
         mWelcomeUserName.setText(Controller.currAcc.getUsername());
         mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
-        RequestService requestService = new RequestService();
-        refrashProjectsList();
-
-        RsDomains domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
-        mChooseWorkspace.getItems().addAll(domains.getDomains());
-
+        refresh();
     }
 
-    public void refrashProjectsList() {
+    /**
+     * Metoda odświeżająca listy projektów i domen
+     */
+    @Override
+    public void refresh() {
         RequestService requestService = new RequestService();
 
-        RsProjects projects = requestService.getUserProjects(Controller.currAcc.getUser_id());
-        mProjectsList.getItems().clear();
-        mProjectsList.getItems().addAll(projects.getProjects());
+        RsProjects projects;
+        try {
+            projects = requestService.getUserProjects(Controller.currAcc.getUser_id());
+            mProjectsList.getItems().clear();
+            mProjectsList.getItems().addAll(projects.getProjects());
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy projektów z serwera. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
+
+        RsDomains domains;
+        try {
+            domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+            mChooseWorkspace.getItems().addAll(domains.getDomains());
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -99,6 +118,7 @@ public class BossController extends BaseController {
 
     @FXML
     void closeNotificationsPanel(MouseEvent event) {
+        mNotificationsPanel.setVisible(false);
 
     }
 
@@ -120,12 +140,12 @@ public class BossController extends BaseController {
 
     @FXML
     void showNotificationPanel(MouseEvent event) {
-
+    mNotificationsPanel.setVisible(true);
     }
 
     @FXML
     void showNotificationsPanel(MouseEvent event) {
-
+    mNotificationsPanel.setVisible(true);
     }
 
     @FXML
@@ -147,13 +167,20 @@ public class BossController extends BaseController {
 
             RequestService requestService = new RequestService();
             RqNewProject newProject = new RqNewProject(user_id, project_name, domain_id);
-            RsProject response = requestService.createNewProject(newProject);
+            RsProject response;
+            try {
+                response = requestService.createNewProject(newProject);
 
-            if (response.getMsg().equals("Project name already exist inside this domain"))
-                DialogsUtils.shortErrorDialog("Błąd", "Projekt o takiej nazwie już istnieje.");
-            else if (response.isSuccess()) {
-                DialogsUtils.infoDialog("Sukces", "Utworzono nowy projekt", "Utworzono nowy projekt o nazwie: " + response.getProject_name());
-                refrashProjectsList();
+                if (response.getMsg().equals("Project name already exist inside this domain"))
+                    DialogsUtils.shortErrorDialog("Błąd", "Projekt o takiej nazwie już istnieje.");
+                else if (response.isSuccess()) {
+                    DialogsUtils.infoDialog("Sukces", "Utworzono nowy projekt", "Utworzono nowy projekt o nazwie: " + response.getProject_name());
+                    refresh();
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego projektu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
             }
         } else {
             DialogsUtils.shortErrorDialog("Błąd", "Proszę podać nazwę projetu.");

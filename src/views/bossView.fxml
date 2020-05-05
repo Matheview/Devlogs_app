@@ -29,22 +29,22 @@
                         <String fx:value="user" />
                      </styleClass></Label>
                   <Label fx:id="mPrivilegeUser" layoutX="634.0" layoutY="32.0" styleClass="user-type" stylesheets="@../styles/admin.css" text="kierownik" />
-                  <Pane layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" styleClass="notification-circle" stylesheets="@../styles/admin.css">
+                  <Pane fx:id="mNotificationsCircle" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
+                        <Label fx:id="mNotificationsCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
                      </children>
                   </Pane>
-                  <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="26.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="26.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="homeIcon">
                      <image>
                         <Image url="@../imgs/home.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notificationIcon">
                      <image>
                         <Image url="@../imgs/notification-bell.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                      <image>
                         <Image url="@../imgs/logout.png" />
                      </image>
@@ -72,18 +72,18 @@
                         </ImageView>
                         <Label layoutX="211.0" layoutY="201.0" styleClass="project-label" stylesheets="@../styles/boss.css" text="Nowy projekt" />
                         <TextField fx:id="mNewProjectInput" layoutX="162.0" layoutY="250.0" onInputMethodTextChanged="#checkNewProjectInputValue" promptText="nazwa nowego projektu..." styleClass="new-project-input" stylesheets="@../styles/boss.css" />
-                        <ComboBox fx:id="mChooseWorkspace" layoutX="200.0" layoutY="316.0" onAction="#workspaceSelectedActionEvent" prefWidth="150.0" />
+                        <ComboBox fx:id="mChooseWorkspace" layoutX="200.0" layoutY="316.0" onAction="#workspaceSelectedActionEvent" prefWidth="150.0"  promptText="wybierz przestrzeń"/>
                         <Button fx:id="mAddNewProject" disable="true" layoutX="213.0" layoutY="415.0" mnemonicParsing="false" onAction="#addNewProjectActionEvetnt" onMouseClicked="#createNewProject" styleClass="create-project-btn" stylesheets="@../styles/boss.css" text="Utwórz projekt" />
                      </children>
                   </Pane>
-                  <Pane layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css" visible="false">
+                  <Pane fx:id="mNotificationsPanel" layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css" visible="false">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imgs/notification-bell.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="mCloseNotificationPanelIcon" fitHeight="14.0" fitWidth="20.0" layoutX="264.0" layoutY="20.0" onMouseClicked="#closeNotificationsPanel" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mCloseNotificationPanelIcon" fitHeight="14.0" fitWidth="20.0" layoutX="264.0" layoutY="20.0" onMouseClicked="#closeNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="xIcon">
                            <image>
                               <Image url="@../imgs/close.png" />
                            </image>

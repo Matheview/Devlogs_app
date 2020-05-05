@@ -49,7 +49,7 @@ public class RequestService {
 	 */
 	private void sendJSON (HttpURLConnection connection, String jsonInputString) throws IOException {
         OutputStream out = connection.getOutputStream();
-        out.write(jsonInputString.getBytes("UTF-8"));
+        out.write(jsonInputString.getBytes(CHARSET));
         out.close();
     }
 
@@ -150,42 +150,33 @@ public class RequestService {
 	 * @param userId
 	 * @return ResponseObject - success, msg, users ( List )
 	 */
-	public ResponseObject requestListOfUsers(int userId)
-	{
+	public ResponseObject requestListOfUsers(int userId) throws IOException {
 		String adresSerwera = "http://ssh-vps.nazwa.pl:4742/getinfo/users";
 		StringBuilder sb = new StringBuilder(adresSerwera);
 		sb = sb.append("?user_id=").append(userId);
 		String request = sb.toString();
 
 		ResponseObject ro = new ResponseObject();
-		try {
 
-			URL url = new URL(request);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		URL url = new URL(request);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-			conn.setRequestMethod("GET");
-			conn.setConnectTimeout(5000);
-			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			conn.setDoInput(true);
+		conn.setRequestMethod("GET");
+		conn.setConnectTimeout(5000);
+		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		conn.setDoInput(true);
 
-			InputStream in = new BufferedInputStream(conn.getInputStream());
-			String result = IOUtils.toString(in, "UTF-8");
+		InputStream in = new BufferedInputStream(conn.getInputStream());
+		String result = IOUtils.toString(in, "UTF-8");
 
-			System.out.println("Odpowiedz z serwera : " + result);
+		System.out.println("Odpowiedz z serwera : " + result);
 
-			Gson gson = new Gson();
-			ro = gson.fromJson(result, ResponseObject.class);
+		Gson gson = new Gson();
+		ro = gson.fromJson(result, ResponseObject.class);
 
-			in.close();
-			conn.disconnect();
+		in.close();
+		conn.disconnect();
 
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return ro;
 	}
 
@@ -235,39 +226,31 @@ public class RequestService {
 	 * @param jsonInputString - email, password, domain, privilege, username
 	 * @return ResponseObject success, msg, privilege
 	 */
-	public ResponseObject requestCreateNewUser(String jsonInputString)
-	{
+	public ResponseObject requestCreateNewUser(String jsonInputString) throws IOException {
 		ResponseObject ro = new ResponseObject();
-		try {
-			URL url = new URL("http://ssh-vps.nazwa.pl:4742/users/register");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			System.out.println("Przesylany jSON = " + jsonInputString);
-			conn.setConnectTimeout(5000);
-			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			conn.setDoInput(true);
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
 
-			OutputStream os = conn.getOutputStream();
-			os.write(jsonInputString.getBytes("UTF-8"));
-			os.close();
+		URL url = new URL("http://ssh-vps.nazwa.pl:4742/users/register");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		System.out.println("Przesylany jSON = " + jsonInputString);
+		conn.setConnectTimeout(5000);
+		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		conn.setDoInput(true);
+		conn.setDoOutput(true);
+		conn.setRequestMethod("POST");
 
-			InputStream in = new BufferedInputStream(conn.getInputStream());
-			String result = IOUtils.toString(in, "UTF-8");
+		OutputStream os = conn.getOutputStream();
+		os.write(jsonInputString.getBytes("UTF-8"));
+		os.close();
 
-			Gson gson = new Gson();
-			ro = gson.fromJson(result, ResponseObject.class);
+		InputStream in = new BufferedInputStream(conn.getInputStream());
+		String result = IOUtils.toString(in, "UTF-8");
 
-			in.close();
-			conn.disconnect();
+		Gson gson = new Gson();
+		ro = gson.fromJson(result, ResponseObject.class);
 
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		in.close();
+		conn.disconnect();
+
 		return ro;
 	}
 
@@ -493,31 +476,18 @@ public class RequestService {
      * @param userId Id użytkownika
      * @return Obiekt listy projektów
      */
-    public RsProjects getUserProjects(int userId)
-    {
-        String addressEnd = "/getinfo/projects?user_id=" + Integer.toString(userId);
+    public RsProjects getUserProjects(int userId) throws IOException {
+        String addressEnd = "/getinfo/projects?user_id=" + userId;
 
-		RsProjects responseObject = new RsProjects();
+		HttpURLConnection connection = getConnection(addressEnd, "GET");
 
-        try {
-            HttpURLConnection connection = getConnection(addressEnd, "GET");
+		String result = getServerResponse(connection);
 
-            String result = getServerResponse(connection);
+		Gson gson = new Gson();
+		RsProjects responseObject = gson.fromJson(result, RsProjects.class);
 
-            System.out.println("Odpowiedz z serwera : " + result);
+		connection.disconnect();
 
-            Gson gson = new Gson();
-			responseObject = gson.fromJson(result, RsProjects.class);
-
-            connection.disconnect();
-
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         return responseObject;
     }
 
@@ -526,33 +496,20 @@ public class RequestService {
 	 * @param newProject obiekt zawierający dane, które zostaną wysłane w body requesta
 	 * @return ResponseObject success, msg, privilege
 	 */
-	public RsProject createNewProject(RqNewProject newProject)
-	{
-		RsProject responseObject = new RsProject();
-		try {
-			HttpURLConnection connection = getConnection("/projects/register", "POST");
+	public RsProject createNewProject(RqNewProject newProject) throws IOException {
+		HttpURLConnection connection = getConnection("/projects/register", "POST");
 
-            Gson gson = new Gson();
-            String jsonInputString = gson.toJson(newProject);
-            System.out.println("Przesylany jSON = " + jsonInputString);
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(newProject);
 
-			sendJSON(connection, jsonInputString);
+		sendJSON(connection, jsonInputString);
 
-			String result = getServerResponse(connection);
+		String result = getServerResponse(connection);
 
-			System.out.println("Odpowiedz z serwera : " + result);
+		RsProject responseObject = gson.fromJson(result, RsProject.class);
 
-			responseObject = gson.fromJson(result, RsProject.class);
+		connection.disconnect();
 
-			connection.disconnect();
-
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return responseObject;
 	}
 
@@ -562,31 +519,18 @@ public class RequestService {
 	 * @param userId Id użytkownika
 	 * @return obiekt listy domen
 	 */
-	public RsDomains getUserDomains(int userId)
-	{
-		String addressEnd = "/getinfo/domains?user_id=" + Integer.toString(userId);
+	public RsDomains getUserDomains(int userId) throws IOException {
+		String addressEnd = "/getinfo/domains?user_id=" + userId;
 
-		RsDomains responseObject = new RsDomains();
+		HttpURLConnection connection = getConnection(addressEnd, "GET");
 
-		try {
-			HttpURLConnection connection = getConnection(addressEnd, "GET");
+		String result = getServerResponse(connection);
 
-			String result = getServerResponse(connection);
+		Gson gson = new Gson();
+		RsDomains responseObject = gson.fromJson(result, RsDomains.class);
 
-			System.out.println("Odpowiedz z serwera : " + result);
+		connection.disconnect();
 
-			Gson gson = new Gson();
-			responseObject = gson.fromJson(result, RsDomains.class);
-
-			connection.disconnect();
-
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return responseObject;
 	}
 
