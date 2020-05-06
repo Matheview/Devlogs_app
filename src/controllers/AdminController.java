@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import utils.DialogsUtils;
+import utils.RegexUtils;
 
 import java.awt.event.InputMethodEvent;
 import java.io.IOException;
@@ -205,7 +206,11 @@ public class AdminController extends BaseController {
         String username = mUserName.getText();
         int user_id = Controller.currAcc.getUser_id();
 
-        if ((!username.isEmpty()) && (!email.isEmpty()) && (!password.isEmpty())) {
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty())
+            DialogsUtils.shortErrorDialog("Błąd", "Proszę wypełnić wszystkie pola.");
+        else if (!RegexUtils.validateEmail(email))
+            DialogsUtils.shortErrorDialog("Błąd", "Wpisano niepoprawny adres e-mail..");
+        else {
             RequestService requestService = new RequestService();
             RequestData requestData = new RequestData(email, password, domain, user_id, privilage, username);
 
@@ -226,8 +231,7 @@ public class AdminController extends BaseController {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego użytkownika. Błąd połączenia z serwerem.");
                 e.printStackTrace();
             }
-        } else
-            DialogsUtils.shortErrorDialog("Błąd", "Proszę wypełnić wszystkie pola.");
+        }
     }
 
     @FXML //Metoda do przycisku wysyłająca dane z inputa na serwer w celu stworzenia nowej przestrzeni
