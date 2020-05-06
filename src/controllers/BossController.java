@@ -88,7 +88,7 @@ public class BossController extends BaseController {
 
         RsProjects projects;
         try {
-            projects = requestService.getUserProjects(Controller.currAcc.getUser_id());
+            projects = requestService.getUserProjects(getUserId());
             mProjectsList.getItems().clear();
             mProjectsList.getItems().addAll(projects.getProjects());
         } catch (IOException e) {
@@ -99,6 +99,7 @@ public class BossController extends BaseController {
         RsDomains domains;
         try {
             domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+            mChooseWorkspace.getItems().clear();
             mChooseWorkspace.getItems().addAll(domains.getDomains());
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
@@ -162,7 +163,7 @@ public class BossController extends BaseController {
     public void addNewProjectActionEvetnt(ActionEvent actionEvent) {
         String project_name = mNewProjectInput.getText();
         if (!project_name.isEmpty()){
-            int user_id = Controller.currAcc.getUser_id();
+            int user_id = getUserId();
             int domain_id = mChooseWorkspace.getValue().getId();
 
             RequestService requestService = new RequestService();

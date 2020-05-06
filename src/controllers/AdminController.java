@@ -109,9 +109,9 @@ public class AdminController extends BaseController {
     public void refresh() {
         RequestService requestService = new RequestService();
 
-        RsDomains domains;
         try {
-            domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+            RsDomains domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+            mWorkspaceList.getItems().clear();
             mWorkspaceList.getItems().addAll(domains.getDomains());
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
@@ -120,9 +120,10 @@ public class AdminController extends BaseController {
 
         try {
             ResponseObject responseObject = requestService.requestListOfUsers(Controller.currAcc.getUser_id());
+            mUserlist.getItems().clear();
             mUserlist.getItems().addAll(responseObject.getUsers());
         } catch (IOException e) {
-            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy użytkowników z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
         }
     }
@@ -136,7 +137,7 @@ public class AdminController extends BaseController {
 
     @FXML //Metoda zamykająca panel powiadomień
     void closeNotificationsPanel(MouseEvent event) {
-    mNotificationsPanel.setVisible(false);
+        mNotificationsPanel.setVisible(false);
     }
 
     @FXML //Metoda sprawdzająca czy checkbox z typem konta admin jest true
@@ -204,12 +205,12 @@ public class AdminController extends BaseController {
         String domain = Controller.currAcc.getDomain();
         String privilage = selectedButton.getText();
         String username = mUserName.getText();
-        int user_id = Controller.currAcc.getUser_id();
+        int user_id = getUserId();
 
         if (username.isEmpty() || email.isEmpty() || password.isEmpty())
             DialogsUtils.shortErrorDialog("Błąd", "Proszę wypełnić wszystkie pola.");
         else if (!RegexUtils.validateEmail(email))
-            DialogsUtils.shortErrorDialog("Błąd", "Wpisano niepoprawny adres e-mail..");
+            DialogsUtils.shortErrorDialog("Błąd", "Wpisano niepoprawny adres e-mail.");
         else {
             RequestService requestService = new RequestService();
             RequestData requestData = new RequestData(email, password, domain, user_id, privilage, username);
@@ -221,9 +222,9 @@ public class AdminController extends BaseController {
                 response = requestService.requestCreateNewUser(inputJSON);
 
                 if (response.getMsg().equals("Email alredy exists"))
-                    DialogsUtils.shortErrorDialog("Błąd", "Użytkownik o takim emailu już istnieje..");
+                    DialogsUtils.shortErrorDialog("Błąd", "Użytkownik o takim emailu już istnieje");
                 else if (response.isSuccess()) {
-                    DialogsUtils.infoDialog("Sukces", "Utworzono nowego użytkownika", "Utworzono nowego użytkownika: " + response.getUsername());
+                    DialogsUtils.infoDialog("Sukces", "Utworzono nowego użytkownika.", "Utworzono nowego użytkownika: " + response.getUsername() + ".");
                     refresh();
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
@@ -236,7 +237,33 @@ public class AdminController extends BaseController {
 
     @FXML //Metoda do przycisku wysyłająca dane z inputa na serwer w celu stworzenia nowej przestrzeni
     void makeNewWorkspace(ActionEvent event) {
+        String domain = mWorkspaceName.getText();
+        int user_id = getUserId();
 
+        if (domain.isEmpty())
+            DialogsUtils.shortErrorDialog("Błąd", "Proszę podać nazwę nowej przestrzeni roboczej.");
+        else {
+            RequestService requestService = new RequestService();
+            RequestData requestData = new RequestData(user_id, domain);
+
+            Gson gson = new Gson();
+            String inputJSON = gson.toJson(requestData);
+            ResponseObject response;
+            try {
+                response = requestService.requestCreateNewDomain(inputJSON);
+
+                if (response.getMsg().equals("Domain already exists"))
+                    DialogsUtils.shortErrorDialog("Błąd", "Przestrzeń o takiej nazwie już istnieje.");
+                else if (response.isSuccess()) {
+                    DialogsUtils.infoDialog("Sukces", "Utworzono nową przestrzeń roboczą.", "Utworzono nową przestrzeń roboczą o nazwie: " + domain + ".");
+                    refresh();
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowej przestrzeni. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML //Metoda wywołująca panel powiadomień
