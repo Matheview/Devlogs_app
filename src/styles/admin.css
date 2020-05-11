@@ -107,7 +107,7 @@
   -fx-background-color: #fff;
   -fx-border-style: solid none solid none;
   -fx-border-width: 2px;
-  -fx-border-color: #2343e4;
+  -fx-border-color: #1c1c1e;
 }
 
 .info-panel-text {
@@ -124,10 +124,44 @@
   -fx-background-color: #ffffff;
   -fx-text-fill: #2343e4;
   -fx-border-color: #2343e4;
+  -fx-margin: 10px 0;
 }
 
 .user-list-item {
   -fx-background-color: #ffffff;
   -fx-text-fill: #2343e4;
   -fx-border-color: #2343e4;
+  -fx-margin: 10px 0;
+}
+
+.user-profile {
+   -fx-font-size: 20px;
+}
+
+.user-profile-name {
+  -fx-font-size: 30px;
+  -fx-text-fill: #2343e4;
+}
+
+.user-data {
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+}
+
+.profile-delete {
+  -fx-text-fill: #DE2121;
+  -fx-font-weight: bold;
+  -fx-cursor: hand;
+}
+
+.delete-icon {
+   -fx-cursor: hand;
+}
+
+.change-status-btn {
+  -fx-background-color: #2343e4;
+  -fx-text-fill: #fff;
+  -fx-padding: 4px 8px;
+  -fx-cursor: hand;
+
 }

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -12,29 +13,33 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="395.0" style="-fx-background-color: black; -fx-border-radius: 150px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <children>
-      <Pane layoutX="26.0" layoutY="75.0" prefHeight="473.0" prefWidth="335.0" style="-fx-background-color: white; -fx-background-radius: 30px; -fx-font-family: &quot;Lato&quot;;">
+      <Pane layoutX="30.0" layoutY="80.0" prefHeight="473.0" prefWidth="335.0" style="-fx-background-color: white; -fx-background-radius: 30px; -fx-font-family: &quot;Lato&quot;;">
          <children>
-            <Button fx:id="mRemindPwd" layoutX="168.0" layoutY="359.0" mnemonicParsing="false" style="-fx-text-fill: #2343E4; -fx-background-color: white;" text="Zapomniałem hasła" />
+            <Button fx:id="mRemindPwd" layoutX="169.0" layoutY="361.0" mnemonicParsing="false" style="-fx-text-fill: #2343E4; -fx-background-color: white;" styleClass="forgotten-pass" stylesheets="@../styles/login.css" text="Zapomniałem hasła..." />
+            <ImageView fx:id="mLoginImage" fitHeight="128.0" fitWidth="128.0" layoutX="100.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imgs/loginImage.png" />
+               </image></ImageView>
+            <Text layoutX="73.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Zaloguj się aby kontynuować" />
+            <Button fx:id="mBtnLogin" layoutX="123.0" layoutY="405.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="90.0" styleClass="login-btn" stylesheets="@../styles/login.css" text="Zaloguj">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </children></Pane>
-      <ImageView fx:id="mLoginImage" fitHeight="123.0" fitWidth="133.0" layoutX="145.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField fx:id="mDomain" alignment="TOP_LEFT" cache="true" layoutX="72.0" layoutY="283.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj domenę..." style="-fx-border-radius: 30; -fx-background-color: black; -fx-text-fill: white;">
+      <TextField fx:id="mDomain" cache="true" layoutX="72.0" layoutY="283.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj domenę..." styleClass="login-input" stylesheets="@../styles/login.css">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </TextField>
-      <Text layoutX="120.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zaloguj się aby kontynuować" />
-      <TextField fx:id="mUsername" alignment="TOP_LEFT" layoutX="72.0" layoutY="336.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj login..." style="-fx-border-radius: 30; -fx-background-color: black; -fx-text-fill: white;">
+      <TextField fx:id="mUsername" layoutX="72.0" layoutY="336.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj login..." styleClass="login-input" stylesheets="@../styles/login.css">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </TextField>
-      <Button fx:id="mBtnLogin" layoutX="129.0" layoutY="469.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" style="-fx-background-color: #2343E4; -fx-text-fill: white; -fx-background-radius: 30px;" text="Zaloguj">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Button>
-      <PasswordField fx:id="mPassword" layoutX="72.0" layoutY="388.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj hasło..." style="-fx-background-color: black; -fx-text-fill: white; -fx-border-radius: 30;" />
-      <Pane fx:id="mBlurPopup" layoutY="63.0" opacity="0.68" prefHeight="506.0" prefWidth="395.0" style="-fx-background-color: gray;" />
-      <Pane fx:id="mPopupPwd" layoutX="17.0" layoutY="120.0" prefHeight="325.0" prefWidth="360.0" style="-fx-background-color: #454545; -fx-border-color: white;">
+      <PasswordField fx:id="mPassword" layoutX="72.0" layoutY="388.0" prefHeight="35.0" prefWidth="250.0" promptText="podaj hasło..." styleClass="login-input" stylesheets="@../styles/login.css" />
+      <Pane fx:id="mBlurPopup" layoutY="63.0" opacity="0.68" prefHeight="506.0" prefWidth="395.0" style="-fx-background-color: gray;" visible="false" />
+      <Pane fx:id="mPopupPwd" layoutX="17.0" layoutY="120.0" prefHeight="325.0" prefWidth="360.0" style="-fx-background-color: #454545; -fx-border-color: white;" visible="false">
          <children>
             <Hyperlink fx:id="mLink" layoutX="43.0" layoutY="108.0" prefHeight="41.0" prefWidth="250.0" text="Hyperlink" visible="false" wrapText="true" />
             <Button fx:id="mClosePopup" graphicTextGap="5.0" layoutX="322.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white;" text="X">
@@ -79,13 +84,11 @@
       </Pane>
       <Pane prefHeight="63.0" prefWidth="395.0" style="-fx-background-color: white;">
          <children>
-            <ImageView fx:id="mLogoImage" fitHeight="48.0" fitWidth="47.0" layoutX="7.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-            <Text fx:id="login" layoutX="54.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Devslog" wrappingWidth="250.0">
-               <font>
-                  <Font size="41.0" />
-               </font>
-            </Text>
-         </children>
-      </Pane>
+            <ImageView fitHeight="63.0" fitWidth="197.0" layoutX="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imgs/logo.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
    </children>
 </Pane>

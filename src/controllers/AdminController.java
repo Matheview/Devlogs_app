@@ -66,6 +66,12 @@ public class AdminController extends BaseController {
     private TextField mWorkspaceSearch;
 
     @FXML
+    private ImageView mSearchUserIcon;
+
+    @FXML
+    private ImageView mSearchWorkspaceIcon;
+
+    @FXML
     private ListView<Domain> mWorkspaceList;
 
     @FXML
@@ -102,6 +108,7 @@ public class AdminController extends BaseController {
 
     @FXML
     private ImageView mInfoIcon;
+    // Tutaj trzeba będzie zmieniać src zdjęcia w zależności czy to informacja czy warning
 
     @FXML
     private Label mTextInfoPanel;
@@ -113,7 +120,45 @@ public class AdminController extends BaseController {
     @FXML
     private ImageView mCLoseInfoPanelIcon;
 
-    // <-
+    // Zmienne do popapu z informacjami o danym userze
+
+    @FXML
+    private Pane mUserInfoPanel; // cały panel
+
+    @FXML
+    private Label mUserPanelName; // nazwa usera - do niej przypisać dane z backendu
+
+    @FXML
+    private Label mUserPanelEmail; // email usera - do niej przypisać dane z backendu
+
+    @FXML
+    private Label mUserPanelProjects; // projekty usera - tutaj można dać tablicę stringów z nazwami wszystkich projektów danego usera
+
+    @FXML
+    private Label mUserPanelStatus; // status danego użytkownika -> uwaga, przy zmianie statusu pasuje zablokować moźliwość zmiany statusu z tego samego na ten sam (trzeba to obsłużyć)
+
+    @FXML
+    private RadioButton mUserPanelAdminStatus; // tu checkboxy do zmiany status, domyślnie jest zaznaczony zwykły użytkownik
+
+    @FXML
+    private RadioButton mUserPanelBossStatus;
+
+    @FXML
+    private RadioButton mUserPanelCommonUserStatus;
+
+    @FXML
+    private Button mUserPanelBtn; // przycisk do zatwierdzenia statusu
+
+    @FXML
+    private ImageView mDeleteUserIcon; // ikona do usunięcia profilu -> uwaga (patrz linia 152)
+
+    @FXML
+    private ImageView mCloseUserPanelIcon; // ikona do zamknięcia popapu
+
+    @FXML
+    private Label mDeleteProfileText; // tekst, po kliknięciu także  usuwa  usera -> uwaga, po kliknięciu trzeba wywołąć popap z warningiem "Czy napewno chcesz usunąć ?", a dopiero po tym wywołać metodę usuwajacą
+
+
 
 
     //Views initialize
@@ -374,6 +419,20 @@ public class AdminController extends BaseController {
     public void acceptInfoPanel(MouseEvent event) {
         mInfoPanel.setVisible(false);
     }
-    //FUNKCJE DO OBSŁUŻENIA BACKEND
+
+    @FXML // funkcja do zmiany statusu usera w popapie
+    void changeThisUserStatus(MouseEvent event) {
+
+    }
+
+    @FXML
+    void closeUserInfoPanel(MouseEvent event) {
+        mUserInfoPanel.setVisible(false);
+    }
+
+    @FXML // funkcja usuwająca usera z bazy
+    void deleteThisUser(MouseEvent event) {
+
+    }
 
 }
