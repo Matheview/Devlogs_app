@@ -105,3 +105,19 @@
     -fx-font-size: 14px;
     -fx-text-fill: #2343E4;
 }
+
+.domain-list-item {
+    -fx-background-color: #000;
+}
+
+.domain-list-item {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #2343E4;
+    -fx-border-color: #2343E4;
+}
+
+.user-list-item {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #2343E4;
+    -fx-border-color: #2343E4;
+}

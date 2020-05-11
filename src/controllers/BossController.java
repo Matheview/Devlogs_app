@@ -91,6 +91,21 @@ public class BossController extends BaseController {
             projects = requestService.getUserProjects(getUserId());
             mProjectsList.getItems().clear();
             mProjectsList.getItems().addAll(projects.getProjects());
+
+            // funkcja nadająca elementom listy klasę css
+            mProjectsList.setCellFactory(lv -> new ListCell<Project>() {
+                @Override
+                protected void updateItem(Project project, boolean empty) {
+                    super.updateItem(project, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(project.toString());
+                    }
+                    // nadanie elementowi listy klasy css
+                    getStyleClass().add("project-list-item");
+                }
+            });
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy projektów z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();

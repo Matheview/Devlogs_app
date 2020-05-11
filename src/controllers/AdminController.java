@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -134,6 +135,22 @@ public class AdminController extends BaseController {
             RsDomains domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
             mWorkspaceList.getItems().clear();
             mWorkspaceList.getItems().addAll(domains.getDomains());
+            // funkcja nadająca elementom listy klasę css
+            mWorkspaceList.setCellFactory(lv -> new ListCell<Domain>() {
+                private ImageView image1 = new ImageView();
+                private ImageView image2 = new ImageView();
+                @Override
+                protected void updateItem(Domain domain, boolean empty) {
+                    super.updateItem(domain, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(domain.toString());
+                    }
+                    // nadanie elementowi listy klasy css
+                    getStyleClass().add("domain-list-item");
+                }
+            });
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
@@ -143,6 +160,21 @@ public class AdminController extends BaseController {
             ResponseObject responseObject = requestService.requestListOfUsers(Controller.currAcc.getUser_id());
             mUserlist.getItems().clear();
             mUserlist.getItems().addAll(responseObject.getUsers());
+
+            // funkcja nadająca elementom listy klasę css
+            mUserlist.setCellFactory(lv -> new ListCell<User>() {
+                @Override
+                protected void updateItem(User user, boolean empty) {
+                    super.updateItem(user, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(user.toString());
+                    }
+                    // nadanie elementowi listy klasy css
+                    getStyleClass().add("user-list-item");
+                }
+            });
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy użytkowników z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
