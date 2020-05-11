@@ -89,7 +89,11 @@
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #2343E4;
     -fx-padding: 10px 20px;
-    -fx-font-family: Righteous;
+    -fx-font-family: "Righteous";
+    -fx-cursor: hand;
+}
+
+.close-icon {
     -fx-cursor: hand;
 }
 
@@ -97,11 +101,12 @@
     -fx-background-color: #fff;
     -fx-border-style: solid none solid none;
     -fx-border-width: 2px;
-    -fx-border-color: #1C1C1E;
+    -fx-border-color: #2343E4;
 }
 
 .info-panel-text {
-    -fx-font-family: Righteous;
+    -fx-font-family: "Righteous";
     -fx-font-size: 14px;
     -fx-text-fill: #2343E4;
 }
+
