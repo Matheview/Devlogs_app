@@ -20,17 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ffcafb0-1c43-47dd-8b5f-cc164ce4ec31" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/JavaFX14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/JavaFX14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/bin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/bin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/commons_io_2_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/commons_io_2_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_core_asl_1_9_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_core_asl_1_9_13.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_mapper_asl_1_9_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_mapper_asl_1_9_13.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_mrbean_1_9_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_mrbean_1_9_13.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/java_json.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/java_json.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx_sdk_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/javafx_sdk_14_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Devlogs_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Devlogs_app.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,6 +127,7 @@
       <workItem from="1588773270763" duration="8750000" />
       <workItem from="1588882813964" duration="847000" />
       <workItem from="1589036047295" duration="745000" />
+      <workItem from="1589203209816" duration="357000" />
     </task>
     <servers />
   </component>
