@@ -94,6 +94,27 @@ public class AdminController extends BaseController {
     @FXML
     private Label mNotificationsCounter;
 
+    // Zmienne do popapów informacyjnych ->
+
+    @FXML
+    private Pane mInfoPanel;
+
+    @FXML
+    private ImageView mInfoIcon;
+
+    @FXML
+    private Label mTextInfoPanel;
+    // Do tej zmiennej trzeba przypisywać tekst informacji w zależności od tego co użytkownik zrobił źle np. podał słabe hasło lub nie podał w ogóle itd.
+
+    @FXML
+    private Button mCloseInfoButton;
+
+    @FXML
+    private ImageView mCLoseInfoPanelIcon;
+
+    // <-
+
+
     //Views initialize
     public void initialize() {
         mWelcomeUserName.setText(Controller.currAcc.getUsername());
@@ -311,5 +332,16 @@ public class AdminController extends BaseController {
     @FXML
     public void handleFindUser(javafx.scene.input.InputMethodEvent inputMethodEvent) {
     }
+
+    @FXML
+    public void closeInfoPanel(MouseEvent event) {
+        mInfoPanel.setVisible(false);
+    }
+
+    @FXML
+    public void acceptInfoPanel(MouseEvent event) {
+        mInfoPanel.setVisible(false);
+    }
     //FUNKCJE DO OBSŁUŻENIA BACKEND
+
 }

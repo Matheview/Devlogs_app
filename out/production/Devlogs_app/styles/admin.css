@@ -92,3 +92,16 @@
     -fx-font-family: Righteous;
     -fx-cursor: hand;
 }
+
+.info-panel {
+    -fx-background-color: #fff;
+    -fx-border-style: solid none solid none;
+    -fx-border-width: 2px;
+    -fx-border-color: #1C1C1E;
+}
+
+.info-panel-text {
+    -fx-font-family: Righteous;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2343E4;
+}

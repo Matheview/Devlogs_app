@@ -137,6 +137,22 @@
                         <ListView fx:id="mNotificationsList" layoutX="35.0" layoutY="105.0" prefHeight="180.0" prefWidth="230.0" />
                      </children>
                   </Pane>
+                  <Pane fx:id="mInfoPanel" prefHeight="100.0" prefWidth="1024.0" styleClass="info-panel" stylesheets="@../styles/admin.css">
+                     <children>
+                        <ImageView fx:id="mInfoIcon" fitHeight="53.0" fitWidth="53.0" layoutX="86.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/info.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="mTextInfoPanel" layoutX="189.0" layoutY="42.0" styleClass="info-panel-text" text="Lorem ipsum rat sympatium pozdro dla kumatych..." />
+                        <Button fx:id="mCloseInfoButton" layoutX="834.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#acceptInfoPanel" styleClass="creator-btn" text="OK" />
+                        <ImageView fx:id="mCLoseInfoPanelIcon" fitHeight="17.0" fitWidth="14.0" layoutX="982.0" layoutY="17.0" onMouseClicked="#closeInfoPanel" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children></Pane>
          </children>
       </AnchorPane>
