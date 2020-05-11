@@ -20,12 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ffcafb0-1c43-47dd-8b5f-cc164ce4ec31" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/JavaFX14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/JavaFX14.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/bin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/bin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/commons_io_2_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/commons_io_2_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_core_asl_1_9_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_core_asl_1_9_13.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_mapper_asl_1_9_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_mapper_asl_1_9_13.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_mrbean_1_9_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jackson_mrbean_1_9_13.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/java_json.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/java_json.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx_sdk_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/javafx_sdk_14_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/RequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/RequestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BossController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/RegexUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/RegexUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Devlogs_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Devlogs_app.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,11 +94,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Main" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -134,7 +134,9 @@
       <workItem from="1588678377239" duration="1384000" />
       <workItem from="1588680145384" duration="4190000" />
       <workItem from="1588695629582" duration="11218000" />
-      <workItem from="1588773270763" duration="8153000" />
+      <workItem from="1588773270763" duration="8750000" />
+      <workItem from="1588882813964" duration="847000" />
+      <workItem from="1589036047295" duration="745000" />
     </task>
     <servers />
   </component>
@@ -174,26 +176,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="536" y="287" key="DetectedRootsChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1587313532411" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1588366931837">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1589038732005">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588366931837" />
-    <state width="1493" height="161" key="GridCell.Tab.0.bottom" timestamp="1588788748061">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589038732005" />
+    <state width="1493" height="161" key="GridCell.Tab.0.bottom" timestamp="1588789486175">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588788748061" />
-    <state width="1493" height="161" key="GridCell.Tab.0.center" timestamp="1588788748061">
+    <state width="1493" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588789486175" />
+    <state width="1493" height="161" key="GridCell.Tab.0.center" timestamp="1588789486174">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588788748061" />
-    <state width="1493" height="161" key="GridCell.Tab.0.left" timestamp="1588788748061">
+    <state width="1493" height="161" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588789486174" />
+    <state width="1493" height="161" key="GridCell.Tab.0.left" timestamp="1588789486174">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588788748061" />
-    <state width="1493" height="161" key="GridCell.Tab.0.right" timestamp="1588788748061">
+    <state width="1493" height="161" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588789486174" />
+    <state width="1493" height="161" key="GridCell.Tab.0.right" timestamp="1588789486175">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588788748061" />
+    <state width="1493" height="161" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588789486175" />
     <state x="154" y="0" width="1231" height="824" key="SettingsEditor" timestamp="1588684556667">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -202,9 +204,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1536.824@0.0.1536.824" timestamp="1587313103345" />
-    <state x="209" y="73" key="new project wizard" timestamp="1588254456902">
+    <state x="209" y="73" key="new project wizard" timestamp="1589036204235">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="209" y="73" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1588254456902" />
+    <state x="209" y="73" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1589036204235" />
   </component>
 </project>
