@@ -99,6 +99,14 @@
   -fx-cursor: hand;
 }
 
+.error-btn {
+  -fx-text-fill: #ffffff;
+  -fx-background-color: #DE2121;
+  -fx-padding: 10px 20px;
+  -fx-font-family: "Righteous";
+  -fx-cursor: hand;
+}
+
 .close-icon {
   -fx-cursor: hand;
 }
@@ -114,6 +122,12 @@
   -fx-font-family: "Righteous";
   -fx-font-size: 14px;
   -fx-text-fill: #2343e4;
+}
+
+.error-panel-text {
+  -fx-font-family: "Righteous";
+  -fx-font-size: 14px;
+  -fx-text-fill: #DE2121;
 }
 
 .domain-list-item {

@@ -165,7 +165,7 @@
                               <Image url="@../imgs/info.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="mTextInfoPanel" layoutX="166.0" layoutY="42.0" styleClass="info-panel-text" text="Nie zamykaj sobie profilu użytkownika, bo nie ma funkcji, która go wywoła. Jest podpięty na sztywno :)" wrapText="true" />
+                        <Label fx:id="mTextInfoPanel" layoutX="166.0" layoutY="42.0" styleClass="info-panel-text" text="Panel informacyjny" wrapText="true" />
                         <Button fx:id="mCloseInfoButton" layoutX="834.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#acceptInfoPanel" styleClass="creator-btn" text="OK" />
                         <ImageView fx:id="mCLoseInfoPanelIcon" fitHeight="14.0" fitWidth="14.0" layoutX="982.0" layoutY="17.0" onMouseClicked="#closeInfoPanel" pickOnBounds="true" preserveRatio="true" styleClass="close-icon">
                            <image>
