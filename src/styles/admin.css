@@ -77,7 +77,7 @@
 
 .user-info {
   -fx-pref-width: 400px;
-  -fx-pref-height: 500px;
+  -fx-pref-height: 550px;
   -fx-background-color: #1c1c1e;
   -fx-background-radius: 30px;
 }
@@ -94,6 +94,14 @@
 .creator-btn {
   -fx-text-fill: #ffffff;
   -fx-background-color: #2343e4;
+  -fx-padding: 10px 20px;
+  -fx-font-family: "Righteous";
+  -fx-cursor: hand;
+}
+
+.error-btn {
+  -fx-text-fill: #ffffff;
+  -fx-background-color: #DE2121;
   -fx-padding: 10px 20px;
   -fx-font-family: "Righteous";
   -fx-cursor: hand;
@@ -116,6 +124,12 @@
   -fx-text-fill: #2343e4;
 }
 
+.error-panel-text {
+  -fx-font-family: "Righteous";
+  -fx-font-size: 14px;
+  -fx-text-fill: #DE2121;
+}
+
 .domain-list-item {
   -fx-background-color: #000;
 }
@@ -125,6 +139,7 @@
   -fx-text-fill: #2343e4;
   -fx-border-color: #2343e4;
   -fx-margin: 10px 0;
+  -fx-cursor: hand;
 }
 
 .user-list-item {
@@ -132,6 +147,7 @@
   -fx-text-fill: #2343e4;
   -fx-border-color: #2343e4;
   -fx-margin: 10px 0;
+  -fx-cursor: hand;
 }
 
 .user-profile {
@@ -141,6 +157,7 @@
 .user-profile-name {
   -fx-font-size: 30px;
   -fx-text-fill: #2343e4;
+  -fx-text-alignment: center;
 }
 
 .user-data {
@@ -163,5 +180,9 @@
   -fx-text-fill: #fff;
   -fx-padding: 4px 8px;
   -fx-cursor: hand;
-
 }
+
+.workspaces-list {
+    -fx-text-fill: #000;
+}
+

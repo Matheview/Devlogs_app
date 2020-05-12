@@ -3,6 +3,7 @@ package sample;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -25,6 +26,8 @@ public class Main extends Application {
         Pane pane = loader.load();
         Scene scene = new Scene(pane);
 
+        primaryStage.setTitle(AppInfo.TITLE + " - logowanie");
+        primaryStage.getIcons().add(AppInfo.ICON);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

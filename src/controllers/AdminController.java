@@ -1,12 +1,15 @@
 package controllers;
 
 import backend.RequestData;
+import backend.responseObjects.RsUserInfo;
 import backend.responseObjects.User;
 import backend.responseObjects.Domain;
 import backend.RequestService;
 import backend.ResponseObject;
 import backend.responseObjects.RsDomains;
 import com.google.gson.Gson;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utils.DialogsUtils;
 import utils.RegexUtils;
@@ -120,6 +124,15 @@ public class AdminController extends BaseController {
     @FXML
     private ImageView mCLoseInfoPanelIcon;
 
+    @FXML
+    public Pane mNotificationsCircle;
+
+    @FXML
+    public ImageView mHomeIcon;
+
+    @FXML
+    public ImageView mNotificationsIcon;
+
     // Zmienne do popapu z informacjami o danym userze
 
     @FXML
@@ -158,7 +171,23 @@ public class AdminController extends BaseController {
     @FXML
     private Label mDeleteProfileText; // tekst, po kliknięciu także  usuwa  usera -> uwaga, po kliknięciu trzeba wywołąć popap z warningiem "Czy napewno chcesz usunąć ?", a dopiero po tym wywołać metodę usuwajacą
 
+    @FXML
+    public Label mUserPanelEmailLabel;
 
+    @FXML
+    public Label mUserPanelProjectsLabel;
+
+    @FXML
+    public Label mUserPanelStatusLabel;
+
+    @FXML
+    public ToggleGroup mInfoPanelAccountType;
+
+    @FXML
+    private ListView<Domain> mUserWorkspacesList;
+
+    @FXML
+    public Label mUserAccountDate;
 
 
     //Views initialize
@@ -167,6 +196,19 @@ public class AdminController extends BaseController {
         mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
         refresh();
+
+        /**
+         * Funkcja nasłuchująca, jaki użytkownik na liście został kliknięty. Otiera panel z informacjami o użytkowniku
+         */
+        mUserlist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
+
+            @Override
+            public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
+                mUserInfoPanel.setVisible(true);
+
+                refreshUserInfoPanel(newValue);
+            }
+        });
     }
 
     /**
@@ -224,6 +266,90 @@ public class AdminController extends BaseController {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy użytkowników z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Odświeża panel z informacjami o użytkowniku
+     * @param user użytkownik, którego dane mają zostać wyświetlone
+     */
+    private void refreshUserInfoPanel(User user) {
+        if (user != null) {
+            RequestService requestService = new RequestService();
+
+            int user_id = user.getId();
+
+            RsUserInfo response;
+            try {
+                response = requestService.getUserInfo(user_id);
+
+                if (response.isSuccess()) {
+
+                    mUserPanelName.setText(response.getName());
+                    mUserPanelEmail.setText(response.getEmail());
+                    mUserPanelStatus.setText(user.getPrivilege());
+                    mUserWorkspacesList.getItems().clear();
+                    mUserWorkspacesList.getItems().addAll(response.getDomains());
+                    mUserAccountDate.setText(response.getCreated_at());
+
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać informacji o użytkowniku. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Funkcja wyświetlająca powiadomienie z informacją
+     */
+    public void showInfoPanel(String message) {
+        mInfoPanel.setVisible(true);
+
+        mInfoIcon.setImage(new Image("/imgs/info.png"));
+
+        mTextInfoPanel.getStyleClass().clear();
+        mTextInfoPanel.getStyleClass().add("info-panel-text");
+        mTextInfoPanel.setText(message);
+
+        mCloseInfoButton.getStyleClass().clear();
+        mCloseInfoButton.getStyleClass().add("creator-btn");
+
+        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close.png"));
+    }
+
+    /**
+     * Funkcja wyświetlająca powiadomienie o błędzie
+     */
+    public void showErrorPanel(String message) {
+        mInfoPanel.setVisible(true);
+
+        mInfoIcon.setImage(new Image("/imgs/warn.png"));
+
+        mTextInfoPanel.getStyleClass().clear();
+        mTextInfoPanel.getStyleClass().add("error-panel-text");
+        mTextInfoPanel.setText(message);
+
+        mCloseInfoButton.getStyleClass().clear();
+        mCloseInfoButton.getStyleClass().add("error-btn");
+
+        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close-red.png"));
+    }
+
+    /**
+     * Funkcja czyszcząca pola do tworzenia nowego użytkownika
+     */
+    public void clearNewUserFields() {
+        mEmail.setText("");
+        mPassword.setText("");
+        mUserName.setText("");
+    }
+
+    /**
+     * Funkcja czyszcząca pola do tworzenia nowej przestrzeni roboczej
+     */
+    public void clearNewDomainFields() {
+        mWorkspaceName.setText("");
     }
 
     //Metody ( nie wszystkie metody i zmienne będą potrzebne, ale są wyciągnięte w razie W )----------------------------------------------------
@@ -306,9 +432,9 @@ public class AdminController extends BaseController {
         int user_id = getUserId();
 
         if (username.isEmpty() || email.isEmpty() || password.isEmpty())
-            DialogsUtils.shortErrorDialog("Błąd", "Proszę wypełnić wszystkie pola.");
+            showErrorPanel("Błąd: Proszę wypełnić wszystkie pola.");
         else if (!RegexUtils.validateEmail(email))
-            DialogsUtils.shortErrorDialog("Błąd", "Wpisano niepoprawny adres e-mail.");
+            showErrorPanel("Błąd: Wpisano niepoprawny adres e-mail.");
         else {
             RequestService requestService = new RequestService();
             RequestData requestData = new RequestData(email, password, domain, user_id, privilage, username);
@@ -320,10 +446,11 @@ public class AdminController extends BaseController {
                 response = requestService.requestCreateNewUser(inputJSON);
 
                 if (response.getMsg().equals("Email alredy exists"))
-                    DialogsUtils.shortErrorDialog("Błąd", "Użytkownik o takim emailu już istnieje");
+                    showErrorPanel("Błąd: Użytkownik o takim emailu już istnieje");
                 else if (response.isSuccess()) {
-                    DialogsUtils.infoDialog("Sukces", "Utworzono nowego użytkownika.", "Utworzono nowego użytkownika: " + response.getUsername() + ".");
+                    showInfoPanel("Sukces! Utworzono nowego użytkownika: " + username + ", o uprawnieniach: " + privilage + ".");
                     refresh();
+                    clearNewUserFields();
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
@@ -339,7 +466,7 @@ public class AdminController extends BaseController {
         int user_id = getUserId();
 
         if (domain.isEmpty())
-            DialogsUtils.shortErrorDialog("Błąd", "Proszę podać nazwę nowej przestrzeni roboczej.");
+            showErrorPanel("Błąd: Proszę podać nazwę nowej przestrzeni roboczej.");
         else {
             RequestService requestService = new RequestService();
             RequestData requestData = new RequestData(user_id, domain);
@@ -351,10 +478,11 @@ public class AdminController extends BaseController {
                 response = requestService.requestCreateNewDomain(inputJSON);
 
                 if (response.getMsg().equals("Domain already exists"))
-                    DialogsUtils.shortErrorDialog("Błąd", "Przestrzeń o takiej nazwie już istnieje.");
+                    showErrorPanel("Błąd: Przestrzeń o takiej nazwie już istnieje.");
                 else if (response.isSuccess()) {
-                    DialogsUtils.infoDialog("Sukces", "Utworzono nową przestrzeń roboczą.", "Utworzono nową przestrzeń roboczą o nazwie: " + domain + ".");
+                    showInfoPanel("Sukces: Utworzono nową przestrzeń roboczą o nazwie: " + domain + ".");
                     refresh();
+                    clearNewDomainFields();
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {

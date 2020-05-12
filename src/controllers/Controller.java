@@ -25,6 +25,7 @@ import backend.RequestData;
 import backend.RequestService;
 import backend.ResponseObject;
 import javafx.stage.Window;
+import sample.AppInfo;
 
 import java.awt.*;
 import java.io.IOException;
@@ -87,7 +88,8 @@ public class Controller extends Application {
 
             Scene scene = new Scene(pane);
             Stage stage = new Stage();
-            stage.setTitle(title);
+            stage.setTitle(AppInfo.TITLE + " - " + title);
+            stage.getIcons().add(AppInfo.ICON);
             stage.setScene(scene);
 
             BaseController baseController = loader.getController();
@@ -136,9 +138,6 @@ public class Controller extends Application {
     }
     //Views initialize
     public void initialize() {
-       // mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
-        // mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
-
         mPopupPwd.setVisible(false);
 
         mRemindPwd.setOnAction(new EventHandler<ActionEvent>() {
@@ -204,13 +203,13 @@ public class Controller extends Application {
                 }
 
                 if (ro.getPrivilege() != null && ro.getPrivilege().equals("Administrator") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                    logowaniePane(ADMIN_VIEW, "Administrator", ro);
+                    logowaniePane(ADMIN_VIEW, "panel administratora", ro);
                     ((Node)(e.getSource())).getScene().getWindow().hide();
                 } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Kierownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                   logowaniePane(BOSS_VIEW, "Kierownik", ro);
+                   logowaniePane(BOSS_VIEW, "panel kierownikaierownik", ro);
                     ((Node)(e.getSource())).getScene().getWindow().hide();
                 } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Pracownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                    logowaniePane(PM_VIEW, "Pracownik", ro);
+                    logowaniePane(PM_VIEW, "panel użytkownika", ro);
                     ((Node)(e.getSource())).getScene().getWindow().hide();
                 } else {
                     visibleErrorPopUp(true);
