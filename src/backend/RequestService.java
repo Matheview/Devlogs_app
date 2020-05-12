@@ -4,6 +4,7 @@ import backend.requestObjects.RqNewProject;
 import backend.responseObjects.RsDomains;
 import backend.responseObjects.RsProject;
 import backend.responseObjects.RsProjects;
+import backend.responseObjects.RsUserInfo;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 
@@ -79,8 +80,6 @@ public class RequestService {
 
 			InputStream in = new BufferedInputStream(conn.getInputStream());
 			String result = IOUtils.toString(in, CHARSET);
-
-			System.out.println("Odpowiedz z serwera : " + result );
 
 			Gson gson = new Gson();
 			ro = gson.fromJson(result, ResponseObject.class);
@@ -419,6 +418,11 @@ public class RequestService {
 		return ro;
 	}
 
+	/**
+	 * Metoda służąca do zmiany hasła
+	 * @param jsonInputString body zapytania
+	 * @return obpowiedź od serwera
+	 */
 	public ResponseObject requestChangePassword(String jsonInputString)
 	{
 		ResponseObject ro = new ResponseObject();
@@ -461,7 +465,7 @@ public class RequestService {
 	}
 
     /**
-     * Metoda służżca do pobierania listy projektów
+     * Metoda służca do pobierania listy projektów
      * @param userId Id użytkownika
      * @return Obiekt listy projektów
      */
@@ -517,6 +521,27 @@ public class RequestService {
 
 		Gson gson = new Gson();
 		RsDomains responseObject = gson.fromJson(result, RsDomains.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+
+	/**
+	 * Metoda służca do pobierania informacji o użytkowniku
+	 * @param userId Id użytkownika
+	 * @return Obiekt listy projektów
+	 */
+	public RsUserInfo getUserInfo(int userId) throws IOException {
+		String addressEnd = "/getinfo/user?user_id=" + userId;
+
+		HttpURLConnection connection = getConnection(addressEnd, "GET");
+
+		String result = getServerResponse(connection);
+
+		Gson gson = new Gson();
+		RsUserInfo responseObject = gson.fromJson(result, RsUserInfo.class);
 
 		connection.disconnect();
 

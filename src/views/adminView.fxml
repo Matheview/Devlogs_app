@@ -119,58 +119,46 @@
                               <Image url="@../imgs/workspace.png" />
                            </image>
                         </ImageView>
-                        <Pane fx:id="mUserInfoPanel" layoutX="-40.0" prefHeight="200.0" prefWidth="200.0" styleClass="user-info" stylesheets="@../styles/admin.css">
-                           <children>
-                              <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="160.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../imgs/album.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="119.0" layoutY="152.0" styleClass="user-profile" stylesheets="@../styles/admin.css" text="Profil użytkownika" textFill="WHITE" />
-                              <Label fx:id="mUserPanelName" layoutX="86.0" layoutY="182.0" styleClass="user-profile-name" stylesheets="@../styles/admin.css" text="Jarosław Psikutas" textFill="WHITE" />
-                              <Label fx:id="mUserPanelEmail" layoutX="39.0" layoutY="240.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="email:" textFill="WHITE" />
-                              <Label fx:id="mUserPanelProjects" layoutX="39.0" layoutY="283.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="aktualne projekty:" textFill="WHITE" />
-                              <Label fx:id="mUserPanelStatus" layoutX="37.0" layoutY="329.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="status:" textFill="WHITE" />
-                              <Label layoutX="132.0" layoutY="363.0" styleClass="change-user-status" stylesheets="@../styles/admin.css" text="Zmień status użytkownika" textFill="WHITE" />
-                              <RadioButton fx:id="mUserPanelAdminStatus" layoutX="82.0" layoutY="395.0" mnemonicParsing="false" styleClass="status-checkbox" text="admin" textFill="WHITE" />
-                              <RadioButton fx:id="mUserPanelBossStatus" layoutX="164.0" layoutY="395.0" mnemonicParsing="false" styleClass="status-checkbox" stylesheets="@../styles/admin.css" text="kierownik" textFill="WHITE" />
-                              <RadioButton fx:id="mUserPanelCommonUserStatus" layoutX="257.0" layoutY="395.0" mnemonicParsing="false" selected="true" styleClass="status-checkbox" text="użytkownik" textFill="WHITE" />
-                              <Button fx:id="mUserPanelBtn" layoutX="57.0" layoutY="438.0" mnemonicParsing="false" onMouseClicked="#changeThisUserStatus" styleClass="change-status-btn" stylesheets="@../styles/admin.css" text="Zatwierdź nowy status" />
-                              <ImageView fx:id="mDeleteUserIcon" fitHeight="30.0" fitWidth="30.0" layoutX="242.0" layoutY="436.0" onMouseClicked="#deleteThisUser" pickOnBounds="true" preserveRatio="true" styleClass="delete-icon">
-                                 <image>
-                                    <Image url="@../imgs/trash.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="mCloseUserPanelIcon" fitHeight="14.0" fitWidth="14.0" layoutX="345.0" layoutY="23.0" onMouseClicked="#closeUserInfoPanel" pickOnBounds="true" preserveRatio="true" styleClass="close-icon">
-                                 <image>
-                                    <Image url="@../imgs/close.png" />
-                                 </image>
-                              </ImageView>
-                              <Label fx:id="mDeleteProfileText" layoutX="283.0" layoutY="442.0" onMouseClicked="#deleteThisUser" styleClass="profile-delete" stylesheets="@../styles/admin.css" text="Usuń profil" />
-                              <Label fx:id="mUserPanelEmail" layoutX="94.0" layoutY="242.0" text="tuEmailFromBackend@gmail.com" textFill="WHITE" />
-                              <Label fx:id="mUserPanelProjects" layoutX="170.0" layoutY="267.0" prefHeight="53.0" prefWidth="161.0" text="tuStringProjektówWymienionychPoPrzecinku" textFill="WHITE" wrapText="true" />
-                              <Label fx:id="mUserPanelStatus" layoutX="94.0" layoutY="330.0" text="użytkownik" textFill="WHITE" />
-                           </children>
-                        </Pane>
                      </children>
                   </Pane>
-                  <Pane layoutX="685.0" layoutY="329.0" prefHeight="30.0" prefWidth="310.0" styleClass="divider" stylesheets="@../styles/admin.css" />
-                  <Pane fx:id="mNotificationsPanel" layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css" visible="false">
+                  <Pane fx:id="mUserInfoPanel" layoutX="312.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="user-info" stylesheets="@../styles/admin.css" visible="false">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="160.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imgs/notification-bell.png" />
+                              <Image url="@../imgs/album.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="mCloseNotificationPanelIcon" fitHeight="14.0" fitWidth="20.0" layoutX="264.0" layoutY="20.0" onMouseClicked="#closeNotificationsPanel" pickOnBounds="true" preserveRatio="true" styleClass="close-icon">
+                        <Label layoutX="119.0" layoutY="152.0" styleClass="user-profile" stylesheets="@../styles/admin.css" text="Profil użytkownika" textFill="WHITE" />
+                        <Label fx:id="mUserPanelName" layoutX="26.0" layoutY="182.0" minWidth="350.0" styleClass="user-profile-name" stylesheets="@../styles/admin.css" text="Błąd" textAlignment="CENTER" textFill="WHITE" />
+                        <Label fx:id="mUserPanelEmailLabel" layoutX="39.0" layoutY="240.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="email:" textFill="WHITE" />
+                        <Label fx:id="mUserPanelProjectsLabel" layoutX="39.0" layoutY="283.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="aktualne projekty:" textFill="WHITE" />
+                        <Label fx:id="mUserPanelStatusLabel" layoutX="37.0" layoutY="329.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="status:" textFill="WHITE" />
+                        <Label layoutX="132.0" layoutY="363.0" styleClass="change-user-status" stylesheets="@../styles/admin.css" text="Zmień status użytkownika" textFill="WHITE" />
+                        <RadioButton fx:id="mUserPanelAdminStatus" layoutX="47.0" layoutY="395.0" mnemonicParsing="false" styleClass="status-checkbox" text="Administrator" textFill="WHITE">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="mInfoPanelAccountType" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="mUserPanelBossStatus" layoutX="164.0" layoutY="395.0" mnemonicParsing="false" styleClass="status-checkbox" stylesheets="@../styles/admin.css" text="Kierownik" textFill="WHITE" toggleGroup="$mInfoPanelAccountType" />
+                        <RadioButton fx:id="mUserPanelCommonUserStatus" layoutX="257.0" layoutY="395.0" mnemonicParsing="false" selected="true" styleClass="status-checkbox" text="Pracownik" textFill="WHITE" toggleGroup="$mInfoPanelAccountType" />
+                        <Button fx:id="mUserPanelBtn" layoutX="32.0" layoutY="438.0" mnemonicParsing="false" onMouseClicked="#changeThisUserStatus" styleClass="change-status-btn" stylesheets="@../styles/admin.css" text="Zatwierdź nowy status" />
+                        <ImageView fx:id="mDeleteUserIcon" fitHeight="30.0" fitWidth="30.0" layoutX="210.0" layoutY="436.0" onMouseClicked="#deleteThisUser" pickOnBounds="true" preserveRatio="true" styleClass="delete-icon">
+                           <image>
+                              <Image url="@../imgs/trash.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mCloseUserPanelIcon" fitHeight="14.0" fitWidth="14.0" layoutX="345.0" layoutY="23.0" onMouseClicked="#closeUserInfoPanel" pickOnBounds="true" preserveRatio="true" styleClass="close-icon">
                            <image>
                               <Image url="@../imgs/close.png" />
                            </image>
                         </ImageView>
-                        <ListView fx:id="mNotificationsList" layoutX="35.0" layoutY="105.0" prefHeight="180.0" prefWidth="230.0" />
+                        <Label fx:id="mDeleteProfileText" layoutX="250.0" layoutY="442.0" onMouseClicked="#deleteThisUser" styleClass="profile-delete" stylesheets="@../styles/admin.css" text="Odbierz uprawnienia" />
+                        <Label fx:id="mUserPanelEmail" layoutX="94.0" layoutY="242.0" text="Błąd" textFill="WHITE" />
+                        <Label fx:id="mUserPanelProjects" layoutX="170.0" layoutY="267.0" prefHeight="53.0" prefWidth="161.0" text="tuStringProjektówWymienionychPoPrzecinku" textFill="WHITE" wrapText="true" />
+                        <Label fx:id="mUserPanelStatus" layoutX="94.0" layoutY="330.0" text="Błąd" textFill="WHITE" />
                      </children>
                   </Pane>
-                  <Pane fx:id="mInfoPanel" prefHeight="100.0" prefWidth="1024.0" styleClass="info-panel" stylesheets="@../styles/admin.css">
+                  <Pane layoutX="685.0" layoutY="329.0" prefHeight="30.0" prefWidth="310.0" styleClass="divider" stylesheets="@../styles/admin.css" />
+                  <Pane fx:id="mInfoPanel" prefHeight="100.0" prefWidth="1024.0" styleClass="info-panel" stylesheets="@../styles/admin.css" visible="false">
                      <children>
                         <ImageView fx:id="mInfoIcon" fitHeight="53.0" fitWidth="53.0" layoutX="86.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -184,6 +172,21 @@
                               <Image url="@../imgs/close.png" />
                            </image>
                         </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mNotificationsPanel" layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css" visible="false">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/notification-bell.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mCloseNotificationPanelIcon" fitHeight="14.0" fitWidth="20.0" layoutX="264.0" layoutY="20.0" onMouseClicked="#closeNotificationsPanel" pickOnBounds="true" preserveRatio="true" styleClass="close-icon">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                        </ImageView>
+                        <ListView fx:id="mNotificationsList" layoutX="35.0" layoutY="105.0" prefHeight="180.0" prefWidth="230.0" />
                      </children>
                   </Pane>
                </children></Pane>

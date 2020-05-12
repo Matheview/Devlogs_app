@@ -1,12 +1,15 @@
 package controllers;
 
 import backend.RequestData;
+import backend.responseObjects.RsUserInfo;
 import backend.responseObjects.User;
 import backend.responseObjects.Domain;
 import backend.RequestService;
 import backend.ResponseObject;
 import backend.responseObjects.RsDomains;
 import com.google.gson.Gson;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -120,6 +123,15 @@ public class AdminController extends BaseController {
     @FXML
     private ImageView mCLoseInfoPanelIcon;
 
+    @FXML
+    public Pane mNotificationsCircle;
+
+    @FXML
+    public ImageView mHomeIcon;
+
+    @FXML
+    public ImageView mNotificationsIcon;
+
     // Zmienne do popapu z informacjami o danym userze
 
     @FXML
@@ -158,6 +170,18 @@ public class AdminController extends BaseController {
     @FXML
     private Label mDeleteProfileText; // tekst, po kliknięciu także  usuwa  usera -> uwaga, po kliknięciu trzeba wywołąć popap z warningiem "Czy napewno chcesz usunąć ?", a dopiero po tym wywołać metodę usuwajacą
 
+    @FXML
+    public Label mUserPanelEmailLabel;
+
+    @FXML
+    public Label mUserPanelProjectsLabel;
+
+    @FXML
+    public Label mUserPanelStatusLabel;
+
+    @FXML
+    public ToggleGroup mInfoPanelAccountType;
+
 
 
 
@@ -167,6 +191,19 @@ public class AdminController extends BaseController {
         mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
         refresh();
+
+        /**
+         * Funkcja nasłuchująca, jaki użytkownik na liście został kliknięty. Otiera panel z informacjami o użytkowniku
+         */
+        mUserlist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
+
+            @Override
+            public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
+                mUserInfoPanel.setVisible(true);
+
+                refreshUserInfoPanel(newValue);
+            }
+        });
     }
 
     /**
@@ -224,6 +261,34 @@ public class AdminController extends BaseController {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy użytkowników z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Odświeża panel z informacjami o użytkowniku
+     * @param user użytkownik, którego dane mają zostać wyświetlone
+     */
+    private void refreshUserInfoPanel(User user) {
+        RequestService requestService = new RequestService();
+
+        int user_id = user.getId();
+
+        RsUserInfo response;
+        try {
+            response = requestService.getUserInfo(user_id);
+
+            if (response.isSuccess()) {
+
+                mUserPanelName.setText(response.getName());
+                mUserPanelEmail.setText(response.getEmail());
+                mUserPanelStatus.setText(user.getPrivilege());
+
+            } else if (!response.isSuccess())
+                DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać informacji o użytkowniku. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
+
     }
 
     //Metody ( nie wszystkie metody i zmienne będą potrzebne, ale są wyciągnięte w razie W )----------------------------------------------------
