@@ -7,10 +7,7 @@ import backend.responseObjects.RsProjects;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -185,39 +182,31 @@ public class RequestService {
 	 * @param jsonInputString user_id, domain
 	 * @return ResponseObject - sueccess, msg
 	 */
-	public ResponseObject requestCreateNewDomain(String jsonInputString)
-	{
+	public ResponseObject requestCreateNewDomain(String jsonInputString) throws IOException {
 		ResponseObject ro = new ResponseObject();
-		try {
-			URL url = new URL("http://ssh-vps.nazwa.pl:4742/domains/register");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			System.out.println("Przesylany jSON = " + jsonInputString);
-			conn.setConnectTimeout(5000);
-			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			conn.setDoInput(true);
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
 
-			OutputStream os = conn.getOutputStream();
-			os.write(jsonInputString.getBytes("UTF-8"));
-			os.close();
+		URL url = new URL("http://ssh-vps.nazwa.pl:4742/domains/register");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		System.out.println("Przesylany jSON = " + jsonInputString);
+		conn.setConnectTimeout(5000);
+		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		conn.setDoInput(true);
+		conn.setDoOutput(true);
+		conn.setRequestMethod("POST");
 
-			InputStream in = new BufferedInputStream(conn.getInputStream());
-			String result = IOUtils.toString(in, "UTF-8");
+		OutputStream os = conn.getOutputStream();
+		os.write(jsonInputString.getBytes("UTF-8"));
+		os.close();
 
-			Gson gson = new Gson();
-			ro = gson.fromJson(result, ResponseObject.class);
+		InputStream in = new BufferedInputStream(conn.getInputStream());
+		String result = IOUtils.toString(in, "UTF-8");
 
-			in.close();
-			conn.disconnect();
+		Gson gson = new Gson();
+		ro = gson.fromJson(result, ResponseObject.class);
 
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		in.close();
+		conn.disconnect();
+
 		return ro;
 	}
 

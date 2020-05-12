@@ -17,6 +17,14 @@ public class BaseController {
         this.controller = controller;
     }
 
+    /**
+     * Metoda zwracająca id aktualnie zalogowanego użytkownika.
+     * @return id aktualnie zalogowanego użytkownika
+     */
+    public int getUserId() {
+        return Controller.currAcc.getUser_id();
+    }
+
     public void refresh(){
 
     }

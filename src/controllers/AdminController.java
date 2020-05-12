@@ -10,12 +10,14 @@ import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import utils.DialogsUtils;
+import utils.RegexUtils;
 
 import java.awt.event.InputMethodEvent;
 import java.io.IOException;
@@ -64,6 +66,12 @@ public class AdminController extends BaseController {
     private TextField mWorkspaceSearch;
 
     @FXML
+    private ImageView mSearchUserIcon;
+
+    @FXML
+    private ImageView mSearchWorkspaceIcon;
+
+    @FXML
     private ListView<Domain> mWorkspaceList;
 
     @FXML
@@ -93,6 +101,66 @@ public class AdminController extends BaseController {
     @FXML
     private Label mNotificationsCounter;
 
+    // Zmienne do popapów informacyjnych ->
+
+    @FXML
+    private Pane mInfoPanel;
+
+    @FXML
+    private ImageView mInfoIcon;
+    // Tutaj trzeba będzie zmieniać src zdjęcia w zależności czy to informacja czy warning
+
+    @FXML
+    private Label mTextInfoPanel;
+    // Do tej zmiennej trzeba przypisywać tekst informacji w zależności od tego co użytkownik zrobił źle np. podał słabe hasło lub nie podał w ogóle itd.
+
+    @FXML
+    private Button mCloseInfoButton;
+
+    @FXML
+    private ImageView mCLoseInfoPanelIcon;
+
+    // Zmienne do popapu z informacjami o danym userze
+
+    @FXML
+    private Pane mUserInfoPanel; // cały panel
+
+    @FXML
+    private Label mUserPanelName; // nazwa usera - do niej przypisać dane z backendu
+
+    @FXML
+    private Label mUserPanelEmail; // email usera - do niej przypisać dane z backendu
+
+    @FXML
+    private Label mUserPanelProjects; // projekty usera - tutaj można dać tablicę stringów z nazwami wszystkich projektów danego usera
+
+    @FXML
+    private Label mUserPanelStatus; // status danego użytkownika -> uwaga, przy zmianie statusu pasuje zablokować moźliwość zmiany statusu z tego samego na ten sam (trzeba to obsłużyć)
+
+    @FXML
+    private RadioButton mUserPanelAdminStatus; // tu checkboxy do zmiany status, domyślnie jest zaznaczony zwykły użytkownik
+
+    @FXML
+    private RadioButton mUserPanelBossStatus;
+
+    @FXML
+    private RadioButton mUserPanelCommonUserStatus;
+
+    @FXML
+    private Button mUserPanelBtn; // przycisk do zatwierdzenia statusu
+
+    @FXML
+    private ImageView mDeleteUserIcon; // ikona do usunięcia profilu -> uwaga (patrz linia 152)
+
+    @FXML
+    private ImageView mCloseUserPanelIcon; // ikona do zamknięcia popapu
+
+    @FXML
+    private Label mDeleteProfileText; // tekst, po kliknięciu także  usuwa  usera -> uwaga, po kliknięciu trzeba wywołąć popap z warningiem "Czy napewno chcesz usunąć ?", a dopiero po tym wywołać metodę usuwajacą
+
+
+
+
     //Views initialize
     public void initialize() {
         mWelcomeUserName.setText(Controller.currAcc.getUsername());
@@ -108,10 +176,26 @@ public class AdminController extends BaseController {
     public void refresh() {
         RequestService requestService = new RequestService();
 
-        RsDomains domains;
         try {
-            domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+            RsDomains domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+            mWorkspaceList.getItems().clear();
             mWorkspaceList.getItems().addAll(domains.getDomains());
+            // funkcja nadająca elementom listy klasę css
+            mWorkspaceList.setCellFactory(lv -> new ListCell<Domain>() {
+                private ImageView image1 = new ImageView();
+                private ImageView image2 = new ImageView();
+                @Override
+                protected void updateItem(Domain domain, boolean empty) {
+                    super.updateItem(domain, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(domain.toString());
+                    }
+                    // nadanie elementowi listy klasy css
+                    getStyleClass().add("domain-list-item");
+                }
+            });
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
@@ -119,9 +203,25 @@ public class AdminController extends BaseController {
 
         try {
             ResponseObject responseObject = requestService.requestListOfUsers(Controller.currAcc.getUser_id());
+            mUserlist.getItems().clear();
             mUserlist.getItems().addAll(responseObject.getUsers());
+
+            // funkcja nadająca elementom listy klasę css
+            mUserlist.setCellFactory(lv -> new ListCell<User>() {
+                @Override
+                protected void updateItem(User user, boolean empty) {
+                    super.updateItem(user, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(user.toString());
+                    }
+                    // nadanie elementowi listy klasy css
+                    getStyleClass().add("user-list-item");
+                }
+            });
         } catch (IOException e) {
-            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy użytkowników z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
         }
     }
@@ -135,7 +235,7 @@ public class AdminController extends BaseController {
 
     @FXML //Metoda zamykająca panel powiadomień
     void closeNotificationsPanel(MouseEvent event) {
-    mNotificationsPanel.setVisible(false);
+        mNotificationsPanel.setVisible(false);
     }
 
     @FXML //Metoda sprawdzająca czy checkbox z typem konta admin jest true
@@ -203,9 +303,13 @@ public class AdminController extends BaseController {
         String domain = Controller.currAcc.getDomain();
         String privilage = selectedButton.getText();
         String username = mUserName.getText();
-        int user_id = Controller.currAcc.getUser_id();
+        int user_id = getUserId();
 
-        if ((!username.isEmpty()) && (!email.isEmpty()) && (!password.isEmpty())) {
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty())
+            DialogsUtils.shortErrorDialog("Błąd", "Proszę wypełnić wszystkie pola.");
+        else if (!RegexUtils.validateEmail(email))
+            DialogsUtils.shortErrorDialog("Błąd", "Wpisano niepoprawny adres e-mail.");
+        else {
             RequestService requestService = new RequestService();
             RequestData requestData = new RequestData(email, password, domain, user_id, privilage, username);
 
@@ -216,9 +320,9 @@ public class AdminController extends BaseController {
                 response = requestService.requestCreateNewUser(inputJSON);
 
                 if (response.getMsg().equals("Email alredy exists"))
-                    DialogsUtils.shortErrorDialog("Błąd", "Użytkownik o takim emailu już istnieje..");
+                    DialogsUtils.shortErrorDialog("Błąd", "Użytkownik o takim emailu już istnieje");
                 else if (response.isSuccess()) {
-                    DialogsUtils.infoDialog("Sukces", "Utworzono nowego użytkownika", "Utworzono nowego użytkownika: " + response.getUsername());
+                    DialogsUtils.infoDialog("Sukces", "Utworzono nowego użytkownika.", "Utworzono nowego użytkownika: " + response.getUsername() + ".");
                     refresh();
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
@@ -226,13 +330,38 @@ public class AdminController extends BaseController {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego użytkownika. Błąd połączenia z serwerem.");
                 e.printStackTrace();
             }
-        } else
-            DialogsUtils.shortErrorDialog("Błąd", "Proszę wypełnić wszystkie pola.");
+        }
     }
 
     @FXML //Metoda do przycisku wysyłająca dane z inputa na serwer w celu stworzenia nowej przestrzeni
     void makeNewWorkspace(ActionEvent event) {
+        String domain = mWorkspaceName.getText();
+        int user_id = getUserId();
 
+        if (domain.isEmpty())
+            DialogsUtils.shortErrorDialog("Błąd", "Proszę podać nazwę nowej przestrzeni roboczej.");
+        else {
+            RequestService requestService = new RequestService();
+            RequestData requestData = new RequestData(user_id, domain);
+
+            Gson gson = new Gson();
+            String inputJSON = gson.toJson(requestData);
+            ResponseObject response;
+            try {
+                response = requestService.requestCreateNewDomain(inputJSON);
+
+                if (response.getMsg().equals("Domain already exists"))
+                    DialogsUtils.shortErrorDialog("Błąd", "Przestrzeń o takiej nazwie już istnieje.");
+                else if (response.isSuccess()) {
+                    DialogsUtils.infoDialog("Sukces", "Utworzono nową przestrzeń roboczą.", "Utworzono nową przestrzeń roboczą o nazwie: " + domain + ".");
+                    refresh();
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowej przestrzeni. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML //Metoda wywołująca panel powiadomień
@@ -280,5 +409,30 @@ public class AdminController extends BaseController {
     @FXML
     public void handleFindUser(javafx.scene.input.InputMethodEvent inputMethodEvent) {
     }
-    //FUNKCJE DO OBSŁUŻENIA BACKEND
+
+    @FXML
+    public void closeInfoPanel(MouseEvent event) {
+        mInfoPanel.setVisible(false);
+    }
+
+    @FXML
+    public void acceptInfoPanel(MouseEvent event) {
+        mInfoPanel.setVisible(false);
+    }
+
+    @FXML // funkcja do zmiany statusu usera w popapie
+    void changeThisUserStatus(MouseEvent event) {
+
+    }
+
+    @FXML
+    void closeUserInfoPanel(MouseEvent event) {
+        mUserInfoPanel.setVisible(false);
+    }
+
+    @FXML // funkcja usuwająca usera z bazy
+    void deleteThisUser(MouseEvent event) {
+
+    }
+
 }

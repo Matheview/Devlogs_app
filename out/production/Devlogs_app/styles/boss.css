@@ -71,3 +71,9 @@
 .new-task-add-label {
     -fx-text-fill: #2343E4;
 }
+
+.project-list-item {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #2343E4;
+    -fx-border-color: #2343E4;
+}
