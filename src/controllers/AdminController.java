@@ -184,10 +184,10 @@ public class AdminController extends BaseController {
     public ToggleGroup mInfoPanelAccountType;
 
     @FXML
-    private ListView<?> mUserWorkspacesList; // Lista z domenami "danego usera" -> TODO OLEK
+    private ListView<Domain> mUserWorkspacesList;
 
     @FXML
-    public Label mUserAccountDate; // Labelka z datą -> TODO OLEK
+    public Label mUserAccountDate;
 
 
     //Views initialize
@@ -273,31 +273,35 @@ public class AdminController extends BaseController {
      * @param user użytkownik, którego dane mają zostać wyświetlone
      */
     private void refreshUserInfoPanel(User user) {
-        RequestService requestService = new RequestService();
+        if (user != null) {
+            RequestService requestService = new RequestService();
 
-        int user_id = user.getId();
+            int user_id = user.getId();
 
-        RsUserInfo response;
-        try {
-            response = requestService.getUserInfo(user_id);
+            RsUserInfo response;
+            try {
+                response = requestService.getUserInfo(user_id);
 
-            if (response.isSuccess()) {
+                if (response.isSuccess()) {
 
-                mUserPanelName.setText(response.getName());
-                mUserPanelEmail.setText(response.getEmail());
-                mUserPanelStatus.setText(user.getPrivilege());
+                    mUserPanelName.setText(response.getName());
+                    mUserPanelEmail.setText(response.getEmail());
+                    mUserPanelStatus.setText(user.getPrivilege());
+                    mUserWorkspacesList.getItems().clear();
+                    mUserWorkspacesList.getItems().addAll(response.getDomains());
+                    mUserAccountDate.setText(response.getCreated_at());
 
-            } else if (!response.isSuccess())
-                DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
-        } catch (IOException e) {
-            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać informacji o użytkowniku. Błąd połączenia z serwerem.");
-            e.printStackTrace();
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać informacji o użytkowniku. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
         }
-
     }
 
     /**
-     * Funkcja wyświetlająca powiadomienie o błędzie
+     * Funkcja wyświetlająca powiadomienie z informacją
      */
     public void showInfoPanel(String message) {
         mInfoPanel.setVisible(true);
@@ -310,6 +314,8 @@ public class AdminController extends BaseController {
 
         mCloseInfoButton.getStyleClass().clear();
         mCloseInfoButton.getStyleClass().add("creator-btn");
+
+        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close.png"));
     }
 
     /**
@@ -326,6 +332,8 @@ public class AdminController extends BaseController {
 
         mCloseInfoButton.getStyleClass().clear();
         mCloseInfoButton.getStyleClass().add("error-btn");
+
+        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close-red.png"));
     }
 
     /**
@@ -440,7 +448,7 @@ public class AdminController extends BaseController {
                 if (response.getMsg().equals("Email alredy exists"))
                     showErrorPanel("Błąd: Użytkownik o takim emailu już istnieje");
                 else if (response.isSuccess()) {
-                    showInfoPanel("Sukces! Utworzono nowego użytkownika: " + response.getUsername() + ", o uprawnieniach: " + response.getPrivilege() + ".");
+                    showInfoPanel("Sukces! Utworzono nowego użytkownika: " + username + ", o uprawnieniach: " + privilage + ".");
                     refresh();
                     clearNewUserFields();
                 } else if (!response.isSuccess())

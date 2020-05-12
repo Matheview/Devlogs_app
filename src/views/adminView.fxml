@@ -121,7 +121,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="mUserInfoPanel" layoutX="312.0" layoutY="64.0" prefHeight="562.0" prefWidth="200.0" styleClass="user-info" stylesheets="@../styles/admin.css">
+                  <Pane fx:id="mUserInfoPanel" layoutX="312.0" layoutY="64.0" prefHeight="562.0" prefWidth="200.0" styleClass="user-info" stylesheets="@../styles/admin.css" visible="false">
                      <children>
                         <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="160.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -147,7 +147,7 @@
                               <Image url="@../imgs/trash.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="mCloseUserPanelIcon" fitHeight="14.0" fitWidth="14.0" layoutX="345.0" layoutY="23.0" onMouseClicked="#closeUserInfoPanel" pickOnBounds="true" preserveRatio="true" styleClass="close-icon">
+                        <ImageView fx:id="mCloseUserPanelIcon" fitHeight="14.0" fitWidth="14.0" layoutX="367.0" layoutY="14.0" onMouseClicked="#closeUserInfoPanel" pickOnBounds="true" preserveRatio="true" styleClass="close-icon">
                            <image>
                               <Image url="@../imgs/close.png" />
                            </image>
@@ -157,11 +157,11 @@
                         <Label fx:id="mUserPanelStatus" layoutX="87.0" layoutY="340.0" text="Błąd" textFill="WHITE" />
                         <ListView fx:id="mUserWorkspacesList" layoutX="39.0" layoutY="250.0" prefHeight="80.0" prefWidth="154.0" styleClass="workspaces-list" stylesheets="@../styles/admin.css" />
                         <Label layoutX="40.0" layoutY="437.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="Data utworzenia konta:" textFill="WHITE" />
-                        <Label fx:id="mUserAccountDate" layoutX="206.0" layoutY="439.0" text="12/06/1410" textFill="WHITE" />
+                        <Label fx:id="mUserAccountDate" layoutX="206.0" layoutY="439.0" text="Błąd" textFill="WHITE" />
                      </children>
                   </Pane>
                   <Pane layoutX="685.0" layoutY="329.0" prefHeight="30.0" prefWidth="310.0" styleClass="divider" stylesheets="@../styles/admin.css" />
-                  <Pane fx:id="mInfoPanel" prefHeight="100.0" prefWidth="1024.0" styleClass="info-panel" stylesheets="@../styles/admin.css">
+                  <Pane fx:id="mInfoPanel" prefHeight="100.0" prefWidth="1024.0" styleClass="info-panel" stylesheets="@../styles/admin.css" visible="false">
                      <children>
                         <ImageView fx:id="mInfoIcon" fitHeight="53.0" fitWidth="53.0" layoutX="86.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
