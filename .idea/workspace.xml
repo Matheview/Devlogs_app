@@ -13,14 +13,26 @@
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:devslog" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ffcafb0-1c43-47dd-8b5f-cc164ce4ec31" name="Default Changelist" comment="">
+    <list default="true" id="05b18e5a-1ae8-458a-9c44-b91a7370feeb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/styles/login.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/styles/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/styles/admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/adminView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imgs/loginImage.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/imgs/loginImage.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/adminView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/login.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +69,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="IntelliLang.Advanced" />
+    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -129,6 +141,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.css" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -162,30 +177,35 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="536" y="287" key="DetectedRootsChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1587313532411" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1588366931837">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="686" y="211" key="FileChooserDialogImpl" timestamp="1589218311668">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588366931837" />
-    <state width="1493" height="161" key="GridCell.Tab.0.bottom" timestamp="1589227731555">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1589233363821">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589227731555" />
-    <state width="1493" height="161" key="GridCell.Tab.0.center" timestamp="1589227731555">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1493" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589222151973" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1589233363821">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589227731555" />
-    <state width="1493" height="161" key="GridCell.Tab.0.left" timestamp="1589227731555">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1493" height="161" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589222151973" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1589233363820">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589227731555" />
-    <state width="1493" height="161" key="GridCell.Tab.0.right" timestamp="1589227731555">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1493" height="161" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589222151973" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363820" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1589233363821">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589227731555" />
+    <state width="1493" height="161" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589222151973" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
     <state x="154" y="0" width="1231" height="824" key="SettingsEditor" timestamp="1589216143719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="154" y="0" width="1231" height="824" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1589216143719" />
+    <state x="193" y="0" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589218314059" />
     <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1587313103345">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

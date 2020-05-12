@@ -136,8 +136,8 @@ public class Controller extends Application {
     }
     //Views initialize
     public void initialize() {
-        mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
-        mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
+       // mLogoImage.setImage(new Image(PATH_IMAGES + "log.png"));
+        // mLoginImage.setImage(new Image(PATH_IMAGES + "loginImage.png"));
 
         mPopupPwd.setVisible(false);
 
