@@ -45,7 +45,7 @@ CHECK_DOMAIN_EXIST = "SELECT id FROM domains WHERE id='{0}'"
 CHECK_USER_EXIST = "SELECT id FROM users WHERE id='{0}' OR name='{0}' OR email='{0}'"
 CHECK_ADMIN_EXIST = "SELECT id, granted_to FROM accesses WHERE granted_to=(SELECT id FROM users WHERE id='{0}' OR name='{0}' OR email='{0}') AND privilege_id=1"
 CHECK_KIEROWNIK_EXIST = "SELECT id FROM accesses WHERE granted_to=(SELECT id FROM users WHERE id='{0}' OR email='{0}' or name='{0}') AND privilege_id=2"
-CHECK_TOKEN = "SELECT token FROM loginactions WHERE user_id='{}' ORDER BY created_at DESC LIMIT 1"
+CHECK_TOKEN = "SELECT CASE WHEN TIMESTAMPDIFF(HOUR, created_at, NOW()) < 24 THEN token ELSE 'ExpiredTokenAfter24Hours' END FROM loginactions WHERE user_id='{}' ORDER BY created_at DESC LIMIT 1"
 CHECK_PERMISSION = "SELECT id FROM accesses WHERE granted_to='{0}' AND domain_id=(SELECT id FROM domains WHERE domain_desc='{1}')"
 CHECK_USER_EXISTS = """SELECT id FROM users WHERE email='{0}'"""
 CHECK_USER_EXIST_BY_ID = """SELECT id FROM users WHERE id='{0}'"""
@@ -78,6 +78,16 @@ GET_USERS_FROM_DOMAIN = """SELECT usr.id, usr.name, priv.privilege FROM accesses
                                 INNER JOIN users usr on ac.granted_to = usr.id
                                 WHERE ac.creator_id={0} AND granted_to !={0}
                                 ORDER BY usr.id DESC;"""
+GET_PROJECT_USERS_PRIVILEGES = """SELECT DISTINCT acc.granted_to, usr.name, pr.privilege FROM accesses acc
+    INNER JOIN users usr ON acc.granted_to=usr.id 
+    INNER JOIN privileges pr ON acc.privilege_id=pr.id 
+    WHERE project_id={0}"""
+GET_TASKS_ALL_INFO = """SELECT t.id, CONCAT('#', t.id, ' ', t.task_title) title, t.assigned_id, t.created_at, t.deadline, p.priority_desc, (SELECT COUNT(*) FROM comments WHERE task_id=t.id) count FROM tasks t
+    INNER JOIN priorities p on t.priority_id = p.id WHERE project_id={0} AND status_id={1} ORDER BY t.id;"""
+GET_PROJECT_STATUSES = """SELECT x.id, x.status_desc FROM (SELECT DISTINCT s.id, s.status_desc FROM tasks
+    INNER JOIN statuses s on tasks.status_id = s.id
+    WHERE project_id={0}) x ORDER BY x.id;"""
+GET_PROJECT_MIN_INFO = """SELECT project_name FROM projects WHERE id={0}"""
 GET_PRIVILEGE = """SELECT 'Not granted'
                         FROM accesses ac
                         where not exists (SELECT p.privilege FROM accesses ac

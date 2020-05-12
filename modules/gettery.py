@@ -127,9 +127,12 @@ class GettersUsers(MethodView, Responses):
                 self.data['user_id'] = request.json['user_id']
             else:
                 self.data['user_id'] = request.args.get('user_id')
+            if not self.data['user_id']:
+                self.logs.save_msg("KeyError 'user_id' not found", localisation="GettersUsers.get[]", args=self.data)
+                return self.response(202, success=False, msg="Key 'user_id' not found")
             users = self.db.query(GET_USERS_FROM_DOMAIN.format(self.data['user_id'])).fetchall()
             if users is None or len(users) == 0:
-                return selfresponse(200, success=True, msg="Not found users", users=[])
+                return self.response(200, success=True, msg="Not found users", users=[])
             for user in users:
                 shortcut = str(user[1])[:1]
                 if " " in str(user[1]):
@@ -298,6 +301,54 @@ class GettersUserWorker(MethodView, Responses):
 
     def get(self):
         return self.method_not_allowed("GettersUserWorker.get", 'get')
+
+    def post(self):
+        return self.method_not_allowed("GettersUserWorker.post", 'post')
+
+    def put(self):
+        return self.method_not_allowed("GettersUserWorker.put", 'put')
+
+    def delete(self):
+        return self.method_not_allowed("GettersUserWorker.delete", 'delete')
+
+
+class GetTasksFromProject(MethodView, Responses):
+
+    def __init__(self):
+        super(GetTasksFromProject, self).__init__()
+        self.keys = {}
+        self.db = DBConnector()
+        self.domains = []
+        self.data = ""
+        self.token = ""
+        self.users = []
+        self.statuses = []
+
+    def get(self):
+        try:
+            for key in ['project_id']: #, 'user_id']:
+                # request.form.get(key)
+                self.keys[key] = request.args.get(key)
+                if not self.keys[key] or self.keys[key] is None:
+                    return self.response(202, success=False, msg="Key '{0}' not found".format(key))
+                elif self.keys[key] == 0 or self.keys[key] == "":
+                    return self.response(202, success=False, msg="Value '{0}' cannot be empty".format(key))
+                elif self.keys[key] is None or self.keys[key] == "None" or self.keys[key] == "null":
+                    return self.response(202, success=False, msg="Value'{0}' cannot be null".format(key))
+            project_info = self.db.get_project_info(self.keys)
+            if not project_info[0]:
+                return self.response(202, success=True, msg="Project not found", project_id="",
+                                     project_name="",
+                                     users=[], statuses=[])
+            self.users = self.db.get_all_users_from_project(self.keys)
+            self.statuses = self.db.get_statuses_from_project(self.keys)
+            return self.response(200, success=True, msg="Project tasks found", project_id=self.keys['project_id'],
+                                 project_name="#{0} {1}".format(self.keys['project_id'], project_info[1]),
+                                 users=[], statuses=self.statuses)
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="GetTasksFromProject.get[{0}]".format(exc_tb.tb_lineno), args=self.data)
+            return self.response(202, success=False, msg="Unexpected exception: reported")
 
     def post(self):
         return self.method_not_allowed("GettersUserWorker.post", 'post')

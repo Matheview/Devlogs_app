@@ -1,5 +1,8 @@
+# coding=utf-8
 from flask.views import MethodView
 from flask import request, json, Response
+#from app import mail
+from flask_mail import Message
 from connectors.dbconfig import DBConnector
 from modules.responses import *
 from modules.gettery import *
@@ -245,7 +248,7 @@ class UpdatePermission(MethodView, Responses):
                     return self.response(202, success=False, msg="Value'{0}' cannot be null".format(key))
             is_admin = self.db.check_admin(self.keys['user_id'])
             if not is_admin:
-                self.logs.save_msg("Permission failed: self.keys['privilege']", localisation="UpdatePermission.delete",
+                self.logs.save_msg("Permission failed: self.keys[GettersUserInfo'privilege']", localisation="UpdatePermission.delete",
                                    args=self.keys)
                 return self.response(403, success=False, msg="Permission denied")
             domain = self.db.query(CHECK_DOMAIN_AVAILABLE.format(self.keys['domain'])).fetchone()
@@ -285,7 +288,11 @@ class ChangePasswd(MethodView, Responses):
         return self.method_not_allowed("ChangePasswd.delete", 'delete')
 
     def post(self):
+
         try:
+            self.token = request.args.get('token')
+            if self.token != "abcd1234":
+                return self.response(202, self.token, success=False, msg="Key errors")
             self.data = request.json
             for key in ['email']:
                 self.keys[key] = request.json[key]
@@ -294,9 +301,25 @@ class ChangePasswd(MethodView, Responses):
         account = self.db.check_user_exists_change_passwd(self.keys['email'])
         if not account[0]:
             return self.response(202, self.token, success=False, msg="Email not found")
-        self.token = "{0}##{1}".format(account[1], self.hash)
-        self.db.save_logging(account[1], self.token)
-        return self.response(200, success=True, msg="Link generated", link="http://ssh-vps.nazwa.pl:4742/changepassword?token={0}".format(self.token.replace("##", "@")))
+        else:
+            self.token = "{0}##{1}".format(account[1], self.hash)
+            self.db.save_logging(account[1], self.token)
+            msg = Message("[Devslog] Zmiana hasła", recipients=[self.keys['email']])
+            msg.body = """<h2 style="color: #2e6c80;">Witaj!</h2>
+                    <hr />
+                    <p>Chcieliśmy poinformować, że z adresu IP: {0} wysłano prośbę o zmianę hasła.</p>
+                    <p>Jeżeli jest to nie zamierzone przez Ciebie działanie zwyczajnie pomiń tą wiadomość</p>
+                    <p>&nbsp;</p>
+                    <p>Jeżeli jedna zapomniałeś hasła i pragniesz wygenerować nowe poniżej zostaje umeszczony</p>
+                    <p>link, kt&oacute;ry przeniesie Ciebie do strony ze zmianą hasła:</p>
+                    <p><a href="{1}"</p>
+                    <p>W przypadku jakichkolwiek pytań możesz skontaktować się z nami mailowo na adres: <a href="mailto:admin@devslog.pl">admin@devslog.pl</A>&nbsp;</p>
+                    <hr />
+                    <p>Z poważaniem,&nbsp;</p>
+                    <p>zesp&oacute;ł Devslog</p>""".format(request.remote_addr, "http://devslog.pl/changepassword?token={0}".format(self.token.replace("##", "@")))
+            mail.send(msg)
+        return self.response(200, success=True, msg="Email sended")
+                #, link="http://ssh-vps.nazwa.pl:4742/changepassword?token={0}".format(self.token.replace("##", "@")))
 
 
 class ChangePasswdLink(MethodView, Responses):
@@ -310,7 +333,6 @@ class ChangePasswdLink(MethodView, Responses):
 
     def get(self):
         self.data = request.args.get('token')
-        print(self.data)
         if not self.data:
             return render_template("notexists.html", msg="Not found param token")
         if "@" not in self.data:

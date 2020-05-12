@@ -157,7 +157,6 @@ class DBConnector(Responses):
             result = self.query(CHECK_TOKEN.format(user[0])).fetchone()
             if not result:
                 return False
-            print(token, result[0])
             if token == result[0]:
                 return True
             return False
@@ -326,3 +325,51 @@ class DBConnector(Responses):
             self.logs.save_msg(e, localisation="DBConnector.change_password[{0}]".format(exc_tb.tb_lineno),
                                args=[token, passwd])
             return [False, "Unexpected exception: reported"]
+
+    def get_all_users_from_project(self, keys):
+        users = []
+        try:
+            result = self.query(GET_PROJECT_USERS_PRIVILEGES.format(keys['project_id'])).fetchall()
+            for res in result:
+                shortcut = res[1]
+                if len(shortcut.split(" ")) == 1:
+                    shortcut = shortcut[0]
+                else:
+                    shortcut = shortcut.split(" ")
+                    shortcut = shortcut[0][0] + shortcut[1][0]
+                users.append({"user_id": res[0], "name": res[1], "shortcut": shortcut.upper()})
+            return [True, users]
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.get_all_users_from_project[{0}]".format(exc_tb.tb_lineno),
+                               args=[token, passwd])
+            return [False, []]
+
+    def get_project_info(self, keys):
+        try:
+            project_info = self.query(GET_PROJECT_MIN_INFO.format(keys['user_id'])).fetchone()
+            return [True if project_info else False, project_info[0] if project_info else None]
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.get_project_info[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return [False, None]
+
+    def get_statuses_from_project(self, keys):
+        statuses = []
+        try:
+            result_stat = self.query(GET_PROJECT_STATUSES.format(keys['project_id'])).fetchall()
+            for res in result_stat:
+                tasks = []
+                result_tasks = self.query(GET_TASKS_ALL_INFO.format()).fetchall()
+                for rt in result_tasks:
+                    tasks.append({"task_id": rt[0], "task_name": res[1], "granted_to": res[2],
+                                  "created_at": res[3], "deadline": res[4], "priority": res[5],
+                                  "comments_count": res[6]})
+                statuses.append({"status_id": res[0], "status": res[1], "tasks": tasks})
+            return statuses
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.get_statuses_from_project[{0}]".format(exc_tb.tb_lineno),
+                               args=[token, passwd])
+            return []
