@@ -121,27 +121,28 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="mUserInfoPanel" layoutX="312.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="user-info" stylesheets="@../styles/admin.css" visible="false">
+                  <Pane fx:id="mUserInfoPanel" layoutX="312.0" layoutY="64.0" prefHeight="562.0" prefWidth="200.0" styleClass="user-info" stylesheets="@../styles/admin.css">
                      <children>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="160.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="160.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imgs/album.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="119.0" layoutY="152.0" styleClass="user-profile" stylesheets="@../styles/admin.css" text="Profil użytkownika" textFill="WHITE" />
-                        <Label fx:id="mUserPanelName" layoutX="26.0" layoutY="182.0" minWidth="350.0" styleClass="user-profile-name" stylesheets="@../styles/admin.css" text="Błąd" textAlignment="CENTER" textFill="WHITE" />
-                        <Label fx:id="mUserPanelEmailLabel" layoutX="39.0" layoutY="240.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="email:" textFill="WHITE" />
-                        <Label fx:id="mUserPanelProjectsLabel" layoutX="39.0" layoutY="283.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="aktualne projekty:" textFill="WHITE" />
-                        <Label fx:id="mUserPanelStatusLabel" layoutX="37.0" layoutY="329.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="status:" textFill="WHITE" />
-                        <Label layoutX="132.0" layoutY="363.0" styleClass="change-user-status" stylesheets="@../styles/admin.css" text="Zmień status użytkownika" textFill="WHITE" />
+                        <Label layoutX="120.0" layoutY="110.0" styleClass="user-profile" stylesheets="@../styles/admin.css" text="Profil użytkownika" textFill="WHITE" />
+                        <Label fx:id="mUserPanelName" layoutX="50.0" layoutY="140.0" minWidth="350.0" styleClass="user-profile-name" stylesheets="@../styles/admin.css" text="Błąd" textAlignment="CENTER" textFill="WHITE" />
+                        <Label fx:id="mUserPanelEmailLabel" layoutX="39.0" layoutY="193.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="email:" textFill="WHITE" />
+                        <Label fx:id="mUserPanelProjectsLabel" layoutX="38.0" layoutY="220.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="aktualne przestrzenie:" textFill="WHITE" />
+                        <Label fx:id="mUserPanelStatusLabel" layoutX="37.0" layoutY="338.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="status:" textFill="WHITE" />
+                        <Label layoutX="138.0" layoutY="363.0" styleClass="change-user-status" stylesheets="@../styles/admin.css" text="Zmień status użytkownika" textFill="WHITE" />
                         <RadioButton fx:id="mUserPanelAdminStatus" layoutX="47.0" layoutY="395.0" mnemonicParsing="false" styleClass="status-checkbox" text="Administrator" textFill="WHITE">
                            <toggleGroup>
                               <ToggleGroup fx:id="mInfoPanelAccountType" />
-                           </toggleGroup></RadioButton>
+                           </toggleGroup>
+                        </RadioButton>
                         <RadioButton fx:id="mUserPanelBossStatus" layoutX="164.0" layoutY="395.0" mnemonicParsing="false" styleClass="status-checkbox" stylesheets="@../styles/admin.css" text="Kierownik" textFill="WHITE" toggleGroup="$mInfoPanelAccountType" />
                         <RadioButton fx:id="mUserPanelCommonUserStatus" layoutX="257.0" layoutY="395.0" mnemonicParsing="false" selected="true" styleClass="status-checkbox" text="Pracownik" textFill="WHITE" toggleGroup="$mInfoPanelAccountType" />
-                        <Button fx:id="mUserPanelBtn" layoutX="32.0" layoutY="438.0" mnemonicParsing="false" onMouseClicked="#changeThisUserStatus" styleClass="change-status-btn" stylesheets="@../styles/admin.css" text="Zatwierdź nowy status" />
-                        <ImageView fx:id="mDeleteUserIcon" fitHeight="30.0" fitWidth="30.0" layoutX="210.0" layoutY="436.0" onMouseClicked="#deleteThisUser" pickOnBounds="true" preserveRatio="true" styleClass="delete-icon">
+                        <Button fx:id="mUserPanelBtn" layoutX="32.0" layoutY="482.0" mnemonicParsing="false" onMouseClicked="#changeThisUserStatus" styleClass="change-status-btn" stylesheets="@../styles/admin.css" text="Zatwierdź nowy status" />
+                        <ImageView fx:id="mDeleteUserIcon" fitHeight="30.0" fitWidth="30.0" layoutX="222.0" layoutY="480.0" onMouseClicked="#deleteThisUser" pickOnBounds="true" preserveRatio="true" styleClass="delete-icon">
                            <image>
                               <Image url="@../imgs/trash.png" />
                            </image>
@@ -151,14 +152,16 @@
                               <Image url="@../imgs/close.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="mDeleteProfileText" layoutX="250.0" layoutY="442.0" onMouseClicked="#deleteThisUser" styleClass="profile-delete" stylesheets="@../styles/admin.css" text="Odbierz uprawnienia" />
-                        <Label fx:id="mUserPanelEmail" layoutX="94.0" layoutY="242.0" text="Błąd" textFill="WHITE" />
-                        <Label fx:id="mUserPanelProjects" layoutX="170.0" layoutY="267.0" prefHeight="53.0" prefWidth="161.0" text="tuStringProjektówWymienionychPoPrzecinku" textFill="WHITE" wrapText="true" />
-                        <Label fx:id="mUserPanelStatus" layoutX="94.0" layoutY="330.0" text="Błąd" textFill="WHITE" />
+                        <Label fx:id="mDeleteProfileText" layoutX="257.0" layoutY="486.0" onMouseClicked="#deleteThisUser" styleClass="profile-delete" stylesheets="@../styles/admin.css" text="Odbierz uprawnienia" />
+                        <Label fx:id="mUserPanelEmail" layoutX="87.0" layoutY="195.0" text="Błąd" textFill="WHITE" />
+                        <Label fx:id="mUserPanelStatus" layoutX="87.0" layoutY="340.0" text="Błąd" textFill="WHITE" />
+                        <ListView fx:id="mUserWorkspacesList" layoutX="39.0" layoutY="250.0" prefHeight="80.0" prefWidth="154.0" styleClass="workspaces-list" stylesheets="@../styles/admin.css" />
+                        <Label layoutX="40.0" layoutY="437.0" styleClass="user-data" stylesheets="@../styles/admin.css" text="Data utworzenia konta:" textFill="WHITE" />
+                        <Label fx:id="mUserAccountDate" layoutX="206.0" layoutY="439.0" text="12/06/1410" textFill="WHITE" />
                      </children>
                   </Pane>
                   <Pane layoutX="685.0" layoutY="329.0" prefHeight="30.0" prefWidth="310.0" styleClass="divider" stylesheets="@../styles/admin.css" />
-                  <Pane fx:id="mInfoPanel" prefHeight="100.0" prefWidth="1024.0" styleClass="info-panel" stylesheets="@../styles/admin.css" visible="false">
+                  <Pane fx:id="mInfoPanel" prefHeight="100.0" prefWidth="1024.0" styleClass="info-panel" stylesheets="@../styles/admin.css">
                      <children>
                         <ImageView fx:id="mInfoIcon" fitHeight="53.0" fitWidth="53.0" layoutX="86.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>

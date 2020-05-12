@@ -182,7 +182,11 @@ public class AdminController extends BaseController {
     @FXML
     public ToggleGroup mInfoPanelAccountType;
 
+    @FXML
+    private ListView<?> mUserWorkspacesList; // Lista z domenami "danego usera" -> TODO OLEK
 
+    @FXML
+    public Label mUserAccountDate; // Labelka z datą -> TODO OLEK
 
 
     //Views initialize
