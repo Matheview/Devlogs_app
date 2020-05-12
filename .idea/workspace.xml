@@ -19,7 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05b18e5a-1ae8-458a-9c44-b91a7370feeb" name="Default Changelist" comment="" />
+    <list default="true" id="05b18e5a-1ae8-458a-9c44-b91a7370feeb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/imgs/close-red.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/RequestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/RequestService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/adminView.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
