@@ -74,4 +74,11 @@ public class RequestData {
 	}
 
 	public int getUser_id(){ return user_id; }
+
+	public String getPrivilege() {
+		return privilege;
+	}
+	public void setPrivilege(String privilege) {
+		this.privilege = privilege;
+	}
 }

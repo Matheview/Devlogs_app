@@ -263,6 +263,8 @@ public class RequestService {
 		os.write(jsonInputString.getBytes("UTF-8"));
 		os.close();
 
+		System.out.println("Request : " + jsonInputString );
+
 		InputStream in = new BufferedInputStream(conn.getInputStream());
 		String result = IOUtils.toString(in, "UTF-8");
 
@@ -284,43 +286,35 @@ public class RequestService {
 	 * @param jsonInputString user_id, granted_to, domain
 	 * @return ResponseObject success, msg
 	 */
-	public ResponseObject requestDeletePermission(String jsonInputString)
-	{
+	public ResponseObject requestDeletePermission(String jsonInputString) throws IOException {
 		ResponseObject ro = new ResponseObject();
-		try {
-			URL url = new URL("http://ssh-vps.nazwa.pl:4742/users/permission");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-			conn.setConnectTimeout(5000);
-			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			conn.setDoInput(true);
-			conn.setDoOutput(true);
-			conn.setRequestMethod("DELETE");
+		URL url = new URL("http://ssh-vps.nazwa.pl:4742/users/permission");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-			OutputStream os = conn.getOutputStream();
-			os.write(jsonInputString.getBytes("UTF-8"));
-			os.close();
+		conn.setConnectTimeout(5000);
+		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		conn.setDoInput(true);
+		conn.setDoOutput(true);
+		conn.setRequestMethod("DELETE");
 
-			InputStream in = new BufferedInputStream(conn.getInputStream());
-			String result = IOUtils.toString(in, "UTF-8");
+		OutputStream os = conn.getOutputStream();
+		os.write(jsonInputString.getBytes("UTF-8"));
+		os.close();
 
-			System.out.println("Response code : " + conn.getResponseCode());
+		InputStream in = new BufferedInputStream(conn.getInputStream());
+		String result = IOUtils.toString(in, "UTF-8");
 
-			System.out.println("Odpowiedz z serwera : " + result );
+		System.out.println("Response code : " + conn.getResponseCode());
 
-			Gson gson = new Gson();
-			ro = gson.fromJson(result, ResponseObject.class);
+		System.out.println("Odpowiedz z serwera : " + result );
 
-			in.close();
-			conn.disconnect();
+		Gson gson = new Gson();
+		ro = gson.fromJson(result, ResponseObject.class);
 
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		in.close();
+		conn.disconnect();
+
 		return ro;
 	}
 

@@ -236,6 +236,7 @@ public class AdminController extends BaseController {
                     }
                     // nadanie elementowi listy klasy css
                     getStyleClass().add("domain-list-item");
+
                 }
             });
         } catch (IOException e) {
@@ -451,6 +452,7 @@ public class AdminController extends BaseController {
                     showInfoPanel("Sukces! Utworzono nowego użytkownika: " + username + ", o uprawnieniach: " + privilege + ".");
                     refresh();
                     clearNewUserFields();
+                    mUserInfoPanel.setVisible(false);
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
@@ -558,9 +560,37 @@ public class AdminController extends BaseController {
         mUserInfoPanel.setVisible(false);
     }
 
-    @FXML // funkcja usuwająca usera z bazy
+    /**
+     * Funkcja odbierająca użytkownikowi uprawnienia
+     * @param event event
+     */
+    @FXML
     void deleteThisUser(MouseEvent event) {
-        
+        User user = mUserlist.getSelectionModel().getSelectedItem();
+
+        int user_id = getUserId();
+        int granted_to = user.getId();
+        String domain = getDomain();
+
+        RequestService requestService = new RequestService();
+        RequestData requestData = new RequestData(user_id, granted_to, domain);
+
+        Gson gson = new Gson();
+        String inputJSON = gson.toJson(requestData);
+        ResponseObject response;
+        try {
+            response = requestService.requestDeletePermission(inputJSON);
+
+            if (response.isSuccess()) {
+                showInfoPanel("Odebrano uprawnienia użytkownikowi: " + user.toString() + ".");
+                refresh();
+                mUserInfoPanel.setVisible(false);
+            } else if (!response.isSuccess())
+                DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można odebrać użytkownikowi uprawnień. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
     }
 
     /**
