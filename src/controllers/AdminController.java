@@ -192,8 +192,8 @@ public class AdminController extends BaseController {
 
     //Views initialize
     public void initialize() {
-        mWelcomeUserName.setText(Controller.currAcc.getUsername());
-        mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
+        mWelcomeUserName.setText(getUsername());
+        mPrivilegeUser.setText(getPrivilege());
 
         refresh();
 
@@ -219,7 +219,7 @@ public class AdminController extends BaseController {
         RequestService requestService = new RequestService();
 
         try {
-            RsDomains domains = requestService.getUserDomains(Controller.currAcc.getUser_id());
+            RsDomains domains = requestService.getUserDomains(getUserId());
             mWorkspaceList.getItems().clear();
             mWorkspaceList.getItems().addAll(domains.getDomains());
             // funkcja nadająca elementom listy klasę css
@@ -244,7 +244,7 @@ public class AdminController extends BaseController {
         }
 
         try {
-            ResponseObject responseObject = requestService.requestListOfUsers(Controller.currAcc.getUser_id());
+            ResponseObject responseObject = requestService.requestListOfUsers(getUserId());
             mUserlist.getItems().clear();
             mUserlist.getItems().addAll(responseObject.getUsers());
 
@@ -426,8 +426,8 @@ public class AdminController extends BaseController {
 
         String email = mEmail.getText();
         String password = mPassword.getText();
-        String domain = Controller.currAcc.getDomain();
-        String privilage = selectedButton.getText();
+        String domain = getDomain();
+        String privilege = selectedButton.getText();
         String username = mUserName.getText();
         int user_id = getUserId();
 
@@ -437,7 +437,7 @@ public class AdminController extends BaseController {
             showErrorPanel("Błąd: Wpisano niepoprawny adres e-mail.");
         else {
             RequestService requestService = new RequestService();
-            RequestData requestData = new RequestData(email, password, domain, user_id, privilage, username);
+            RequestData requestData = new RequestData(email, password, domain, user_id, privilege, username);
 
             Gson gson = new Gson();
             String inputJSON = gson.toJson(requestData);
@@ -448,7 +448,7 @@ public class AdminController extends BaseController {
                 if (response.getMsg().equals("Email alredy exists"))
                     showErrorPanel("Błąd: Użytkownik o takim emailu już istnieje");
                 else if (response.isSuccess()) {
-                    showInfoPanel("Sukces! Utworzono nowego użytkownika: " + username + ", o uprawnieniach: " + privilage + ".");
+                    showInfoPanel("Sukces! Utworzono nowego użytkownika: " + username + ", o uprawnieniach: " + privilege + ".");
                     refresh();
                     clearNewUserFields();
                 } else if (!response.isSuccess())
@@ -560,7 +560,42 @@ public class AdminController extends BaseController {
 
     @FXML // funkcja usuwająca usera z bazy
     void deleteThisUser(MouseEvent event) {
-
+        
     }
 
+    /**
+     * Funkcja do zmiany uprawnień użytkownika
+     * @param actionEvent event
+     */
+    @FXML
+    public void changeUserPrivilage(ActionEvent actionEvent) {
+        RadioButton selectedButton = (RadioButton) mInfoPanelAccountType.getSelectedToggle();
+
+        User user = mUserlist.getSelectionModel().getSelectedItem();
+
+        int user_id = getUserId();
+        int granted_to = user.getId();
+        String domain = getDomain();
+        String privilege = selectedButton.getText();
+
+        RequestService requestService = new RequestService();
+        RequestData requestData = new RequestData(user_id, granted_to, domain, privilege);
+
+        Gson gson = new Gson();
+        String inputJSON = gson.toJson(requestData);
+        ResponseObject response;
+        try {
+            response = requestService.requestUpdatePermission(inputJSON);
+
+            if (response.isSuccess()) {
+                showInfoPanel("Zmieniono uprawnienia użytkownika " + user.toString() + " na: " + privilege + ".");
+                refresh();
+                mUserPanelStatus.setText(privilege);
+            } else if (!response.isSuccess())
+                DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można zmienić uprawnień użytkownikowi. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
+    }
 }

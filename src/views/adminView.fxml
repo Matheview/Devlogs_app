@@ -141,7 +141,7 @@
                         </RadioButton>
                         <RadioButton fx:id="mUserPanelBossStatus" layoutX="164.0" layoutY="395.0" mnemonicParsing="false" styleClass="status-checkbox" stylesheets="@../styles/admin.css" text="Kierownik" textFill="WHITE" toggleGroup="$mInfoPanelAccountType" />
                         <RadioButton fx:id="mUserPanelCommonUserStatus" layoutX="257.0" layoutY="395.0" mnemonicParsing="false" selected="true" styleClass="status-checkbox" text="Pracownik" textFill="WHITE" toggleGroup="$mInfoPanelAccountType" />
-                        <Button fx:id="mUserPanelBtn" layoutX="32.0" layoutY="482.0" mnemonicParsing="false" onMouseClicked="#changeThisUserStatus" styleClass="change-status-btn" stylesheets="@../styles/admin.css" text="Zatwierdź nowy status" />
+                        <Button fx:id="mUserPanelBtn" layoutX="32.0" layoutY="482.0" mnemonicParsing="false" onAction="#changeUserPrivilage" onMouseClicked="#changeThisUserStatus" styleClass="change-status-btn" stylesheets="@../styles/admin.css" text="Zatwierdź nowy status" />
                         <ImageView fx:id="mDeleteUserIcon" fitHeight="30.0" fitWidth="30.0" layoutX="222.0" layoutY="480.0" onMouseClicked="#deleteThisUser" pickOnBounds="true" preserveRatio="true" styleClass="delete-icon">
                            <image>
                               <Image url="@../imgs/trash.png" />
