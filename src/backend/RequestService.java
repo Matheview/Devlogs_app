@@ -165,8 +165,6 @@ public class RequestService {
 		InputStream in = new BufferedInputStream(conn.getInputStream());
 		String result = IOUtils.toString(in, "UTF-8");
 
-		System.out.println("Odpowiedz z serwera : " + result);
-
 		Gson gson = new Gson();
 		ro = gson.fromJson(result, ResponseObject.class);
 
@@ -263,14 +261,8 @@ public class RequestService {
 		os.write(jsonInputString.getBytes("UTF-8"));
 		os.close();
 
-		System.out.println("Request : " + jsonInputString );
-
 		InputStream in = new BufferedInputStream(conn.getInputStream());
 		String result = IOUtils.toString(in, "UTF-8");
-
-		System.out.println("Response code : " + conn.getResponseCode());
-
-		System.out.println("Odpowiedz z serwera : " + result );
 
 		Gson gson = new Gson();
 		ro = gson.fromJson(result, ResponseObject.class);
@@ -304,10 +296,6 @@ public class RequestService {
 
 		InputStream in = new BufferedInputStream(conn.getInputStream());
 		String result = IOUtils.toString(in, "UTF-8");
-
-		System.out.println("Response code : " + conn.getResponseCode());
-
-		System.out.println("Odpowiedz z serwera : " + result );
 
 		Gson gson = new Gson();
 		ro = gson.fromJson(result, ResponseObject.class);
