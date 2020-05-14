@@ -4,6 +4,7 @@ import backend.requestObjects.RqNewProject;
 import backend.responseObjects.*;
 import backend.RequestService;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -101,6 +102,15 @@ public class BossController extends BaseController {
                         setText(null);
                     } else {
                         setText(project.toString());
+
+                        // Funkcja nasłuchująca, jaki projekt na liście został kliknięty. Otiera panel z informacjami o projekcie
+                        setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                            @Override
+                            public void handle(MouseEvent event) {
+                                mInProjectContainer.setVisible(true);
+                            }
+                        });
                     }
                     // nadanie elementowi listy klasy css
                     getStyleClass().add("project-list-item");
@@ -124,7 +134,7 @@ public class BossController extends BaseController {
 
     @FXML
     void backToHome(MouseEvent event) {
-
+        mInProjectContainer.setVisible(false);
     }
 
     @FXML

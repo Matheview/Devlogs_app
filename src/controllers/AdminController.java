@@ -250,9 +250,7 @@ public class AdminController extends BaseController {
                     } else {
                         setText(user.toString());
 
-                        /**
-                         * Funkcja nasłuchująca, jaki użytkownik na liście został kliknięty. Otiera panel z informacjami o użytkowniku
-                         */
+                        // Funkcja nasłuchująca, jaki użytkownik na liście został kliknięty. Otiera panel z informacjami o użytkowniku
                         setOnMouseClicked(new EventHandler<MouseEvent>() {
 
                             @Override
