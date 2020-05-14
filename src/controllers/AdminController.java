@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -27,6 +28,9 @@ import java.awt.event.InputMethodEvent;
 import java.io.IOException;
 
 public class AdminController extends BaseController {
+
+    // Atualnie wybrany użytkownik na liście
+    private User selectedUser;
 
     //ZMIENNE - NIE WSZYSTKIE BĘDĄ POTRZEBNE
 
@@ -196,19 +200,6 @@ public class AdminController extends BaseController {
         mPrivilegeUser.setText(getPrivilege());
 
         refresh();
-
-        /**
-         * Funkcja nasłuchująca, jaki użytkownik na liście został kliknięty. Otiera panel z informacjami o użytkowniku
-         */
-        mUserlist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
-
-            @Override
-            public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
-                mUserInfoPanel.setVisible(true);
-
-                refreshUserInfoPanel(newValue);
-            }
-        });
     }
 
     /**
@@ -258,7 +249,23 @@ public class AdminController extends BaseController {
                         setText(null);
                     } else {
                         setText(user.toString());
+
+                        /**
+                         * Funkcja nasłuchująca, jaki użytkownik na liście został kliknięty. Otiera panel z informacjami o użytkowniku
+                         */
+                        setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                            @Override
+                            public void handle(MouseEvent event) {
+                                mUserInfoPanel.setVisible(true);
+
+                                selectedUser = mUserlist.getSelectionModel().getSelectedItem();
+
+                                refreshUserInfoPanel(selectedUser);
+                            }
+                        });
                     }
+
                     // nadanie elementowi listy klasy css
                     getStyleClass().add("user-list-item");
                 }
@@ -601,10 +608,8 @@ public class AdminController extends BaseController {
     public void changeUserPrivilage(ActionEvent actionEvent) {
         RadioButton selectedButton = (RadioButton) mInfoPanelAccountType.getSelectedToggle();
 
-        User user = mUserlist.getSelectionModel().getSelectedItem();
-
         int user_id = getUserId();
-        int granted_to = user.getId();
+        int granted_to = selectedUser.getId();
         String domain = getDomain();
         String privilege = selectedButton.getText();
 
@@ -618,7 +623,7 @@ public class AdminController extends BaseController {
             response = requestService.requestUpdatePermission(inputJSON);
 
             if (response.isSuccess()) {
-                showInfoPanel("Zmieniono uprawnienia użytkownika " + user.toString() + " na: " + privilege + ".");
+                showInfoPanel("Zmieniono uprawnienia użytkownika " + selectedUser.toString() + " na: " + privilege + ".");
                 refresh();
                 mUserPanelStatus.setText(privilege);
             } else if (!response.isSuccess())
