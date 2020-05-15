@@ -4,6 +4,7 @@ import backend.requestObjects.RqNewProject;
 import backend.responseObjects.*;
 import backend.RequestService;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -71,6 +72,75 @@ public class BossController extends BaseController {
     private Pane mAddNewTask;
 
 
+    @FXML
+    private Pane mNewTaskPanel;
+
+    @FXML
+    private Label mTaskTitle;
+
+    @FXML
+    private CheckBox mLowPriority;
+
+    @FXML
+    private CheckBox mMediumPriority;
+
+    @FXML
+    private CheckBox mHighPriority;
+
+    @FXML
+    private Pane mUsersInProjectPanel;
+
+    @FXML
+    private ListView<?> mUsersInTaskList;
+
+    @FXML
+    private Pane mTask;
+
+    @FXML
+    private Label mTaskStartDate;
+
+    @FXML
+    private Label mTaskDeadline;
+
+    @FXML
+    private Pane mTaskPriority;
+
+    @FXML
+    private Label mTaskCommentsCount;
+
+    @FXML
+    private Pane mCommentsPanel;
+
+    @FXML
+    private Label mTaskTitleInCommentsPanel;
+
+    @FXML
+    private TextArea mTaskDescription;
+
+    @FXML
+    private ListView<?> mTaskComments;
+
+    @FXML
+    private TextField mMyComment;
+
+    @FXML
+    private Pane mInvitationPanel;
+
+    @FXML
+    private ListView<?> mUsersInProjectList;
+
+    @FXML
+    private TextField mInvitationInput;
+
+    @FXML
+    private TextField mInputTaskTitle;
+
+    @FXML
+    private Label mProjectTitle;
+
+    @FXML
+    private Pane mProjectNavbar;
+
     //Views initialize
     public void initialize() {
         mWelcomeUserName.setText(Controller.currAcc.getUsername());
@@ -101,6 +171,15 @@ public class BossController extends BaseController {
                         setText(null);
                     } else {
                         setText(project.toString());
+
+                        // Funkcja nasłuchująca, jaki projekt na liście został kliknięty. Otiera panel z informacjami o projekcie
+                        setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                            @Override
+                            public void handle(MouseEvent event) {
+                                showProjectDetails();
+                            }
+                        });
                     }
                     // nadanie elementowi listy klasy css
                     getStyleClass().add("project-list-item");
@@ -122,9 +201,42 @@ public class BossController extends BaseController {
         }
     }
 
+    public void showProjectDetails() {
+        mInProjectContainer.setVisible(true);
+        mProjectNavbar.setVisible(true);
+        mNavbar.setVisible(false);
+    }
+
+    public void hideProjectDetails() {
+        mInProjectContainer.setVisible(false);
+        mProjectNavbar.setVisible(false);
+        mNavbar.setVisible(true);
+    }
+
+    public void refreshProjectDetails(Project project) {
+        if (project != null) {
+            RequestService requestService = new RequestService();
+
+            int project_id = project.getId();
+
+            RsProjectDetails response;
+            try {
+                response = requestService.getProjectDetails(project_id);
+
+                if (response.isSuccess()) {
+                    System.out.println(response.getStatuses().get(0));
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać szczegułów projekcie. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
+
     @FXML
     void backToHome(MouseEvent event) {
-
+        hideProjectDetails();
     }
 
     @FXML
@@ -174,6 +286,94 @@ public class BossController extends BaseController {
 
     }
 
+    @FXML // TODO funckja do dodawania nowego komentarza
+    void addNewComment(MouseEvent event) {
+
+    }
+
+    @FXML // TODO funckja do dodawania opisu
+    void addNewDescription(MouseEvent event) {
+
+    }
+
+    @FXML // TODO funckja do dodawania nowego zadania
+    void addNewTask(MouseEvent event) {
+
+    }
+
+    @FXML
+    void closeInvitationPanel(MouseEvent event) {
+        mInvitationPanel.setVisible(false);
+    }
+
+    @FXML
+    void closeNewTaskPanel(MouseEvent event) {
+        mNewTaskPanel.setVisible(false);
+    }
+
+    @FXML
+    void closeUsersInProjectPanel(MouseEvent event) {
+        mUsersInProjectPanel.setVisible(false);
+    }
+
+    @FXML // TODO funkcja do generowania pdfa, ale jak to zrobimy to nie mam pojęcia
+    void generatePdf(MouseEvent event) {
+
+    }
+
+    @FXML // TODO funkcja sprawdzająca stan inputa komentarza jeśli bedzie potrzebna
+    void handleCommentChange(InputMethodEvent event) {
+
+    }
+
+    @FXML // TODO funkcja sprawdzająca stan inputa do zaproszenia poprzez email / username jeśli bedzie potrzeba
+    void handleInvitationInputChange(InputMethodEvent event) {
+
+    }
+
+    @FXML // TODO funkcja sprawdzająca stan inputa zmiany tytułu zadania jeśli będzie potrzebna
+    void handleTitleTaskChange(InputMethodEvent event) {
+
+    }
+
+    @FXML
+    void hideCommentsPanel(MouseEvent event) {
+        mCommentsPanel.setVisible(false);
+    }
+
+    @FXML // TODO funckja wysyłająca zaproszenie do usera, pasuje to przełożyć na powiadomienia w panelu danego użytkownika, ale to już zabawa dla Kuby
+    void sendInvitation(MouseEvent event) {
+
+    }
+
+    @FXML
+    void showComments(MouseEvent event) {
+        mCommentsPanel.setVisible(true);
+    }
+
+    @FXML
+    void showInvitationPanel(MouseEvent event) {
+        mInvitationPanel.setVisible(true);
+    }
+
+    @FXML
+    void showNewTaskPanel(MouseEvent event) {
+        mNewTaskPanel.setVisible(true);
+    }
+
+    @FXML
+    void showUsersInProject(MouseEvent event) {
+        mUsersInProjectPanel.setVisible(true);
+    }
+
+    @FXML
+    public void handleInvitationInputChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+    }
+
+    @FXML
+    public void handleCommentChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+    }
+
     @FXML
     public void addNewProjectActionEvetnt(ActionEvent actionEvent) {
         String project_name = mNewProjectInput.getText();
@@ -206,5 +406,20 @@ public class BossController extends BaseController {
     @FXML
     public void workspaceSelectedActionEvent(ActionEvent actionEvent) {
         mAddNewProject.setDisable(false);
+    }
+
+    @FXML
+    public void changeNameOfGroupTask(MouseEvent mouseEvent) {
+        //TODO funckja, która ma pozwolić zmienić nazwę grupy zadać na np. Do zrobienia, Zrobione, W trakcie itd. , nie wiem czy to będzie więc to na końcu
+    }
+
+    @FXML
+    public void handleTitleTaskChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+        //TODO funckja, sprawdzająca zawartość inputa do zmiany tytułu tasku, jeśli potrzebna
+    }
+
+    @FXML  // TODO funckja dodająca nową grupę tasków np. Do zrobienia, Robię itd trzeba dopytać mateusza czy to będzie czy na sztywno się ustawi grupy
+    public void addNewGroupTask(MouseEvent mouseEvent) {
+
     }
 }

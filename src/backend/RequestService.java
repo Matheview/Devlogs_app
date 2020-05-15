@@ -1,10 +1,7 @@
 package backend;
 
 import backend.requestObjects.RqNewProject;
-import backend.responseObjects.RsDomains;
-import backend.responseObjects.RsProject;
-import backend.responseObjects.RsProjects;
-import backend.responseObjects.RsUserInfo;
+import backend.responseObjects.*;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 
@@ -480,6 +477,26 @@ public class RequestService {
 		return responseObject;
 	}
 
+	/**
+	 * Metoda służca do pobierania szczegółowych informacji o projekcie
+	 * (w tym zadań związanych z projektem
+	 * @param project_id Id projektu
+	 * @return Obiekt zawierający szczegółowe dane odnośnie projektu
+	 */
+	public RsProjectDetails getProjectDetails(int project_id) throws IOException {
+		String addressEnd = "/projects/tasks?project_id=" + project_id;
+
+		HttpURLConnection connection = getConnection(addressEnd, "GET");
+
+		String result = getServerResponse(connection);
+
+		Gson gson = new Gson();
+		RsProjectDetails responseObject = gson.fromJson(result, RsProjectDetails.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
 
 	/**
 	 * Metoda służaca do pobierania listy domen
@@ -500,7 +517,6 @@ public class RequestService {
 
 		return responseObject;
 	}
-
 
 	/**
 	 * Metoda służca do pobierania informacji o użytkowniku
