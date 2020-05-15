@@ -141,15 +141,8 @@ public class BossController extends BaseController {
     @FXML
     private Pane mProjectNavbar;
 
-
-
-
-
     //Views initialize
     public void initialize() {
-        // TODO  tu sobie włączyłem widok do danego projektu, żeby go wyłączyć klikasz domek
-        mInProjectContainer.setVisible(true);
-
         mWelcomeUserName.setText(Controller.currAcc.getUsername());
         mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
@@ -184,7 +177,7 @@ public class BossController extends BaseController {
 
                             @Override
                             public void handle(MouseEvent event) {
-                                mInProjectContainer.setVisible(true);
+                                showProjectDetails();
                             }
                         });
                     }
@@ -208,14 +201,42 @@ public class BossController extends BaseController {
         }
     }
 
-    //TODO trzeba zrobić coś takiego, że jak klikasz na dany projekt w liście to pojawia się widok projektu i zmienia się mNavbar.setVisible na false, a robi się mProjectNavbar.setVisible(true)
+    public void showProjectDetails() {
+        mInProjectContainer.setVisible(true);
+        mProjectNavbar.setVisible(true);
+        mNavbar.setVisible(false);
+    }
 
-
-    @FXML //TODO domkiem się cofasz do ekranu kierownika (co ty nie powiesz) :)
-    void backToHome(MouseEvent event) {
+    public void hideProjectDetails() {
         mInProjectContainer.setVisible(false);
         mProjectNavbar.setVisible(false);
         mNavbar.setVisible(true);
+    }
+
+    public void refreshProjectDetails(Project project) {
+        if (project != null) {
+            RequestService requestService = new RequestService();
+
+            int project_id = project.getId();
+
+            RsProjectDetails response;
+            try {
+                response = requestService.getProjectDetails(project_id);
+
+                if (response.isSuccess()) {
+                    System.out.println(response.getStatuses().get(0));
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać szczegułów projekcie. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    void backToHome(MouseEvent event) {
+        hideProjectDetails();
     }
 
     @FXML

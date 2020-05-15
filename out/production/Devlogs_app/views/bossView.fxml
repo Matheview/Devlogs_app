@@ -28,7 +28,7 @@
    <children>
       <AnchorPane fx:id="mWrapper" prefHeight="768.0" prefWidth="1024.0" styleClass="wrapper">
          <children>
-            <Pane fx:id="mProjectNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
+            <Pane fx:id="mProjectNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css" visible="false">
                <children>
                   <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -75,7 +75,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="mNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css" visible="false">
+            <Pane fx:id="mNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
                <children>
                   <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -155,7 +155,7 @@
                         <ListView fx:id="mNotificationsList" layoutX="35.0" layoutY="105.0" prefHeight="180.0" prefWidth="230.0" />
                      </children>
                   </Pane>
-                  <Pane fx:id="mInProjectContainer" layoutX="7.0" prefHeight="688.0" prefWidth="1011.0" styleClass="project-container" stylesheets="@../styles/boss.css">
+                  <Pane fx:id="mInProjectContainer" layoutX="7.0" prefHeight="688.0" prefWidth="1011.0" styleClass="project-container" stylesheets="@../styles/boss.css" visible="false">
                      <children>
                         <Pane layoutX="40.0" layoutY="24.0" prefHeight="40.0" prefWidth="200.0" styleClass="tasks-list" stylesheets="@../styles/boss.css">
                            <children>
@@ -268,7 +268,7 @@
                               <ListView fx:id="mUsersInTaskList" layoutX="8.0" layoutY="47.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="45.0" prefWidth="200.0" />
                            </children>
                         </Pane>
-                        <Pane fx:id="mCommentsPanel" layoutX="331.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" styleClass="comments-panel" stylesheets="@../styles/boss.css">
+                        <Pane fx:id="mCommentsPanel" layoutX="331.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" styleClass="comments-panel" stylesheets="@../styles/boss.css" visible="false">
                            <children>
                               <Label fx:id="mTaskTitleInCommentsPanel" alignment="CENTER" contentDisplay="CENTER" layoutX="122.0" layoutY="6.0" styleClass="task-title" stylesheets="@../styles/boss.css" text="zaprojektowanie logiki systemu" textAlignment="CENTER" wrapText="true">
                                  <font>
@@ -311,7 +311,7 @@
                               <Button layoutX="444.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#addNewComment" text="dodaj komentarz" />
                            </children>
                         </Pane>
-                        <Pane fx:id="mInvitationPanel" layoutX="453.0" layoutY="128.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css">
+                        <Pane fx:id="mInvitationPanel" layoutX="453.0" layoutY="128.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css" visible="false">
                            <children>
                               <Label layoutX="83.0" layoutY="13.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Użytkownicy w projekcie" textFill="WHITE">
                                  <font>
