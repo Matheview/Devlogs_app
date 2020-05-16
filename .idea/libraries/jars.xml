@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="jars">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Devlogs_app-develop/jars/java-json.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Devlogs_app-develop/jars/jackson-mapper-asl-1.9.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Devlogs_app-develop/jars/commons-io-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Devlogs_app-develop/jars/jackson-mrbean-1.9.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Devlogs_app-develop/jars/jackson-core-asl-1.9.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Devlogs_app-develop/jars/gson-2.8.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Devlogs_app-develop/jars/org.apache.commons.io.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

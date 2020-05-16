@@ -1,0 +1,228 @@
+.your-projects {
+    -fx-background-color: #fff;
+    -fx-pref-width: 320px;
+    -fx-pref-height: 500px;
+    -fx-background-radius: 20px;
+    -fx-border-width: 2px;
+}
+
+.new-projects {
+    -fx-background-color: #fff;
+    -fx-pref-width: 550px;
+    -fx-pref-height: 500px;
+    -fx-background-radius: 20px;
+    -fx-border-width: 2px;
+}
+
+.project-label {
+    -fx-font-family: "Righteous";
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
+
+.projects-list {
+    -fx-text-fill: #1C1C1E;
+}
+
+.workspaces-list {
+    -fx-background-color: #fff;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343E4;
+}
+
+.create-project-btn {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #2343E4;
+    -fx-padding: 10px 20px;
+    -fx-font-family: "Righteous";
+    -fx-cursor: hand;
+}
+
+/* Tutaj style dotyczące panelu wejścia w dany projekt */
+
+.project-container {
+    -fx-background-color: #1C1C1E;
+
+}
+
+.tasks-list {
+    -fx-pref-height: 40px;
+    -fx-min-width: 250px;
+    -fx-background-color: #2343E4;
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: #fff;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+}
+
+.new-tasks-list {
+    -fx-pref-height: 40px;
+    -fx-pref-width: 140px;
+    -fx-background-color: #2343E4;
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: #fff;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+}
+
+.topic-name {
+    -fx-text-fill: #fff;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.add-new-task {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 40px;
+    -fx-background-color: #fff;
+}
+
+.task-view {
+    -fx-pref-width: 300px;
+    -fx-background-color: #fff;
+}
+
+.new-task-description {
+    -fx-pref-width: 250px;
+    -fx-background-color: #fff;
+}
+
+.new-task-add-label {
+    -fx-text-fill: #2343E4;
+}
+
+.priority {
+    -fx-pref-width: 10px;
+    -fx-pref-height: 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: #2343e4;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+}
+
+.low {
+    -fx-background-color: green;
+}
+
+.medium {
+    -fx-background-color: orange;
+}
+
+.high {
+    -fx-background-color: #DE2121;
+}
+
+.start-date {
+    -fx-background-color: #2343e4;
+    -fx-padding:0 4px;
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+}
+
+.deadline {
+    -fx-background-color: #DE2121;
+    -fx-padding:0 4px;
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+}
+
+.task-title {
+    -fx-font-family: Righteous;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2343e4;
+}
+
+.project-list-item {
+    -fx-background-color: #fff;
+    -fx-text-fill: #2343E4;
+    -fx-border-color: #2343E4;
+}
+
+.users-inproject-list {
+    -fx-pref-width: 250px;
+    -fx-background-color: #fff;
+}
+
+.user-circle {
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+    -fx-border-radius: 50%;
+    -fx-text-fill: #2343e4;
+    -fx-font-weight: bold;
+    -fx-margin: 2px;
+}
+
+.white {
+    -fx-background-radius: 50%;
+    -fx-background-color: #fff;
+}
+
+.comments-count {
+     -fx-pref-width: 17px;
+     -fx-pref-height: 17px;
+     -fx-border-width: 2px;
+     -fx-border-color: #000;
+     -fx-border-radius: 50%;
+     -fx-text-fill: #000;
+     -fx-font-weight: bold;
+}
+
+.add-new-task-btn {
+    -fx-text-fill: #fff;
+    -fx-background-color: #2343e4;
+}
+
+.comments-panel {
+    -fx-pref-width: 600px;
+    -fx-pref-height: 600px;
+    -fx-background-color: #1c1c1e;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.description-area {
+    -fx-pref-width: 500px;
+    -fx-pref-height: 100px;
+    -fx-text-fill: #000;
+}
+
+.my-comment {
+    -fx-pref-width: 380px;
+    -fx-border-width: 1px;
+    -fx-border-color: #fff;
+    -fx-prompt-text-fill: #fff;
+    -fx-text-fill: #fff;
+}
+
+.all-users-list-panel {
+    -fx-pref-width: 400px;
+    -fx-pref-height: 450px;
+    -fx-background-color: #1c1c1e;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+}
+
+.users-in-project-title {
+    -fx-font-family: Righteous;
+    -fx-font-weight: bold
+}
+
+.send-inv {
+    -fx-pref-width: 150px;
+    -fx-pref-height: 40px;
+    -fx-border-width: 2px;
+    -fx-border-color: #fff;
+}
+
+.send-inv-input {
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+    -fx-prompt-text-fill: #2343e4;
+    -fx-text-fill: #2343e4;
+}

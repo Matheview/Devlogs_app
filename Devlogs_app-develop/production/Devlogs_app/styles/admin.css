@@ -1,0 +1,92 @@
+
+.main {
+    -fx-background-color: #1C1C1E;
+}
+
+.navbar {
+    -fx-background-color: #FFFFFF;
+}
+
+.welcome {
+    -fx-font-family: "Lato";
+    -fx-font-size: 30px;
+}
+
+.user {
+    -fx-text-fill: #2343E4;
+}
+
+.user-type {
+    -fx-font-family: "Lato";
+    -fx-text-fill: #2343E4;
+}
+
+.notification-circle {
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+    -fx-background-color: #FFFFFF;
+    -fx-border-radius: 20px;
+    -fx-border-width: 1px;
+    -fx-border-color:#2343E4;
+}
+
+.notification-counter {
+    -fx-text-fill: #2343E4;
+    -fx-font-family: "Lato";
+}
+
+.user-creator {
+    -fx-pref-width: 280px;
+    -fx-pref-height: 500px;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30px;
+}
+
+.workspace-creator {
+    -fx-pref-width: 320px;
+    -fx-pref-height: 350px;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30px;
+}
+
+.information-container {
+    -fx-pref-width: 280px;
+    -fx-pref-height: 500px;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30px;
+}
+
+.text-input {
+    -fx-pref-width: 220px;
+    -fx-pref-height: 40px;
+    -fx-background-color: #1C1C1E;
+    -fx-text-fill: #FFFFFF;
+}
+
+.search-input {
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 1px;
+    -fx-border-color: #1C1C1E;
+    -fx-prompt-text-fill: #1C1C1E;
+    -fx-color-label-visible: #1C1C1E;
+}
+
+.user-type-label {
+    -fx-text-fill: #2343E4;
+}
+
+.information-label {
+    -fx-font-family: "Righteous";
+    -fx-font-weight: bold;
+}
+
+.checkbox-input {
+    -fx-text-fill: #2343E4;
+}
+
+.creator-btn {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #2343E4;
+    -fx-padding: 10px 20px;
+    -fx-font-family: Righteous;
+}
