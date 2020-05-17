@@ -484,7 +484,7 @@ public class RequestService {
 	 * @return Obiekt zawierający szczegółowe dane odnośnie projektu
 	 */
 	public RsProjectDetails getProjectDetails(int project_id) throws IOException {
-		String addressEnd = "/projects/tasks?project_id=" + project_id;
+		String addressEnd = "/getinfo/projects/tasks?project_id=" + project_id;
 
 		HttpURLConnection connection = getConnection(addressEnd, "GET");
 

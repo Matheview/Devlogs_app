@@ -3,7 +3,7 @@ package backend.responseObjects;
 public class Task {
     private int id;
     private String task_name;
-    private String granted_to;
+    private Integer granted_to;
     private String created_at;
     private String deadline;
     private String priority;
@@ -23,10 +23,10 @@ public class Task {
         this.task_name = task_name;
     }
 
-    public String getGranted_to() {
+    public Integer getGranted_to() {
         return granted_to;
     }
-    public void setGranted_to(String granted_to) {
+    public void setGranted_to(Integer granted_to) {
         this.granted_to = granted_to;
     }
 
@@ -56,5 +56,10 @@ public class Task {
     }
     public void setComments_count(int comments_count) {
         this.comments_count = comments_count;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }
