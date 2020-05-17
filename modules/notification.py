@@ -20,11 +20,7 @@ class NotificationGet(MethodView, Responses):
 
     def get(self):
         try:
-            if request.data != b'':
-            # if request.headers.get('token') == SECRET_HASH:
-                self.data['user_id'] = request.json['user_id']
-            else:
-                self.data['user_id'] = request.args.get('user_id')
+            self.data['user_id'] = request.args.get('user_id')
             notifictions = self.db.query(GET_NOTIFICATIONS.format(self.data['user_id'])).fetchall()
             if notifictions is None or len(notifictions) == 0:
                 return self.response(200, success=True, msg="Not found notifications(0)", notifications=[])

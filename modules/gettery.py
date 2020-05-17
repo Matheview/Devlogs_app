@@ -1,10 +1,11 @@
 # coding=utf-8
 from flask.views import MethodView
-from flask import request, json, Response, render_template
+from flask import request, json, Response, render_template, make_response
 from connectors.dbconfig import DBConnector
 from modules.responses import *
 import re
 from datetime import datetime
+import pfdkit
 
 
 class GettersDomains(MethodView, Responses):
@@ -98,7 +99,7 @@ class GettersProjects(MethodView, Responses):
             return self.response(200, success=True, msg="Projects(0)".format(len(result[1])), projects=[])
         else:
             for i in result[1]:
-                self.arr.append({'user_count': i[0], 'project_id': i[1], 'project_name': i[2], 'domain_name': i[3], 'privilege': i[4]})
+                self.arr.append({'user_count': i[0], 'project_id': i[1], 'project_name': "#{0} {1}".format(i[1], i[2]), 'domain_name': i[3], 'privilege': i[4]})
             return self.response(200, success=True, msg="Projects({0})".format(len(result[1])), projects=self.arr)
 
     def post(self):
@@ -342,12 +343,48 @@ class GetTasksFromProject(MethodView, Responses):
                                      users=[], statuses=[])
             self.users = self.db.get_all_users_from_project(self.keys)
             self.statuses = self.db.get_statuses_from_project(self.keys)
-            return self.response(200, success=True, msg="Project tasks found", project_id=self.keys['project_id'],
+            return self.response(200, success=True, msg="Project tasks found", project_id=int(self.keys['project_id']),
                                  project_name="#{0} {1}".format(self.keys['project_id'], project_info[1]),
-                                 users=[], statuses=self.statuses)
+                                 users=self.users, statuses=self.statuses)
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
             self.logs.save_msg(e, localisation="GetTasksFromProject.get[{0}]".format(exc_tb.tb_lineno), args=self.data)
+            return self.response(202, success=False, msg="Unexpected exception: reported")
+
+    def post(self):
+        return self.method_not_allowed("GettersUserWorker.post", 'post')
+
+    def put(self):
+        return self.method_not_allowed("GettersUserWorker.put", 'put')
+
+    def delete(self):
+        return self.method_not_allowed("GettersUserWorker.delete", 'delete')
+
+
+class GeneratePDFReport(MethodView, Responses):
+
+    def __init__(self):
+        super(GeneratePDFReport, self).__init__()
+        self.keys = {}
+        self.db = DBConnector()
+        self.domains = []
+        self.data = ""
+        self.token = ""
+        self.users = []
+        self.statuses = []
+
+    def get(self):
+        try:
+
+            render = render_template('docs.html')
+            pdf = pfdkit.from_string(render, False)
+            response = make_response(pdf)
+            response.headers['Content-Type'] = 'application/pdf'
+            response.headers['Content-Disposition'] = 'inline; filename=devslog_{}.pdf'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+            return response
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="GeneratePDFReport.get[{0}]".format(exc_tb.tb_lineno), args=self.data)
             return self.response(202, success=False, msg="Unexpected exception: reported")
 
     def post(self):

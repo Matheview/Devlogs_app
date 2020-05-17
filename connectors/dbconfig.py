@@ -208,16 +208,16 @@ class DBConnector(Responses):
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
             self.logs.save_msg(e, localisation="DBConnector.check_user[{0}]".format(exc_tb.tb_lineno),
-                               args=user)
+                               args=user_id)
             return False
         
     def update_permission(self, keys):
         try:
             perm_exist = self.query(CHECK_PERMISSION.format(keys['granted_to'], keys['domain'])).fetchone()
             if not perm_exist:
-                self.query(CREATE_PERMISSION.format(keys['user_id'], keys['privilege'], keys['granted_id'], keys['domain']))
+                self.query(CREATE_PERMISSION.format(keys['user_id'], keys['privilege'], keys['granted_to'], keys['domain']))
             else:
-                self.query(UPDATE_PERMISSION.format(keys['user_id'], keys['privilege'], keys['granted_id'], keys['domain']))
+                self.query(UPDATE_PERMISSION.format(keys['user_id'], keys['privilege'], keys['granted_to'], keys['domain']))
             self.query(ADD_NOTIFY_PERMISSION_GRANTED.format(keys['domain'], keys['granted_to'], keys['user_id'], keys['privilege']))
             return True
         except Exception as e:
@@ -338,16 +338,16 @@ class DBConnector(Responses):
                     shortcut = shortcut.split(" ")
                     shortcut = shortcut[0][0] + shortcut[1][0]
                 users.append({"user_id": res[0], "name": res[1], "shortcut": shortcut.upper()})
-            return [True, users]
+            return users
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
             self.logs.save_msg(e, localisation="DBConnector.get_all_users_from_project[{0}]".format(exc_tb.tb_lineno),
                                args=[token, passwd])
-            return [False, []]
+            return []
 
     def get_project_info(self, keys):
         try:
-            project_info = self.query(GET_PROJECT_MIN_INFO.format(keys['user_id'])).fetchone()
+            project_info = self.query(GET_PROJECT_MIN_INFO.format(keys['project_id'])).fetchone()
             return [True if project_info else False, project_info[0] if project_info else None]
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
@@ -361,15 +361,191 @@ class DBConnector(Responses):
             result_stat = self.query(GET_PROJECT_STATUSES.format(keys['project_id'])).fetchall()
             for res in result_stat:
                 tasks = []
-                result_tasks = self.query(GET_TASKS_ALL_INFO.format()).fetchall()
+                result_tasks = self.query(GET_TASKS_ALL_INFO.format(keys['project_id'], res[0])).fetchall()
                 for rt in result_tasks:
-                    tasks.append({"task_id": rt[0], "task_name": res[1], "granted_to": res[2],
-                                  "created_at": res[3], "deadline": res[4], "priority": res[5],
-                                  "comments_count": res[6]})
+                    tasks.append({"task_id": rt[0], "task_name": rt[1], "granted_to": rt[2],
+                                  "created_at": rt[3], "deadline": rt[4], "priority": rt[5],
+                                  "comments_count": rt[6]})
                 statuses.append({"status_id": res[0], "status": res[1], "tasks": tasks})
             return statuses
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
             self.logs.save_msg(e, localisation="DBConnector.get_statuses_from_project[{0}]".format(exc_tb.tb_lineno),
-                               args=[token, passwd])
+                               args=keys)
             return []
+
+    def create_status(self, keys):
+        try:
+            self.query(CREATE_STATUS.format(keys['status_desc'], keys['project_id']))
+            status = self.query(GET_CREATED_STATUS_ID.format(keys['project_id'], keys['status_desc'])).fetchone()
+            return status[0]
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.create_status[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return 0
+
+    def update_status(self, keys):
+        try:
+            self.query(UPDATE_STATUS.format(keys['project_id'], keys['status_id'], keys['status_desc']))
+            return True
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e,
+                               localisation="DBConnector.update_status[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return False
+
+    def remove_status(self, keys):
+        try:
+            self.query(REMOVE_STATUS.format(keys['project_id'], keys['status_id']))
+            return True
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e,
+                               localisation="DBConnector.remove_status[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return False
+
+    def create_task(self, keys):
+        try:
+            if keys['assigned_to']:
+                self.query(CREATE_TASK_WITH_USER.format(keys['project_id'], keys['creator_id'], keys['task_name'],
+                                                        keys['status_id'], keys['assigned_to']))
+            else:
+                self.query(CREATE_TASK_WITHOUT_USER.format(keys['project_id'], keys['creator_id'], keys['task_name'],
+                                                           keys['status_id']))
+            result = self.query(GET_LAST_TASK_ADDED.format(keys['project_id'], keys['task_name'], keys['status_id'])).fetchone()
+            if not result:
+                return result
+            return result[0]
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e,
+                               localisation="DBConnector.create_task[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return None
+
+    def delete_task(self, keys):
+        try:
+            self.query(REMOVE_COMMENTS_FROM_TASK.format(keys['task_id']))
+            self.query(REMOVE_TASK.format(keys['task_id']))
+            result = self.query(CHECK_TASK_EXISTS.format(keys['task_id'])).fetchone()
+            if not result:
+                return True
+            return False
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e,
+                               localisation="DBConnector.delete_task[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return False
+
+    def update_task(self, keys):
+        try:
+            queries = {'task_name': UPDATE_TASK_TASKNAME,
+                       'task_desc': UPDATE_TASK_TASKDESC,
+                       'status_id': UPDATE_TASK_STATUSID,
+                       'assigned_to': UPDATE_TASK_ASSIGNEDTO,
+                       "deadline": UPDATE_TASK_DEADLINE,
+                       "priority_desc": UPDATE_TASK_PRIORITY_DESC}
+            queries_null = {'task_name': UPDATE_NULL_TASK_TASKNAME,
+                       'task_desc': UPDATE_NULL_TASK_TASKDESC,
+                       'status_id': UPDATE_NULL_TASK_STATUSID,
+                       'assigned_to': UPDATE_NULL_TASK_ASSIGNEDTO,
+                       "deadline": UPDATE_NULL_TASK_DEADLINE,
+                       "priority_desc": UPDATE_NULL_TASK_PRIORITY_DESC}
+            for key in ['task_name', 'task_desc', 'status_id', 'assigned_to', "deadline", "priority_desc"]:
+                if keys[key] != -100:
+                    if keys[key] is None:
+                        self.query(queries_null[key].format(keys['task_id']))
+                    elif keys[key] is not None:
+                        self.query(queries[key].format(keys[key], keys['task_id']))
+            return True
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.update_task[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return False
+
+    def add_comment(self, keys):
+        try:
+            self.query(ADD_COMMENT.format(keys['task_id'], keys['user_id'], keys['comment_desc']))
+            return True
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.update_task[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return False
+
+    def update_comment(self, keys):
+        try:
+            self.query(UPDATE_COMMENT.format(keys['comment_id'], keys['user_id'], keys['comment_desc']))
+            return True
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.update_task[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return False
+
+    def delete_comment(self, keys):
+        try:
+            self.query(REMOVE_COMMENT.format(keys['comment_id']))
+            return True
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.update_task[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return False
+
+    def get_task_full_info(self, keys):
+        try:
+            result = self.query(GET_FULL_TASK_INFO.format(keys['task_id'])).fetchone()
+            info = {'task_id': result[0], 'task_name': result[1], 'task_desc': result[2],'deadline': result[3],
+                    'created_at': result[4], 'priority_desc': result[5], 'assigned_to': result[6]}
+            return info
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.get_task_full_info[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return None
+
+    def get_users_from_task(self, keys):
+        users = []
+        try:
+            result = self.query(GET_ALL_USERS_FROM_TASK.format(keys['task_id'])).fetchall()
+            for res in result:
+                user = res[1]
+                shortcut = str(user)[:1]
+                if " " in str(user):
+                    shortcut = "{0}{1}".format(shortcut, str(user).split(" ")[1][:1])
+                users.append({'user_id': res[0], 'name': res[1], 'shortcut': shortcut})
+            return users
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.get_users_from_task[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return []
+
+    def get_comments_from_task(self, keys):
+        comments = []
+        try:
+            result = self.query(GET_COMMENTS_FROM_TASK.format(keys['task_id'])).fetchall()
+            for res in result:
+                comments.append({'comment_id': res[0], "comment_desc": res[1], "user_id": res[2], "created_at": res[3]})
+            return comments
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.get_comments_from_task[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return []
+
+    def update_user_status(self, keys):
+        try:
+            self.query(UPDATE_USERS_STATUS.format(keys['task_id'], keys['status_id'], keys['user_id']))
+            return True
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.update_user_status[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return False
