@@ -130,6 +130,7 @@
 
 .task-title {
     -fx-font-family: Righteous;
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: #2343e4;
 }

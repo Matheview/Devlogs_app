@@ -19,4 +19,12 @@ public class RsProjectDetails extends RsProject {
     public void setStatuses(List<Status> statuses) {
         this.statuses = statuses;
     }
+
+    @Override
+    public String toString() {
+        return "RsProjectDetails{" +
+                "users=" + users +
+                ", statuses=" + statuses +
+                '}';
+    }
 }

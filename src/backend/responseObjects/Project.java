@@ -3,7 +3,7 @@ package backend.responseObjects;
 public class Project {
     private String domain_name;
     private String privilege;
-    private int id;
+    private int project_id;
     private String project_name;
     private int user_count;
 
@@ -22,10 +22,10 @@ public class Project {
     }
 
     public int getId() {
-        return id;
+        return project_id;
     }
     public void setId(int id) {
-        this.id = id;
+        this.project_id = id;
     }
 
     public String getProject_name() {
