@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -150,6 +151,35 @@ public class BossController extends BaseController {
 
     @FXML
     private HBox mStatusesList;
+
+    // ------- TODO do panelu raportów -------
+
+    @FXML
+    private Pane mPdfGeneratorPanel;
+
+    @FXML
+    private Label mRaportUserCounter; // licznik osób w projekcie
+
+    @FXML
+    private Label mRaportTaskCounter; // licznik zadań w projekcie
+
+    @FXML
+    private PieChart mRaportPieChart; // zmienna do wykresu kołowego pokazująca podział zadań ze względu na status : https://docs.oracle.com/javafx/2/charts/pie-chart.htm
+
+    @FXML
+    private ProgressBar mRaportProgressBar; // zmienna do progress bara ukazującego wizualny stan czasu ( dni) pozostałych do końca projektu, pasuje wyliczać na podstawie daty zaczęcia, zakończenia oraz dnia dzisiejszego ile jeszcze dni pozostało i przypisaywać wartość : https://docs.oracle.com/javafx/2/ui_controls/progress.htm
+
+    @FXML
+    private Label mRaportTaskStartDate; // zmienna do daty rozpoczęcia
+
+    @FXML
+    private Label mRaportTaskEndDate; // zmienna do daty zakończenia
+
+    @FXML
+    private Label mTimeTotheEnd; // zmienna do przechowywania info ile dni zostało
+
+    @FXML
+    private Label mRaportCurrentDate; // zmienna do daty dzisiejszej , wszystkie daty generować do foramtu dzień/miesiąc/rok
 
     //Views initialize
     public void initialize() {
@@ -618,4 +648,18 @@ public class BossController extends BaseController {
     public void addNewGroupTask(MouseEvent mouseEvent) {
 
     }
+
+    @FXML
+    void showPdfGeneratorPanel(MouseEvent event) {
+        mPdfGeneratorPanel.setVisible(true);
+        // TODO tu jeszcze trzeba funkcję, która zmieni zawartość progres bara w zaleźności od ilości dni pozostałych do końca wykonania projektu
+    }
+
+    @FXML
+    void closePdfGeneratorPanel(MouseEvent event) {
+        mPdfGeneratorPanel.setVisible(false);
+
+    }
+
+
 }
