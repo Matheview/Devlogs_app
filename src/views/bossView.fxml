@@ -198,10 +198,10 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Pane>
-                                                <Pane fx:id="mNewTaskPanel" maxWidth="250.0" prefHeight="200.0" prefWidth="200.0" styleClass="new-task-description" stylesheets="@../styles/boss.css">
+                                                <Pane fx:id="mNewTaskPanel" maxWidth="250.0" prefHeight="200.0" prefWidth="200.0" styleClass="new-task-description" stylesheets="@../styles/boss.css" visible="false">
                                                    <children>
                                                       <TextField fx:id="mInputTaskTitle" layoutX="15.0" layoutY="14.0" onInputMethodTextChanged="#handleTitleTaskChange" stylesheets="@../styles/boss.css" text="Wpisz tytuł zadania..." />
-                                                      <Label layoutX="53.0" layoutY="69.0" onMouseClicked="#showUsersInProject" text="Przydziel osobę do zadania" textFill="#2343e4">
+                                                      <Label layoutX="53.0" layoutY="69.0" onMouseClicked="#showUsersInProject" text="Przydziel osobę do zadania" textFill="#2343e4" underline="true">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
@@ -225,7 +225,7 @@
                                                       </ImageView>
                                                    </children>
                                                 </Pane>
-                                                <Pane fx:id="mUsersInProjectPanel" maxWidth="250.0" prefHeight="200.0" prefWidth="214.0" styleClass="users-inproject-list" stylesheets="@../styles/boss.css">
+                                                <Pane fx:id="mUsersInProjectPanel" maxWidth="250.0" prefHeight="200.0" prefWidth="214.0" styleClass="users-inproject-list" stylesheets="@../styles/boss.css" visible="false">
                                                    <children>
                                                       <ListView fx:id="mUsersInTaskList" layoutX="22.0" layoutY="10.0" prefHeight="180.0" prefWidth="200.0" styleClass="users-list" stylesheets="@../styles/boss.css" />
                                                       <ImageView fitHeight="14.0" fitWidth="14.0" layoutX="229.0" layoutY="7.0" onMouseClicked="#closeUsersInProjectPanel" pickOnBounds="true" preserveRatio="true">
@@ -317,7 +317,7 @@
                                              </cursor></Button>
                                        </children>
                                     </Pane>
-                                    <Pane fx:id="mInvitationPanel" layoutX="453.0" layoutY="128.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css">
+                                    <Pane fx:id="mInvitationPanel" layoutX="453.0" layoutY="128.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css" visible="false">
                                        <children>
                                           <Label layoutX="83.0" layoutY="13.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Użytkownicy w projekcie" textFill="WHITE">
                                              <font>
