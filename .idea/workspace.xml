@@ -20,23 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05b18e5a-1ae8-458a-9c44-b91a7370feeb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test/backend/RequestServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Devlogs_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Devlogs_app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/RequestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/RequestService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/responseObjects/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/responseObjects/Project.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/RequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/RequestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/responseObjects/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/responseObjects/RsProjectDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/RsProjectDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/responseObjects/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/Status.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/responseObjects/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/responseObjects/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BossController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/boss.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/boss.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/bossView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
