@@ -4,12 +4,18 @@ import backend.requestObjects.RqNewProject;
 import backend.responseObjects.*;
 import backend.RequestService;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.DialogsUtils;
 
@@ -17,6 +23,8 @@ import java.awt.event.InputMethodEvent;
 import java.io.IOException;
 
 public class BossController extends BaseController {
+
+    private RsProjectDetails activeProject;
 
     @FXML
     private AnchorPane mWrapper;
@@ -65,7 +73,7 @@ public class BossController extends BaseController {
     private Pane mNotificationsPanel;
 
     @FXML
-    private Pane mInProjectContainer;
+    private ScrollPane mInProjectContainer;
 
     @FXML
     private Pane mAddNewTask;
@@ -140,15 +148,11 @@ public class BossController extends BaseController {
     @FXML
     private Pane mProjectNavbar;
 
-
-
-
+    @FXML
+    private HBox mStatusesList;
 
     //Views initialize
     public void initialize() {
-        // TODO  tu sobie włączyłem widok do danego projektu, żeby go wyłączyć klikasz domek
-        mInProjectContainer.setVisible(true);
-
         mWelcomeUserName.setText(Controller.currAcc.getUsername());
         mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
@@ -177,6 +181,17 @@ public class BossController extends BaseController {
                         setText(null);
                     } else {
                         setText(project.toString());
+
+                        // Funkcja nasłuchująca, jaki projekt na liście został kliknięty. Otiera panel z informacjami o projekcie
+                        setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                            @Override
+                            public void handle(MouseEvent event) {
+                                showProjectDetails();
+
+                                refreshProjectDetails(mProjectsList.getSelectionModel().getSelectedItem());
+                            }
+                        });
                     }
                     // nadanie elementowi listy klasy css
                     getStyleClass().add("project-list-item");
@@ -198,15 +213,226 @@ public class BossController extends BaseController {
         }
     }
 
-    //TODO trzeba zrobić coś takiego, że jak klikasz na dany projekt w liście to pojawia się widok projektu i zmienia się mNavbar.setVisible na false, a robi się mProjectNavbar.setVisible(true)
+    public void showProjectDetails() {
+        mInProjectContainer.setVisible(true);
+        mProjectNavbar.setVisible(true);
+        mNavbar.setVisible(false);
+    }
 
-
-    @FXML //TODO domkiem się cofasz do ekranu kierownika (co ty nie powiesz) :)
-    void backToHome(MouseEvent event) {
-
+    public void hideProjectDetails() {
         mInProjectContainer.setVisible(false);
         mProjectNavbar.setVisible(false);
         mNavbar.setVisible(true);
+    }
+
+    public void refreshProjectDetails(Project project) {
+        if (project != null) {
+            RequestService requestService = new RequestService();
+
+            int project_id = project.getId();
+
+            RsProjectDetails response;
+            try {
+                response = requestService.getProjectDetails(project_id);
+
+                if (response.isSuccess()) {
+                    mStatusesList.getChildren().clear();
+                    activeProject = response;
+
+                    mProjectTitle.setText(activeProject.getProject_name());
+
+                    for (Status status : activeProject.getStatuses()) {
+
+                        // VBox przechowujący zadania z danego statusu
+                        VBox vBox = getVBox();
+
+                        // Tytuł statusu
+                        Pane statusName = getStatusTitlePane(status.getName(), "/imgs/edit.png");
+                        vBox.getChildren().add(statusName);
+
+                        for (Task task : status.getTasks()) {
+                            // Panel z informacjami o tasku
+                            Pane taskPane = getTaskPane(task);
+                            vBox.getChildren().add(taskPane);
+                        }
+
+                        Pane addNewTask = getNewTaskPane();
+                        vBox.getChildren().add(addNewTask);
+
+                        mStatusesList.getChildren().add(vBox);
+                    }
+
+                    // ostatni VBox z przuciskiem do dodawania nowego statusu
+                    VBox vBox = getVBox();
+                    Pane addStatus = getStatusTitlePane("nowy status", "/imgs/addtaskwhite.png");
+                    vBox.getChildren().add(addStatus);
+                    mStatusesList.getChildren().add(vBox);
+
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać szczegułów projekcie. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Metoda zwracająca standardowy dla tej aplikacji VBox
+     * @return standardoty VBox
+     */
+    private VBox getVBox() {
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+        vBox.setSpacing(10);
+        vBox.setAlignment(Pos.TOP_CENTER);
+
+        return vBox;
+    }
+
+    /**
+     * Metoda zwracajjąca panel zawierający nazwę statusu
+     * @param title nazwa statusu
+     * @return panel z tytułem statusu
+     */
+    private Pane getStatusTitlePane(String title, String icon) {
+        // Panel statusu
+        Pane pane = new Pane();
+        pane.getStyleClass().add("tasks-list");
+
+        pane.setPadding(new Insets(5, 5, 5, 5));
+
+        // Ikona
+        ImageView editIcon = new ImageView(new Image(icon));
+        editIcon.setFitWidth(16.0);
+        editIcon.setFitHeight(16.0);
+        editIcon.setLayoutX(20.0);
+        editIcon.setLayoutY(12.0);
+        pane.getChildren().add(editIcon);
+
+        // Tytuł statusu
+        Label titleLabel = new Label(title);
+        titleLabel.setLayoutX(47.0);
+        titleLabel.setLayoutY(5.0);
+        titleLabel.getStyleClass().add("topic-name");
+        pane.getChildren().add(titleLabel);
+
+        return pane;
+    }
+
+    /**
+     * Metode zwracajjąca panel zawierający dane o statusie
+     * @param task obiekt taska
+     * @return panel z informacjami o tasku
+     */
+    private Pane getTaskPane(Task task) {
+        // Panel taska
+        Pane pane = new Pane();
+        pane.getStyleClass().add("task-view");
+        pane.setPadding(new Insets(10, 10, 10, 10));
+
+        // Tytuł taska
+        Label taskTitle = new Label(task.getName());
+        taskTitle.setLayoutX(14.0);
+        taskTitle.setLayoutY(7.0);
+        taskTitle.getStyleClass().add("task-title");
+        pane.getChildren().add(taskTitle);
+
+        // Panel z priorytetem
+        Pane priority = new Pane();
+        priority.setLayoutX(281.0);
+        priority.setLayoutY(9.0);
+        priority.getStyleClass().add("priority");
+        pane.getChildren().add(priority);
+
+        // Panel ze skrótem nazwy przydzielonego do taska pracownika
+        if (task.getGranted_to() != null) {
+            User user = null;
+
+            for (User u : activeProject.getUsers()) {
+                if (u.getId() == task.getGranted_to()) {
+                    user = u;
+                    break;
+                }
+            }
+
+            if (user != null) {
+                Label userShortcut = new Label(user.getShortcut());
+                userShortcut.setAlignment(Pos.CENTER);
+                userShortcut.setLayoutX(13.0);
+                userShortcut.setLayoutY(35.0);
+                userShortcut.getStyleClass().add("user-circle");
+                pane.getChildren().add(userShortcut);
+            }
+        }
+
+        // Data utworzenia
+        //Label startDate = new Label(task.getCreated_at());
+        //startDate.setLayoutX(14.0);
+        //startDate.setLayoutY(74.0);
+        //startDate.getStyleClass().add("start-date");
+        //pane.getChildren().add(startDate);
+
+        // Deadline
+        if (task.getDeadline() != null) {
+            Label deadline = new Label(task.getDeadline());
+            deadline.setLayoutX(14.0);
+            deadline.setLayoutY(74.0);
+            deadline.getStyleClass().add("deadline");
+            pane.getChildren().add(deadline);
+        }
+
+        // Liczba komentarzy
+        Label commentsCount = new Label(Integer.toString(task.getComments_count()));
+        commentsCount.setAlignment(Pos.CENTER);
+        commentsCount.setLayoutX(233.0);
+        commentsCount.setLayoutY(74.0);
+        commentsCount.getStyleClass().add("comments-count");
+        pane.getChildren().add(commentsCount);
+
+        // Ikona komentarza
+        ImageView editIcon = new ImageView(new Image("/imgs/cloud.png"));
+        editIcon.setFitWidth(30.0);
+        editIcon.setFitHeight(30.0);
+        editIcon.setLayoutX(253.0);
+        editIcon.setLayoutY(54.0);
+        pane.getChildren().add(editIcon);
+
+        return pane;
+    }
+
+    /**
+     * Metode zwracajjąca panel zawierający przycisk do tworzenia nowego taska
+     * @return panel "dodaj nowe zadanie"
+     */
+    private Pane getNewTaskPane() {
+        // Panel taska
+        Pane pane = new Pane();
+        pane.getStyleClass().add("add-new-task");
+        pane.setMaxWidth(200.0);
+        pane.setPadding(new Insets(25, 25, 25, 25));
+
+        // Ikona
+        ImageView editIcon = new ImageView(new Image("/imgs/addtask.png"));
+        editIcon.setFitWidth(20.0);
+        editIcon.setFitHeight(20.0);
+        editIcon.setLayoutX(24.0);
+        editIcon.setLayoutY(14.0);
+        pane.getChildren().add(editIcon);
+
+        // "Dodaj nowe zadanie"
+        Label addTaskLabel = new Label("dodaj nowe zadanie");
+        addTaskLabel.setLayoutX(47.0);
+        addTaskLabel.setLayoutY(12.0);
+        addTaskLabel.getStyleClass().add("new-task-add-label");
+        pane.getChildren().add(addTaskLabel);
+
+        return pane;
+    }
+
+    @FXML
+    void backToHome(MouseEvent event) {
+        hideProjectDetails();
     }
 
     @FXML

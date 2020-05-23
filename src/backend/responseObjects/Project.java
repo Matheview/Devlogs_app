@@ -21,11 +21,11 @@ public class Project {
         this.privilege = privilege;
     }
 
-    public int getProject_id() {
+    public int getId() {
         return project_id;
     }
-    public void setProject_id(int project_id) {
-        this.project_id = project_id;
+    public void setId(int id) {
+        this.project_id = id;
     }
 
     public String getProject_name() {

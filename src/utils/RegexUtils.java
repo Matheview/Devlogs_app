@@ -16,6 +16,9 @@ public class RegexUtils {
      * @return True, jeśli adres email jest poprawny lub falese w przeciwnym wypadku
      */
     public static boolean validateEmail(String emailStr) {
+        if (emailStr == null)
+            return false;
+
         return validate(emailStr, VALID_EMAIL_ADDRESS_REGEX);
     }
 
