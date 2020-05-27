@@ -203,7 +203,7 @@ public class BossController extends BaseController {
             mProjectsList.getItems().addAll(projects.getProjects());
 
             // funkcja nadająca elementom listy klasę css
-            mProjectsList.setCellFactory(lv -> new ListCell<Project>() {
+            mProjectsList.setCellFactory(lv -> new ListCell<>() {
                 @Override
                 protected void updateItem(Project project, boolean empty) {
                     super.updateItem(project, empty);
@@ -213,14 +213,10 @@ public class BossController extends BaseController {
                         setText(project.toString());
 
                         // Funkcja nasłuchująca, jaki projekt na liście został kliknięty. Otiera panel z informacjami o projekcie
-                        setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        setOnMouseClicked(event -> {
+                            showProjectDetails();
 
-                            @Override
-                            public void handle(MouseEvent event) {
-                                showProjectDetails();
-
-                                refreshProjectDetails(mProjectsList.getSelectionModel().getSelectedItem());
-                            }
+                            refreshProjectDetails(mProjectsList.getSelectionModel().getSelectedItem());
                         });
                     }
                     // nadanie elementowi listy klasy css
@@ -255,6 +251,10 @@ public class BossController extends BaseController {
         mNavbar.setVisible(true);
     }
 
+    /**
+     * Funkcja odświeżająca panel ze szczegółami projektu
+     * @param project projekt do załadowania w panelu
+     */
     public void refreshProjectDetails(Project project) {
         if (project != null) {
             RequestService requestService = new RequestService();

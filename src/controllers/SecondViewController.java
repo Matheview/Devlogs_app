@@ -1,6 +1,5 @@
 package controllers;
 
-import backend.ResponseObject;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 

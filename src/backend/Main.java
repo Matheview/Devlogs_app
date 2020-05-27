@@ -1,5 +1,7 @@
 package backend;
 
+import backend.requestObjects.RequestData;
+import backend.responseObjects.ResponseObject;
 import com.google.gson.Gson;
 
 public class Main {

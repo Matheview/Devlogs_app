@@ -14,24 +14,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import backend.RequestData;
+import backend.requestObjects.RequestData;
 import backend.RequestService;
-import backend.ResponseObject;
-import javafx.stage.Window;
+import backend.responseObjects.ResponseObject;
 import sample.AppInfo;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class Controller extends Application {
 
@@ -143,7 +135,6 @@ public class Controller extends Application {
         mRemindPwd.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("dziala");
                 visibleChangePwdPopUp(true);
                 mLink.setVisible(false);
 //                mPwdImage.setImage(new Image(PATH_IMAGES + "log.png"));
@@ -199,7 +190,6 @@ public class Controller extends Application {
                 if(ro.isSuccess())
                 {
                     currAcc = new CurrentlyLoggedAccount(ro.getUser_id(), ro.getUsername(), ro.getPrivilege(), mDomain.getText());
-                    System.out.println(currAcc.toString());
                 }
 
                 if (ro.getPrivilege() != null && ro.getPrivilege().equals("Administrator") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {

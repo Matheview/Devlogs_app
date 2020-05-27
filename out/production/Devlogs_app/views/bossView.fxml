@@ -152,7 +152,7 @@
                         <Button fx:id="mAddNewProject" disable="true" layoutX="213.0" layoutY="415.0" mnemonicParsing="false" onAction="#addNewProjectActionEvetnt" onMouseClicked="#createNewProject" styleClass="create-project-btn" stylesheets="@../styles/boss.css" text="Utwórz projekt" />
                      </children>
                   </Pane>
-                  <ScrollPane fx:id="mInProjectContainer" prefHeight="688.0" prefWidth="1024.0">
+                  <ScrollPane fx:id="mInProjectContainer" prefHeight="688.0" prefWidth="1024.0" visible="false">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
@@ -340,7 +340,7 @@
                                              </cursor></Button>
                                        </children>
                                     </Pane>
-                                    <Pane fx:id="mInvitationPanel" layoutX="453.0" layoutY="128.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css">
+                                    <Pane fx:id="mInvitationPanel" layoutX="453.0" layoutY="128.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css" visible="false">
                                        <children>
                                           <Label layoutX="83.0" layoutY="13.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Użytkownicy w projekcie" textFill="WHITE">
                                              <font>
