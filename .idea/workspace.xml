@@ -13,14 +13,32 @@
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:devslog" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05b18e5a-1ae8-458a-9c44-b91a7370feeb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/coworking2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/deadLine.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/priority.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Devlogs_app/imgs/taskList.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Devlogs_app/styles/pdfGenerator.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imgs/coworking2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imgs/deadLine.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imgs/priority.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imgs/taskList.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/pdfGenerator.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/styles/boss.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/styles/boss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BossController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/boss.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/boss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/bossView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +77,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/mockito-all-1.10.19.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/styles" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -69,6 +87,10 @@
     <key name="CreateTestDialog.RecentsKey">
       <recent name="backend" />
       <recent name="utils" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\styles" />
+      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\views" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
