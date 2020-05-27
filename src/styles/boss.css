@@ -228,3 +228,17 @@
     -fx-prompt-text-fill: #2343e4;
     -fx-text-fill: #2343e4;
 }
+
+.new-status-panel {
+    -fx-background-color: #1c1c1e;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+}
+
+.white-input {
+    -fx-background-color: #fff;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+    -fx-prompt-text-fill: #000;
+    -fx-text-fill: #000;
+}

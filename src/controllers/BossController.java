@@ -166,6 +166,13 @@ public class BossController extends BaseController {
 
     @FXML
     public ImageView mCLoseInfoPanelIcon;
+
+    @FXML
+    public Pane mNewStatusPane;
+
+    @FXML
+    public TextField mNewStatusName;
+
     // ------- TODO do panelu raportów -------
 
     @FXML
@@ -253,16 +260,31 @@ public class BossController extends BaseController {
         }
     }
 
+    /**
+     * Pokaż panel ze szczegółami projektu
+     */
     public void showProjectDetails() {
         mInProjectContainer.setVisible(true);
         mProjectNavbar.setVisible(true);
         mNavbar.setVisible(false);
     }
 
+    /**
+     * Ukryj panel ze szczegółami projektu
+     */
     public void hideProjectDetails() {
         mInProjectContainer.setVisible(false);
         mProjectNavbar.setVisible(false);
         mNavbar.setVisible(true);
+    }
+
+    /**
+     * Pokaż panel do tworzenia nowego statusu
+     */
+    public void showNewStatusPane() {
+        mInvitationPanel.setVisible(false);
+        mCommentsPanel.setVisible(false);
+        mNewStatusPane.setVisible(true);
     }
 
     /**
@@ -721,4 +743,9 @@ public class BossController extends BaseController {
         mInfoPanel.setVisible(false);
     }
 
+    @FXML  // Funkcja zamykająca panel do tworzenia nowego statusu
+    public void closeNewStatusPane(MouseEvent mouseEvent) {
+        mNewStatusPane.setVisible(false);
+        mNewStatusName.clear();
+    }
 }

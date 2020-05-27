@@ -438,6 +438,22 @@
                                           <Label fx:id="mRaportCurrentDate" layoutX="765.0" layoutY="339.0" styleClass="current-date" stylesheets="@../styles/pdfGenerator.css" text="13/06/2020" />
                                        </children>
                                     </Pane>
+                                    <Pane fx:id="mNewStatusPane" layoutX="372.0" layoutY="255.0" prefHeight="162.0" prefWidth="247.0" styleClass="new-status-panel" stylesheets="@../styles/boss.css" visible="false">
+                                       <children>
+                                          <Label layoutX="14.0" layoutY="14.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Dodaj nowy status:" textFill="WHITE" />
+                                          <TextField fx:id="mNewStatusName" layoutX="14.0" layoutY="55.0" prefWidth="272.0" promptText="Podaj nazwę statusu..." styleClass="white-input" stylesheets="@../styles/boss.css" />
+                                          <Button layoutX="14.0" layoutY="118.0" mnemonicParsing="false" text="Stwórz status" />
+                                          <Button layoutX="175.0" layoutY="118.0" mnemonicParsing="false" onMouseClicked="#closeNewStatusPane" text="Anuluj" />
+                                          <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="218.0" layoutY="14.0" onMouseClicked="#closeNewStatusPane" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imgs/close.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
                                  </children>
                                  <padding>
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
