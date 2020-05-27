@@ -152,6 +152,20 @@ public class BossController extends BaseController {
     @FXML
     private HBox mStatusesList;
 
+    @FXML
+    public Pane mInfoPanel;
+
+    @FXML
+    public ImageView mInfoIcon;
+
+    @FXML
+    public Label mTextInfoPanel;
+
+    @FXML
+    public Button mCloseInfoButton;
+
+    @FXML
+    public ImageView mCLoseInfoPanelIcon;
     // ------- TODO do panelu raportów -------
 
     @FXML
@@ -249,6 +263,42 @@ public class BossController extends BaseController {
         mInProjectContainer.setVisible(false);
         mProjectNavbar.setVisible(false);
         mNavbar.setVisible(true);
+    }
+
+    /**
+     * Funkcja wyświetlająca powiadomienie z informacją
+     */
+    public void showInfoPanel(String message) {
+        mInfoPanel.setVisible(true);
+
+        mInfoIcon.setImage(new Image("/imgs/info.png"));
+
+        mTextInfoPanel.getStyleClass().clear();
+        mTextInfoPanel.getStyleClass().add("info-panel-text");
+        mTextInfoPanel.setText(message);
+
+        mCloseInfoButton.getStyleClass().clear();
+        mCloseInfoButton.getStyleClass().add("creator-btn");
+
+        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close.png"));
+    }
+
+    /**
+     * Funkcja wyświetlająca powiadomienie o błędzie
+     */
+    public void showErrorPanel(String message) {
+        mInfoPanel.setVisible(true);
+
+        mInfoIcon.setImage(new Image("/imgs/warn.png"));
+
+        mTextInfoPanel.getStyleClass().clear();
+        mTextInfoPanel.getStyleClass().add("error-panel-text");
+        mTextInfoPanel.setText(message);
+
+        mCloseInfoButton.getStyleClass().clear();
+        mCloseInfoButton.getStyleClass().add("error-btn");
+
+        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close-red.png"));
     }
 
     /**
@@ -661,5 +711,14 @@ public class BossController extends BaseController {
 
     }
 
+    @FXML
+    public void closeInfoPanel(MouseEvent event) {
+        mInfoPanel.setVisible(false);
+    }
+
+    @FXML
+    public void acceptInfoPanel(MouseEvent event) {
+        mInfoPanel.setVisible(false);
+    }
 
 }

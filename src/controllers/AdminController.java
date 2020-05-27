@@ -600,7 +600,7 @@ public class AdminController extends BaseController {
      * @param actionEvent event
      */
     @FXML
-    public void changeUserPrivilage(ActionEvent actionEvent) {
+    public void changeUserPrivilege(ActionEvent actionEvent) {
         RadioButton selectedButton = (RadioButton) mInfoPanelAccountType.getSelectedToggle();
 
         int user_id = getUserId();
