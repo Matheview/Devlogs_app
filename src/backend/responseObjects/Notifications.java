@@ -1,4 +1,4 @@
-package backend;
+package backend.responseObjects;
 
 public class Notifications {
 

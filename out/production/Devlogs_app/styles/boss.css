@@ -130,7 +130,7 @@
 
 .task-title {
     -fx-font-family: Righteous;
-    -fx-font-size: 18px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #2343e4;
 }
@@ -203,13 +203,14 @@
 
 .all-users-list-panel {
     -fx-pref-width: 400px;
-    -fx-pref-height: 450px;
+    -fx-pref-height: 370px;
     -fx-background-color: #1c1c1e;
     -fx-border-width: 2px;
     -fx-border-color: #2343e4;
 }
 
 .users-in-project-title {
+    -fx-font-size: 18px;
     -fx-font-family: Righteous;
     -fx-font-weight: bold
 }
@@ -226,4 +227,62 @@
     -fx-border-color: #2343e4;
     -fx-prompt-text-fill: #2343e4;
     -fx-text-fill: #2343e4;
+}
+
+.new-status-panel {
+    -fx-background-color: #1c1c1e;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+}
+
+.new-status-input {
+    -fx-background-color: #1c1c1e;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+    -fx-prompt-text-fill: #fff;
+    -fx-text-fill: #fff;
+}
+
+.new-status-btn {
+      -fx-text-fill: #FFFFFF;
+      -fx-background-color: #2343E4;
+      -fx-padding: 10px;
+      -fx-font-family: "Righteous";
+      -fx-cursor: hand;
+      -fx-font-weight: bold;
+      -fx-border-weight: 1px;
+      -fx-border-color: #fff;
+}
+
+.add-user-from-domain {
+    -fx-pref-width: 70px;
+    -fx-pref-height: 70px;
+    -fx-background-color: #fff;
+    -fx-background-radius: 50%;
+    -fx-border-color: #2343e4;
+    -fx-border-radius: 50%;
+    -fx-cursor: hand;
+}
+
+.available-users-to-add {
+    -fx-pref-width: 400px;
+    -fx-pref-height: 180px;
+    -fx-background-color: #1c1c1e;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+}
+
+.available-users-list {
+    -fx-background-color: #fff;
+    -fx-border-weight: 4px;
+    -fx-border-color: #2343e4;
+    -fx-text-fill: #000;
+}
+
+.users-in-project-list{
+    -fx-text-fill: #000;
+}
+
+.hover-hand-cursor {
+    -fx-cursor: hand;
 }

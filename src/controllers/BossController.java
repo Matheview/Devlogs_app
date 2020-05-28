@@ -1,13 +1,14 @@
 package controllers;
 
 import backend.requestObjects.RqNewProject;
+import backend.requestObjects.RqNewStatus;
 import backend.responseObjects.*;
 import backend.RequestService;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -151,6 +152,59 @@ public class BossController extends BaseController {
     @FXML
     private HBox mStatusesList;
 
+    @FXML
+    public Pane mInfoPanel;
+
+    @FXML
+    public ImageView mInfoIcon;
+
+    @FXML
+    public Label mTextInfoPanel;
+
+    @FXML
+    public Button mCloseInfoButton;
+
+    @FXML
+    public ImageView mCLoseInfoPanelIcon;
+
+    @FXML
+    public Pane mNewStatusPane;
+
+    @FXML
+    public TextField mNewStatusName;
+
+    // ------- TODO do panelu raportów -------
+
+    @FXML
+    private Pane mPdfGeneratorPanel;
+
+    @FXML
+    private Label mRaportUserCounter; // licznik osób w projekcie
+
+    @FXML
+    private Label mRaportTaskCounter; // licznik zadań w projekcie
+
+    @FXML
+    private PieChart mRaportPieChart; // zmienna do wykresu kołowego pokazująca podział zadań ze względu na status : https://docs.oracle.com/javafx/2/charts/pie-chart.htm
+
+    @FXML
+    private ProgressBar mRaportProgressBar; // zmienna do progress bara ukazującego wizualny stan czasu ( dni) pozostałych do końca projektu, pasuje wyliczać na podstawie daty zaczęcia, zakończenia oraz dnia dzisiejszego ile jeszcze dni pozostało i przypisaywać wartość : https://docs.oracle.com/javafx/2/ui_controls/progress.htm
+
+    @FXML
+    private Label mRaportTaskStartDate; // zmienna do daty rozpoczęcia
+
+    @FXML
+    private Label mRaportTaskEndDate; // zmienna do daty zakończenia
+
+    @FXML
+    private Label mTimeTotheEnd; // zmienna do przechowywania info ile dni zostało
+
+    @FXML
+    private Label mRaportCurrentDate; // zmienna do daty dzisiejszej , wszystkie daty generować do foramtu dzień/miesiąc/rok
+
+    @FXML
+    private Pane mAvailableUsersPanel; // panel z dostępnymi userami w domenie do dodania do projektu
+
     //Views initialize
     public void initialize() {
         mWelcomeUserName.setText(Controller.currAcc.getUsername());
@@ -173,7 +227,7 @@ public class BossController extends BaseController {
             mProjectsList.getItems().addAll(projects.getProjects());
 
             // funkcja nadająca elementom listy klasę css
-            mProjectsList.setCellFactory(lv -> new ListCell<Project>() {
+            mProjectsList.setCellFactory(lv -> new ListCell<>() {
                 @Override
                 protected void updateItem(Project project, boolean empty) {
                     super.updateItem(project, empty);
@@ -183,14 +237,10 @@ public class BossController extends BaseController {
                         setText(project.toString());
 
                         // Funkcja nasłuchująca, jaki projekt na liście został kliknięty. Otiera panel z informacjami o projekcie
-                        setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        setOnMouseClicked(event -> {
+                            showProjectDetails();
 
-                            @Override
-                            public void handle(MouseEvent event) {
-                                showProjectDetails();
-
-                                refreshProjectDetails(mProjectsList.getSelectionModel().getSelectedItem());
-                            }
+                            refreshProjectDetails(getSelectedProject());
                         });
                     }
                     // nadanie elementowi listy klasy css
@@ -213,18 +263,80 @@ public class BossController extends BaseController {
         }
     }
 
+    /**
+     * Metoda zwracająca aktualnie wybrany projekt na liście
+     */
+    public Project getSelectedProject() {
+        return mProjectsList.getSelectionModel().getSelectedItem();
+    }
+
+    /**
+     * Pokaż panel ze szczegółami projektu
+     */
     public void showProjectDetails() {
         mInProjectContainer.setVisible(true);
         mProjectNavbar.setVisible(true);
         mNavbar.setVisible(false);
     }
 
+    /**
+     * Ukryj panel ze szczegółami projektu
+     */
     public void hideProjectDetails() {
         mInProjectContainer.setVisible(false);
         mProjectNavbar.setVisible(false);
         mNavbar.setVisible(true);
     }
 
+    /**
+     * Pokaż panel do tworzenia nowego statusu
+     */
+    public void showNewStatusPane() {
+        mInvitationPanel.setVisible(false);
+        mCommentsPanel.setVisible(false);
+        mNewStatusPane.setVisible(true);
+    }
+
+    /**
+     * Funkcja wyświetlająca powiadomienie z informacją
+     */
+    public void showInfoPanel(String message) {
+        mInfoPanel.setVisible(true);
+
+        mInfoIcon.setImage(new Image("/imgs/info.png"));
+
+        mTextInfoPanel.getStyleClass().clear();
+        mTextInfoPanel.getStyleClass().add("info-panel-text");
+        mTextInfoPanel.setText(message);
+
+        mCloseInfoButton.getStyleClass().clear();
+        mCloseInfoButton.getStyleClass().add("creator-btn");
+
+        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close.png"));
+    }
+
+    /**
+     * Funkcja wyświetlająca powiadomienie o błędzie
+     */
+    public void showErrorPanel(String message) {
+        mInfoPanel.setVisible(true);
+
+        mInfoIcon.setImage(new Image("/imgs/warn.png"));
+
+        mTextInfoPanel.getStyleClass().clear();
+        mTextInfoPanel.getStyleClass().add("error-panel-text");
+        mTextInfoPanel.setText(message);
+
+        mCloseInfoButton.getStyleClass().clear();
+        mCloseInfoButton.getStyleClass().add("error-btn");
+
+        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close-red.png"));
+    }
+
+    /**
+     * Funkcja odświeżająca panel ze szczegółami projektu
+     * @param project projekt do załadowania w panelu
+     */
     public void refreshProjectDetails(Project project) {
         if (project != null) {
             RequestService requestService = new RequestService();
@@ -265,6 +377,8 @@ public class BossController extends BaseController {
                     // ostatni VBox z przuciskiem do dodawania nowego statusu
                     VBox vBox = getVBox();
                     Pane addStatus = getStatusTitlePane("nowy status", "/imgs/addtaskwhite.png");
+                    addStatus.getStyleClass().add("hover-hand-cursor");
+                    addStatus.setOnMouseClicked(this::addNewGroupTask);
                     vBox.getChildren().add(addStatus);
                     mStatusesList.getChildren().add(vBox);
 
@@ -428,6 +542,11 @@ public class BossController extends BaseController {
         pane.getChildren().add(addTaskLabel);
 
         return pane;
+    }
+
+    public void closeNewStatusPane() {
+        mNewStatusPane.setVisible(false);
+        mNewStatusName.clear();
     }
 
     @FXML
@@ -614,8 +733,77 @@ public class BossController extends BaseController {
         //TODO funckja, sprawdzająca zawartość inputa do zmiany tytułu tasku, jeśli potrzebna
     }
 
-    @FXML  // TODO funckja dodająca nową grupę tasków np. Do zrobienia, Robię itd trzeba dopytać mateusza czy to będzie czy na sztywno się ustawi grupy
+    @FXML
     public void addNewGroupTask(MouseEvent mouseEvent) {
+        showNewStatusPane();
+    }
 
+    @FXML
+    void showPdfGeneratorPanel(MouseEvent event) {
+        mPdfGeneratorPanel.setVisible(true);
+        // TODO tu jeszcze trzeba funkcję, która zmieni zawartość progres bara w zaleźności od ilości dni pozostałych do końca wykonania projektu
+    }
+
+    @FXML
+    void closePdfGeneratorPanel(MouseEvent event) {
+        mPdfGeneratorPanel.setVisible(false);
+
+    }
+
+    @FXML
+    public void closeInfoPanel(MouseEvent event) {
+        mInfoPanel.setVisible(false);
+    }
+
+    @FXML
+    public void acceptInfoPanel(MouseEvent event) {
+        mInfoPanel.setVisible(false);
+    }
+
+    @FXML  // Funkcja zamykająca panel do tworzenia nowego statusu
+    public void closeNewStatusPaneHandler(MouseEvent mouseEvent) {
+        closeNewStatusPane();
+    }
+
+    @FXML
+    public void showAvailableUsersPanel(MouseEvent mouseEvent) {
+            mAvailableUsersPanel.setVisible(true);
+    }
+
+    @FXML
+    public void closeAvailableUsers(MouseEvent mouseEvent) {
+        mAvailableUsersPanel.setVisible(false);
+    }
+
+    @FXML
+    public void createNewStatus(ActionEvent actionEvent) {
+        String domain = getDomain();
+        int project_id = activeProject.getProject_id();
+        String status_desc = mNewStatusName.getText();
+        int user_id = getUserId();
+
+        if (status_desc.isEmpty())
+            showErrorPanel("Błąd: Proszę podać nazwę nowego statusu.");
+        else {
+            RequestService requestService = new RequestService();
+            RqNewStatus requestObject = new RqNewStatus(domain, project_id, status_desc, user_id);
+
+            RsStatus response;
+            try {
+                response = requestService.createNewStatus(requestObject);
+
+                if (response.getMsg().equals("Status description already exists"))
+                    showErrorPanel("Błąd: Status o takiej nazwie już istnieje.");
+                else if (response.isSuccess()) {
+                    showInfoPanel("Sukces: Utworzono nowy status o nazwie: " + status_desc + ".");
+                    closeNewStatusPane();
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowej przestrzeni. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
     }
 }

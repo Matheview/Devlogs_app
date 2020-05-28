@@ -1,15 +1,13 @@
 package controllers;
 
-import backend.RequestData;
+import backend.requestObjects.RequestData;
 import backend.responseObjects.RsUserInfo;
 import backend.responseObjects.User;
 import backend.responseObjects.Domain;
 import backend.RequestService;
-import backend.ResponseObject;
+import backend.responseObjects.ResponseObject;
 import backend.responseObjects.RsDomains;
 import com.google.gson.Gson;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utils.DialogsUtils;
 import utils.RegexUtils;
@@ -603,7 +600,7 @@ public class AdminController extends BaseController {
      * @param actionEvent event
      */
     @FXML
-    public void changeUserPrivilage(ActionEvent actionEvent) {
+    public void changeUserPrivilege(ActionEvent actionEvent) {
         RadioButton selectedButton = (RadioButton) mInfoPanelAccountType.getSelectedToggle();
 
         int user_id = getUserId();
