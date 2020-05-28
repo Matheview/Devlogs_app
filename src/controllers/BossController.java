@@ -202,6 +202,9 @@ public class BossController extends BaseController {
     @FXML
     private Label mRaportCurrentDate; // zmienna do daty dzisiejszej , wszystkie daty generować do foramtu dzień/miesiąc/rok
 
+    @FXML
+    private Pane mAvailableUsersPanel; // panel z dostępnymi userami w domenie do dodania do projektu
+
     //Views initialize
     public void initialize() {
         mWelcomeUserName.setText(Controller.currAcc.getUsername());
@@ -747,5 +750,15 @@ public class BossController extends BaseController {
     public void closeNewStatusPane(MouseEvent mouseEvent) {
         mNewStatusPane.setVisible(false);
         mNewStatusName.clear();
+    }
+
+    @FXML
+    public void showAvailableUsersPanel(MouseEvent mouseEvent) {
+            mAvailableUsersPanel.setVisible(true);
+    }
+
+    @FXML
+    public void closeAvailableUsers(MouseEvent mouseEvent) {
+        mAvailableUsersPanel.setVisible(false);
     }
 }
