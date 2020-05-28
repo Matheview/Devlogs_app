@@ -1,6 +1,7 @@
 package backend;
 
 import backend.requestObjects.RqNewProject;
+import backend.requestObjects.RqNewStatus;
 import backend.responseObjects.*;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
@@ -532,6 +533,28 @@ public class RequestService {
 
 		Gson gson = new Gson();
 		RsUserInfo responseObject = gson.fromJson(result, RsUserInfo.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda sluzaca do stworzenia nowego statusu
+	 * @param newStatus obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return ResponseObject success, msg, itd.
+	 */
+	public RsStatus createNewStatus(RqNewStatus newStatus) throws IOException {
+		HttpURLConnection connection = getConnection("/statuses/config", "POST");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(newStatus);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		RsStatus responseObject = gson.fromJson(result, RsStatus.class);
 
 		connection.disconnect();
 

@@ -240,7 +240,7 @@
     -fx-border-width: 2px;
     -fx-border-color: #2343e4;
     -fx-prompt-text-fill: #fff;
-    -fx-text-fill: #2343e4;
+    -fx-text-fill: #fff;
 }
 
 .new-status-btn {
@@ -281,4 +281,8 @@
 
 .users-in-project-list{
     -fx-text-fill: #000;
+}
+
+.hover-hand-cursor {
+    -fx-cursor: hand;
 }

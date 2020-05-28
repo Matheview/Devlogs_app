@@ -1,10 +1,10 @@
 package controllers;
 
 import backend.requestObjects.RqNewProject;
+import backend.requestObjects.RqNewStatus;
 import backend.responseObjects.*;
 import backend.RequestService;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -240,7 +240,7 @@ public class BossController extends BaseController {
                         setOnMouseClicked(event -> {
                             showProjectDetails();
 
-                            refreshProjectDetails(mProjectsList.getSelectionModel().getSelectedItem());
+                            refreshProjectDetails(getSelectedProject());
                         });
                     }
                     // nadanie elementowi listy klasy css
@@ -261,6 +261,13 @@ public class BossController extends BaseController {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Metoda zwracająca aktualnie wybrany projekt na liście
+     */
+    public Project getSelectedProject() {
+        return mProjectsList.getSelectionModel().getSelectedItem();
     }
 
     /**
@@ -370,6 +377,8 @@ public class BossController extends BaseController {
                     // ostatni VBox z przuciskiem do dodawania nowego statusu
                     VBox vBox = getVBox();
                     Pane addStatus = getStatusTitlePane("nowy status", "/imgs/addtaskwhite.png");
+                    addStatus.getStyleClass().add("hover-hand-cursor");
+                    addStatus.setOnMouseClicked(this::addNewGroupTask);
                     vBox.getChildren().add(addStatus);
                     mStatusesList.getChildren().add(vBox);
 
@@ -533,6 +542,11 @@ public class BossController extends BaseController {
         pane.getChildren().add(addTaskLabel);
 
         return pane;
+    }
+
+    public void closeNewStatusPane() {
+        mNewStatusPane.setVisible(false);
+        mNewStatusName.clear();
     }
 
     @FXML
@@ -719,9 +733,9 @@ public class BossController extends BaseController {
         //TODO funckja, sprawdzająca zawartość inputa do zmiany tytułu tasku, jeśli potrzebna
     }
 
-    @FXML  // TODO funckja dodająca nową grupę tasków np. Do zrobienia, Robię itd trzeba dopytać mateusza czy to będzie czy na sztywno się ustawi grupy
+    @FXML
     public void addNewGroupTask(MouseEvent mouseEvent) {
-
+        showNewStatusPane();
     }
 
     @FXML
@@ -747,9 +761,8 @@ public class BossController extends BaseController {
     }
 
     @FXML  // Funkcja zamykająca panel do tworzenia nowego statusu
-    public void closeNewStatusPane(MouseEvent mouseEvent) {
-        mNewStatusPane.setVisible(false);
-        mNewStatusName.clear();
+    public void closeNewStatusPaneHandler(MouseEvent mouseEvent) {
+        closeNewStatusPane();
     }
 
     @FXML
@@ -760,5 +773,37 @@ public class BossController extends BaseController {
     @FXML
     public void closeAvailableUsers(MouseEvent mouseEvent) {
         mAvailableUsersPanel.setVisible(false);
+    }
+
+    @FXML
+    public void createNewStatus(ActionEvent actionEvent) {
+        String domain = getDomain();
+        int project_id = activeProject.getProject_id();
+        String status_desc = mNewStatusName.getText();
+        int user_id = getUserId();
+
+        if (status_desc.isEmpty())
+            showErrorPanel("Błąd: Proszę podać nazwę nowego statusu.");
+        else {
+            RequestService requestService = new RequestService();
+            RqNewStatus requestObject = new RqNewStatus(domain, project_id, status_desc, user_id);
+
+            RsStatus response;
+            try {
+                response = requestService.createNewStatus(requestObject);
+
+                if (response.getMsg().equals("Status description already exists"))
+                    showErrorPanel("Błąd: Status o takiej nazwie już istnieje.");
+                else if (response.isSuccess()) {
+                    showInfoPanel("Sukces: Utworzono nowy status o nazwie: " + status_desc + ".");
+                    closeNewStatusPane();
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowej przestrzeni. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
     }
 }

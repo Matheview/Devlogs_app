@@ -152,7 +152,7 @@
                         <Button fx:id="mAddNewProject" disable="true" layoutX="213.0" layoutY="415.0" mnemonicParsing="false" onAction="#addNewProjectActionEvetnt" onMouseClicked="#createNewProject" styleClass="create-project-btn" stylesheets="@../styles/boss.css" text="Utwórz projekt" />
                      </children>
                   </Pane>
-                  <ScrollPane fx:id="mInProjectContainer" prefHeight="688.0" prefWidth="1024.0">
+                  <ScrollPane fx:id="mInProjectContainer" prefHeight="688.0" prefWidth="1024.0" visible="false">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
@@ -340,7 +340,7 @@
                                              </cursor></Button>
                                        </children>
                                     </Pane>
-                                    <Pane fx:id="mInvitationPanel" layoutX="455.0" layoutY="56.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css">
+                                    <Pane fx:id="mInvitationPanel" layoutX="455.0" layoutY="56.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css" visible="false">
                                        <children>
                                           <Label layoutX="83.0" layoutY="13.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Użytkownicy w projekcie" textFill="WHITE">
                                              <font>
@@ -432,8 +432,8 @@
                                        <children>
                                           <Label layoutX="14.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Dodaj nowy status:" textFill="WHITE" />
                                           <TextField fx:id="mNewStatusName" layoutX="14.0" layoutY="55.0" prefWidth="272.0" promptText="Podaj nazwę statusu..." styleClass="new-status-input" stylesheets="@../styles/boss.css" />
-                                          <Button layoutX="75.0" layoutY="109.0" mnemonicParsing="false" styleClass="new-status-btn" text="Stwórz status" />
-                                          <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="218.0" layoutY="14.0" onMouseClicked="#closeNewStatusPane" pickOnBounds="true" preserveRatio="true">
+                                          <Button layoutX="75.0" layoutY="109.0" mnemonicParsing="false" onAction="#createNewStatus" styleClass="new-status-btn" text="Stwórz status" />
+                                          <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="218.0" layoutY="14.0" onMouseClicked="#closeNewStatusPaneHandler" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../imgs/close.png" />
                                              </image>
