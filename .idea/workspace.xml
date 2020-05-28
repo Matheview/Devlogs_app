@@ -21,6 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="05b18e5a-1ae8-458a-9c44-b91a7370feeb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BossController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/boss.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/boss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/bossView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
