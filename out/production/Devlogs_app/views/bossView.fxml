@@ -34,6 +34,45 @@
    <children>
       <AnchorPane fx:id="mWrapper" prefHeight="768.0" prefWidth="1024.0" styleClass="wrapper">
          <children>
+            <Pane fx:id="mNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
+               <children>
+                  <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Pane fx:id="mNotificationsCircle" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css">
+                     <children>
+                        <Label fx:id="mNotificationsCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
+                     </children>
+                  </Pane>
+                  <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="25.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="homeIcon">
+                     <image>
+                        <Image url="@../imgs/home.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notificationIcon">
+                     <image>
+                        <Image url="@../imgs/notification-bell.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                     <image>
+                        <Image url="@../imgs/logout.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="mWelcomeUserName" layoutX="420.0" layoutY="18.0" prefHeight="45.0" prefWidth="255.0" text="Edyta !" textFill="#2343e4">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="344.0" layoutY="18.0" text="Witaj">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="mPrivilegeUser" layoutX="694.0" layoutY="33.0" text="kierownik" textFill="#2343e4" />
+               </children></Pane>
             <Pane fx:id="mProjectNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css" visible="false">
                <children>
                   <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
@@ -87,45 +126,6 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="mNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
-               <children>
-                  <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/logo.png" />
-                     </image>
-                  </ImageView>
-                  <Pane fx:id="mNotificationsCircle" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css">
-                     <children>
-                        <Label fx:id="mNotificationsCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
-                     </children>
-                  </Pane>
-                  <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="25.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="homeIcon">
-                     <image>
-                        <Image url="@../imgs/home.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notificationIcon">
-                     <image>
-                        <Image url="@../imgs/notification-bell.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
-                     <image>
-                        <Image url="@../imgs/logout.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="mWelcomeUserName" layoutX="420.0" layoutY="18.0" prefHeight="45.0" prefWidth="255.0" text="Edyta !" textFill="#2343e4">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="344.0" layoutY="18.0" text="Witaj">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="mPrivilegeUser" layoutX="694.0" layoutY="33.0" text="kierownik" textFill="#2343e4" />
-               </children></Pane>
             <Pane fx:id="mMain" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" styleClass="main" stylesheets="@../styles/admin.css">
                <children>
                   <Pane layoutX="58.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="your-projects" stylesheets="@../styles/boss.css">
@@ -364,7 +364,7 @@
                                     </Button>
                                  </children>
                               </Pane>
-                              <Pane fx:id="mInvitationPanel" layoutX="455.0" layoutY="56.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css" visible="false">
+                              <Pane fx:id="mInvitationPanel" layoutX="496.0" layoutY="11.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css" visible="false">
                                  <children>
                                     <Label layoutX="83.0" layoutY="13.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Użytkownicy w projekcie" textFill="WHITE">
                                        <font>
@@ -380,7 +380,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </ImageView>
-                                    <Pane layoutX="165.0" layoutY="279.0" onMouseClicked="#showAvailableUsersPanel" prefHeight="200.0" prefWidth="200.0" styleClass="add-user-from-domain" stylesheets="@../styles/boss.css">
+                                    <Pane layoutX="40.0" layoutY="279.0" onMouseClicked="#showAvailableUsersPanel" prefHeight="200.0" prefWidth="200.0" styleClass="add-user-from-domain" stylesheets="@../styles/boss.css">
                                        <children>
                                           <ImageView disable="true" fitHeight="37.0" fitWidth="30.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -392,6 +392,16 @@
                                           </ImageView>
                                        </children>
                                     </Pane>
+                                    <ImageView fitHeight="36.0" fitWidth="30.0" layoutX="293.0" layoutY="271.0" onMouseClicked="#deleteUserFromProject" pickOnBounds="true" preserveRatio="true" styleClass="hover-hand-cursor">
+                                       <image>
+                                          <Image url="@../imgs/trash.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label layoutX="323.0" layoutY="271.0" onMouseClicked="#deleteUserFromProject" prefHeight="30.0" prefWidth="40.0" styleClass="hover-hand-cursor" stylesheets="@../styles/boss.css" text="Usuń" textFill="RED" wrapText="true">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </Pane>
                               <Pane fx:id="mPdfGeneratorPanel" layoutX="14.0" layoutY="11.0" prefHeight="650.0" prefWidth="980.0" styleClass="pdf-panel" stylesheets="@../styles/pdfGenerator.css" visible="false">
@@ -452,7 +462,7 @@
                                     <Label fx:id="mRaportCurrentDate" layoutX="765.0" layoutY="339.0" styleClass="current-date" stylesheets="@../styles/pdfGenerator.css" text="13/06/2020" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="mAvailableUsersPanel" layoutX="455.0" layoutY="439.0" prefHeight="162.0" prefWidth="400.0" styleClass="available-users-to-add" stylesheets="@../styles/boss.css" visible="false">
+                              <Pane fx:id="mAvailableUsersPanel" layoutX="81.0" layoutY="11.0" prefHeight="546.0" prefWidth="400.0" styleClass="available-users-to-add" stylesheets="@../styles/boss.css" visible="false">
                                  <children>
                                     <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="372.0" layoutY="14.0" onMouseClicked="#closeAvailableUsers" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -462,7 +472,9 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </ImageView>
-                                    <ListView layoutX="40.0" layoutY="20.0" prefHeight="140.0" prefWidth="320.0" styleClass="available-users-list" stylesheets="@../styles/boss.css" />
+                                    <ListView fx:id="mUsersInDomainList" layoutX="40.0" layoutY="58.0" prefHeight="418.0" prefWidth="320.0" styleClass="available-users-list" stylesheets="@../styles/boss.css" />
+                                    <Label layoutX="40.0" layoutY="20.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Dodaj użytkownika do projektu -&gt;" textFill="WHITE" />
+                                    <Button layoutX="138.0" layoutY="493.0" mnemonicParsing="false" onAction="#addUserToProject" styleClass="new-status-btn" text="Dodaj do projektu" />
                                  </children>
                               </Pane>
                            </children>

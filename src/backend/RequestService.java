@@ -605,4 +605,24 @@ public class RequestService {
 		return responseObject;
 	}
 
+	/**
+	 * Metoda służca do pobierania listy użytkowników w podanej przestrzeni
+	 * @param userId Id użytkownika
+	 * @return Obiekt listy projektów
+	 */
+	public RsUsersInDomain getUsersFromDomain(int userId, String domain) throws IOException {
+		String addressEnd = "/project/users?user_id=" + userId + "&domain=" + domain;
+
+		HttpURLConnection connection = getConnection(addressEnd, "GET");
+
+		String result = getServerResponse(connection);
+
+		Gson gson = new Gson();
+		RsUsersInDomain responseObject = gson.fromJson(result, RsUsersInDomain.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
 }

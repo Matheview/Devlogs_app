@@ -145,7 +145,7 @@ public class BossController extends BaseController {
     private Pane mInvitationPanel;
 
     @FXML
-    private ListView<?> mUsersInProjectList;
+    private ListView<User> mUsersInProjectList;
 
     @FXML
     private TextField mInvitationInput;
@@ -200,6 +200,9 @@ public class BossController extends BaseController {
 
     @FXML
     public Label mDeleteStatusName;
+
+    @FXML
+    public ListView<User> mUsersInDomainList;
 
     // ------- panel raportów -------
 
@@ -312,9 +315,7 @@ public class BossController extends BaseController {
      * Ukryj panel ze szczegółami projektu
      */
     public void hideProjectDetails() {
-        closeNewStatusPane();
-        closeEditStatusPane();
-        closeDeleteStatusPane();
+        closeAllPanels();
         mInProjectContainer.setVisible(false);
         mProjectNavbar.setVisible(false);
         mNavbar.setVisible(true);
@@ -325,9 +326,8 @@ public class BossController extends BaseController {
      * Pokaż panel do tworzenia nowego statusu
      */
     public void showNewStatusPane() {
+        closeAllPanels();
         mInProjectContainer.setDisable(true);
-        mInvitationPanel.setVisible(false);
-        mCommentsPanel.setVisible(false);
         mNewStatusPane.setVisible(true);
     }
 
@@ -344,9 +344,8 @@ public class BossController extends BaseController {
      * Pokaż panel do edycji nazwy statusu
      */
     public void showEditStatusPane() {
+        closeAllPanels();
         mInProjectContainer.setDisable(true);
-        mInvitationPanel.setVisible(false);
-        mCommentsPanel.setVisible(false);
 
         mEditStatusNameTextField.setText(selectedStatus.getName());
         mEditStatusPane.setVisible(true);
@@ -365,9 +364,8 @@ public class BossController extends BaseController {
      * Pokaż panel do usuwania nazwy statusu
      */
     public void showDeleteStatusPane() {
+        closeAllPanels();
         mInProjectContainer.setDisable(true);
-        mInvitationPanel.setVisible(false);
-        mCommentsPanel.setVisible(false);
 
         mDeleteStatusName.setText(selectedStatus.getName());
         mDeleteStatusPane.setVisible(true);
@@ -380,6 +378,18 @@ public class BossController extends BaseController {
         mInProjectContainer.setDisable(false);
         mDeleteStatusPane.setVisible(false);
         mDeleteStatusName.setText("");
+    }
+
+    /**
+     * Funkcja zamykająca wszystkie pomniejsze panele
+     */
+    public void closeAllPanels() {
+        closeNewStatusPane();
+        closeEditStatusPane();
+        closeDeleteStatusPane();
+        mAvailableUsersPanel.setVisible(false);
+        mInvitationPanel.setVisible(false);
+        mCommentsPanel.setVisible(false);
     }
 
     /**
@@ -712,11 +722,6 @@ public class BossController extends BaseController {
     void addNewTask(MouseEvent event) {}
 
     @FXML
-    void closeInvitationPanel(MouseEvent event) {
-        mInvitationPanel.setVisible(false);
-    }
-
-    @FXML
     void closeNewTaskPanel(MouseEvent event) {
         mNewTaskPanel.setVisible(false);
     }
@@ -743,7 +748,7 @@ public class BossController extends BaseController {
         mCommentsPanel.setVisible(false);
     }
 
-    @FXML // TODO funckja wysyłająca zaproszenie do usera, pasuje to przełożyć na powiadomienia w panelu danego użytkownika, ale to już zabawa dla Kuby
+    @FXML
     void sendInvitation(MouseEvent event) {}
 
     @FXML
@@ -754,6 +759,48 @@ public class BossController extends BaseController {
     @FXML
     void showInvitationPanel(MouseEvent event) {
         mInvitationPanel.setVisible(true);
+
+        mUsersInProjectList.getItems().clear();
+        mUsersInProjectList.getItems().addAll(activeProject.getUsers());
+    }
+
+    @FXML
+    void closeInvitationPanel(MouseEvent event) {
+        mAvailableUsersPanel.setVisible(false);
+        mInvitationPanel.setVisible(false);
+    }
+
+    @FXML
+    public void showAvailableUsersPanel(MouseEvent mouseEvent) {
+        mAvailableUsersPanel.setVisible(true);
+
+        RequestService requestService = new RequestService();
+
+        RsUsersInDomain responseObject;
+        try {
+            responseObject = requestService.getUsersFromDomain(getUserId(), getDomain());
+            mUsersInDomainList.getItems().clear();
+            mUsersInDomainList.getItems().addAll(responseObject.getUsers());
+
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy użytkowników z serwera. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void closeAvailableUsers(MouseEvent mouseEvent) {
+        mAvailableUsersPanel.setVisible(false);
+    }
+
+    @FXML  // Funkcja do dodawania użytkownika do projektu
+    public void addUserToProject(ActionEvent actionEvent) {
+        
+    }
+
+    @FXML  // Funkcja do usuwania użytkownika z projektu
+    public void deleteUserFromProject(MouseEvent mouseEvent) {
+
     }
 
     @FXML
@@ -828,7 +875,6 @@ public class BossController extends BaseController {
     @FXML
     void closePdfGeneratorPanel(MouseEvent event) {
         mPdfGeneratorPanel.setVisible(false);
-
     }
 
     @FXML
@@ -859,16 +905,6 @@ public class BossController extends BaseController {
     @FXML
     public void cancelDeleteStatusPaneHandler(ActionEvent actionEvent) {
         closeDeleteStatusPane();
-    }
-
-    @FXML
-    public void showAvailableUsersPanel(MouseEvent mouseEvent) {
-            mAvailableUsersPanel.setVisible(true);
-    }
-
-    @FXML
-    public void closeAvailableUsers(MouseEvent mouseEvent) {
-        mAvailableUsersPanel.setVisible(false);
     }
 
     @FXML
