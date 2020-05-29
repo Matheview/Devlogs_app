@@ -1,13 +1,15 @@
 package controllers;
 
 import backend.requestObjects.RqNewProject;
-import backend.requestObjects.RqNewStatus;
+import backend.requestObjects.RqStatus;
 import backend.responseObjects.*;
 import backend.RequestService;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -25,7 +27,15 @@ import java.io.IOException;
 
 public class BossController extends BaseController {
 
+    /**
+     * Projekt, którego szczegóły są obecnie wyświetlane
+     */
     private RsProjectDetails activeProject;
+
+    /**
+     * Status, który został wybrany do np. edycji lub usunięcia
+     */
+    private Status selectedStatus;
 
     @FXML
     private AnchorPane mWrapper;
@@ -173,7 +183,20 @@ public class BossController extends BaseController {
     @FXML
     public TextField mNewStatusName;
 
-    // ------- TODO do panelu raportów -------
+    @FXML
+    public Pane mEditStatusPane;
+
+    @FXML
+    public TextField mEditStatusNameTextField;
+
+    @FXML
+    public Pane mNotificationsCircle;
+
+    @FXML
+    public Label mNotificationsCounter;
+
+
+    // ------- panel raportów -------
 
     @FXML
     private Pane mPdfGeneratorPanel;
@@ -277,6 +300,7 @@ public class BossController extends BaseController {
         mInProjectContainer.setVisible(true);
         mProjectNavbar.setVisible(true);
         mNavbar.setVisible(false);
+        mMain.setVisible(false);
     }
 
     /**
@@ -286,15 +310,49 @@ public class BossController extends BaseController {
         mInProjectContainer.setVisible(false);
         mProjectNavbar.setVisible(false);
         mNavbar.setVisible(true);
+        mMain.setVisible(true);
     }
 
     /**
      * Pokaż panel do tworzenia nowego statusu
      */
     public void showNewStatusPane() {
+        closeEditStatusPane();
+        mInProjectContainer.setDisable(true);
         mInvitationPanel.setVisible(false);
         mCommentsPanel.setVisible(false);
         mNewStatusPane.setVisible(true);
+    }
+
+    /**
+     * Metoda zamykająca okno do tworzenia nowego statusu
+     */
+    public void closeNewStatusPane() {
+        mInProjectContainer.setDisable(false);
+        mNewStatusPane.setVisible(false);
+        mNewStatusName.clear();
+    }
+
+    /**
+     * Pokaż panel do edycji nazwy statusu
+     */
+    public void showEditStatusPane() {
+        closeNewStatusPane();
+        mInProjectContainer.setDisable(true);
+        mInvitationPanel.setVisible(false);
+        mCommentsPanel.setVisible(false);
+
+        mEditStatusNameTextField.setText(selectedStatus.getName());
+        mEditStatusPane.setVisible(true);
+    }
+
+    /**
+     * Metoda zamykająca okno do zmiany nazwy statusu
+     */
+    public void closeEditStatusPane() {
+        mInProjectContainer.setDisable(false);
+        mEditStatusPane.setVisible(false);
+        mEditStatusNameTextField.clear();
     }
 
     /**
@@ -360,6 +418,7 @@ public class BossController extends BaseController {
 
                         // Tytuł statusu
                         Pane statusName = getStatusTitlePane(status.getName(), "/imgs/edit.png");
+                        statusName.setUserData(status);
                         vBox.getChildren().add(statusName);
 
                         for (Task task : status.getTasks()) {
@@ -423,6 +482,16 @@ public class BossController extends BaseController {
         editIcon.setLayoutX(20.0);
         editIcon.setLayoutY(12.0);
         pane.getChildren().add(editIcon);
+
+        // Jeśli jest to ikona ołówka
+        if (icon.equals("/imgs/edit.png")) {
+            editIcon.getStyleClass().add("hover-hand-cursor");
+            // Metoda wyświetlająca panel do zmiany nazwy
+            editIcon.setOnMouseClicked(event -> {
+                selectedStatus = (Status) getParentData(event);
+                showEditStatusPane();
+            });
+        }
 
         // Tytuł statusu
         Label titleLabel = new Label(title);
@@ -544,9 +613,8 @@ public class BossController extends BaseController {
         return pane;
     }
 
-    public void closeNewStatusPane() {
-        mNewStatusPane.setVisible(false);
-        mNewStatusName.clear();
+    private Object getParentData(Event event) {
+        return ( (Node)event.getSource() ).getParent().getUserData();
     }
 
     @FXML
@@ -687,10 +755,11 @@ public class BossController extends BaseController {
 
     @FXML
     public void handleCommentChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
+
     }
 
     @FXML
-    public void addNewProjectActionEvetnt(ActionEvent actionEvent) {
+    public void addNewProjectActionEvent(ActionEvent actionEvent) {
         String project_name = mNewProjectInput.getText();
         if (!project_name.isEmpty()){
             int user_id = getUserId();
@@ -725,7 +794,7 @@ public class BossController extends BaseController {
 
     @FXML
     public void changeNameOfGroupTask(MouseEvent mouseEvent) {
-        //TODO funckja, która ma pozwolić zmienić nazwę grupy zadać na np. Do zrobienia, Zrobione, W trakcie itd. , nie wiem czy to będzie więc to na końcu
+
     }
 
     @FXML
@@ -766,6 +835,11 @@ public class BossController extends BaseController {
     }
 
     @FXML
+    public void closeEditStatusPaneHandler(MouseEvent mouseEvent) {
+        closeEditStatusPane();
+    }
+
+    @FXML
     public void showAvailableUsersPanel(MouseEvent mouseEvent) {
             mAvailableUsersPanel.setVisible(true);
     }
@@ -786,7 +860,7 @@ public class BossController extends BaseController {
             showErrorPanel("Błąd: Proszę podać nazwę nowego statusu.");
         else {
             RequestService requestService = new RequestService();
-            RqNewStatus requestObject = new RqNewStatus(domain, project_id, status_desc, user_id);
+            RqStatus requestObject = new RqStatus(domain, project_id, status_desc, user_id);
 
             RsStatus response;
             try {
@@ -801,9 +875,48 @@ public class BossController extends BaseController {
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
-                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowej przestrzeni. Błąd połączenia z serwerem.");
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego statusu. Błąd połączenia z serwerem.");
                 e.printStackTrace();
             }
         }
     }
+
+    @FXML
+    public void editStatus(ActionEvent actionEvent) {
+        String domain = getDomain();
+        int project_id = activeProject.getProject_id();
+        int status_id = selectedStatus.getStatus_id();
+        String status_desc = mEditStatusNameTextField.getText();
+        int user_id = getUserId();
+
+        if (status_desc.isEmpty())
+            showErrorPanel("Błąd: Proszę podać nową nazwę statusu.");
+        else if ( status_desc.equals( selectedStatus.getName() ) ) {
+            closeEditStatusPane();
+            refreshProjectDetails(getSelectedProject());
+        } else {
+            RequestService requestService = new RequestService();
+            RqStatus requestObject = new RqStatus(domain, project_id, status_id, status_desc, user_id);
+
+            BaseResponseObject response;
+            try {
+                response = requestService.editStatus(requestObject);
+
+                if (response.getMsg().equals("Status description already exists"))
+                    showErrorPanel("Błąd: Status o takiej nazwie już istnieje.");
+                else if (response.getMsg().equals("Status description not changed"))
+                    showInfoPanel("Ktoś już zmienił nazwę tego statusu na: " + status_desc + ".");
+                else if (response.isSuccess()) {
+                    showInfoPanel("Sukces: Zmieniono nazwę statusu na: " + status_desc + ".");
+                    closeEditStatusPane();
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można zmienić nazwy statusu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

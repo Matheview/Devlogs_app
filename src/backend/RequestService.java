@@ -1,7 +1,7 @@
 package backend;
 
 import backend.requestObjects.RqNewProject;
-import backend.requestObjects.RqNewStatus;
+import backend.requestObjects.RqStatus;
 import backend.responseObjects.*;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
@@ -542,9 +542,9 @@ public class RequestService {
 	/**
 	 * Metoda sluzaca do stworzenia nowego statusu
 	 * @param newStatus obiekt zawierający dane, które zostaną wysłane w body requesta
-	 * @return ResponseObject success, msg, itd.
+	 * @return ResponseObject: success, msg, itd.
 	 */
-	public RsStatus createNewStatus(RqNewStatus newStatus) throws IOException {
+	public RsStatus createNewStatus(RqStatus newStatus) throws IOException {
 		HttpURLConnection connection = getConnection("/statuses/config", "POST");
 
 		Gson gson = new Gson();
@@ -555,6 +555,28 @@ public class RequestService {
 		String result = getServerResponse(connection);
 
 		RsStatus responseObject = gson.fromJson(result, RsStatus.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda sluzaca do edytowania statusu
+	 * @param newStatus obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return ResponseObject: success, msg, itd.
+	 */
+	public BaseResponseObject editStatus(RqStatus newStatus) throws IOException {
+		HttpURLConnection connection = getConnection("/statuses/config", "PUT");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(newStatus);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
 
 		connection.disconnect();
 
