@@ -646,4 +646,26 @@ public class RequestService {
 		return responseObject;
 	}
 
+	/**
+	 * Metoda sluzaca do dodawania użytkownika do projektu
+	 * @param user obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return ResponseObject: success, msg, itd.
+	 */
+	public BaseResponseObject removeUserFromProject(RqUser user) throws IOException {
+		HttpURLConnection connection = getConnection("/project/removeuser", "DELETE");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(user);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
 }

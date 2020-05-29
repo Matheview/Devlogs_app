@@ -205,6 +205,12 @@ public class BossController extends BaseController {
     @FXML
     public ListView<User> mUsersInDomainList;
 
+    @FXML
+    public Pane mDeleteUserPane;
+
+    @FXML
+    public Label mDeleteUserName;
+
     // ------- panel raportów -------
 
     @FXML
@@ -277,6 +283,7 @@ public class BossController extends BaseController {
                     }
                     // nadanie elementowi listy klasy css
                     getStyleClass().add("project-list-item");
+                    getStyleClass().add("hover-hand-cursor");
                 }
             });
         } catch (IOException e) {
@@ -300,6 +307,13 @@ public class BossController extends BaseController {
      */
     public Project getSelectedProject() {
         return mProjectsList.getSelectionModel().getSelectedItem();
+    }
+
+    /**
+     * Metoda zwracająca aktualnie wybranego użytkownika na liście użytkowników w projekcie
+     */
+    public User getSelectedUserInProjectList() {
+        return mUsersInProjectList.getSelectionModel().getSelectedItem();
     }
 
     /**
@@ -328,7 +342,7 @@ public class BossController extends BaseController {
      */
     public void showNewStatusPane() {
         closeAllPanels();
-        mInProjectContainer.setDisable(true);
+        disableProjectPane();
         mNewStatusPane.setVisible(true);
     }
 
@@ -336,7 +350,7 @@ public class BossController extends BaseController {
      * Metoda zamykająca okno do tworzenia nowego statusu
      */
     public void closeNewStatusPane() {
-        mInProjectContainer.setDisable(false);
+        ableProjectPane();
         mNewStatusPane.setVisible(false);
         mNewStatusName.clear();
     }
@@ -346,7 +360,7 @@ public class BossController extends BaseController {
      */
     public void showEditStatusPane() {
         closeAllPanels();
-        mInProjectContainer.setDisable(true);
+        disableProjectPane();
 
         mEditStatusNameTextField.setText(selectedStatus.getName());
         mEditStatusPane.setVisible(true);
@@ -356,17 +370,17 @@ public class BossController extends BaseController {
      * Metoda zamykająca okno do zmiany nazwy statusu
      */
     public void closeEditStatusPane() {
-        mInProjectContainer.setDisable(false);
+        ableProjectPane();
         mEditStatusPane.setVisible(false);
         mEditStatusNameTextField.clear();
     }
 
     /**
-     * Pokaż panel do usuwania nazwy statusu
+     * Pokaż panel do usuwania statusu
      */
     public void showDeleteStatusPane() {
         closeAllPanels();
-        mInProjectContainer.setDisable(true);
+        disableProjectPane();
 
         mDeleteStatusName.setText(selectedStatus.getName());
         mDeleteStatusPane.setVisible(true);
@@ -376,9 +390,44 @@ public class BossController extends BaseController {
      * Metoda zamykająca okno do usuwania statusu
      */
     public void closeDeleteStatusPane() {
-        mInProjectContainer.setDisable(false);
+        ableProjectPane();
         mDeleteStatusPane.setVisible(false);
         mDeleteStatusName.setText("");
+    }
+
+    /**
+     * Pokaż panel do usuwania użytkownika z projektu
+     */
+    public void showDeleteUsersPane() {
+        disableProjectPane();
+
+        mDeleteUserName.setText(getSelectedUserInProjectList().getName());
+        mDeleteUserPane.setVisible(true);
+    }
+
+    /**
+     * Metoda zamykająca okno do usuwania użytkownika z projektu
+     */
+    public void closeDeleteUserPane() {
+        ableProjectPane();
+        mDeleteUserPane.setVisible(false);
+        mDeleteUserName.setText("");
+    }
+
+    /**
+     * Funkcja do wyłączania panelu ze szczegółami projektu (nie mylić z setVisible(false))
+     */
+    public void disableProjectPane() {
+        mInProjectContainer.setDisable(true);
+        mProjectNavbar.setDisable(true);
+    }
+
+    /**
+     * Funkcja do włączania panelu ze szczegółami projektu (nie mylić z setVisible(true))
+     */
+    public void ableProjectPane() {
+        mInProjectContainer.setDisable(false);
+        mProjectNavbar.setDisable(false);
     }
 
     /**
@@ -762,6 +811,7 @@ public class BossController extends BaseController {
 
     @FXML
     void showInvitationPanel(MouseEvent event) {
+        closeAllPanels();
         mInvitationPanel.setVisible(true);
 
         refreshProjectDetails(getSelectedProject());
@@ -830,8 +880,42 @@ public class BossController extends BaseController {
     }
 
     @FXML  // Funkcja do usuwania użytkownika z projektu
-    public void deleteUserFromProject(MouseEvent mouseEvent) {
+    public void showDeleteUserPanelHandler(MouseEvent mouseEvent) {
+        if (getSelectedUserInProjectList() != null)
+            showDeleteUsersPane();
+        else
+            showErrorPanel("Proszę wybrać użytkownika do usunięcia.");
+    }
 
+    @FXML
+    public void deleteUserFromProject(ActionEvent actionEvent) {
+        User user = getSelectedUserInProjectList();
+
+        if (user != null) {
+            int user_id = getUserId();
+            int project_id = activeProject.getProject_id();
+            int assigned_to = user.getId();
+
+            RequestService requestService = new RequestService();
+            RqUser requestObject = new RqUser(user_id, project_id, assigned_to);
+
+            BaseResponseObject response;
+            try {
+                response = requestService.removeUserFromProject(requestObject);
+
+                if (response.isSuccess()) {
+                    showInfoPanel("Użytkownik o nazwie " + user.getName() + " został usunięty z projektu.");
+                    closeDeleteUserPane();
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można usunąć użytkownika do projektu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        } else {
+            showErrorPanel("Proszę wybrać użytkownika do usunięcia.");
+        }
     }
 
     @FXML
@@ -936,6 +1020,16 @@ public class BossController extends BaseController {
     @FXML
     public void cancelDeleteStatusPaneHandler(ActionEvent actionEvent) {
         closeDeleteStatusPane();
+    }
+
+    @FXML
+    public void closeDeleteUserPaneHandler(MouseEvent mouseEvent) {
+        closeDeleteUserPane();
+    }
+
+    @FXML
+    public void cancelDeleteUserPaneHandler(ActionEvent actionEvent) {
+        closeDeleteUserPane();
     }
 
     @FXML

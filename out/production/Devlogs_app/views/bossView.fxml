@@ -392,12 +392,12 @@
                                           </ImageView>
                                        </children>
                                     </Pane>
-                                    <ImageView fitHeight="36.0" fitWidth="30.0" layoutX="293.0" layoutY="271.0" onMouseClicked="#deleteUserFromProject" pickOnBounds="true" preserveRatio="true" styleClass="hover-hand-cursor">
+                                    <ImageView fitHeight="36.0" fitWidth="30.0" layoutX="293.0" layoutY="271.0" onMouseClicked="#showDeleteUserPanelHandler" pickOnBounds="true" preserveRatio="true" styleClass="hover-hand-cursor">
                                        <image>
                                           <Image url="@../imgs/trash.png" />
                                        </image>
                                     </ImageView>
-                                    <Label layoutX="323.0" layoutY="271.0" onMouseClicked="#deleteUserFromProject" prefHeight="30.0" prefWidth="40.0" styleClass="hover-hand-cursor" stylesheets="@../styles/boss.css" text="Usuń" textFill="RED" wrapText="true">
+                                    <Label layoutX="323.0" layoutY="271.0" onMouseClicked="#showDeleteUserPanelHandler" prefHeight="30.0" prefWidth="40.0" styleClass="hover-hand-cursor" stylesheets="@../styles/boss.css" text="Usuń" textFill="RED" wrapText="true">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -546,6 +546,22 @@
                   </ImageView>
                   <Button layoutX="205.0" layoutY="81.0" mnemonicParsing="false" onAction="#cancelDeleteStatusPaneHandler" prefHeight="39.0" prefWidth="96.0" styleClass="new-status-btn" text="Anuluj" />
                   <Label fx:id="mDeleteStatusName" layoutX="22.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Status name:" textFill="WHITE" />
+               </children>
+            </Pane>
+            <Pane fx:id="mDeleteUserPane" layoutX="208.0" layoutY="355.0" prefHeight="142.0" prefWidth="534.0" styleClass="new-status-panel" stylesheets="@../styles/boss.css" visible="false">
+               <children>
+                  <Label layoutX="23.0" layoutY="42.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="czy na pewno chcesz usunąć tego użytkownika z projektu?" textFill="WHITE" />
+                  <Button layoutX="83.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteUserFromProject" styleClass="new-status-btn" text="Usuń użytkownika z projektu" />
+                  <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="502.0" layoutY="15.0" onMouseClicked="#closeDeleteUserPaneHandler" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/close.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Button layoutX="325.0" layoutY="81.0" mnemonicParsing="false" onAction="#cancelDeleteUserPaneHandler" prefHeight="39.0" prefWidth="96.0" styleClass="new-status-btn" text="Anuluj" />
+                  <Label fx:id="mDeleteUserName" layoutX="22.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="User name" textFill="WHITE" />
                </children>
             </Pane>
          </children>

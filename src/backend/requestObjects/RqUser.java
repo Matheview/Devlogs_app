@@ -8,6 +8,12 @@ public class RqUser {
 
     public RqUser() {}
 
+    public RqUser(int user_id, int project_id, int assigned_to) {
+        this.user_id = user_id;
+        this.project_id = project_id;
+        this.assigned_to = assigned_to;
+    }
+
     public RqUser(int user_id, int project_id, String domain, int assigned_to) {
         this.user_id = user_id;
         this.project_id = project_id;
