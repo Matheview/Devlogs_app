@@ -583,4 +583,26 @@ public class RequestService {
 		return responseObject;
 	}
 
+	/**
+	 * Metoda sluzaca do usuwania statusu
+	 * @param newStatus obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return ResponseObject: success, msg, itd.
+	 */
+	public BaseResponseObject deleteStatus(RqStatus newStatus) throws IOException {
+		HttpURLConnection connection = getConnection("/statuses/config", "DELETE");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(newStatus);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
 }

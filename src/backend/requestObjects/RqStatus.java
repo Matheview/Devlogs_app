@@ -19,6 +19,13 @@ public class RqStatus {
         this.creator_id = creator_id;
     }
 
+    public RqStatus(String domain, int project_id, int status_id, int creator_id) {
+        this.domain = domain;
+        this.project_id = project_id;
+        this.status_id = status_id;
+        this.creator_id = creator_id;
+    }
+
     public RqStatus(String domain, int project_id, int status_id, String status_desc, int creator_id) {
         this.domain = domain;
         this.project_id = project_id;

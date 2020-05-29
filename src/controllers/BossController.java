@@ -178,6 +178,12 @@ public class BossController extends BaseController {
     public ImageView mCLoseInfoPanelIcon;
 
     @FXML
+    public Pane mNotificationsCircle;
+
+    @FXML
+    public Label mNotificationsCounter;
+
+    @FXML
     public Pane mNewStatusPane;
 
     @FXML
@@ -190,11 +196,10 @@ public class BossController extends BaseController {
     public TextField mEditStatusNameTextField;
 
     @FXML
-    public Pane mNotificationsCircle;
+    public Pane mDeleteStatusPane;
 
     @FXML
-    public Label mNotificationsCounter;
-
+    public Label mDeleteStatusName;
 
     // ------- panel raportów -------
 
@@ -307,6 +312,9 @@ public class BossController extends BaseController {
      * Ukryj panel ze szczegółami projektu
      */
     public void hideProjectDetails() {
+        closeNewStatusPane();
+        closeEditStatusPane();
+        closeDeleteStatusPane();
         mInProjectContainer.setVisible(false);
         mProjectNavbar.setVisible(false);
         mNavbar.setVisible(true);
@@ -317,7 +325,6 @@ public class BossController extends BaseController {
      * Pokaż panel do tworzenia nowego statusu
      */
     public void showNewStatusPane() {
-        closeEditStatusPane();
         mInProjectContainer.setDisable(true);
         mInvitationPanel.setVisible(false);
         mCommentsPanel.setVisible(false);
@@ -337,7 +344,6 @@ public class BossController extends BaseController {
      * Pokaż panel do edycji nazwy statusu
      */
     public void showEditStatusPane() {
-        closeNewStatusPane();
         mInProjectContainer.setDisable(true);
         mInvitationPanel.setVisible(false);
         mCommentsPanel.setVisible(false);
@@ -353,6 +359,27 @@ public class BossController extends BaseController {
         mInProjectContainer.setDisable(false);
         mEditStatusPane.setVisible(false);
         mEditStatusNameTextField.clear();
+    }
+
+    /**
+     * Pokaż panel do usuwania nazwy statusu
+     */
+    public void showDeleteStatusPane() {
+        mInProjectContainer.setDisable(true);
+        mInvitationPanel.setVisible(false);
+        mCommentsPanel.setVisible(false);
+
+        mDeleteStatusName.setText(selectedStatus.getName());
+        mDeleteStatusPane.setVisible(true);
+    }
+
+    /**
+     * Metoda zamykająca okno do usuwania statusu
+     */
+    public void closeDeleteStatusPane() {
+        mInProjectContainer.setDisable(false);
+        mDeleteStatusPane.setVisible(false);
+        mDeleteStatusName.setText("");
     }
 
     /**
@@ -491,6 +518,21 @@ public class BossController extends BaseController {
                 selectedStatus = (Status) getParentData(event);
                 showEditStatusPane();
             });
+
+
+            // Ikona śmietnika
+            ImageView trashIcon = new ImageView(new Image("/imgs/trash.png"));
+            trashIcon.setFitWidth(20.0);
+            trashIcon.setFitHeight(24.0);
+            trashIcon.setLayoutX(263.0);
+            trashIcon.setLayoutY(8.0);
+            trashIcon.getStyleClass().add("hover-hand-cursor");
+            // Metoda wyświetlająca panel do usówania statusu
+            trashIcon.setOnMouseClicked(event -> {
+                selectedStatus = (Status) getParentData(event);
+                showDeleteStatusPane();
+            });
+            pane.getChildren().add(trashIcon);
         }
 
         // Tytuł statusu
@@ -623,20 +665,15 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    void checkNewProjectInputValue(InputMethodEvent event) {
-
-    }
+    void checkNewProjectInputValue(InputMethodEvent event) {}
 
     @FXML
     void closeNotificationsPanel(MouseEvent event) {
         mNotificationsPanel.setVisible(false);
-
     }
 
     @FXML
-    void createNewProject(MouseEvent event) {
-
-    }
+    void createNewProject(MouseEvent event) {}
 
     @FXML
     void logoutUser(MouseEvent event) {
@@ -660,29 +697,19 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    void showWorkspaces(MouseEvent event) {
-
-    }
+    void showWorkspaces(MouseEvent event) {}
 
     @FXML
-    public void checkNewProjectInputValue(javafx.scene.input.InputMethodEvent inputMethodEvent) {
-
-    }
+    public void checkNewProjectInputValue(javafx.scene.input.InputMethodEvent inputMethodEvent) {}
 
     @FXML // TODO funckja do dodawania nowego komentarza
-    void addNewComment(MouseEvent event) {
-
-    }
+    void addNewComment(MouseEvent event) {}
 
     @FXML // TODO funckja do dodawania opisu
-    void addNewDescription(MouseEvent event) {
-
-    }
+    void addNewDescription(MouseEvent event) {}
 
     @FXML // TODO funckja do dodawania nowego zadania
-    void addNewTask(MouseEvent event) {
-
-    }
+    void addNewTask(MouseEvent event) {}
 
     @FXML
     void closeInvitationPanel(MouseEvent event) {
@@ -700,24 +727,16 @@ public class BossController extends BaseController {
     }
 
     @FXML // TODO funkcja do generowania pdfa, ale jak to zrobimy to nie mam pojęcia
-    void generatePdf(MouseEvent event) {
-
-    }
+    void generatePdf(MouseEvent event) {}
 
     @FXML // TODO funkcja sprawdzająca stan inputa komentarza jeśli bedzie potrzebna
-    void handleCommentChange(InputMethodEvent event) {
-
-    }
+    void handleCommentChange(InputMethodEvent event) {}
 
     @FXML // TODO funkcja sprawdzająca stan inputa do zaproszenia poprzez email / username jeśli bedzie potrzeba
-    void handleInvitationInputChange(InputMethodEvent event) {
-
-    }
+    void handleInvitationInputChange(InputMethodEvent event) {}
 
     @FXML // TODO funkcja sprawdzająca stan inputa zmiany tytułu zadania jeśli będzie potrzebna
-    void handleTitleTaskChange(InputMethodEvent event) {
-
-    }
+    void handleTitleTaskChange(InputMethodEvent event) {}
 
     @FXML
     void hideCommentsPanel(MouseEvent event) {
@@ -725,9 +744,7 @@ public class BossController extends BaseController {
     }
 
     @FXML // TODO funckja wysyłająca zaproszenie do usera, pasuje to przełożyć na powiadomienia w panelu danego użytkownika, ale to już zabawa dla Kuby
-    void sendInvitation(MouseEvent event) {
-
-    }
+    void sendInvitation(MouseEvent event) {}
 
     @FXML
     void showComments(MouseEvent event) {
@@ -750,13 +767,10 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    public void handleInvitationInputChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
-    }
+    public void handleInvitationInputChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {}
 
     @FXML
-    public void handleCommentChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
-
-    }
+    public void handleCommentChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {}
 
     @FXML
     public void addNewProjectActionEvent(ActionEvent actionEvent) {
@@ -793,9 +807,7 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    public void changeNameOfGroupTask(MouseEvent mouseEvent) {
-
-    }
+    public void changeNameOfGroupTask(MouseEvent mouseEvent) {}
 
     @FXML
     public void handleTitleTaskChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
@@ -837,6 +849,16 @@ public class BossController extends BaseController {
     @FXML
     public void closeEditStatusPaneHandler(MouseEvent mouseEvent) {
         closeEditStatusPane();
+    }
+
+    @FXML
+    public void closeDeleteStatusPaneHandler(MouseEvent mouseEvent) {
+        closeDeleteStatusPane();
+    }
+
+    @FXML
+    public void cancelDeleteStatusPaneHandler(ActionEvent actionEvent) {
+        closeDeleteStatusPane();
     }
 
     @FXML
@@ -914,6 +936,36 @@ public class BossController extends BaseController {
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można zmienić nazwy statusu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    public void deleteStatus(ActionEvent actionEvent) {
+        if ( selectedStatus != null ) {
+            String domain = getDomain();
+            int project_id = activeProject.getProject_id();
+            int status_id = selectedStatus.getStatus_id();
+            int user_id = getUserId();
+
+            RequestService requestService = new RequestService();
+            RqStatus requestObject = new RqStatus(domain, project_id, status_id, user_id);
+
+            BaseResponseObject response;
+            try {
+                response = requestService.deleteStatus(requestObject);
+
+                /*if (response.getMsg().equals("Status description already exists"))
+                    showErrorPanel("Błąd: Status o takiej nazwie już istnieje.");
+                else */if (response.isSuccess()) {
+                    showInfoPanel("Usunięto status: " + selectedStatus.getName() + ".");
+                    closeDeleteStatusPane();
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można usunąć statusu. Błąd połączenia z serwerem.");
                 e.printStackTrace();
             }
         }
