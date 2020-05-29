@@ -265,8 +265,6 @@
 }
 
 .available-users-to-add {
-    -fx-pref-width: 400px;
-    -fx-pref-height: 180px;
     -fx-background-color: #1c1c1e;
     -fx-border-width: 2px;
     -fx-border-color: #2343e4;

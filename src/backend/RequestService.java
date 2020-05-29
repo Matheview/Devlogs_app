@@ -1,7 +1,6 @@
 package backend;
 
-import backend.requestObjects.RqNewProject;
-import backend.requestObjects.RqNewStatus;
+import backend.requestObjects.*;
 import backend.responseObjects.*;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
@@ -542,9 +541,9 @@ public class RequestService {
 	/**
 	 * Metoda sluzaca do stworzenia nowego statusu
 	 * @param newStatus obiekt zawierający dane, które zostaną wysłane w body requesta
-	 * @return ResponseObject success, msg, itd.
+	 * @return ResponseObject: success, msg, itd.
 	 */
-	public RsStatus createNewStatus(RqNewStatus newStatus) throws IOException {
+	public RsStatus createNewStatus(RqStatus newStatus) throws IOException {
 		HttpURLConnection connection = getConnection("/statuses/config", "POST");
 
 		Gson gson = new Gson();
@@ -555,6 +554,114 @@ public class RequestService {
 		String result = getServerResponse(connection);
 
 		RsStatus responseObject = gson.fromJson(result, RsStatus.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda sluzaca do edytowania statusu
+	 * @param status obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return ResponseObject: success, msg, itd.
+	 */
+	public BaseResponseObject editStatus(RqStatus status) throws IOException {
+		HttpURLConnection connection = getConnection("/statuses/config", "PUT");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(status);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda sluzaca do usuwania statusu
+	 * @param status obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return ResponseObject: success, msg, itd.
+	 */
+	public BaseResponseObject deleteStatus(RqStatus status) throws IOException {
+		HttpURLConnection connection = getConnection("/statuses/config", "DELETE");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(status);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda służca do pobierania listy użytkowników w podanej przestrzeni
+	 * @param userId Id użytkownika
+	 * @return Obiekt listy projektów
+	 */
+	public RsUsersInDomain getUsersFromDomain(int userId, String domain) throws IOException {
+		String addressEnd = "/project/users?user_id=" + userId + "&domain=" + domain;
+
+		HttpURLConnection connection = getConnection(addressEnd, "GET");
+
+		String result = getServerResponse(connection);
+
+		Gson gson = new Gson();
+		RsUsersInDomain responseObject = gson.fromJson(result, RsUsersInDomain.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda sluzaca do dodawania użytkownika do projektu
+	 * @param user obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return ResponseObject: success, msg, itd.
+	 */
+	public BaseResponseObject addUserToProject(RqUser user) throws IOException {
+		HttpURLConnection connection = getConnection("/projects/adduser", "POST");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(user);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda sluzaca do dodawania użytkownika do projektu
+	 * @param user obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return ResponseObject: success, msg, itd.
+	 */
+	public BaseResponseObject removeUserFromProject(RqUser user) throws IOException {
+		HttpURLConnection connection = getConnection("/project/removeuser", "DELETE");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(user);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
 
 		connection.disconnect();
 
