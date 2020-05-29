@@ -1,7 +1,6 @@
 package backend;
 
-import backend.requestObjects.RqNewProject;
-import backend.requestObjects.RqStatus;
+import backend.requestObjects.*;
 import backend.responseObjects.*;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
@@ -563,14 +562,14 @@ public class RequestService {
 
 	/**
 	 * Metoda sluzaca do edytowania statusu
-	 * @param newStatus obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @param status obiekt zawierający dane, które zostaną wysłane w body requesta
 	 * @return ResponseObject: success, msg, itd.
 	 */
-	public BaseResponseObject editStatus(RqStatus newStatus) throws IOException {
+	public BaseResponseObject editStatus(RqStatus status) throws IOException {
 		HttpURLConnection connection = getConnection("/statuses/config", "PUT");
 
 		Gson gson = new Gson();
-		String jsonInputString = gson.toJson(newStatus);
+		String jsonInputString = gson.toJson(status);
 
 		sendJSON(connection, jsonInputString);
 
@@ -585,14 +584,14 @@ public class RequestService {
 
 	/**
 	 * Metoda sluzaca do usuwania statusu
-	 * @param newStatus obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @param status obiekt zawierający dane, które zostaną wysłane w body requesta
 	 * @return ResponseObject: success, msg, itd.
 	 */
-	public BaseResponseObject deleteStatus(RqStatus newStatus) throws IOException {
+	public BaseResponseObject deleteStatus(RqStatus status) throws IOException {
 		HttpURLConnection connection = getConnection("/statuses/config", "DELETE");
 
 		Gson gson = new Gson();
-		String jsonInputString = gson.toJson(newStatus);
+		String jsonInputString = gson.toJson(status);
 
 		sendJSON(connection, jsonInputString);
 
@@ -619,6 +618,28 @@ public class RequestService {
 
 		Gson gson = new Gson();
 		RsUsersInDomain responseObject = gson.fromJson(result, RsUsersInDomain.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda sluzaca do dodawania użytkownika do projektu
+	 * @param user obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return ResponseObject: success, msg, itd.
+	 */
+	public BaseResponseObject addUserToProject(RqUser user) throws IOException {
+		HttpURLConnection connection = getConnection("/projects/adduser", "POST");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(user);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
 
 		connection.disconnect();
 

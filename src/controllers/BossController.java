@@ -2,6 +2,7 @@ package controllers;
 
 import backend.requestObjects.RqNewProject;
 import backend.requestObjects.RqStatus;
+import backend.requestObjects.RqUser;
 import backend.responseObjects.*;
 import backend.RequestService;
 import javafx.event.ActionEvent;
@@ -478,6 +479,9 @@ public class BossController extends BaseController {
                     vBox.getChildren().add(addStatus);
                     mStatusesList.getChildren().add(vBox);
 
+                    mUsersInProjectList.getItems().clear();
+                    mUsersInProjectList.getItems().addAll(activeProject.getUsers());
+
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
@@ -760,8 +764,7 @@ public class BossController extends BaseController {
     void showInvitationPanel(MouseEvent event) {
         mInvitationPanel.setVisible(true);
 
-        mUsersInProjectList.getItems().clear();
-        mUsersInProjectList.getItems().addAll(activeProject.getUsers());
+        refreshProjectDetails(getSelectedProject());
     }
 
     @FXML
@@ -795,7 +798,35 @@ public class BossController extends BaseController {
 
     @FXML  // Funkcja do dodawania użytkownika do projektu
     public void addUserToProject(ActionEvent actionEvent) {
-        
+        User user = mUsersInDomainList.getSelectionModel().getSelectedItem();
+
+        if (user != null) {
+            int user_id = getUserId();
+            int project_id = activeProject.getProject_id();
+            String domain = getDomain();
+            int assigned_to = user.getId();
+
+            RequestService requestService = new RequestService();
+            RqUser requestObject = new RqUser(user_id, project_id, domain, assigned_to);
+
+            BaseResponseObject response;
+            try {
+                response = requestService.addUserToProject(requestObject);
+
+                if (response.getMsg().equals("User already added to project"))
+                    showInfoPanel("Użytkownik jest już dodany do projektu.");
+                else if (response.isSuccess()) {
+                    showInfoPanel("Użytkownik o nazwie " + user.getName() + " został dodany do projektu.");
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można dodać użytkownika do projektu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        } else {
+            showErrorPanel("Proszę wybrać użytkownika, który ma zostać dodany do projektu.");
+        }
     }
 
     @FXML  // Funkcja do usuwania użytkownika z projektu
