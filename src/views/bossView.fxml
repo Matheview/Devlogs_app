@@ -173,7 +173,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
-                        <Pane minHeight="688.0" minWidth="1024.0" styleClass="project-container" stylesheets="@../styles/boss.css">
+                        <Pane fx:id="mProjectTasksPane" minHeight="688.0" minWidth="1024.0" styleClass="project-container" stylesheets="@../styles/boss.css">
                            <children>
                               <HBox fx:id="mStatusesList" layoutX="14.0" layoutY="24.0">
                                  <children>

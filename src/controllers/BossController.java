@@ -1,11 +1,13 @@
 package controllers;
 
 import backend.requestObjects.RqNewProject;
-import backend.requestObjects.RqNewTask;
+import backend.requestObjects.RqTask;
 import backend.requestObjects.RqStatus;
 import backend.requestObjects.RqUser;
 import backend.responseObjects.*;
 import backend.RequestService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -26,6 +28,7 @@ import utils.DialogsUtils;
 
 import java.awt.event.InputMethodEvent;
 import java.io.IOException;
+import java.util.Collections;
 
 public class BossController extends BaseController {
 
@@ -43,6 +46,16 @@ public class BossController extends BaseController {
      * Aktywny panel do dodawania nowego taska
      */
     private Pane activeAddNewTaskPane;
+
+    /**
+     * Zmienna przechowująca referencję do ostatniego rodzica panelu taska
+     */
+    private VBox lastParent;
+
+    /**
+     * Zmienna przechowująca referencję do następnego rodzica panelu taska
+     */
+    private VBox nextParent;
 
     @FXML
     private AnchorPane mWrapper;
@@ -165,6 +178,9 @@ public class BossController extends BaseController {
 
     @FXML
     private Pane mProjectNavbar;
+
+    @FXML
+    private Pane mProjectTasksPane;
 
     @FXML
     private HBox mStatusesList;
@@ -518,9 +534,55 @@ public class BossController extends BaseController {
                         for (Task task : status.getTasks()) {
                             // Panel z informacjami o tasku
                             Pane taskPane = getTaskPane(task);
+
+                            // Funkcje do obsługi Drag and Drop po stronie elementu przeciąganego
+                            // jeśli klawisz myszy został przyciśnięty
+                            taskPane.setOnMousePressed(event -> {
+                                taskPane.setMouseTransparent(true);
+                                event.setDragDetect(true);
+
+                                lastParent = (VBox) taskPane.getParent();
+
+                                vBox.getChildren().remove(taskPane);
+                                taskPane.setLayoutX(event.getSceneX());
+                                taskPane.setLayoutY(event.getSceneY() - 80.0);
+                                mProjectTasksPane.getChildren().add(taskPane);
+                            });
+
+                            // jeśli klawisz myszy został puszczony
+                            taskPane.setOnMouseReleased(event -> {
+                                taskPane.setMouseTransparent(false);
+
+                                mProjectTasksPane.getChildren().remove(taskPane);
+                                taskPane.setLayoutX(0);
+                                taskPane.setLayoutY(0);
+                                lastParent.getChildren().add(taskPane);
+
+                                ObservableList<Node> workingCollection = FXCollections.observableArrayList(lastParent.getChildren());
+                                int lastElementIndex = workingCollection.size() - 1;
+                                Collections.swap(workingCollection, lastElementIndex - 1, lastElementIndex);
+                                lastParent.getChildren().setAll(workingCollection);
+
+                                addTaskToNewStatus((Task) taskPane.getUserData());
+                            });
+
+                            // Feśli element jest przeciągany
+                            taskPane.setOnMouseDragged(event -> {
+                                taskPane.setLayoutX(event.getSceneX());
+                                taskPane.setLayoutY(event.getSceneY() - 80.0);
+
+                                event.setDragDetect(false);
+                            });
+
+                            // jeśli zostało wykryte przeciąganie
+                            taskPane.setOnDragDetected(event -> {
+                                taskPane.startFullDrag();
+                            });
+
                             vBox.getChildren().add(taskPane);
                         }
 
+                        // Przycisk do wyświetlania panelu do dodawania nowego taska
                         Pane addNewTaskButton = getNewTaskPane();
                         addNewTaskButton.getStyleClass().add("hover-hand-cursor");
                         addNewTaskButton.setOnMouseClicked(event -> {
@@ -531,6 +593,27 @@ public class BossController extends BaseController {
                             addNewTaskPane(source);
                         });
                         vBox.getChildren().add(addNewTaskButton);
+
+                        // Funkcje do obsługi Drag and Drop po stronie elementu celu
+                        // jeśli mysz znalazła się w obrębie elementu
+                        vBox.setOnMouseDragEntered(event -> {
+
+                        });
+
+                        // jeśli mysz jest w obrębie elementu i się porusza
+                        vBox.setOnMouseDragOver(event -> {
+
+                        });
+
+                        // jeśli mysz upuściła coś w obrębie elementu
+                        vBox.setOnMouseDragReleased(event -> {
+                            nextParent = vBox;
+                        });
+
+                        // jeśli mysz opuściła obręb elementu
+                        vBox.setOnMouseDragExited(event -> {
+
+                        });
 
                         mStatusesList.getChildren().add(vBox);
                     }
@@ -631,6 +714,7 @@ public class BossController extends BaseController {
     private Pane getTaskPane(Task task) {
         // Panel taska
         Pane pane = new Pane();
+        pane.setUserData(task);
         pane.getStyleClass().add("task-view");
         pane.setPadding(new Insets(10, 10, 10, 10));
 
@@ -769,9 +853,7 @@ public class BossController extends BaseController {
         closeBtn.getStyleClass().add("hover-hand-cursor");
 
         // Funkcja usuwająca panel do dodawania nowego taska z VBox'a
-        closeBtn.setOnMouseClicked(event -> {
-            closeActiveAddNewTaskPane();
-        });
+        closeBtn.setOnMouseClicked(event -> closeActiveAddNewTaskPane());
         pane.getChildren().add(closeBtn);
 
         // Przycisk "Przydziel osobę do zadania
@@ -786,9 +868,7 @@ public class BossController extends BaseController {
         addTaskBtn.setLayoutX(79.0);
         addTaskBtn.setLayoutY(100.0);
         addTaskBtn.getStyleClass().add("add-new-task-btn");
-        addTaskBtn.setOnAction(event -> {
-            addNewTask(newTaskName.getText());
-        });
+        addTaskBtn.setOnAction( event -> addNewTask( newTaskName.getText() ) );
         pane.getChildren().add(addTaskBtn);
 
         parent.getChildren().add(pane);
@@ -819,7 +899,7 @@ public class BossController extends BaseController {
             Integer assigned_to = null;
 
             RequestService requestService = new RequestService();
-            RqNewTask requestObject = new RqNewTask(domain, project_id, status_id, creator_id, task_name, assigned_to);
+            RqTask requestObject = new RqTask(domain, project_id, status_id, creator_id, task_name, assigned_to);
             RsNewTask response;
             try {
                 response = requestService.createNewTask(requestObject);
@@ -837,6 +917,33 @@ public class BossController extends BaseController {
             }
         } else {
             showErrorPanel("Błąd: Proszę podać nazwę nowego zadania.");
+        }
+    }
+
+    private void addTaskToNewStatus(Task task) {
+        String domain = getDomain();
+        int project_id = activeProject.getProject_id();
+        Integer task_id = task.getTask_id();
+        int creator_id = getUserId();
+        Integer status_id = ((Status) nextParent.getUserData()).getStatus_id();
+
+        RequestService requestService = new RequestService();
+        RqTask requestObject = new RqTask(domain, project_id, task_id, creator_id);
+        requestObject.setStatus_id(status_id);
+
+        BaseResponseObject response;
+        try {
+            response = requestService.editTask(requestObject);
+            /*
+            if (response.getMsg().equals("))
+                showErrorPanel("Błąd:");
+            else */if (response.isSuccess()) {
+                refreshProjectDetails(getSelectedProject());
+            } else if (!response.isSuccess())
+                DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można przenieść zadania do innego statusu statusu. Błąd połączenia z serwerem.");
+            e.printStackTrace();
         }
     }
 
