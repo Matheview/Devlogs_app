@@ -1,13 +1,17 @@
 package controllers;
 
 import backend.requestObjects.RqNewProject;
+import backend.requestObjects.RqNewTask;
+import backend.requestObjects.RqStatus;
+import backend.requestObjects.RqUser;
 import backend.responseObjects.*;
 import backend.RequestService;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -25,7 +29,20 @@ import java.io.IOException;
 
 public class BossController extends BaseController {
 
+    /**
+     * Projekt, którego szczegóły są obecnie wyświetlane
+     */
     private RsProjectDetails activeProject;
+
+    /**
+     * Status, który został wybrany do np. edycji lub usunięcia
+     */
+    private Status selectedStatus;
+
+    /**
+     * Aktywny panel do dodawania nowego taska
+     */
+    private Pane activeAddNewTaskPane;
 
     @FXML
     private AnchorPane mWrapper;
@@ -135,7 +152,7 @@ public class BossController extends BaseController {
     private Pane mInvitationPanel;
 
     @FXML
-    private ListView<?> mUsersInProjectList;
+    private ListView<User> mUsersInProjectList;
 
     @FXML
     private TextField mInvitationInput;
@@ -168,12 +185,39 @@ public class BossController extends BaseController {
     public ImageView mCLoseInfoPanelIcon;
 
     @FXML
+    public Pane mNotificationsCircle;
+
+    @FXML
+    public Label mNotificationsCounter;
+
+    @FXML
     public Pane mNewStatusPane;
 
     @FXML
     public TextField mNewStatusName;
 
-    // ------- TODO do panelu raportów -------
+    @FXML
+    public Pane mEditStatusPane;
+
+    @FXML
+    public TextField mEditStatusNameTextField;
+
+    @FXML
+    public Pane mDeleteStatusPane;
+
+    @FXML
+    public Label mDeleteStatusName;
+
+    @FXML
+    public ListView<User> mUsersInDomainList;
+
+    @FXML
+    public Pane mDeleteUserPane;
+
+    @FXML
+    public Label mDeleteUserName;
+
+    // ------- panel raportów -------
 
     @FXML
     private Pane mPdfGeneratorPanel;
@@ -240,11 +284,12 @@ public class BossController extends BaseController {
                         setOnMouseClicked(event -> {
                             showProjectDetails();
 
-                            refreshProjectDetails(mProjectsList.getSelectionModel().getSelectedItem());
+                            refreshProjectDetails(getSelectedProject());
                         });
                     }
                     // nadanie elementowi listy klasy css
                     getStyleClass().add("project-list-item");
+                    getStyleClass().add("hover-hand-cursor");
                 }
             });
         } catch (IOException e) {
@@ -264,30 +309,143 @@ public class BossController extends BaseController {
     }
 
     /**
+     * Metoda zwracająca aktualnie wybrany projekt na liście
+     */
+    public Project getSelectedProject() {
+        return mProjectsList.getSelectionModel().getSelectedItem();
+    }
+
+    /**
+     * Metoda zwracająca aktualnie wybranego użytkownika na liście użytkowników w projekcie
+     */
+    public User getSelectedUserInProjectList() {
+        return mUsersInProjectList.getSelectionModel().getSelectedItem();
+    }
+
+    /**
      * Pokaż panel ze szczegółami projektu
      */
     public void showProjectDetails() {
         mInProjectContainer.setVisible(true);
         mProjectNavbar.setVisible(true);
         mNavbar.setVisible(false);
+        mMain.setVisible(false);
     }
 
     /**
      * Ukryj panel ze szczegółami projektu
      */
     public void hideProjectDetails() {
+        closeAllPanels();
         mInProjectContainer.setVisible(false);
         mProjectNavbar.setVisible(false);
         mNavbar.setVisible(true);
+        mMain.setVisible(true);
     }
 
     /**
      * Pokaż panel do tworzenia nowego statusu
      */
     public void showNewStatusPane() {
+        closeAllPanels();
+        disableProjectPane();
+        mNewStatusPane.setVisible(true);
+    }
+
+    /**
+     * Metoda zamykająca okno do tworzenia nowego statusu
+     */
+    public void closeNewStatusPane() {
+        ableProjectPane();
+        mNewStatusPane.setVisible(false);
+        mNewStatusName.clear();
+    }
+
+    /**
+     * Pokaż panel do edycji nazwy statusu
+     */
+    public void showEditStatusPane() {
+        closeAllPanels();
+        disableProjectPane();
+
+        mEditStatusNameTextField.setText(selectedStatus.getName());
+        mEditStatusPane.setVisible(true);
+    }
+
+    /**
+     * Metoda zamykająca okno do zmiany nazwy statusu
+     */
+    public void closeEditStatusPane() {
+        ableProjectPane();
+        mEditStatusPane.setVisible(false);
+        mEditStatusNameTextField.clear();
+    }
+
+    /**
+     * Pokaż panel do usuwania statusu
+     */
+    public void showDeleteStatusPane() {
+        closeAllPanels();
+        disableProjectPane();
+
+        mDeleteStatusName.setText(selectedStatus.getName());
+        mDeleteStatusPane.setVisible(true);
+    }
+
+    /**
+     * Metoda zamykająca okno do usuwania statusu
+     */
+    public void closeDeleteStatusPane() {
+        ableProjectPane();
+        mDeleteStatusPane.setVisible(false);
+        mDeleteStatusName.setText("");
+    }
+
+    /**
+     * Pokaż panel do usuwania użytkownika z projektu
+     */
+    public void showDeleteUsersPane() {
+        disableProjectPane();
+
+        mDeleteUserName.setText(getSelectedUserInProjectList().getName());
+        mDeleteUserPane.setVisible(true);
+    }
+
+    /**
+     * Metoda zamykająca okno do usuwania użytkownika z projektu
+     */
+    public void closeDeleteUserPane() {
+        ableProjectPane();
+        mDeleteUserPane.setVisible(false);
+        mDeleteUserName.setText("");
+    }
+
+    /**
+     * Funkcja do wyłączania panelu ze szczegółami projektu (nie mylić z setVisible(false))
+     */
+    public void disableProjectPane() {
+        mInProjectContainer.setDisable(true);
+        mProjectNavbar.setDisable(true);
+    }
+
+    /**
+     * Funkcja do włączania panelu ze szczegółami projektu (nie mylić z setVisible(true))
+     */
+    public void ableProjectPane() {
+        mInProjectContainer.setDisable(false);
+        mProjectNavbar.setDisable(false);
+    }
+
+    /**
+     * Funkcja zamykająca wszystkie pomniejsze panele
+     */
+    public void closeAllPanels() {
+        closeNewStatusPane();
+        closeEditStatusPane();
+        closeDeleteStatusPane();
+        mAvailableUsersPanel.setVisible(false);
         mInvitationPanel.setVisible(false);
         mCommentsPanel.setVisible(false);
-        mNewStatusPane.setVisible(true);
     }
 
     /**
@@ -353,6 +511,8 @@ public class BossController extends BaseController {
 
                         // Tytuł statusu
                         Pane statusName = getStatusTitlePane(status.getName(), "/imgs/edit.png");
+                        statusName.setUserData(status);
+                        vBox.setUserData(status);
                         vBox.getChildren().add(statusName);
 
                         for (Task task : status.getTasks()) {
@@ -361,8 +521,16 @@ public class BossController extends BaseController {
                             vBox.getChildren().add(taskPane);
                         }
 
-                        Pane addNewTask = getNewTaskPane();
-                        vBox.getChildren().add(addNewTask);
+                        Pane addNewTaskButton = getNewTaskPane();
+                        addNewTaskButton.getStyleClass().add("hover-hand-cursor");
+                        addNewTaskButton.setOnMouseClicked(event -> {
+                            VBox source = (VBox) ( (Pane) event.getSource() ).getParent();
+
+                            selectedStatus = (Status) vBox.getUserData();
+                            closeActiveAddNewTaskPane();
+                            addNewTaskPane(source);
+                        });
+                        vBox.getChildren().add(addNewTaskButton);
 
                         mStatusesList.getChildren().add(vBox);
                     }
@@ -370,8 +538,13 @@ public class BossController extends BaseController {
                     // ostatni VBox z przuciskiem do dodawania nowego statusu
                     VBox vBox = getVBox();
                     Pane addStatus = getStatusTitlePane("nowy status", "/imgs/addtaskwhite.png");
+                    addStatus.getStyleClass().add("hover-hand-cursor");
+                    addStatus.setOnMouseClicked(this::addNewGroupTask);
                     vBox.getChildren().add(addStatus);
                     mStatusesList.getChildren().add(vBox);
+
+                    mUsersInProjectList.getItems().clear();
+                    mUsersInProjectList.getItems().addAll(activeProject.getUsers());
 
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
@@ -414,6 +587,31 @@ public class BossController extends BaseController {
         editIcon.setLayoutX(20.0);
         editIcon.setLayoutY(12.0);
         pane.getChildren().add(editIcon);
+
+        // Jeśli jest to ikona ołówka
+        if (icon.equals("/imgs/edit.png")) {
+            editIcon.getStyleClass().add("hover-hand-cursor");
+            // Metoda wyświetlająca panel do zmiany nazwy
+            editIcon.setOnMouseClicked(event -> {
+                selectedStatus = (Status) getParentData(event);
+                showEditStatusPane();
+            });
+
+
+            // Ikona śmietnika
+            ImageView trashIcon = new ImageView(new Image("/imgs/trash.png"));
+            trashIcon.setFitWidth(20.0);
+            trashIcon.setFitHeight(24.0);
+            trashIcon.setLayoutX(263.0);
+            trashIcon.setLayoutY(8.0);
+            trashIcon.getStyleClass().add("hover-hand-cursor");
+            // Metoda wyświetlająca panel do usówania statusu
+            trashIcon.setOnMouseClicked(event -> {
+                selectedStatus = (Status) getParentData(event);
+                showDeleteStatusPane();
+            });
+            pane.getChildren().add(trashIcon);
+        }
 
         // Tytuł statusu
         Label titleLabel = new Label(title);
@@ -535,26 +733,128 @@ public class BossController extends BaseController {
         return pane;
     }
 
+    private Object getParentData(Event event) {
+        return ( (Node)event.getSource() ).getParent().getUserData();
+    }
+
+    private Object getParentData(Node node) {
+        return node.getParent().getUserData();
+    }
+
+    /**
+     * Funkcja dodająca do podanego kontenera panel do dodawania nowego taska
+     * @param parent kontener, do którego ma zostać dodany panel
+     */
+    public void addNewTaskPane(Pane parent) {
+        Pane pane = new Pane();
+        activeAddNewTaskPane = pane;
+        pane.getStyleClass().add("new-task-description");
+        pane.setMaxWidth(250.0);
+        pane.setMaxHeight(150.0);
+        pane.setPadding(new Insets(25, 25, 25, 25));
+
+        // Nazwa nowego stausu
+        TextField newTaskName = new TextField();
+        newTaskName.setPromptText("Tytół nowego zadania...");
+        newTaskName.setLayoutX(14.0);
+        newTaskName.setLayoutY(15.0);
+        newTaskName.setPrefWidth(186.0);
+        pane.getChildren().add(newTaskName);
+
+        ImageView closeBtn = new ImageView(new Image("/imgs/close.png"));
+        closeBtn.setFitWidth(14.0);
+        closeBtn.setFitHeight(14.0);
+        closeBtn.setLayoutX(223.0);
+        closeBtn.setLayoutY(14.0);
+        closeBtn.getStyleClass().add("hover-hand-cursor");
+
+        // Funkcja usuwająca panel do dodawania nowego taska z VBox'a
+        closeBtn.setOnMouseClicked(event -> {
+            closeActiveAddNewTaskPane();
+        });
+        pane.getChildren().add(closeBtn);
+
+        // Przycisk "Przydziel osobę do zadania
+        Label addUserToTaskBtn = new Label("Przydziel osobę do zadania");
+        addUserToTaskBtn.setLayoutX(53.0);
+        addUserToTaskBtn.setLayoutY(61.0);
+        closeBtn.getStyleClass().add("hover-hand-cursor");
+        addUserToTaskBtn.getStyleClass().add("add-user-to-task-btn");
+        pane.getChildren().add(addUserToTaskBtn);
+
+        Button addTaskBtn = new Button("Dodaj zadanie");
+        addTaskBtn.setLayoutX(79.0);
+        addTaskBtn.setLayoutY(100.0);
+        addTaskBtn.getStyleClass().add("add-new-task-btn");
+        addTaskBtn.setOnAction(event -> {
+            addNewTask(newTaskName.getText());
+        });
+        pane.getChildren().add(addTaskBtn);
+
+        parent.getChildren().add(pane);
+    }
+
+    /**
+     * Funkcja zamykająca aktywny panel do dodawania nowego taska
+     */
+    public void closeActiveAddNewTaskPane() {
+        if (activeAddNewTaskPane != null)
+            removeNodeFromPanel(activeAddNewTaskPane);
+    }
+
+    /**
+     * Funkcja usuwająca węzęł z kontenera nadrzędnego
+     * @param node Węzęł do usunięcia
+     */
+    public void removeNodeFromPanel(Node node) {
+        ((Pane) node.getParent()).getChildren().remove(node);
+    }
+
+    public void addNewTask(String task_name) {
+        if (!task_name.isEmpty()){
+            String domain = getDomain();
+            int project_id = activeProject.getProject_id();
+            int status_id = selectedStatus.getStatus_id();
+            int creator_id = getUserId();
+            Integer assigned_to = null;
+
+            RequestService requestService = new RequestService();
+            RqNewTask requestObject = new RqNewTask(domain, project_id, status_id, creator_id, task_name, assigned_to);
+            RsNewTask response;
+            try {
+                response = requestService.createNewTask(requestObject);
+
+                if (response.getMsg().equals("Task exists in this project"))
+                    showErrorPanel("Błąd: Projekt o takiej nazwie już istnieje.");
+                else if (response.isSuccess()) {
+                    showInfoPanel("Sukces: Utworzono nowe zadanie o nazwie: " + response.getTask_title());
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego projektu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        } else {
+            showErrorPanel("Błąd: Proszę podać nazwę nowego zadania.");
+        }
+    }
+
     @FXML
     void backToHome(MouseEvent event) {
         hideProjectDetails();
     }
 
     @FXML
-    void checkNewProjectInputValue(InputMethodEvent event) {
-
-    }
+    void checkNewProjectInputValue(InputMethodEvent event) {}
 
     @FXML
     void closeNotificationsPanel(MouseEvent event) {
         mNotificationsPanel.setVisible(false);
-
     }
 
     @FXML
-    void createNewProject(MouseEvent event) {
-
-    }
+    void createNewProject(MouseEvent event) {}
 
     @FXML
     void logoutUser(MouseEvent event) {
@@ -578,34 +878,19 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    void showWorkspaces(MouseEvent event) {
-
-    }
+    void showWorkspaces(MouseEvent event) {}
 
     @FXML
-    public void checkNewProjectInputValue(javafx.scene.input.InputMethodEvent inputMethodEvent) {
-
-    }
+    public void checkNewProjectInputValue(javafx.scene.input.InputMethodEvent inputMethodEvent) {}
 
     @FXML // TODO funckja do dodawania nowego komentarza
-    void addNewComment(MouseEvent event) {
-
-    }
+    void addNewComment(MouseEvent event) {}
 
     @FXML // TODO funckja do dodawania opisu
-    void addNewDescription(MouseEvent event) {
-
-    }
+    void addNewDescription(MouseEvent event) {}
 
     @FXML // TODO funckja do dodawania nowego zadania
-    void addNewTask(MouseEvent event) {
-
-    }
-
-    @FXML
-    void closeInvitationPanel(MouseEvent event) {
-        mInvitationPanel.setVisible(false);
-    }
+    void addNewTaskActionEvent(ActionEvent event) {}
 
     @FXML
     void closeNewTaskPanel(MouseEvent event) {
@@ -618,34 +903,24 @@ public class BossController extends BaseController {
     }
 
     @FXML // TODO funkcja do generowania pdfa, ale jak to zrobimy to nie mam pojęcia
-    void generatePdf(MouseEvent event) {
-
-    }
+    void generatePdf(MouseEvent event) {}
 
     @FXML // TODO funkcja sprawdzająca stan inputa komentarza jeśli bedzie potrzebna
-    void handleCommentChange(InputMethodEvent event) {
-
-    }
+    void handleCommentChange(InputMethodEvent event) {}
 
     @FXML // TODO funkcja sprawdzająca stan inputa do zaproszenia poprzez email / username jeśli bedzie potrzeba
-    void handleInvitationInputChange(InputMethodEvent event) {
-
-    }
+    void handleInvitationInputChange(InputMethodEvent event) {}
 
     @FXML // TODO funkcja sprawdzająca stan inputa zmiany tytułu zadania jeśli będzie potrzebna
-    void handleTitleTaskChange(InputMethodEvent event) {
-
-    }
+    void handleTitleTaskChange(InputMethodEvent event) {}
 
     @FXML
     void hideCommentsPanel(MouseEvent event) {
         mCommentsPanel.setVisible(false);
     }
 
-    @FXML // TODO funckja wysyłająca zaproszenie do usera, pasuje to przełożyć na powiadomienia w panelu danego użytkownika, ale to już zabawa dla Kuby
-    void sendInvitation(MouseEvent event) {
-
-    }
+    @FXML
+    void sendInvitation(MouseEvent event) {}
 
     @FXML
     void showComments(MouseEvent event) {
@@ -654,7 +929,111 @@ public class BossController extends BaseController {
 
     @FXML
     void showInvitationPanel(MouseEvent event) {
+        closeAllPanels();
         mInvitationPanel.setVisible(true);
+
+        refreshProjectDetails(getSelectedProject());
+    }
+
+    @FXML
+    void closeInvitationPanel(MouseEvent event) {
+        mAvailableUsersPanel.setVisible(false);
+        mInvitationPanel.setVisible(false);
+    }
+
+    @FXML
+    public void showAvailableUsersPanel(MouseEvent mouseEvent) {
+        mAvailableUsersPanel.setVisible(true);
+
+        RequestService requestService = new RequestService();
+
+        RsUsersInDomain responseObject;
+        try {
+            responseObject = requestService.getUsersFromDomain(getUserId(), getDomain());
+            mUsersInDomainList.getItems().clear();
+            mUsersInDomainList.getItems().addAll(responseObject.getUsers());
+
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy użytkowników z serwera. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void closeAvailableUsers(MouseEvent mouseEvent) {
+        mAvailableUsersPanel.setVisible(false);
+    }
+
+    @FXML  // Funkcja do dodawania użytkownika do projektu
+    public void addUserToProject(ActionEvent actionEvent) {
+        User user = mUsersInDomainList.getSelectionModel().getSelectedItem();
+
+        if (user != null) {
+            int user_id = getUserId();
+            int project_id = activeProject.getProject_id();
+            String domain = getDomain();
+            int assigned_to = user.getId();
+
+            RequestService requestService = new RequestService();
+            RqUser requestObject = new RqUser(user_id, project_id, domain, assigned_to);
+
+            BaseResponseObject response;
+            try {
+                response = requestService.addUserToProject(requestObject);
+
+                if (response.getMsg().equals("User already added to project"))
+                    showInfoPanel("Użytkownik jest już dodany do projektu.");
+                else if (response.isSuccess()) {
+                    showInfoPanel("Użytkownik o nazwie " + user.getName() + " został dodany do projektu.");
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można dodać użytkownika do projektu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        } else {
+            showErrorPanel("Proszę wybrać użytkownika, który ma zostać dodany do projektu.");
+        }
+    }
+
+    @FXML  // Funkcja do usuwania użytkownika z projektu
+    public void showDeleteUserPanelHandler(MouseEvent mouseEvent) {
+        if (getSelectedUserInProjectList() != null)
+            showDeleteUsersPane();
+        else
+            showErrorPanel("Proszę wybrać użytkownika do usunięcia.");
+    }
+
+    @FXML
+    public void deleteUserFromProject(ActionEvent actionEvent) {
+        User user = getSelectedUserInProjectList();
+
+        if (user != null) {
+            int user_id = getUserId();
+            int project_id = activeProject.getProject_id();
+            int assigned_to = user.getId();
+
+            RequestService requestService = new RequestService();
+            RqUser requestObject = new RqUser(user_id, project_id, assigned_to);
+
+            BaseResponseObject response;
+            try {
+                response = requestService.removeUserFromProject(requestObject);
+
+                if (response.isSuccess()) {
+                    showInfoPanel("Użytkownik o nazwie " + user.getName() + " został usunięty z projektu.");
+                    closeDeleteUserPane();
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można usunąć użytkownika do projektu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        } else {
+            showErrorPanel("Proszę wybrać użytkownika do usunięcia.");
+        }
     }
 
     @FXML
@@ -668,15 +1047,13 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    public void handleInvitationInputChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
-    }
+    public void handleInvitationInputChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {}
 
     @FXML
-    public void handleCommentChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
-    }
+    public void handleCommentChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {}
 
     @FXML
-    public void addNewProjectActionEvetnt(ActionEvent actionEvent) {
+    public void addNewProjectActionEvent(ActionEvent actionEvent) {
         String project_name = mNewProjectInput.getText();
         if (!project_name.isEmpty()){
             int user_id = getUserId();
@@ -689,9 +1066,9 @@ public class BossController extends BaseController {
                 response = requestService.createNewProject(newProject);
 
                 if (response.getMsg().equals("Project name already exist inside this domain"))
-                    DialogsUtils.shortErrorDialog("Błąd", "Projekt o takiej nazwie już istnieje.");
+                    showErrorPanel("Błąd: Projekt o takiej nazwie już istnieje.");
                 else if (response.isSuccess()) {
-                    DialogsUtils.infoDialog("Sukces", "Utworzono nowy projekt", "Utworzono nowy projekt o nazwie: " + response.getProject_name());
+                    showInfoPanel("Sukces: Utworzono nowy projekt o nazwie: " + response.getProject_name());
                     refresh();
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
@@ -700,7 +1077,7 @@ public class BossController extends BaseController {
                 e.printStackTrace();
             }
         } else {
-            DialogsUtils.shortErrorDialog("Błąd", "Proszę podać nazwę projetu.");
+            showErrorPanel("Błąd: Proszę podać nazwę projetu.");
         }
     }
 
@@ -710,18 +1087,16 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    public void changeNameOfGroupTask(MouseEvent mouseEvent) {
-        //TODO funckja, która ma pozwolić zmienić nazwę grupy zadać na np. Do zrobienia, Zrobione, W trakcie itd. , nie wiem czy to będzie więc to na końcu
-    }
+    public void changeNameOfGroupTask(MouseEvent mouseEvent) {}
 
     @FXML
     public void handleTitleTaskChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
         //TODO funckja, sprawdzająca zawartość inputa do zmiany tytułu tasku, jeśli potrzebna
     }
 
-    @FXML  // TODO funckja dodająca nową grupę tasków np. Do zrobienia, Robię itd trzeba dopytać mateusza czy to będzie czy na sztywno się ustawi grupy
+    @FXML
     public void addNewGroupTask(MouseEvent mouseEvent) {
-
+        showNewStatusPane();
     }
 
     @FXML
@@ -733,7 +1108,6 @@ public class BossController extends BaseController {
     @FXML
     void closePdfGeneratorPanel(MouseEvent event) {
         mPdfGeneratorPanel.setVisible(false);
-
     }
 
     @FXML
@@ -747,18 +1121,133 @@ public class BossController extends BaseController {
     }
 
     @FXML  // Funkcja zamykająca panel do tworzenia nowego statusu
-    public void closeNewStatusPane(MouseEvent mouseEvent) {
-        mNewStatusPane.setVisible(false);
-        mNewStatusName.clear();
+    public void closeNewStatusPaneHandler(MouseEvent mouseEvent) {
+        closeNewStatusPane();
     }
 
     @FXML
-    public void showAvailableUsersPanel(MouseEvent mouseEvent) {
-            mAvailableUsersPanel.setVisible(true);
+    public void closeEditStatusPaneHandler(MouseEvent mouseEvent) {
+        closeEditStatusPane();
     }
 
     @FXML
-    public void closeAvailableUsers(MouseEvent mouseEvent) {
-        mAvailableUsersPanel.setVisible(false);
+    public void closeDeleteStatusPaneHandler(MouseEvent mouseEvent) {
+        closeDeleteStatusPane();
     }
+
+    @FXML
+    public void cancelDeleteStatusPaneHandler(ActionEvent actionEvent) {
+        closeDeleteStatusPane();
+    }
+
+    @FXML
+    public void closeDeleteUserPaneHandler(MouseEvent mouseEvent) {
+        closeDeleteUserPane();
+    }
+
+    @FXML
+    public void cancelDeleteUserPaneHandler(ActionEvent actionEvent) {
+        closeDeleteUserPane();
+    }
+
+    @FXML
+    public void createNewStatus(ActionEvent actionEvent) {
+        String domain = getDomain();
+        int project_id = activeProject.getProject_id();
+        String status_desc = mNewStatusName.getText();
+        int user_id = getUserId();
+
+        if (status_desc.isEmpty())
+            showErrorPanel("Błąd: Proszę podać nazwę nowego statusu.");
+        else {
+            RequestService requestService = new RequestService();
+            RqStatus requestObject = new RqStatus(domain, project_id, status_desc, user_id);
+
+            RsStatus response;
+            try {
+                response = requestService.createNewStatus(requestObject);
+
+                if (response.getMsg().equals("Status description already exists"))
+                    showErrorPanel("Błąd: Status o takiej nazwie już istnieje.");
+                else if (response.isSuccess()) {
+                    showInfoPanel("Sukces: Utworzono nowy status o nazwie: " + status_desc + ".");
+                    closeNewStatusPane();
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego statusu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    public void editStatus(ActionEvent actionEvent) {
+        String domain = getDomain();
+        int project_id = activeProject.getProject_id();
+        int status_id = selectedStatus.getStatus_id();
+        String status_desc = mEditStatusNameTextField.getText();
+        int user_id = getUserId();
+
+        if (status_desc.isEmpty())
+            showErrorPanel("Błąd: Proszę podać nową nazwę statusu.");
+        else if ( status_desc.equals( selectedStatus.getName() ) ) {
+            closeEditStatusPane();
+            refreshProjectDetails(getSelectedProject());
+        } else {
+            RequestService requestService = new RequestService();
+            RqStatus requestObject = new RqStatus(domain, project_id, status_id, status_desc, user_id);
+
+            BaseResponseObject response;
+            try {
+                response = requestService.editStatus(requestObject);
+
+                if (response.getMsg().equals("Status description already exists"))
+                    showErrorPanel("Błąd: Status o takiej nazwie już istnieje.");
+                else if (response.getMsg().equals("Status description not changed"))
+                    showInfoPanel("Ktoś już zmienił nazwę tego statusu na: " + status_desc + ".");
+                else if (response.isSuccess()) {
+                    showInfoPanel("Sukces: Zmieniono nazwę statusu na: " + status_desc + ".");
+                    closeEditStatusPane();
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można zmienić nazwy statusu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    public void deleteStatus(ActionEvent actionEvent) {
+        if ( selectedStatus != null ) {
+            String domain = getDomain();
+            int project_id = activeProject.getProject_id();
+            int status_id = selectedStatus.getStatus_id();
+            int user_id = getUserId();
+
+            RequestService requestService = new RequestService();
+            RqStatus requestObject = new RqStatus(domain, project_id, status_id, user_id);
+
+            BaseResponseObject response;
+            try {
+                response = requestService.deleteStatus(requestObject);
+
+                /*if (response.getMsg().equals("Status description already exists"))
+                    showErrorPanel("Błąd: Status o takiej nazwie już istnieje.");
+                else */if (response.isSuccess()) {
+                    showInfoPanel("Usunięto status: " + selectedStatus.getName() + ".");
+                    closeDeleteStatusPane();
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można usunąć statusu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

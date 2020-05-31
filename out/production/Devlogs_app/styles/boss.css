@@ -175,6 +175,7 @@
 .add-new-task-btn {
     -fx-text-fill: #fff;
     -fx-background-color: #2343e4;
+    -fx-cursor: hand;
 }
 
 .comments-panel {
@@ -240,7 +241,7 @@
     -fx-border-width: 2px;
     -fx-border-color: #2343e4;
     -fx-prompt-text-fill: #fff;
-    -fx-text-fill: #2343e4;
+    -fx-text-fill: #fff;
 }
 
 .new-status-btn {
@@ -265,8 +266,6 @@
 }
 
 .available-users-to-add {
-    -fx-pref-width: 400px;
-    -fx-pref-height: 180px;
     -fx-background-color: #1c1c1e;
     -fx-border-width: 2px;
     -fx-border-color: #2343e4;
@@ -281,4 +280,12 @@
 
 .users-in-project-list{
     -fx-text-fill: #000;
+}
+
+.hover-hand-cursor {
+    -fx-cursor: hand;
+}
+
+.add-user-to-task-btn {
+    -fx-text-fill: #2343e4;
 }
