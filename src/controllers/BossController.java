@@ -180,7 +180,7 @@ public class BossController extends BaseController {
     private Pane mProjectNavbar;
 
     @FXML
-    private Pane mProjectTasksPane;
+    private Pane mRootPane;
 
     @FXML
     private HBox mStatusesList;
@@ -545,15 +545,15 @@ public class BossController extends BaseController {
 
                                 vBox.getChildren().remove(taskPane);
                                 taskPane.setLayoutX(event.getSceneX());
-                                taskPane.setLayoutY(event.getSceneY() - 80.0);
-                                mProjectTasksPane.getChildren().add(taskPane);
+                                taskPane.setLayoutY(event.getSceneY());
+                                mRootPane.getChildren().add(taskPane);
                             });
 
                             // jeśli klawisz myszy został puszczony
                             taskPane.setOnMouseReleased(event -> {
                                 taskPane.setMouseTransparent(false);
 
-                                mProjectTasksPane.getChildren().remove(taskPane);
+                                mRootPane.getChildren().remove(taskPane);
                                 taskPane.setLayoutX(0);
                                 taskPane.setLayoutY(0);
                                 lastParent.getChildren().add(taskPane);
@@ -569,7 +569,7 @@ public class BossController extends BaseController {
                             // Feśli element jest przeciągany
                             taskPane.setOnMouseDragged(event -> {
                                 taskPane.setLayoutX(event.getSceneX());
-                                taskPane.setLayoutY(event.getSceneY() - 80.0);
+                                taskPane.setLayoutY(event.getSceneY());
 
                                 event.setDragDetect(false);
                             });
@@ -794,23 +794,21 @@ public class BossController extends BaseController {
      */
     private Pane getNewTaskPane() {
         // Panel taska
-        Pane pane = new Pane();
+        Pane pane = new HBox();
         pane.getStyleClass().add("add-new-task");
-        pane.setMaxWidth(200.0);
-        pane.setPadding(new Insets(25, 25, 25, 25));
+        pane.setMaxWidth(180.0);
+        pane.setPadding(new Insets(5, 5, 5, 5));
+        ((HBox) pane).setSpacing(10);
+        ((HBox) pane).setAlignment(Pos.CENTER);
 
         // Ikona
         ImageView editIcon = new ImageView(new Image("/imgs/addtask.png"));
         editIcon.setFitWidth(20.0);
         editIcon.setFitHeight(20.0);
-        editIcon.setLayoutX(24.0);
-        editIcon.setLayoutY(14.0);
         pane.getChildren().add(editIcon);
 
         // "Dodaj nowe zadanie"
         Label addTaskLabel = new Label("dodaj nowe zadanie");
-        addTaskLabel.setLayoutX(47.0);
-        addTaskLabel.setLayoutY(12.0);
         addTaskLabel.getStyleClass().add("new-task-add-label");
         pane.getChildren().add(addTaskLabel);
 

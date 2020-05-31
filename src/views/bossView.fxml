@@ -24,7 +24,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BossController">
+<GridPane alignment="center" hgap="10" stylesheets="@../styles/boss.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BossController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -34,534 +34,539 @@
    <children>
       <AnchorPane fx:id="mWrapper" prefHeight="768.0" prefWidth="1024.0" styleClass="wrapper">
          <children>
-            <Pane fx:id="mNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
+            <Pane fx:id="mRootPane" prefHeight="768.0" prefWidth="1024.0">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/logo.png" />
-                     </image>
-                  </ImageView>
-                  <Pane fx:id="mNotificationsCircle" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css">
+                  <Pane fx:id="mNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
                      <children>
-                        <Label fx:id="mNotificationsCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
-                     </children>
-                  </Pane>
-                  <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="25.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="homeIcon">
-                     <image>
-                        <Image url="@../imgs/home.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notificationIcon">
-                     <image>
-                        <Image url="@../imgs/notification-bell.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
-                     <image>
-                        <Image url="@../imgs/logout.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="mWelcomeUserName" layoutX="420.0" layoutY="18.0" prefHeight="45.0" prefWidth="255.0" text="Edyta !" textFill="#2343e4">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="344.0" layoutY="18.0" text="Witaj">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="mPrivilegeUser" layoutX="694.0" layoutY="33.0" text="kierownik" textFill="#2343e4" />
-               </children></Pane>
-            <Pane fx:id="mProjectNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css" visible="false">
-               <children>
-                  <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/logo.png" />
-                     </image>
-                  </ImageView>
-                  <Pane fx:id="mNotificationsCircle1" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css">
-                     <children>
-                        <Label fx:id="mNotificationsCounter1" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
-                     </children>
-                  </Pane>
-                  <ImageView fx:id="mHomeIcon1" fitHeight="150.0" fitWidth="30.0" layoutX="805.0" layoutY="25.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="homeIcon">
-                     <image>
-                        <Image url="@../imgs/home.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-                  <ImageView fx:id="mNotificationsIcon1" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notificationIcon">
-                     <image>
-                        <Image url="@../imgs/notification-bell.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="mLogoutIcon1" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
-                     <image>
-                        <Image url="@../imgs/logout.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="mProjectTitle" layoutX="301.0" layoutY="19.0" prefHeight="45.0" prefWidth="374.0" text="Nazwa projektu" textFill="#2343e4">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="45.0" fitWidth="30.0" layoutX="853.0" layoutY="25.0" onMouseClicked="#showPdfGeneratorPanel" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/pdf.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="689.0" layoutY="27.0" onMouseClicked="#showInvitationPanel" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/team.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane fx:id="mMain" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" styleClass="main" stylesheets="@../styles/admin.css">
-               <children>
-                  <Pane layoutX="58.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="your-projects" stylesheets="@../styles/boss.css">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="85.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" styleClass="project-image">
+                        <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imgs/projects.png" />
+                              <Image url="@../imgs/logo.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="90.0" layoutY="197.0" styleClass="project-label" stylesheets="@../styles/boss.css" text="Twoje projekty" />
-                        <ListView fx:id="mProjectsList" layoutX="60.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0" styleClass="projects-list" stylesheets="@../styles/boss.css" />
-                     </children>
-                  </Pane>
-                  <Pane layoutX="404.0" layoutY="94.0" prefHeight="200.0" prefWidth="550.0" styleClass="new-projects" stylesheets="@../styles/boss.css">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" styleClass="project-image">
+                        <Pane fx:id="mNotificationsCircle" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css">
+                           <children>
+                              <Label fx:id="mNotificationsCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
+                           </children>
+                        </Pane>
+                        <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="25.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="homeIcon">
                            <image>
-                              <Image url="@../imgs/newProject.png" />
+                              <Image url="@../imgs/home.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="211.0" layoutY="201.0" styleClass="project-label" stylesheets="@../styles/boss.css" text="Nowy projekt" />
-                        <TextField fx:id="mNewProjectInput" layoutX="162.0" layoutY="250.0" onInputMethodTextChanged="#checkNewProjectInputValue" promptText="nazwa nowego projektu..." styleClass="new-project-input" stylesheets="@../styles/boss.css" />
-                        <ComboBox fx:id="mChooseWorkspace" layoutX="200.0" layoutY="316.0" onAction="#workspaceSelectedActionEvent" prefWidth="150.0" promptText="wybierz przestrzeń" />
-                        <Button fx:id="mAddNewProject" disable="true" layoutX="213.0" layoutY="415.0" mnemonicParsing="false" onAction="#addNewProjectActionEvent" onMouseClicked="#createNewProject" styleClass="create-project-btn" stylesheets="@../styles/boss.css" text="Utwórz projekt" />
-                     </children>
-                  </Pane>
-                  <Pane fx:id="mNotificationsPanel" layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css" visible="false">
-                     <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notificationIcon">
                            <image>
                               <Image url="@../imgs/notification-bell.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="mCloseNotificationPanelIcon" fitHeight="14.0" fitWidth="20.0" layoutX="264.0" layoutY="20.0" onMouseClicked="#closeNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="xIcon">
+                        <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@../imgs/logout.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="mWelcomeUserName" layoutX="420.0" layoutY="18.0" prefHeight="45.0" prefWidth="255.0" text="Edyta !" textFill="#2343e4">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="344.0" layoutY="18.0" text="Witaj">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="mPrivilegeUser" layoutX="694.0" layoutY="33.0" text="kierownik" textFill="#2343e4" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mProjectNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css" visible="false">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/logo.png" />
+                           </image>
+                        </ImageView>
+                        <Pane fx:id="mNotificationsCircle1" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css">
+                           <children>
+                              <Label fx:id="mNotificationsCounter1" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
+                           </children>
+                        </Pane>
+                        <ImageView fx:id="mHomeIcon1" fitHeight="150.0" fitWidth="30.0" layoutX="805.0" layoutY="25.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="homeIcon">
+                           <image>
+                              <Image url="@../imgs/home.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="mNotificationsIcon1" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notificationIcon">
+                           <image>
+                              <Image url="@../imgs/notification-bell.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mLogoutIcon1" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@../imgs/logout.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="mProjectTitle" layoutX="301.0" layoutY="19.0" prefHeight="45.0" prefWidth="374.0" text="Nazwa projektu" textFill="#2343e4">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="45.0" fitWidth="30.0" layoutX="853.0" layoutY="25.0" onMouseClicked="#showPdfGeneratorPanel" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/pdf.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="689.0" layoutY="27.0" onMouseClicked="#showInvitationPanel" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/team.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mMain" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" styleClass="main" stylesheets="@../styles/admin.css">
+                     <children>
+                        <Pane layoutX="58.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="your-projects" stylesheets="@../styles/boss.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="85.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" styleClass="project-image">
+                                 <image>
+                                    <Image url="@../imgs/projects.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="90.0" layoutY="197.0" styleClass="project-label" stylesheets="@../styles/boss.css" text="Twoje projekty" />
+                              <ListView fx:id="mProjectsList" layoutX="60.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0" styleClass="projects-list" stylesheets="@../styles/boss.css" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="404.0" layoutY="94.0" prefHeight="200.0" prefWidth="550.0" styleClass="new-projects" stylesheets="@../styles/boss.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" styleClass="project-image">
+                                 <image>
+                                    <Image url="@../imgs/newProject.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="211.0" layoutY="201.0" styleClass="project-label" stylesheets="@../styles/boss.css" text="Nowy projekt" />
+                              <TextField fx:id="mNewProjectInput" layoutX="162.0" layoutY="250.0" onInputMethodTextChanged="#checkNewProjectInputValue" promptText="nazwa nowego projektu..." styleClass="new-project-input" stylesheets="@../styles/boss.css" />
+                              <ComboBox fx:id="mChooseWorkspace" layoutX="200.0" layoutY="316.0" onAction="#workspaceSelectedActionEvent" prefWidth="150.0" promptText="wybierz przestrzeń" />
+                              <Button fx:id="mAddNewProject" disable="true" layoutX="213.0" layoutY="415.0" mnemonicParsing="false" onAction="#addNewProjectActionEvent" onMouseClicked="#createNewProject" styleClass="create-project-btn" stylesheets="@../styles/boss.css" text="Utwórz projekt" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="mNotificationsPanel" layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css" visible="false">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imgs/notification-bell.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="mCloseNotificationPanelIcon" fitHeight="14.0" fitWidth="20.0" layoutX="264.0" layoutY="20.0" onMouseClicked="#closeNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="xIcon">
+                                 <image>
+                                    <Image url="@../imgs/close.png" />
+                                 </image>
+                              </ImageView>
+                              <ListView fx:id="mNotificationsList" layoutX="35.0" layoutY="105.0" prefHeight="180.0" prefWidth="230.0" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <ScrollPane fx:id="mInProjectContainer" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" visible="false">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <Pane minHeight="688.0" minWidth="1024.0" styleClass="project-container" stylesheets="@../styles/boss.css">
+                                 <children>
+                                    <HBox fx:id="mStatusesList" layoutX="14.0" layoutY="24.0">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" spacing="10.0">
+                                             <children>
+                                                <Pane prefHeight="100.0" prefWidth="300.0" styleClass="tasks-list" stylesheets="@../styles/boss.css">
+                                                   <children>
+                                                      <Label layoutX="47.0" layoutY="5.0" styleClass="topic-name" text="do zrobienia" />
+                                                      <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="20.0" layoutY="12.0" onMouseClicked="#changeNameOfGroupTask" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../imgs/edit.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                      <ImageView fitHeight="29.0" fitWidth="24.0" layoutX="263.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../imgs/trash.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                </Pane>
+                                                <Pane fx:id="mTask" maxWidth="300.0" prefHeight="100.0" prefWidth="300.0" styleClass="task-view" stylesheets="@../styles/boss.css">
+                                                   <children>
+                                                      <Label fx:id="mTaskTitle" layoutX="14.0" layoutY="7.0" styleClass="task-title" stylesheets="@../styles/boss.css" text="zaprojektowanie logiki systemu" wrapText="true">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="mTaskStartDate" layoutX="14.0" layoutY="74.0" styleClass="start-date" stylesheets="@../styles/boss.css" text="14/05/2020" />
+                                                      <Label fx:id="mTaskDeadline" layoutX="96.0" layoutY="74.0" styleClass="deadline" stylesheets="@../styles/boss.css" text="15/05/2020" />
+                                                      <Pane fx:id="mTaskPriority" layoutX="281.0" layoutY="9.0" prefHeight="7.0" prefWidth="6.0" styleClass="priority" stylesheets="@../styles/boss.css" />
+                                                      <Label fx:id="mTaskCommentsCount" alignment="CENTER" contentDisplay="CENTER" layoutX="233.0" layoutY="74.0" prefHeight="20.0" prefWidth="20.0" styleClass="comments-count" stylesheets="@../styles/boss.css" text="0">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="35.0" prefHeight="30.0" prefWidth="30.0" styleClass="user-circle" stylesheets="@../styles/boss.css" text="CG" />
+                                                      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="253.0" layoutY="54.0" onMouseClicked="#showComments" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../imgs/cloud.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </children>
+                                                </Pane>
+                                                <Pane fx:id="mAddNewTask" maxWidth="200.0" prefHeight="200.0" prefWidth="200.0" styleClass="add-new-task" stylesheets="@../styles/boss.css">
+                                                   <children>
+                                                      <Label layoutX="47.0" layoutY="12.0" onMouseClicked="#showNewTaskPanel" styleClass="new-task-add-label" stylesheets="@../styles/boss.css" text="dodaj nowe zadanie">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </Label>
+                                                      <ImageView fitHeight="25.0" fitWidth="14.0" layoutX="24.0" layoutY="14.0" onMouseClicked="#showNewTaskPanel" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../imgs/addtask.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </children>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Pane>
+                                                <Pane fx:id="mNewTaskPanel" maxWidth="250.0" prefHeight="200.0" prefWidth="200.0" styleClass="new-task-description" stylesheets="@../styles/boss.css" visible="false">
+                                                   <children>
+                                                      <TextField fx:id="mInputTaskTitle" layoutX="14.0" layoutY="15.0" onInputMethodTextChanged="#handleTitleTaskChange" prefHeight="25.0" prefWidth="186.0" promptText="Wpisz tytuł zadania..." stylesheets="@../styles/boss.css" />
+                                                      <Label layoutX="53.0" layoutY="61.0" onMouseClicked="#showUsersInProject" text="Przydziel osobę do zadania" textFill="#2343e4">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </Label>
+                                                      <Label layoutX="78.0" layoutY="92.0" styleClass="task-priority" stylesheets="@../styles/boss.css" text="Priorytet zadania:" />
+                                                      <CheckBox fx:id="mLowPriority" layoutX="30.0" layoutY="117.0" mnemonicParsing="false" styleClass="priority-checkbox" stylesheets="@../styles/boss.css" text="niski" />
+                                                      <CheckBox fx:id="mMediumPriority" layoutX="98.0" layoutY="117.0" mnemonicParsing="false" styleClass="priority-checkbox" stylesheets="@../styles/boss.css" text="średni" />
+                                                      <CheckBox fx:id="mHighPriority" layoutX="168.0" layoutY="117.0" mnemonicParsing="false" styleClass="priority-checkbox" stylesheets="@../styles/boss.css" text="wysoki" />
+                                                      <Button layoutX="79.0" layoutY="161.0" mnemonicParsing="false" onAction="#addNewTaskActionEvent" styleClass="add-new-task-btn" stylesheets="@../styles/boss.css" text="dodaj zadanie">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </Button>
+                                                      <ImageView fitHeight="14.0" fitWidth="14.0" layoutX="223.0" layoutY="14.0" onMouseClicked="#closeNewTaskPanel" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../imgs/close.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </children>
+                                                </Pane>
+                                                <Pane fx:id="mUsersInProjectPanel" maxWidth="250.0" prefHeight="200.0" prefWidth="214.0" styleClass="users-inproject-list" stylesheets="@../styles/boss.css" visible="false">
+                                                   <children>
+                                                      <ListView fx:id="mUsersInTaskList" layoutX="22.0" layoutY="10.0" prefHeight="180.0" prefWidth="200.0" styleClass="users-list" stylesheets="@../styles/boss.css" />
+                                                      <ImageView fitHeight="14.0" fitWidth="14.0" layoutX="229.0" layoutY="7.0" onMouseClicked="#closeUsersInProjectPanel" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../imgs/close.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </VBox>
+                                          <VBox>
+                                             <children>
+                                                <Pane onMouseClicked="#addNewGroupTask" prefHeight="40.0" prefWidth="150.0" styleClass="new-tasks-list" stylesheets="@../styles/boss.css">
+                                                   <children>
+                                                      <Label layoutX="44.0" layoutY="5.0" styleClass="topic-name" text="nowa" textFill="WHITE" />
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../imgs/addtaskwhite.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </children>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Pane>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <Pane fx:id="mPdfGeneratorPanel" layoutX="14.0" layoutY="11.0" prefHeight="650.0" prefWidth="980.0" styleClass="pdf-panel" stylesheets="@../styles/pdfGenerator.css" visible="false">
+                                       <children>
+                                          <ImageView fitHeight="20.0" fitWidth="40.0" layoutX="946.0" layoutY="14.0" onMouseClicked="#closePdfGeneratorPanel" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imgs/close.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label layoutX="51.0" layoutY="192.0" styleClass="raport-info-label" stylesheets="@../styles/pdfGenerator.css" text="Ilość osób w projekcie">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="224.0" layoutY="192.0" styleClass="raport-info-label" stylesheets="@../styles/pdfGenerator.css" text="Ilość zadań w projekcie" />
+                                          <Label layoutX="402.0" layoutY="192.0" styleClass="raport-info-label" stylesheets="@../styles/pdfGenerator.css" text="Podział zadań ze wzlędu na priorytety" />
+                                          <Label layoutX="676.0" layoutY="192.0" styleClass="raport-info-label" stylesheets="@../styles/pdfGenerator.css" text="Czas pozostały do wykonania projektu" />
+                                          <Circle fill="#2343e4" layoutX="124.0" layoutY="274.0" radius="40.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+                                          <Label fx:id="mRaportUserCounter" layoutX="113.0" layoutY="245.0" text="6" textFill="WHITE">
+                                             <font>
+                                                <Font size="40.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="74.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imgs/coworking2.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="97.0" fitWidth="100.0" layoutX="251.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imgs/taskList.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Circle fill="#2343e4" layoutX="300.0" layoutY="276.0" radius="40.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+                                          <Label fx:id="mRaportTaskCounter" layoutX="278.0" layoutY="247.0" text="30" textFill="WHITE">
+                                             <font>
+                                                <Font size="40.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="87.0" fitWidth="100.0" layoutX="483.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imgs/priority.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="101.0" fitWidth="100.0" layoutX="752.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imgs/deadLine.png" />
+                                             </image>
+                                          </ImageView>
+                                          <PieChart fx:id="mRaportPieChart" layoutX="403.0" layoutY="247.0" prefHeight="217.0" prefWidth="247.0" styleClass="raport-pie" />
+                                          <ProgressBar fx:id="mRaportProgressBar" layoutX="702.0" layoutY="305.0" prefWidth="200.0" progress="0.68" styleClass="raport-progress-bar" stylesheets="@../styles/pdfGenerator.css" />
+                                          <Label fx:id="mRaportTaskStartDate" layoutX="671.0" layoutY="268.0" styleClass="start-date" text="23/05/2020" />
+                                          <Label fx:id="mRaportTaskEndDate" layoutX="865.0" layoutY="268.0" styleClass="deadline" text="23/06/2020" />
+                                          <Label fx:id="mTimeTotheEnd" layoutX="762.0" layoutY="367.0" styleClass="time-to-the-end" stylesheets="@../styles/pdfGenerator.css" text="Zostało 10 dni" />
+                                          <Label fx:id="mRaportCurrentDate" layoutX="765.0" layoutY="339.0" styleClass="current-date" stylesheets="@../styles/pdfGenerator.css" text="13/06/2020" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                              </Pane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Pane fx:id="mCommentsPanel" layoutX="331.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" styleClass="comments-panel" stylesheets="@../styles/boss.css" visible="false">
+                     <children>
+                        <Label fx:id="mTaskTitleInCommentsPanel" alignment="CENTER" contentDisplay="CENTER" layoutX="122.0" layoutY="6.0" styleClass="task-title" stylesheets="@../styles/boss.css" text="zaprojektowanie logiki systemu" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="25.0" fitWidth="20.0" layoutX="550.0" layoutY="14.0" onMouseClicked="#hideCommentsPanel" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="41.0" prefHeight="30.0" prefWidth="30.0" styleClass="user-circle" stylesheets="@../styles/boss.css" text="CG" />
+                        <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="33.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/description.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="84.0" layoutY="99.0" text="szczegółowy opis zadania" textFill="#2343e4">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="mTaskDescription" layoutX="50.0" layoutY="139.0" prefHeight="136.0" prefWidth="643.0" promptText="dodaj bardziej szczegółowy opis zadania..." styleClass="description-area" stylesheets="@../styles/boss.css" />
+                        <Button layoutX="476.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#addNewDescription" styleClass="add-new-task-btn" text="zapisz opis">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <ImageView fitHeight="45.0" fitWidth="70.0" layoutX="31.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/comment.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="84.0" layoutY="309.0" text="komentarze do zadania" textFill="#2343e4">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ListView fx:id="mTaskComments" layoutX="50.0" layoutY="345.0" prefHeight="172.0" prefWidth="500.0" stylesheets="@../styles/boss.css" />
+                        <TextField fx:id="mMyComment" layoutX="50.0" layoutY="527.0" onInputMethodTextChanged="#handleCommentChange" prefWidth="377.0" promptText="treść komentarza..." styleClass="my-comment" stylesheets="@../styles/boss.css" />
+                        <Button layoutX="444.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#addNewComment" styleClass="add-new-task-btn" text="dodaj komentarz">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mInvitationPanel" layoutX="496.0" layoutY="91.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css" visible="false">
+                     <children>
+                        <Label layoutX="83.0" layoutY="13.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Użytkownicy w projekcie" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <ListView fx:id="mUsersInProjectList" layoutX="40.0" layoutY="60.0" prefHeight="200.0" prefWidth="320.0" styleClass="users-in-project-list" stylesheets="@../styles/boss.css" />
+                        <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="372.0" layoutY="14.0" onMouseClicked="#closeInvitationPanel" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Pane layoutX="40.0" layoutY="279.0" onMouseClicked="#showAvailableUsersPanel" prefHeight="200.0" prefWidth="200.0" styleClass="add-user-from-domain" stylesheets="@../styles/boss.css">
+                           <children>
+                              <ImageView disable="true" fitHeight="37.0" fitWidth="30.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imgs/personAddTask.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" layoutX="293.0" layoutY="271.0" onMouseClicked="#showDeleteUserPanelHandler" pickOnBounds="true" preserveRatio="true" styleClass="hover-hand-cursor">
+                           <image>
+                              <Image url="@../imgs/trash.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="323.0" layoutY="271.0" onMouseClicked="#showDeleteUserPanelHandler" prefHeight="30.0" prefWidth="40.0" styleClass="hover-hand-cursor" stylesheets="@../styles/boss.css" text="Usuń" textFill="RED" wrapText="true">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mAvailableUsersPanel" layoutX="81.0" layoutY="91.0" prefHeight="546.0" prefWidth="400.0" styleClass="available-users-to-add" stylesheets="@../styles/boss.css" visible="false">
+                     <children>
+                        <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="372.0" layoutY="14.0" onMouseClicked="#closeAvailableUsers" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ListView fx:id="mUsersInDomainList" layoutX="40.0" layoutY="58.0" prefHeight="418.0" prefWidth="320.0" styleClass="available-users-list" stylesheets="@../styles/boss.css" />
+                        <Label layoutX="40.0" layoutY="20.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Dodaj użytkownika do projektu -&gt;" textFill="WHITE" />
+                        <Button layoutX="138.0" layoutY="493.0" mnemonicParsing="false" onAction="#addUserToProject" styleClass="new-status-btn" text="Dodaj do projektu" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mInfoPanel" layoutY="80.0" prefHeight="100.0" prefWidth="1024.0" styleClass="info-panel" stylesheets="@../styles/admin.css" visible="false">
+                     <children>
+                        <ImageView fx:id="mInfoIcon" fitHeight="53.0" fitWidth="53.0" layoutX="86.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/info.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="mTextInfoPanel" layoutX="166.0" layoutY="42.0" styleClass="info-panel-text" text="Panel informacyjny" wrapText="true" />
+                        <Button fx:id="mCloseInfoButton" layoutX="834.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#acceptInfoPanel" styleClass="creator-btn" text="OK" />
+                        <ImageView fx:id="mCLoseInfoPanelIcon" fitHeight="14.0" fitWidth="14.0" layoutX="982.0" layoutY="17.0" onMouseClicked="#closeInfoPanel" pickOnBounds="true" preserveRatio="true" styleClass="close-icon">
                            <image>
                               <Image url="@../imgs/close.png" />
                            </image>
                         </ImageView>
-                        <ListView fx:id="mNotificationsList" layoutX="35.0" layoutY="105.0" prefHeight="180.0" prefWidth="230.0" />
                      </children>
                   </Pane>
-               </children>
-            </Pane>
-            <ScrollPane fx:id="mInProjectContainer" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" visible="false">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0">
+                  <Pane fx:id="mEditStatusPane" layoutX="372.0" layoutY="335.0" prefHeight="162.0" prefWidth="247.0" styleClass="new-status-panel" stylesheets="@../styles/boss.css" visible="false">
                      <children>
-                        <Pane fx:id="mProjectTasksPane" minHeight="688.0" minWidth="1024.0" styleClass="project-container" stylesheets="@../styles/boss.css">
-                           <children>
-                              <HBox fx:id="mStatusesList" layoutX="14.0" layoutY="24.0">
-                                 <children>
-                                    <VBox alignment="TOP_CENTER" spacing="10.0">
-                                       <children>
-                                          <Pane prefHeight="100.0" prefWidth="300.0" styleClass="tasks-list" stylesheets="@../styles/boss.css">
-                                             <children>
-                                                <Label layoutX="47.0" layoutY="5.0" styleClass="topic-name" text="do zrobienia" />
-                                                <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="20.0" layoutY="12.0" onMouseClicked="#changeNameOfGroupTask" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imgs/edit.png" />
-                                                   </image>
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </ImageView>
-                                                <ImageView fitHeight="29.0" fitWidth="24.0" layoutX="263.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imgs/trash.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </Pane>
-                                          <Pane fx:id="mTask" maxWidth="300.0" prefHeight="100.0" prefWidth="300.0" styleClass="task-view" stylesheets="@../styles/boss.css">
-                                             <children>
-                                                <Label fx:id="mTaskTitle" layoutX="14.0" layoutY="7.0" styleClass="task-title" stylesheets="@../styles/boss.css" text="zaprojektowanie logiki systemu" wrapText="true">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label fx:id="mTaskStartDate" layoutX="14.0" layoutY="74.0" styleClass="start-date" stylesheets="@../styles/boss.css" text="14/05/2020" />
-                                                <Label fx:id="mTaskDeadline" layoutX="96.0" layoutY="74.0" styleClass="deadline" stylesheets="@../styles/boss.css" text="15/05/2020" />
-                                                <Pane fx:id="mTaskPriority" layoutX="281.0" layoutY="9.0" prefHeight="7.0" prefWidth="6.0" styleClass="priority" stylesheets="@../styles/boss.css" />
-                                                <Label fx:id="mTaskCommentsCount" alignment="CENTER" contentDisplay="CENTER" layoutX="233.0" layoutY="74.0" prefHeight="20.0" prefWidth="20.0" styleClass="comments-count" stylesheets="@../styles/boss.css" text="0">
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="35.0" prefHeight="30.0" prefWidth="30.0" styleClass="user-circle" stylesheets="@../styles/boss.css" text="CG" />
-                                                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="253.0" layoutY="54.0" onMouseClicked="#showComments" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imgs/cloud.png" />
-                                                   </image>
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </ImageView>
-                                             </children>
-                                          </Pane>
-                                          <Pane fx:id="mAddNewTask" maxWidth="200.0" prefHeight="200.0" prefWidth="200.0" styleClass="add-new-task" stylesheets="@../styles/boss.css">
-                                             <children>
-                                                <Label layoutX="47.0" layoutY="12.0" onMouseClicked="#showNewTaskPanel" styleClass="new-task-add-label" stylesheets="@../styles/boss.css" text="dodaj nowe zadanie">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Label>
-                                                <ImageView fitHeight="25.0" fitWidth="14.0" layoutX="24.0" layoutY="14.0" onMouseClicked="#showNewTaskPanel" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imgs/addtask.png" />
-                                                   </image>
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </ImageView>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Pane>
-                                          <Pane fx:id="mNewTaskPanel" maxWidth="250.0" prefHeight="200.0" prefWidth="200.0" styleClass="new-task-description" stylesheets="@../styles/boss.css" visible="false">
-                                             <children>
-                                                <TextField fx:id="mInputTaskTitle" layoutX="14.0" layoutY="15.0" onInputMethodTextChanged="#handleTitleTaskChange" prefHeight="25.0" prefWidth="186.0" promptText="Wpisz tytuł zadania..." stylesheets="@../styles/boss.css" />
-                                                <Label layoutX="53.0" layoutY="61.0" onMouseClicked="#showUsersInProject" text="Przydziel osobę do zadania" textFill="#2343e4">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Label>
-                                                <Label layoutX="78.0" layoutY="92.0" styleClass="task-priority" stylesheets="@../styles/boss.css" text="Priorytet zadania:" />
-                                                <CheckBox fx:id="mLowPriority" layoutX="30.0" layoutY="117.0" mnemonicParsing="false" styleClass="priority-checkbox" stylesheets="@../styles/boss.css" text="niski" />
-                                                <CheckBox fx:id="mMediumPriority" layoutX="98.0" layoutY="117.0" mnemonicParsing="false" styleClass="priority-checkbox" stylesheets="@../styles/boss.css" text="średni" />
-                                                <CheckBox fx:id="mHighPriority" layoutX="168.0" layoutY="117.0" mnemonicParsing="false" styleClass="priority-checkbox" stylesheets="@../styles/boss.css" text="wysoki" />
-                                                <Button layoutX="79.0" layoutY="161.0" mnemonicParsing="false" onAction="#addNewTaskActionEvent" styleClass="add-new-task-btn" stylesheets="@../styles/boss.css" text="dodaj zadanie">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Button>
-                                                <ImageView fitHeight="14.0" fitWidth="14.0" layoutX="223.0" layoutY="14.0" onMouseClicked="#closeNewTaskPanel" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imgs/close.png" />
-                                                   </image>
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </ImageView>
-                                             </children>
-                                          </Pane>
-                                          <Pane fx:id="mUsersInProjectPanel" maxWidth="250.0" prefHeight="200.0" prefWidth="214.0" styleClass="users-inproject-list" stylesheets="@../styles/boss.css" visible="false">
-                                             <children>
-                                                <ListView fx:id="mUsersInTaskList" layoutX="22.0" layoutY="10.0" prefHeight="180.0" prefWidth="200.0" styleClass="users-list" stylesheets="@../styles/boss.css" />
-                                                <ImageView fitHeight="14.0" fitWidth="14.0" layoutX="229.0" layoutY="7.0" onMouseClicked="#closeUsersInProjectPanel" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imgs/close.png" />
-                                                   </image>
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </ImageView>
-                                             </children>
-                                          </Pane>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <Pane onMouseClicked="#addNewGroupTask" prefHeight="40.0" prefWidth="150.0" styleClass="new-tasks-list" stylesheets="@../styles/boss.css">
-                                             <children>
-                                                <Label layoutX="44.0" layoutY="5.0" styleClass="topic-name" text="nowa" textFill="WHITE" />
-                                                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imgs/addtaskwhite.png" />
-                                                   </image>
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </ImageView>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Pane>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </padding>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                              <Pane fx:id="mCommentsPanel" layoutX="331.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" styleClass="comments-panel" stylesheets="@../styles/boss.css" visible="false">
-                                 <children>
-                                    <Label fx:id="mTaskTitleInCommentsPanel" alignment="CENTER" contentDisplay="CENTER" layoutX="122.0" layoutY="6.0" styleClass="task-title" stylesheets="@../styles/boss.css" text="zaprojektowanie logiki systemu" textAlignment="CENTER" wrapText="true">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <ImageView fitHeight="25.0" fitWidth="20.0" layoutX="550.0" layoutY="14.0" onMouseClicked="#hideCommentsPanel" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imgs/close.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="41.0" prefHeight="30.0" prefWidth="30.0" styleClass="user-circle" stylesheets="@../styles/boss.css" text="CG" />
-                                    <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="33.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imgs/description.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label layoutX="84.0" layoutY="99.0" text="szczegółowy opis zadania" textFill="#2343e4">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <TextArea fx:id="mTaskDescription" layoutX="50.0" layoutY="139.0" prefHeight="136.0" prefWidth="643.0" promptText="dodaj bardziej szczegółowy opis zadania..." styleClass="description-area" stylesheets="@../styles/boss.css" />
-                                    <Button layoutX="476.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#addNewDescription" styleClass="add-new-task-btn" text="zapisz opis">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="45.0" fitWidth="70.0" layoutX="31.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imgs/comment.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label layoutX="84.0" layoutY="309.0" text="komentarze do zadania" textFill="#2343e4">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <ListView fx:id="mTaskComments" layoutX="50.0" layoutY="345.0" prefHeight="172.0" prefWidth="500.0" stylesheets="@../styles/boss.css" />
-                                    <TextField fx:id="mMyComment" layoutX="50.0" layoutY="527.0" onInputMethodTextChanged="#handleCommentChange" prefWidth="377.0" promptText="treść komentarza..." styleClass="my-comment" stylesheets="@../styles/boss.css" />
-                                    <Button layoutX="444.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#addNewComment" styleClass="add-new-task-btn" text="dodaj komentarz">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="mInvitationPanel" layoutX="496.0" layoutY="11.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css" visible="false">
-                                 <children>
-                                    <Label layoutX="83.0" layoutY="13.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Użytkownicy w projekcie" textFill="WHITE">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <ListView fx:id="mUsersInProjectList" layoutX="40.0" layoutY="60.0" prefHeight="200.0" prefWidth="320.0" styleClass="users-in-project-list" stylesheets="@../styles/boss.css" />
-                                    <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="372.0" layoutY="14.0" onMouseClicked="#closeInvitationPanel" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imgs/close.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
-                                    <Pane layoutX="40.0" layoutY="279.0" onMouseClicked="#showAvailableUsersPanel" prefHeight="200.0" prefWidth="200.0" styleClass="add-user-from-domain" stylesheets="@../styles/boss.css">
-                                       <children>
-                                          <ImageView disable="true" fitHeight="37.0" fitWidth="30.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../imgs/personAddTask.png" />
-                                             </image>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <ImageView fitHeight="36.0" fitWidth="30.0" layoutX="293.0" layoutY="271.0" onMouseClicked="#showDeleteUserPanelHandler" pickOnBounds="true" preserveRatio="true" styleClass="hover-hand-cursor">
-                                       <image>
-                                          <Image url="@../imgs/trash.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label layoutX="323.0" layoutY="271.0" onMouseClicked="#showDeleteUserPanelHandler" prefHeight="30.0" prefWidth="40.0" styleClass="hover-hand-cursor" stylesheets="@../styles/boss.css" text="Usuń" textFill="RED" wrapText="true">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="mPdfGeneratorPanel" layoutX="14.0" layoutY="11.0" prefHeight="650.0" prefWidth="980.0" styleClass="pdf-panel" stylesheets="@../styles/pdfGenerator.css" visible="false">
-                                 <children>
-                                    <ImageView fitHeight="20.0" fitWidth="40.0" layoutX="946.0" layoutY="14.0" onMouseClicked="#closePdfGeneratorPanel" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imgs/close.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
-                                    <Label layoutX="51.0" layoutY="192.0" styleClass="raport-info-label" stylesheets="@../styles/pdfGenerator.css" text="Ilość osób w projekcie">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="224.0" layoutY="192.0" styleClass="raport-info-label" stylesheets="@../styles/pdfGenerator.css" text="Ilość zadań w projekcie" />
-                                    <Label layoutX="402.0" layoutY="192.0" styleClass="raport-info-label" stylesheets="@../styles/pdfGenerator.css" text="Podział zadań ze wzlędu na priorytety" />
-                                    <Label layoutX="676.0" layoutY="192.0" styleClass="raport-info-label" stylesheets="@../styles/pdfGenerator.css" text="Czas pozostały do wykonania projektu" />
-                                    <Circle fill="#2343e4" layoutX="124.0" layoutY="274.0" radius="40.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
-                                    <Label fx:id="mRaportUserCounter" layoutX="113.0" layoutY="245.0" text="6" textFill="WHITE">
-                                       <font>
-                                          <Font size="40.0" />
-                                       </font>
-                                    </Label>
-                                    <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="74.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imgs/coworking2.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fitHeight="97.0" fitWidth="100.0" layoutX="251.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imgs/taskList.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Circle fill="#2343e4" layoutX="300.0" layoutY="276.0" radius="40.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
-                                    <Label fx:id="mRaportTaskCounter" layoutX="278.0" layoutY="247.0" text="30" textFill="WHITE">
-                                       <font>
-                                          <Font size="40.0" />
-                                       </font>
-                                    </Label>
-                                    <ImageView fitHeight="87.0" fitWidth="100.0" layoutX="483.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imgs/priority.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fitHeight="101.0" fitWidth="100.0" layoutX="752.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imgs/deadLine.png" />
-                                       </image>
-                                    </ImageView>
-                                    <PieChart fx:id="mRaportPieChart" layoutX="403.0" layoutY="247.0" prefHeight="217.0" prefWidth="247.0" styleClass="raport-pie" />
-                                    <ProgressBar fx:id="mRaportProgressBar" layoutX="702.0" layoutY="305.0" prefWidth="200.0" progress="0.68" styleClass="raport-progress-bar" stylesheets="@../styles/pdfGenerator.css" />
-                                    <Label fx:id="mRaportTaskStartDate" layoutX="671.0" layoutY="268.0" styleClass="start-date" text="23/05/2020" />
-                                    <Label fx:id="mRaportTaskEndDate" layoutX="865.0" layoutY="268.0" styleClass="deadline" text="23/06/2020" />
-                                    <Label fx:id="mTimeTotheEnd" layoutX="762.0" layoutY="367.0" styleClass="time-to-the-end" stylesheets="@../styles/pdfGenerator.css" text="Zostało 10 dni" />
-                                    <Label fx:id="mRaportCurrentDate" layoutX="765.0" layoutY="339.0" styleClass="current-date" stylesheets="@../styles/pdfGenerator.css" text="13/06/2020" />
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="mAvailableUsersPanel" layoutX="81.0" layoutY="11.0" prefHeight="546.0" prefWidth="400.0" styleClass="available-users-to-add" stylesheets="@../styles/boss.css" visible="false">
-                                 <children>
-                                    <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="372.0" layoutY="14.0" onMouseClicked="#closeAvailableUsers" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imgs/close.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
-                                    <ListView fx:id="mUsersInDomainList" layoutX="40.0" layoutY="58.0" prefHeight="418.0" prefWidth="320.0" styleClass="available-users-list" stylesheets="@../styles/boss.css" />
-                                    <Label layoutX="40.0" layoutY="20.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Dodaj użytkownika do projektu -&gt;" textFill="WHITE" />
-                                    <Button layoutX="138.0" layoutY="493.0" mnemonicParsing="false" onAction="#addUserToProject" styleClass="new-status-btn" text="Dodaj do projektu" />
-                                 </children>
-                              </Pane>
-                           </children>
-                           <padding>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </padding>
-                        </Pane>
+                        <Label layoutX="14.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Zmień nazwę statusu:" textFill="WHITE" />
+                        <TextField fx:id="mEditStatusNameTextField" layoutX="14.0" layoutY="55.0" prefHeight="29.0" prefWidth="220.0" styleClass="new-status-input" stylesheets="@../styles/boss.css" />
+                        <Button layoutX="75.0" layoutY="109.0" mnemonicParsing="false" onAction="#editStatus" styleClass="new-status-btn" text="Zmień nazwę" />
+                        <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="218.0" layoutY="14.0" onMouseClicked="#closeEditStatusPaneHandler" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
                      </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
-            <Pane fx:id="mInfoPanel" layoutY="80.0" prefHeight="100.0" prefWidth="1024.0" styleClass="info-panel" stylesheets="@../styles/admin.css" visible="false">
-               <children>
-                  <ImageView fx:id="mInfoIcon" fitHeight="53.0" fitWidth="53.0" layoutX="86.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/info.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="mTextInfoPanel" layoutX="166.0" layoutY="42.0" styleClass="info-panel-text" text="Panel informacyjny" wrapText="true" />
-                  <Button fx:id="mCloseInfoButton" layoutX="834.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#acceptInfoPanel" styleClass="creator-btn" text="OK" />
-                  <ImageView fx:id="mCLoseInfoPanelIcon" fitHeight="14.0" fitWidth="14.0" layoutX="982.0" layoutY="17.0" onMouseClicked="#closeInfoPanel" pickOnBounds="true" preserveRatio="true" styleClass="close-icon">
-                     <image>
-                        <Image url="@../imgs/close.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane fx:id="mEditStatusPane" layoutX="372.0" layoutY="335.0" prefHeight="162.0" prefWidth="247.0" styleClass="new-status-panel" stylesheets="@../styles/boss.css" visible="false">
-               <children>
-                  <Label layoutX="14.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Zmień nazwę statusu:" textFill="WHITE" />
-                  <TextField fx:id="mEditStatusNameTextField" layoutX="14.0" layoutY="55.0" prefHeight="29.0" prefWidth="220.0" styleClass="new-status-input" stylesheets="@../styles/boss.css" />
-                  <Button layoutX="75.0" layoutY="109.0" mnemonicParsing="false" onAction="#editStatus" styleClass="new-status-btn" text="Zmień nazwę" />
-                  <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="218.0" layoutY="14.0" onMouseClicked="#closeEditStatusPaneHandler" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/close.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane fx:id="mNewStatusPane" layoutX="372.0" layoutY="335.0" prefHeight="162.0" prefWidth="247.0" styleClass="new-status-panel" stylesheets="@../styles/boss.css" visible="false">
-               <children>
-                  <Label layoutX="14.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Dodaj nowy status:" textFill="WHITE" />
-                  <TextField fx:id="mNewStatusName" layoutX="14.0" layoutY="55.0" prefHeight="29.0" prefWidth="220.0" promptText="Podaj nazwę statusu..." styleClass="new-status-input" stylesheets="@../styles/boss.css" />
-                  <Button layoutX="75.0" layoutY="109.0" mnemonicParsing="false" onAction="#createNewStatus" styleClass="new-status-btn" text="Stwórz status" />
-                  <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="218.0" layoutY="14.0" onMouseClicked="#closeNewStatusPaneHandler" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/close.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane fx:id="mDeleteStatusPane" layoutX="308.0" layoutY="345.0" prefHeight="141.0" prefWidth="374.0" styleClass="new-status-panel" stylesheets="@../styles/boss.css" visible="false">
-               <children>
-                  <Label layoutX="23.0" layoutY="42.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="czy na pewno chcesz usunąć ten status?" textFill="WHITE" />
-                  <Button layoutX="77.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteStatus" styleClass="new-status-btn" text="Usuń status" />
-                  <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="343.0" layoutY="14.0" onMouseClicked="#closeDeleteStatusPaneHandler" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/close.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-                  <Button layoutX="205.0" layoutY="81.0" mnemonicParsing="false" onAction="#cancelDeleteStatusPaneHandler" prefHeight="39.0" prefWidth="96.0" styleClass="new-status-btn" text="Anuluj" />
-                  <Label fx:id="mDeleteStatusName" layoutX="22.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Status name:" textFill="WHITE" />
-               </children>
-            </Pane>
-            <Pane fx:id="mDeleteUserPane" layoutX="208.0" layoutY="355.0" prefHeight="142.0" prefWidth="534.0" styleClass="new-status-panel" stylesheets="@../styles/boss.css" visible="false">
-               <children>
-                  <Label layoutX="23.0" layoutY="42.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="czy na pewno chcesz usunąć tego użytkownika z projektu?" textFill="WHITE" />
-                  <Button layoutX="83.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteUserFromProject" styleClass="new-status-btn" text="Usuń użytkownika z projektu" />
-                  <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="502.0" layoutY="15.0" onMouseClicked="#closeDeleteUserPaneHandler" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/close.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-                  <Button layoutX="325.0" layoutY="81.0" mnemonicParsing="false" onAction="#cancelDeleteUserPaneHandler" prefHeight="39.0" prefWidth="96.0" styleClass="new-status-btn" text="Anuluj" />
-                  <Label fx:id="mDeleteUserName" layoutX="22.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="User name" textFill="WHITE" />
+                  </Pane>
+                  <Pane fx:id="mNewStatusPane" layoutX="372.0" layoutY="335.0" prefHeight="162.0" prefWidth="247.0" styleClass="new-status-panel" stylesheets="@../styles/boss.css" visible="false">
+                     <children>
+                        <Label layoutX="14.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Dodaj nowy status:" textFill="WHITE" />
+                        <TextField fx:id="mNewStatusName" layoutX="14.0" layoutY="55.0" prefHeight="29.0" prefWidth="220.0" promptText="Podaj nazwę statusu..." styleClass="new-status-input" stylesheets="@../styles/boss.css" />
+                        <Button layoutX="75.0" layoutY="109.0" mnemonicParsing="false" onAction="#createNewStatus" styleClass="new-status-btn" text="Stwórz status" />
+                        <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="218.0" layoutY="14.0" onMouseClicked="#closeNewStatusPaneHandler" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mDeleteStatusPane" layoutX="308.0" layoutY="345.0" prefHeight="141.0" prefWidth="374.0" styleClass="new-status-panel" stylesheets="@../styles/boss.css" visible="false">
+                     <children>
+                        <Label layoutX="23.0" layoutY="42.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="czy na pewno chcesz usunąć ten status?" textFill="WHITE" />
+                        <Button layoutX="77.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteStatus" styleClass="new-status-btn" text="Usuń status" />
+                        <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="343.0" layoutY="14.0" onMouseClicked="#closeDeleteStatusPaneHandler" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Button layoutX="205.0" layoutY="81.0" mnemonicParsing="false" onAction="#cancelDeleteStatusPaneHandler" prefHeight="39.0" prefWidth="96.0" styleClass="new-status-btn" text="Anuluj" />
+                        <Label fx:id="mDeleteStatusName" layoutX="22.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Status name:" textFill="WHITE" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mDeleteUserPane" layoutX="238.0" layoutY="355.0" prefHeight="142.0" prefWidth="534.0" styleClass="new-status-panel" stylesheets="@../styles/boss.css" visible="false">
+                     <children>
+                        <Label layoutX="23.0" layoutY="42.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="czy na pewno chcesz usunąć tego użytkownika z projektu?" textFill="WHITE" />
+                        <Button layoutX="83.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteUserFromProject" styleClass="new-status-btn" text="Usuń użytkownika z projektu" />
+                        <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="502.0" layoutY="15.0" onMouseClicked="#closeDeleteUserPaneHandler" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Button layoutX="325.0" layoutY="81.0" mnemonicParsing="false" onAction="#cancelDeleteUserPaneHandler" prefHeight="39.0" prefWidth="96.0" styleClass="new-status-btn" text="Anuluj" />
+                        <Label fx:id="mDeleteUserName" layoutX="22.0" layoutY="15.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="User name" textFill="WHITE" />
+                     </children>
+                  </Pane>
                </children>
             </Pane>
          </children>
