@@ -1,16 +1,26 @@
 package backend.requestObjects;
 
-public class RqNewTask {
+public class RqTask {
     private String domain;
     private int project_id;
+    private Integer task_id;
     private int status_id;
     private int creator_id;
     private String task_name;
+    private String task_desc;
     private Integer assigned_to;
+    private String priority_desc;
 
-    public RqNewTask() {}
+    public RqTask() {}
 
-    public RqNewTask(String domain, int project_id, int status_id, int creator_id, String task_name, Integer assigned_to) {
+    public RqTask(String domain, int project_id, Integer task_id, int creator_id) {
+        this.domain = domain;
+        this.project_id = project_id;
+        this.task_id = task_id;
+        this.creator_id = creator_id;
+    }
+
+    public RqTask(String domain, int project_id, int status_id, int creator_id, String task_name, Integer assigned_to) {
         this.domain = domain;
         this.project_id = project_id;
         this.status_id = status_id;
@@ -67,9 +77,33 @@ public class RqNewTask {
         this.assigned_to = assigned_to;
     }
 
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
+    }
+
+    public String getTask_desc() {
+        return task_desc;
+    }
+
+    public void setTask_desc(String task_desc) {
+        this.task_desc = task_desc;
+    }
+
+    public String getPriority_desc() {
+        return priority_desc;
+    }
+
+    public void setPriority_desc(String priority_desc) {
+        this.priority_desc = priority_desc;
+    }
+
     @Override
     public String toString() {
-        return "RqNewTask{" +
+        return "RqTask{" +
                 "domain='" + domain + '\'' +
                 ", project_id=" + project_id +
                 ", status_id=" + status_id +
