@@ -1,6 +1,7 @@
 package controllers;
 
 import backend.requestObjects.RqNewProject;
+import backend.requestObjects.RqNewTask;
 import backend.requestObjects.RqStatus;
 import backend.requestObjects.RqUser;
 import backend.responseObjects.*;
@@ -37,6 +38,11 @@ public class BossController extends BaseController {
      * Status, który został wybrany do np. edycji lub usunięcia
      */
     private Status selectedStatus;
+
+    /**
+     * Aktywny panel do dodawania nowego taska
+     */
+    private Pane activeAddNewTaskPane;
 
     @FXML
     private AnchorPane mWrapper;
@@ -506,6 +512,7 @@ public class BossController extends BaseController {
                         // Tytuł statusu
                         Pane statusName = getStatusTitlePane(status.getName(), "/imgs/edit.png");
                         statusName.setUserData(status);
+                        vBox.setUserData(status);
                         vBox.getChildren().add(statusName);
 
                         for (Task task : status.getTasks()) {
@@ -514,8 +521,16 @@ public class BossController extends BaseController {
                             vBox.getChildren().add(taskPane);
                         }
 
-                        Pane addNewTask = getNewTaskPane();
-                        vBox.getChildren().add(addNewTask);
+                        Pane addNewTaskButton = getNewTaskPane();
+                        addNewTaskButton.getStyleClass().add("hover-hand-cursor");
+                        addNewTaskButton.setOnMouseClicked(event -> {
+                            VBox source = (VBox) ( (Pane) event.getSource() ).getParent();
+
+                            selectedStatus = (Status) vBox.getUserData();
+                            closeActiveAddNewTaskPane();
+                            addNewTaskPane(source);
+                        });
+                        vBox.getChildren().add(addNewTaskButton);
 
                         mStatusesList.getChildren().add(vBox);
                     }
@@ -722,6 +737,109 @@ public class BossController extends BaseController {
         return ( (Node)event.getSource() ).getParent().getUserData();
     }
 
+    private Object getParentData(Node node) {
+        return node.getParent().getUserData();
+    }
+
+    /**
+     * Funkcja dodająca do podanego kontenera panel do dodawania nowego taska
+     * @param parent kontener, do którego ma zostać dodany panel
+     */
+    public void addNewTaskPane(Pane parent) {
+        Pane pane = new Pane();
+        activeAddNewTaskPane = pane;
+        pane.getStyleClass().add("new-task-description");
+        pane.setMaxWidth(250.0);
+        pane.setMaxHeight(150.0);
+        pane.setPadding(new Insets(25, 25, 25, 25));
+
+        // Nazwa nowego stausu
+        TextField newTaskName = new TextField();
+        newTaskName.setPromptText("Tytół nowego zadania...");
+        newTaskName.setLayoutX(14.0);
+        newTaskName.setLayoutY(15.0);
+        newTaskName.setPrefWidth(186.0);
+        pane.getChildren().add(newTaskName);
+
+        ImageView closeBtn = new ImageView(new Image("/imgs/close.png"));
+        closeBtn.setFitWidth(14.0);
+        closeBtn.setFitHeight(14.0);
+        closeBtn.setLayoutX(223.0);
+        closeBtn.setLayoutY(14.0);
+        closeBtn.getStyleClass().add("hover-hand-cursor");
+
+        // Funkcja usuwająca panel do dodawania nowego taska z VBox'a
+        closeBtn.setOnMouseClicked(event -> {
+            closeActiveAddNewTaskPane();
+        });
+        pane.getChildren().add(closeBtn);
+
+        // Przycisk "Przydziel osobę do zadania
+        Label addUserToTaskBtn = new Label("Przydziel osobę do zadania");
+        addUserToTaskBtn.setLayoutX(53.0);
+        addUserToTaskBtn.setLayoutY(61.0);
+        closeBtn.getStyleClass().add("hover-hand-cursor");
+        addUserToTaskBtn.getStyleClass().add("add-user-to-task-btn");
+        pane.getChildren().add(addUserToTaskBtn);
+
+        Button addTaskBtn = new Button("Dodaj zadanie");
+        addTaskBtn.setLayoutX(79.0);
+        addTaskBtn.setLayoutY(100.0);
+        addTaskBtn.getStyleClass().add("add-new-task-btn");
+        addTaskBtn.setOnAction(event -> {
+            addNewTask(newTaskName.getText());
+        });
+        pane.getChildren().add(addTaskBtn);
+
+        parent.getChildren().add(pane);
+    }
+
+    /**
+     * Funkcja zamykająca aktywny panel do dodawania nowego taska
+     */
+    public void closeActiveAddNewTaskPane() {
+        if (activeAddNewTaskPane != null)
+            removeNodeFromPanel(activeAddNewTaskPane);
+    }
+
+    /**
+     * Funkcja usuwająca węzęł z kontenera nadrzędnego
+     * @param node Węzęł do usunięcia
+     */
+    public void removeNodeFromPanel(Node node) {
+        ((Pane) node.getParent()).getChildren().remove(node);
+    }
+
+    public void addNewTask(String task_name) {
+        if (!task_name.isEmpty()){
+            String domain = getDomain();
+            int project_id = activeProject.getProject_id();
+            int status_id = selectedStatus.getStatus_id();
+            int creator_id = getUserId();
+            Integer assigned_to = null;
+
+            RequestService requestService = new RequestService();
+            RqNewTask requestObject = new RqNewTask(domain, project_id, status_id, creator_id, task_name, assigned_to);
+            RsNewTask response;
+            try {
+                response = requestService.createNewTask(requestObject);
+
+                if (response.getMsg().equals("Task exists in this project"))
+                    showErrorPanel("Błąd: Projekt o takiej nazwie już istnieje.");
+                else if (response.isSuccess()) {
+                    showInfoPanel("Sukces: Utworzono nowe zadanie o nazwie: " + response.getTask_title());
+                    refreshProjectDetails(getSelectedProject());
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego projektu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        } else {
+            showErrorPanel("Błąd: Proszę podać nazwę nowego zadania.");
+        }
+    }
+
     @FXML
     void backToHome(MouseEvent event) {
         hideProjectDetails();
@@ -772,7 +890,7 @@ public class BossController extends BaseController {
     void addNewDescription(MouseEvent event) {}
 
     @FXML // TODO funckja do dodawania nowego zadania
-    void addNewTask(MouseEvent event) {}
+    void addNewTaskActionEvent(ActionEvent event) {}
 
     @FXML
     void closeNewTaskPanel(MouseEvent event) {
@@ -948,9 +1066,9 @@ public class BossController extends BaseController {
                 response = requestService.createNewProject(newProject);
 
                 if (response.getMsg().equals("Project name already exist inside this domain"))
-                    DialogsUtils.shortErrorDialog("Błąd", "Projekt o takiej nazwie już istnieje.");
+                    showErrorPanel("Błąd: Projekt o takiej nazwie już istnieje.");
                 else if (response.isSuccess()) {
-                    DialogsUtils.infoDialog("Sukces", "Utworzono nowy projekt", "Utworzono nowy projekt o nazwie: " + response.getProject_name());
+                    showInfoPanel("Sukces: Utworzono nowy projekt o nazwie: " + response.getProject_name());
                     refresh();
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
@@ -959,7 +1077,7 @@ public class BossController extends BaseController {
                 e.printStackTrace();
             }
         } else {
-            DialogsUtils.shortErrorDialog("Błąd", "Proszę podać nazwę projetu.");
+            showErrorPanel("Błąd: Proszę podać nazwę projetu.");
         }
     }
 

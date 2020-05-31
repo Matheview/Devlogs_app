@@ -175,6 +175,7 @@
 .add-new-task-btn {
     -fx-text-fill: #fff;
     -fx-background-color: #2343e4;
+    -fx-cursor: hand;
 }
 
 .comments-panel {
@@ -283,4 +284,8 @@
 
 .hover-hand-cursor {
     -fx-cursor: hand;
+}
+
+.add-user-to-task-btn {
+    -fx-text-fill: #2343e4;
 }
