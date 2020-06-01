@@ -30,6 +30,9 @@ import java.awt.event.InputMethodEvent;
 import java.io.IOException;
 import java.util.Collections;
 
+/**
+ * Klasa bazowa dla wszystkich kontrolerów. Zawiera wszystkie elementy wspólne
+ */
 public class BossController extends BaseController {
 
     /**
@@ -58,30 +61,6 @@ public class BossController extends BaseController {
     private VBox nextParent;
 
     @FXML
-    private AnchorPane mWrapper;
-
-    @FXML
-    private Pane mNavbar;
-
-    @FXML
-    private Label mWelcomeUserName;
-
-    @FXML
-    private Label mPrivilegeUser;
-
-    @FXML
-    private ImageView mHomeIcon;
-
-    @FXML
-    private ImageView mNotificationsIcon;
-
-    @FXML
-    private ImageView mLogoutIcon;
-
-    @FXML
-    private Pane mMain;
-
-    @FXML
     private ListView<Project> mProjectsList;
 
     @FXML
@@ -95,13 +74,6 @@ public class BossController extends BaseController {
 
     @FXML
     private ImageView mCloseNotificationPanelIcon;
-
-    @FXML
-    private ListView<?> mNotificationsList;
-
-
-    @FXML
-    private Pane mNotificationsPanel;
 
     @FXML
     private ScrollPane mInProjectContainer;
@@ -201,12 +173,6 @@ public class BossController extends BaseController {
     public ImageView mCLoseInfoPanelIcon;
 
     @FXML
-    public Pane mNotificationsCircle;
-
-    @FXML
-    public Label mNotificationsCounter;
-
-    @FXML
     public Pane mNewStatusPane;
 
     @FXML
@@ -265,12 +231,11 @@ public class BossController extends BaseController {
     @FXML
     private Pane mAvailableUsersPanel; // panel z dostępnymi userami w domenie do dodania do projektu
 
-    //Views initialize
-    public void initialize() {
-        mWelcomeUserName.setText(Controller.currAcc.getUsername());
-        mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
-        refresh();
+    //Views initialize
+    @Override
+    public void initialize() {
+        super.initialize();
     }
 
     /**
@@ -954,33 +919,7 @@ public class BossController extends BaseController {
     void checkNewProjectInputValue(InputMethodEvent event) {}
 
     @FXML
-    void closeNotificationsPanel(MouseEvent event) {
-        mNotificationsPanel.setVisible(false);
-    }
-
-    @FXML
     void createNewProject(MouseEvent event) {}
-
-    @FXML
-    void logoutUser(MouseEvent event) {
-        Controller.currAcc = null;
-        getController().clearFields();
-        getController().showWindow();
-        // get a handle to the stage
-        Stage stage = (Stage) mLogoutIcon.getScene().getWindow();
-        // do what you have to do
-        stage.close();
-    }
-
-    @FXML
-    void showNotificationPanel(MouseEvent event) {
-    mNotificationsPanel.setVisible(true);
-    }
-
-    @FXML
-    void showNotificationsPanel(MouseEvent event) {
-    mNotificationsPanel.setVisible(true);
-    }
 
     @FXML
     void showWorkspaces(MouseEvent event) {}
