@@ -13,17 +13,24 @@
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:devslog" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05b18e5a-1ae8-458a-9c44-b91a7370feeb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_web_14_0_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/bin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/bin.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Devlogs_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Devlogs_app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/sample/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/styles/pdfGenerator.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/styles/pdfGenerator.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BossController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/pdfGenerator.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/pdfGenerator.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/bossView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,33 +70,46 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/styles" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/javafx-web-14.0.1.jar!/" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
       <recent name="backend" />
       <recent name="utils" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\styles" />
-      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\views" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="backend.responseObjects" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="backend.responseObjects" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\views" />
+      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\styles" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="sample.Main" />
       <module name="Devlogs_app" />
-      <option name="VM_PARAMETERS" value="--module-path lib\javafx-sdk-14.0.1\lib --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path lib\javafx-sdk-14.0.1\lib --add-modules javafx.controls,javafx.fxml,javafx.web,javafx.graphics,javafx.media" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Raports$WebViewExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sample.Raports$WebViewExample" />
+      <module name="Devlogs_app" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="sample.*" />
@@ -108,9 +128,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Raports$WebViewExample" />
+      <item itemvalue="JUnit.All in Devlogs_app" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Raports$WebViewExample" />
         <item itemvalue="JUnit.All in Devlogs_app" />
       </list>
     </recent_temporary>
@@ -193,14 +219,16 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="70" width="814" height="729" key="#Intentions/0.0.1536.824@0.0.1536.824" timestamp="1589556047947" />
-    <state x="140" y="117" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588590470730">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="175" y="148" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591221375523">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="140" y="117" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1588590470730" />
-    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1590939756870">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="175" y="148" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591221375523" />
+    <state x="671" y="143" key="#com.intellij.ide.util.MemberChooser" timestamp="1591206130855">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1590939756870" />
+    <state x="671" y="143" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1591206130855" />
     <state x="499" y="172" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1589557059512">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -217,60 +245,41 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="536" y="287" key="DetectedRootsChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1587313532411" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1590581219649">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="686" y="211" key="FileChooserDialogImpl" timestamp="1591219745799">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1590581219649" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1590654151965">
+    <state x="686" y="211" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1591219745799" />
+    <state width="765" height="282" key="GridCell.Tab.0.bottom" timestamp="1591221382427">
       <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1493" height="164" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590613099295" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590654151965" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1590654151965">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1493" height="164" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590613099294" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590654151965" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1590654151965">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1493" height="164" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590613099293" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590654151965" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1590654151965">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1493" height="164" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590613099295" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590654151965" />
-    <state width="1493" height="164" key="GridCell.Tab.0.bottom" timestamp="1590876498396"/>
-    <state width="1493" height="164" key="GridCell.Tab.0.bottom" timestamp="1590952148031">
-      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="164" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590952148031" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
-    <state width="1493" height="164" key="GridCell.Tab.0.center" timestamp="1590952148031">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="765" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591221382427" />
+    <state width="765" height="282" key="GridCell.Tab.0.center" timestamp="1591221382427">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="164" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590952148031" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
-    <state width="1493" height="164" key="GridCell.Tab.0.left" timestamp="1590952148031">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="765" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591221382427" />
+    <state width="765" height="282" key="GridCell.Tab.0.left" timestamp="1591221382427">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="164" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590952148031" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363820" />
-    <state width="1493" height="164" key="GridCell.Tab.0.right" timestamp="1590952148031">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="765" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591221382427" />
+    <state width="765" height="282" key="GridCell.Tab.0.right" timestamp="1591221382427">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="164" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590952148031" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
-    <state x="142" y="0" width="1231" height="824" key="SettingsEditor" timestamp="1590581223579">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="765" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591221382427" />
+    <state x="768" y="126" width="1231" height="824" key="SettingsEditor" timestamp="1591221172249">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="142" y="0" width="1231" height="824" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1590581223579" />
-    <state x="193" y="0" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589218314059" />
-    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1589572576534">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="768" y="126" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1591221172249" />
+    <state x="623" y="384" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1591219680076">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1536.824@0.0.1536.824" timestamp="1589572576534" />
+    <state x="623" y="384" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040@0.0.1920.1040" timestamp="1591219680076" />
     <state x="540" y="192" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1589570855858">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

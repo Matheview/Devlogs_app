@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="javafx-web-14.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/javafx-web-14.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="jar://$PROJECT_DIR$/lib/javafx-web-14.0.1.jar!/" recursive="false" />
+  </library>
+</component>

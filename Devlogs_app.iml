@@ -140,5 +140,6 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="javafx-web-14.0.1" level="project" />
   </component>
 </module>

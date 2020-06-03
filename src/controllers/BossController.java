@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -25,7 +26,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.DialogsUtils;
-
 import java.awt.event.InputMethodEvent;
 import java.io.IOException;
 import java.util.Collections;
@@ -1205,13 +1205,7 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    void showPdfGeneratorPanel(MouseEvent event) {
-        mPdfGeneratorPanel.setVisible(true);
-        // TODO tu jeszcze trzeba funkcję, która zmieni zawartość progres bara w zaleźności od ilości dni pozostałych do końca wykonania projektu
-    }
-
-    @FXML
-    void closePdfGeneratorPanel(MouseEvent event) {
+    public void closePdfGeneratorPanel(MouseEvent event) {
         mPdfGeneratorPanel.setVisible(false);
     }
 
@@ -1353,6 +1347,12 @@ public class BossController extends BaseController {
                 e.printStackTrace();
             }
         }
+    }
+
+    //TODO Olek w tej funkcji trzeba mi tworzyć nową scenę
+    public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
+        mPdfGeneratorPanel.setVisible(true);
+
     }
 
 }
