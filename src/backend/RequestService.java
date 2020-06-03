@@ -673,7 +673,7 @@ public class RequestService {
 	 * @param newTask obiekt zawierający dane, które zostaną wysłane w body requesta
 	 * @return ResponseObject: success, msg, itd.
 	 */
-	public RsNewTask createNewTask(RqNewTask newTask) throws IOException {
+	public RsNewTask createNewTask(RqTask newTask) throws IOException {
 		HttpURLConnection connection = getConnection("/tasks/config", "POST");
 
 		Gson gson = new Gson();
@@ -684,6 +684,28 @@ public class RequestService {
 		String result = getServerResponse(connection);
 
 		RsNewTask responseObject = gson.fromJson(result, RsNewTask.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda sluzaca do edycji taska
+	 * @param task obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return ResponseObject: success, msg, itd.
+	 */
+	public BaseResponseObject editTask(RqTask task) throws IOException {
+		HttpURLConnection connection = getConnection("/tasks/config", "PUT");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(task);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
 
 		connection.disconnect();
 

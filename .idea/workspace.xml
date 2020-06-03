@@ -20,17 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05b18e5a-1ae8-458a-9c44-b91a7370feeb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/backend/requestObjects/RqNewTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/backend/responseObjects/RsNewTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/RequestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/RequestService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/styles/boss.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/styles/boss.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/bossView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/RequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/RequestService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BossController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/boss.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/boss.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/bossView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/bossView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -204,10 +197,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="140" y="117" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1588590470730" />
-    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1590875514046">
+    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1590939756870">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1590875514046" />
+    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1590939756870" />
     <state x="499" y="172" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1589557059512">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -248,28 +241,27 @@
     </state>
     <state width="1493" height="164" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590613099295" />
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590654151965" />
-=======
-    <state width="1493" height="164" key="GridCell.Tab.0.bottom" timestamp="1590876498396">
+    <state width="1493" height="164" key="GridCell.Tab.0.bottom" timestamp="1590876498396"/>
+    <state width="1493" height="164" key="GridCell.Tab.0.bottom" timestamp="1590952148031">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="164" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590876498396" />
+    <state width="1493" height="164" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590952148031" />
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
-    <state width="1493" height="164" key="GridCell.Tab.0.center" timestamp="1590876498396">
+    <state width="1493" height="164" key="GridCell.Tab.0.center" timestamp="1590952148031">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="164" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590876498396" />
+    <state width="1493" height="164" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590952148031" />
     <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
-    <state width="1493" height="164" key="GridCell.Tab.0.left" timestamp="1590876498396">
+    <state width="1493" height="164" key="GridCell.Tab.0.left" timestamp="1590952148031">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="164" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590876498396" />
+    <state width="1493" height="164" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590952148031" />
     <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363820" />
-    <state width="1493" height="164" key="GridCell.Tab.0.right" timestamp="1590876498396">
+    <state width="1493" height="164" key="GridCell.Tab.0.right" timestamp="1590952148031">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="164" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590876498396" />
+    <state width="1493" height="164" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590952148031" />
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
->>>>>>> 7d06f0abe5abd030b3a22da2a53bf582c615bf23
     <state x="142" y="0" width="1231" height="824" key="SettingsEditor" timestamp="1590581223579">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

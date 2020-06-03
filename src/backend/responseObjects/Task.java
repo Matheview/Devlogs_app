@@ -1,7 +1,7 @@
 package backend.responseObjects;
 
 public class Task {
-    private int id;
+    private int task_id;
     private String task_name;
     private Integer granted_to;
     private String created_at;
@@ -9,11 +9,11 @@ public class Task {
     private String priority;
     private int comments_count;
 
-    public int getId() {
-        return id;
+    public int getTask_id() {
+        return task_id;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setTask_id(int task_id) {
+        this.task_id = task_id;
     }
 
     public String getName() {
