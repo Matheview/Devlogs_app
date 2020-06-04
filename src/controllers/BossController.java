@@ -6,6 +6,7 @@ import backend.requestObjects.RqStatus;
 import backend.requestObjects.RqUser;
 import backend.responseObjects.*;
 import backend.RequestService;
+import com.sun.webkit.WebPage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,8 +28,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.DialogsUtils;
 import java.awt.event.InputMethodEvent;
+import java.io.Console;
 import java.io.IOException;
 import java.util.Collections;
+import javafx.scene.web.WebView;
+import javafx.scene.web.WebEngine;
 
 public class BossController extends BaseController {
 
@@ -1349,9 +1353,26 @@ public class BossController extends BaseController {
         }
     }
 
-    //TODO Olek w tej funkcji trzeba mi tworzyć nową scenę
-    public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
-        mPdfGeneratorPanel.setVisible(true);
+        //TODO WEBVIEW RAPORTY
+        public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
+
+
+            WebView webView = new WebView();
+
+            WebEngine webEngine = webView.getEngine();
+
+
+            webView.getEngine().load("https://0preo.csb.app/");
+
+
+            VBox vBoxRaports = new VBox(webView);
+            Scene raportsScene = new Scene(vBoxRaports, 1024,568);
+
+            Stage raportsStage = new Stage();
+            raportsStage.setScene(raportsScene);
+            raportsStage.setTitle("Devslog raports");
+            raportsStage.show();
+
 
     }
 
