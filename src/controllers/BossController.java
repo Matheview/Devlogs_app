@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.util.Collections;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
+import com.pdfcrowd.*;
+import java.io.*;
 
 public class BossController extends BaseController {
 
@@ -1362,11 +1364,11 @@ public class BossController extends BaseController {
             WebEngine webEngine = webView.getEngine();
 
 
-            webView.getEngine().load("https://0preo.csb.app/");
+            webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=15&type=1&domain=1&params=all");
 
 
-            VBox vBoxRaports = new VBox(webView);
-            Scene raportsScene = new Scene(vBoxRaports, 1024,568);
+            ScrollPane PaneRaports = new ScrollPane(webView);
+            Scene raportsScene = new Scene(PaneRaports);
 
             Stage raportsStage = new Stage();
             raportsStage.setScene(raportsScene);
