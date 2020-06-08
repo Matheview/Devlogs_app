@@ -6,6 +6,7 @@ import backend.requestObjects.RqStatus;
 import backend.requestObjects.RqUser;
 import backend.responseObjects.*;
 import backend.RequestService;
+import com.sun.webkit.WebPage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -22,11 +24,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import utils.DialogsUtils;
-
 import java.awt.event.InputMethodEvent;
+import java.io.Console;
 import java.io.IOException;
 import java.util.Collections;
+import javafx.scene.web.WebView;
+import javafx.scene.web.WebEngine;
+import com.pdfcrowd.*;
+import java.io.*;
 
 /**
  * Klasa bazowa dla wszystkich kontrolerów. Zawiera wszystkie elementy wspólne
@@ -1247,13 +1254,7 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    void showPdfGeneratorPanel(MouseEvent event) {
-        mPdfGeneratorPanel.setVisible(true);
-        // TODO tu jeszcze trzeba funkcję, która zmieni zawartość progres bara w zaleźności od ilości dni pozostałych do końca wykonania projektu
-    }
-
-    @FXML
-    void closePdfGeneratorPanel(MouseEvent event) {
+    public void closePdfGeneratorPanel(MouseEvent event) {
         mPdfGeneratorPanel.setVisible(false);
     }
 
@@ -1395,6 +1396,25 @@ public class BossController extends BaseController {
                 e.printStackTrace();
             }
         }
+    }
+
+        //TODO WEBVIEW RAPORTY
+        public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
+            WebView webView = new WebView();
+
+            WebEngine webEngine = webView.getEngine();
+
+
+            webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=15&type=1&domain=1&params=all");
+
+
+            ScrollPane PaneRaports = new ScrollPane(webView);
+            Scene raportsScene = new Scene(PaneRaports);
+
+            Stage raportsStage = new Stage();
+            raportsStage.setScene(raportsScene);
+            raportsStage.setTitle("Devslog raports");
+            raportsStage.show();
     }
 
 }
