@@ -32,12 +32,6 @@ public class AdminController extends BaseController {
     //ZMIENNE - NIE WSZYSTKIE BĘDĄ POTRZEBNE
 
     @FXML
-    private AnchorPane mWrapper;
-
-    @FXML
-    private Pane mMain;
-
-    @FXML
     private TextField mUserName;
 
     @FXML
@@ -88,24 +82,6 @@ public class AdminController extends BaseController {
     @FXML
     private ImageView mCloseNotificationPanelIcon;
 
-    @FXML
-    private Pane mNotificationsPanel;
-
-    @FXML
-    private ListView<?> mNotificationsList;
-
-    @FXML
-    private ImageView mLogoutIcon;
-
-    @FXML
-    private Label mWelcomeUserName;
-
-    @FXML
-    private Label mPrivilegeUser;
-
-    @FXML
-    private Label mNotificationsCounter;
-
     // Zmienne do popapów informacyjnych ->
 
     @FXML
@@ -124,15 +100,6 @@ public class AdminController extends BaseController {
 
     @FXML
     private ImageView mCLoseInfoPanelIcon;
-
-    @FXML
-    public Pane mNotificationsCircle;
-
-    @FXML
-    public ImageView mHomeIcon;
-
-    @FXML
-    public ImageView mNotificationsIcon;
 
     // Zmienne do popapu z informacjami o danym userze
 
@@ -192,11 +159,9 @@ public class AdminController extends BaseController {
 
 
     //Views initialize
+    @Override
     public void initialize() {
-        mWelcomeUserName.setText(getUsername());
-        mPrivilegeUser.setText(getPrivilege());
-
-        refresh();
+        super.initialize();
     }
 
     /**
@@ -362,11 +327,6 @@ public class AdminController extends BaseController {
 
     }
 
-    @FXML //Metoda zamykająca panel powiadomień
-    void closeNotificationsPanel(MouseEvent event) {
-        mNotificationsPanel.setVisible(false);
-    }
-
     @FXML //Metoda sprawdzająca czy checkbox z typem konta admin jest true
     void handleAdminCheck(ActionEvent event) {
 
@@ -410,17 +370,6 @@ public class AdminController extends BaseController {
     @FXML //Metoda sprawdzająca zawartość inputa z nazwą przestrzeni
     void handleWorkspaceNameChange(InputMethodEvent event) {
 
-    }
-
-    @FXML //Metoda wylogowywująca usera
-    void logoutUser(MouseEvent event) {
-        Controller.currAcc = null;
-        getController().clearFields();
-        getController().showWindow();
-        // get a handle to the stage
-        Stage stage = (Stage) mLogoutIcon.getScene().getWindow();
-        // do what you have to do
-        stage.close();
     }
 
     @FXML //Metoda do przycisku wysyłająca dane z inputów na serwer w celu stworzenia nowego usera
@@ -494,16 +443,6 @@ public class AdminController extends BaseController {
                 e.printStackTrace();
             }
         }
-    }
-
-    @FXML //Metoda wywołująca panel powiadomień
-    void showNotificationPanel(MouseEvent event) {
-        mNotificationsPanel.setVisible(true);
-    }
-
-    @FXML
-    public void showNotificationsPanel(MouseEvent mouseEvent) {
-        mNotificationsPanel.setVisible(true);
     }
 
     @FXML

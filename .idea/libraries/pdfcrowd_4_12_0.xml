@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="pdfcrowd-4.12.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/pdfcrowd-4.12.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

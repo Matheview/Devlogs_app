@@ -6,6 +6,7 @@ import backend.requestObjects.RqStatus;
 import backend.requestObjects.RqUser;
 import backend.responseObjects.*;
 import backend.RequestService;
+import com.sun.webkit.WebPage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,22 +15,29 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.DialogsUtils;
-
 import java.awt.event.InputMethodEvent;
+import java.io.Console;
 import java.io.IOException;
 import java.util.Collections;
+import javafx.scene.web.WebView;
+import javafx.scene.web.WebEngine;
+import com.pdfcrowd.*;
+import java.io.*;
 
+/**
+ * Klasa bazowa dla wszystkich kontrolerów. Zawiera wszystkie elementy wspólne
+ */
 public class BossController extends BaseController {
 
     /**
@@ -41,6 +49,17 @@ public class BossController extends BaseController {
      * Status, który został wybrany do np. edycji lub usunięcia
      */
     private Status selectedStatus;
+
+    /**
+     * Task, który został wybrany do np. edycji lub usunięcia
+     */
+    private Task selectedTask;
+
+    /**
+     * Task, którego szczegóły są obecnie wyświetlane (zawiera więcej informacji niż selectedTask)
+     * Pobierany jest w momencie użycia metody refreshTaskDetails()
+     */
+    private RsTaskDetails activeTask;
 
     /**
      * Aktywny panel do dodawania nowego taska
@@ -58,30 +77,6 @@ public class BossController extends BaseController {
     private VBox nextParent;
 
     @FXML
-    private AnchorPane mWrapper;
-
-    @FXML
-    private Pane mNavbar;
-
-    @FXML
-    private Label mWelcomeUserName;
-
-    @FXML
-    private Label mPrivilegeUser;
-
-    @FXML
-    private ImageView mHomeIcon;
-
-    @FXML
-    private ImageView mNotificationsIcon;
-
-    @FXML
-    private ImageView mLogoutIcon;
-
-    @FXML
-    private Pane mMain;
-
-    @FXML
     private ListView<Project> mProjectsList;
 
     @FXML
@@ -95,13 +90,6 @@ public class BossController extends BaseController {
 
     @FXML
     private ImageView mCloseNotificationPanelIcon;
-
-    @FXML
-    private ListView<?> mNotificationsList;
-
-
-    @FXML
-    private Pane mNotificationsPanel;
 
     @FXML
     private ScrollPane mInProjectContainer;
@@ -150,13 +138,13 @@ public class BossController extends BaseController {
     private Pane mCommentsPanel;
 
     @FXML
-    private Label mTaskTitleInCommentsPanel;
+    private TextField mTaskTitleInCommentsPanel;
 
     @FXML
     private TextArea mTaskDescription;
 
     @FXML
-    private ListView<?> mTaskComments;
+    private VBox mTaskComments;
 
     @FXML
     private TextField mMyComment;
@@ -199,12 +187,6 @@ public class BossController extends BaseController {
 
     @FXML
     public ImageView mCLoseInfoPanelIcon;
-
-    @FXML
-    public Pane mNotificationsCircle;
-
-    @FXML
-    public Label mNotificationsCounter;
 
     @FXML
     public Pane mNewStatusPane;
@@ -265,12 +247,11 @@ public class BossController extends BaseController {
     @FXML
     private Pane mAvailableUsersPanel; // panel z dostępnymi userami w domenie do dodania do projektu
 
-    //Views initialize
-    public void initialize() {
-        mWelcomeUserName.setText(Controller.currAcc.getUsername());
-        mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
 
-        refresh();
+    //Views initialize
+    @Override
+    public void initialize() {
+        super.initialize();
     }
 
     /**
@@ -538,35 +519,48 @@ public class BossController extends BaseController {
                             // Funkcje do obsługi Drag and Drop po stronie elementu przeciąganego
                             // jeśli klawisz myszy został przyciśnięty
                             taskPane.setOnMousePressed(event -> {
-                                taskPane.setMouseTransparent(true);
-                                event.setDragDetect(true);
+                                // Sprawdzenie, czy kliknięto w obrębie taskPane, a nie w obrębie jego "dziecka"
+                                // ma to zapobiegać używania tej funkcji w momencie, gdy klikniemy w np. label "tytół taska"
+                                // (wtedy zostanie użyta funkcja przypisana właśnie do elementu label, a nie ta)
+                                if (event.getTarget() == taskPane) {
+                                    taskPane.setMouseTransparent(true);
+                                    event.setDragDetect(true);
 
-                                lastParent = (VBox) taskPane.getParent();
+                                    lastParent = (VBox) taskPane.getParent();
 
-                                vBox.getChildren().remove(taskPane);
-                                taskPane.setLayoutX(event.getSceneX());
-                                taskPane.setLayoutY(event.getSceneY());
-                                mRootPane.getChildren().add(taskPane);
+                                    vBox.getChildren().remove(taskPane);
+                                    taskPane.setLayoutX(event.getSceneX());
+                                    taskPane.setLayoutY(event.getSceneY());
+                                    mRootPane.getChildren().add(taskPane);
+
+                                    selectedTask = (Task) taskPane.getUserData();
+
+                                }
                             });
 
                             // jeśli klawisz myszy został puszczony
                             taskPane.setOnMouseReleased(event -> {
-                                taskPane.setMouseTransparent(false);
+                                // Sprawdzenie, czy kliknięto w obrębie taskPane, a nie w obrębie jego "dziecka"
+                                // ma to zapobiegać używania tej funkcji w momencie, gdy klikniemy w np. label "tytół taska"
+                                // (wtedy zostanie użyta funkcja przypisana właśnie do elementu label, a nie ta)
+                                if (event.getTarget() == taskPane) {
+                                    taskPane.setMouseTransparent(false);
 
-                                mRootPane.getChildren().remove(taskPane);
-                                taskPane.setLayoutX(0);
-                                taskPane.setLayoutY(0);
-                                lastParent.getChildren().add(taskPane);
+                                    mRootPane.getChildren().remove(taskPane);
+                                    taskPane.setLayoutX(0);
+                                    taskPane.setLayoutY(0);
+                                    lastParent.getChildren().add(taskPane);
 
-                                ObservableList<Node> workingCollection = FXCollections.observableArrayList(lastParent.getChildren());
-                                int lastElementIndex = workingCollection.size() - 1;
-                                Collections.swap(workingCollection, lastElementIndex - 1, lastElementIndex);
-                                lastParent.getChildren().setAll(workingCollection);
+                                    ObservableList<Node> workingCollection = FXCollections.observableArrayList(lastParent.getChildren());
+                                    int lastElementIndex = workingCollection.size() - 1;
+                                    Collections.swap(workingCollection, lastElementIndex - 1, lastElementIndex);
+                                    lastParent.getChildren().setAll(workingCollection);
 
-                                addTaskToNewStatus((Task) taskPane.getUserData());
+                                    addTaskToNewStatus();
+                                }
                             });
 
-                            // Feśli element jest przeciągany
+                            // jeśli element jest przeciągany
                             taskPane.setOnMouseDragged(event -> {
                                 taskPane.setLayoutX(event.getSceneX());
                                 taskPane.setLayoutY(event.getSceneY());
@@ -723,6 +717,9 @@ public class BossController extends BaseController {
         taskTitle.setLayoutX(14.0);
         taskTitle.setLayoutY(7.0);
         taskTitle.getStyleClass().add("task-title");
+
+        taskTitle.setOnMouseClicked(this::showComments);
+
         pane.getChildren().add(taskTitle);
 
         // Panel z priorytetem
@@ -734,21 +731,10 @@ public class BossController extends BaseController {
 
         // Panel ze skrótem nazwy przydzielonego do taska pracownika
         if (task.getGranted_to() != null) {
-            User user = null;
-
-            for (User u : activeProject.getUsers()) {
-                if (u.getId() == task.getGranted_to()) {
-                    user = u;
-                    break;
-                }
-            }
+            User user = getUserFromListById(task.getGranted_to());
 
             if (user != null) {
-                Label userShortcut = new Label(user.getShortcut());
-                userShortcut.setAlignment(Pos.CENTER);
-                userShortcut.setLayoutX(13.0);
-                userShortcut.setLayoutY(35.0);
-                userShortcut.getStyleClass().add("user-circle");
+                Label userShortcut = getUserAvatar(user);
                 pane.getChildren().add(userShortcut);
             }
         }
@@ -786,6 +772,45 @@ public class BossController extends BaseController {
         pane.getChildren().add(editIcon);
 
         return pane;
+    }
+
+    /**
+     * Metoda służaca do wyszukiwania użytkownika na liście w szczegółach aktywnego projektu
+     * @param id id szukanego użytkownika
+     * @return zwraca obiekt znalezionega użytkownika lub null w przypadku jego nie znalezienia
+     */
+    private User getUserFromListById(Integer id) {
+        if (id == null)
+            return null;
+
+        for (User user : activeProject.getUsers()) {
+            if (user.getId() == id) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Metoda do rysowania awatara użytkownika ze skrótem jego nazwy lub plusem w środku
+     * @param user użytkownik, którego awatar ma być narysowany
+     * @return awatar ze skrótem nazwy użytkownika lub z plusem, jeśli użytkownik wynosi null
+     */
+    private Label getUserAvatar(User user) {
+        Label label = new Label();
+        label.setAlignment(Pos.CENTER);
+        label.setLayoutX(13.0);
+        label.setLayoutY(35.0);
+        label.getStyleClass().add("user-circle");
+
+        if (user != null) {
+            label.setText(user.getShortcut());
+            label.setUserData(user);
+        } else {
+            label.setText("+");
+        }
+
+        return label;
     }
 
     /**
@@ -888,6 +913,35 @@ public class BossController extends BaseController {
         ((Pane) node.getParent()).getChildren().remove(node);
     }
 
+    /**
+     * Metoda służąca do odświeżania panelu ze szczegółowymi informacjami o tasku
+     */
+    public void refreshTaskDetails() {
+        if ( selectedTask != null ) {
+            int task_id = selectedTask.getTask_id();
+
+            RequestService requestService = new RequestService();
+
+            RsTaskDetails response;
+            try {
+                response = requestService.getTaskDetails(task_id);
+
+                if (response.isSuccess()) {
+                    activeTask = response;
+
+                    mTaskTitleInCommentsPanel.setText(activeTask.getTask_name());
+                    mTaskDescription.setText(activeTask.getTask_desc());
+
+                    mCommentsPanel.setVisible(true);
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można wyświetlić szczegółów zadania. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void addNewTask(String task_name) {
         if (!task_name.isEmpty()){
             String domain = getDomain();
@@ -918,17 +972,26 @@ public class BossController extends BaseController {
         }
     }
 
-    private void addTaskToNewStatus(Task task) {
-        String domain = getDomain();
-        int project_id = activeProject.getProject_id();
-        Integer task_id = task.getTask_id();
-        int creator_id = getUserId();
+    private void addTaskToNewStatus() {
         Integer status_id = ((Status) nextParent.getUserData()).getStatus_id();
 
-        RequestService requestService = new RequestService();
-        RqTask requestObject = new RqTask(domain, project_id, task_id, creator_id);
+        RqTask requestObject = new RqTask();
         requestObject.setStatus_id(status_id);
 
+        editTask(requestObject);
+    }
+
+    /**
+     * Metoda do edycji taska.
+     * @param requestObject RqTask, który zostanie przekonwertowany na ciało zapytania.
+     */
+    public boolean editTask(RqTask requestObject) {
+        requestObject.setDomain(getDomain());
+        requestObject.setProject_id(activeProject.getProject_id());
+        requestObject.setTask_id(selectedTask.getTask_id());
+        requestObject.setCreator_id(getUserId());
+
+        RequestService requestService = new RequestService();
         BaseResponseObject response;
         try {
             response = requestService.editTask(requestObject);
@@ -937,12 +1000,14 @@ public class BossController extends BaseController {
                 showErrorPanel("Błąd:");
             else */if (response.isSuccess()) {
                 refreshProjectDetails(getSelectedProject());
+                return true;
             } else if (!response.isSuccess())
                 DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można przenieść zadania do innego statusu statusu. Błąd połączenia z serwerem.");
             e.printStackTrace();
         }
+        return false;
     }
 
     @FXML
@@ -954,33 +1019,7 @@ public class BossController extends BaseController {
     void checkNewProjectInputValue(InputMethodEvent event) {}
 
     @FXML
-    void closeNotificationsPanel(MouseEvent event) {
-        mNotificationsPanel.setVisible(false);
-    }
-
-    @FXML
     void createNewProject(MouseEvent event) {}
-
-    @FXML
-    void logoutUser(MouseEvent event) {
-        Controller.currAcc = null;
-        getController().clearFields();
-        getController().showWindow();
-        // get a handle to the stage
-        Stage stage = (Stage) mLogoutIcon.getScene().getWindow();
-        // do what you have to do
-        stage.close();
-    }
-
-    @FXML
-    void showNotificationPanel(MouseEvent event) {
-    mNotificationsPanel.setVisible(true);
-    }
-
-    @FXML
-    void showNotificationsPanel(MouseEvent event) {
-    mNotificationsPanel.setVisible(true);
-    }
 
     @FXML
     void showWorkspaces(MouseEvent event) {}
@@ -991,8 +1030,16 @@ public class BossController extends BaseController {
     @FXML // TODO funckja do dodawania nowego komentarza
     void addNewComment(MouseEvent event) {}
 
-    @FXML // TODO funckja do dodawania opisu
-    void addNewDescription(MouseEvent event) {}
+    @FXML
+    void editTaskActionEvent(ActionEvent event) {
+        String task_name = selectedTask.getName();
+
+        RqTask requestObject = new RqTask();
+
+        requestObject.setTask_name(task_name);
+
+        editTask(requestObject);
+    }
 
     @FXML // TODO funckja do dodawania nowego zadania
     void addNewTaskActionEvent(ActionEvent event) {}
@@ -1029,7 +1076,9 @@ public class BossController extends BaseController {
 
     @FXML
     void showComments(MouseEvent event) {
-        mCommentsPanel.setVisible(true);
+        selectedTask = (Task) getParentData(event);
+        closeAllPanels();
+        refreshTaskDetails();
     }
 
     @FXML
@@ -1205,13 +1254,7 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    void showPdfGeneratorPanel(MouseEvent event) {
-        mPdfGeneratorPanel.setVisible(true);
-        // TODO tu jeszcze trzeba funkcję, która zmieni zawartość progres bara w zaleźności od ilości dni pozostałych do końca wykonania projektu
-    }
-
-    @FXML
-    void closePdfGeneratorPanel(MouseEvent event) {
+    public void closePdfGeneratorPanel(MouseEvent event) {
         mPdfGeneratorPanel.setVisible(false);
     }
 
@@ -1353,6 +1396,25 @@ public class BossController extends BaseController {
                 e.printStackTrace();
             }
         }
+    }
+
+        //TODO WEBVIEW RAPORTY
+        public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
+            WebView webView = new WebView();
+
+            WebEngine webEngine = webView.getEngine();
+
+
+            webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=15&type=1&domain=1&params=all");
+
+
+            ScrollPane PaneRaports = new ScrollPane(webView);
+            Scene raportsScene = new Scene(PaneRaports);
+
+            Stage raportsStage = new Stage();
+            raportsStage.setScene(raportsScene);
+            raportsStage.setTitle("Devslog raports");
+            raportsStage.show();
     }
 
 }

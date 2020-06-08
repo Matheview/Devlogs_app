@@ -458,7 +458,7 @@ public class RequestService {
 	/**
 	 * Metoda sluzaca do stworzenia nowego projektu
 	 * @param newProject obiekt zawierający dane, które zostaną wysłane w body requesta
-	 * @return ResponseObject success, msg, privilege
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public RsProject createNewProject(RqNewProject newProject) throws IOException {
 		HttpURLConnection connection = getConnection("/projects/register", "POST");
@@ -481,7 +481,7 @@ public class RequestService {
 	 * Metoda służca do pobierania szczegółowych informacji o projekcie
 	 * (w tym zadań związanych z projektem
 	 * @param project_id Id projektu
-	 * @return Obiekt zawierający szczegółowe dane odnośnie projektu
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public RsProjectDetails getProjectDetails(int project_id) throws IOException {
 		String addressEnd = "/getinfo/projects/tasks?project_id=" + project_id;
@@ -501,7 +501,7 @@ public class RequestService {
 	/**
 	 * Metoda służaca do pobierania listy domen
 	 * @param userId Id użytkownika
-	 * @return obiekt listy domen
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public RsDomains getUserDomains(int userId) throws IOException {
 		String addressEnd = "/getinfo/domains?user_id=" + userId;
@@ -521,7 +521,7 @@ public class RequestService {
 	/**
 	 * Metoda służca do pobierania informacji o użytkowniku
 	 * @param userId Id użytkownika
-	 * @return Obiekt listy projektów
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public RsUserInfo getUserInfo(int userId) throws IOException {
 		String addressEnd = "/getinfo/user?user_id=" + userId;
@@ -541,7 +541,7 @@ public class RequestService {
 	/**
 	 * Metoda sluzaca do stworzenia nowego statusu
 	 * @param newStatus obiekt zawierający dane, które zostaną wysłane w body requesta
-	 * @return ResponseObject: success, msg, itd.
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public RsStatus createNewStatus(RqStatus newStatus) throws IOException {
 		HttpURLConnection connection = getConnection("/statuses/config", "POST");
@@ -563,7 +563,7 @@ public class RequestService {
 	/**
 	 * Metoda sluzaca do edytowania statusu
 	 * @param status obiekt zawierający dane, które zostaną wysłane w body requesta
-	 * @return ResponseObject: success, msg, itd.
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public BaseResponseObject editStatus(RqStatus status) throws IOException {
 		HttpURLConnection connection = getConnection("/statuses/config", "PUT");
@@ -585,7 +585,7 @@ public class RequestService {
 	/**
 	 * Metoda sluzaca do usuwania statusu
 	 * @param status obiekt zawierający dane, które zostaną wysłane w body requesta
-	 * @return ResponseObject: success, msg, itd.
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public BaseResponseObject deleteStatus(RqStatus status) throws IOException {
 		HttpURLConnection connection = getConnection("/statuses/config", "DELETE");
@@ -607,7 +607,7 @@ public class RequestService {
 	/**
 	 * Metoda służca do pobierania listy użytkowników w podanej przestrzeni
 	 * @param userId Id użytkownika
-	 * @return Obiekt listy projektów
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public RsUsersInDomain getUsersFromDomain(int userId, String domain) throws IOException {
 		String addressEnd = "/project/users?user_id=" + userId + "&domain=" + domain;
@@ -627,7 +627,7 @@ public class RequestService {
 	/**
 	 * Metoda sluzaca do dodawania użytkownika do projektu
 	 * @param user obiekt zawierający dane, które zostaną wysłane w body requesta
-	 * @return ResponseObject: success, msg, itd.
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public BaseResponseObject addUserToProject(RqUser user) throws IOException {
 		HttpURLConnection connection = getConnection("/projects/adduser", "POST");
@@ -649,7 +649,7 @@ public class RequestService {
 	/**
 	 * Metoda sluzaca do dodawania użytkownika do projektu
 	 * @param user obiekt zawierający dane, które zostaną wysłane w body requesta
-	 * @return ResponseObject: success, msg, itd.
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public BaseResponseObject removeUserFromProject(RqUser user) throws IOException {
 		HttpURLConnection connection = getConnection("/project/removeuser", "DELETE");
@@ -669,9 +669,29 @@ public class RequestService {
 	}
 
 	/**
+	 * Metoda służca do pobierania szczegółowych informacji na temat taska
+	 * @param taskId Id taska
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
+	 */
+	public RsTaskDetails getTaskDetails(int taskId) throws IOException {
+		String addressEnd = "/getinfo/tasks?task_id=" + taskId;
+
+		HttpURLConnection connection = getConnection(addressEnd, "GET");
+
+		String result = getServerResponse(connection);
+
+		Gson gson = new Gson();
+		RsTaskDetails responseObject = gson.fromJson(result, RsTaskDetails.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
 	 * Metoda sluzaca do tworznia nowego taska
 	 * @param newTask obiekt zawierający dane, które zostaną wysłane w body requesta
-	 * @return ResponseObject: success, msg, itd.
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public RsNewTask createNewTask(RqTask newTask) throws IOException {
 		HttpURLConnection connection = getConnection("/tasks/config", "POST");
@@ -693,7 +713,7 @@ public class RequestService {
 	/**
 	 * Metoda sluzaca do edycji taska
 	 * @param task obiekt zawierający dane, które zostaną wysłane w body requesta
-	 * @return ResponseObject: success, msg, itd.
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public BaseResponseObject editTask(RqTask task) throws IOException {
 		HttpURLConnection connection = getConnection("/tasks/config", "PUT");

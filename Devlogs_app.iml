@@ -140,5 +140,7 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="javafx-web-14.0.1" level="project" />
+    <orderEntry type="library" name="pdfcrowd-4.12.0" level="project" />
   </component>
 </module>
