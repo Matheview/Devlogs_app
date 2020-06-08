@@ -20,6 +20,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +34,8 @@ import java.util.Collections;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
 import com.pdfcrowd.*;
+import utils.PdfGenerator;
+
 import java.io.*;
 
 /**
@@ -1402,19 +1405,28 @@ public class BossController extends BaseController {
         public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
             WebView webView = new WebView();
 
-            WebEngine webEngine = webView.getEngine();
+            webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=" + getUserId() + "&type=1&domain=1&params=all");
 
+            AnchorPane pane = new AnchorPane(webView);
+            AnchorPane.setTopAnchor(webView, 0.0);
+            AnchorPane.setLeftAnchor(webView, 0.0);
+            AnchorPane.setRightAnchor(webView, 0.0);
+            AnchorPane.setBottomAnchor(webView, 0.0);
 
-            webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=15&type=1&domain=1&params=all");
-
-
-            ScrollPane PaneRaports = new ScrollPane(webView);
-            Scene raportsScene = new Scene(PaneRaports);
+            Scene raportsScene = new Scene(pane);
 
             Stage raportsStage = new Stage();
+            raportsStage.setWidth(1024.0);
+            raportsStage.setHeight(800.0);
             raportsStage.setScene(raportsScene);
             raportsStage.setTitle("Devslog raports");
             raportsStage.show();
-    }
+
+            try {
+                PdfGenerator.generate("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=15&type=1&domain=1&params=all", "raport.pdf");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
 }
