@@ -103,7 +103,7 @@ public class BaseController {
         return getUser().getPrivilege();
     }
 
-    
+
     //Views initialize
     public void initialize() {
         mWelcomeUserName.setText(Controller.currAcc.getUsername());

@@ -383,14 +383,9 @@
                         </AnchorPane>
                     </content>
                   </ScrollPane>
-                  <Pane fx:id="mCommentsPanel" layoutX="331.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" styleClass="comments-panel" stylesheets="@../styles/boss.css" visible="false">
+                  <Pane fx:id="mCommentsPanel" layoutX="331.0" layoutY="100.0" prefHeight="627.0" prefWidth="200.0" styleClass="comments-panel" stylesheets="@../styles/boss.css" visible="false">
                      <children>
-                        <Label fx:id="mTaskTitleInCommentsPanel" alignment="CENTER" contentDisplay="CENTER" layoutX="122.0" layoutY="6.0" styleClass="task-title" stylesheets="@../styles/boss.css" text="zaprojektowanie logiki systemu" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="25.0" fitWidth="20.0" layoutX="550.0" layoutY="14.0" onMouseClicked="#hideCommentsPanel" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="25.0" fitWidth="20.0" layoutX="558.0" layoutY="18.0" onMouseClicked="#hideCommentsPanel" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imgs/close.png" />
                            </image>
@@ -398,40 +393,49 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="41.0" prefHeight="30.0" prefWidth="30.0" styleClass="user-circle" stylesheets="@../styles/boss.css" text="CG" />
-                        <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="33.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="35.0" layoutY="76.0" prefHeight="30.0" prefWidth="30.0" styleClass="user-circle" stylesheets="@../styles/boss.css" text="CG" />
+                        <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="30.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imgs/description.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="84.0" layoutY="99.0" text="szczegółowy opis zadania" textFill="#2343e4">
+                        <Label layoutX="84.0" layoutY="112.0" text="szczegółowy opis zadania" textFill="#2343e4">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="mTaskDescription" layoutX="50.0" layoutY="139.0" prefHeight="136.0" prefWidth="643.0" promptText="dodaj bardziej szczegółowy opis zadania..." styleClass="description-area" stylesheets="@../styles/boss.css" />
-                        <Button layoutX="476.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#addNewDescription" styleClass="add-new-task-btn" text="zapisz opis">
+                        <TextArea fx:id="mTaskDescription" layoutX="50.0" layoutY="161.0" prefHeight="136.0" prefWidth="643.0" promptText="dodaj bardziej szczegółowy opis zadania..." styleClass="description-area" stylesheets="@../styles/boss.css" />
+                        <Button layoutX="461.0" layoutY="275.0" mnemonicParsing="false" onAction="#editTaskActionEvent" styleClass="add-new-task-btn" text="zapisz zmiany">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ImageView fitHeight="45.0" fitWidth="70.0" layoutX="31.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="45.0" fitWidth="70.0" layoutX="32.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imgs/comment.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="84.0" layoutY="309.0" text="komentarze do zadania" textFill="#2343e4">
+                        <Label layoutX="84.0" layoutY="300.0" text="komentarze do zadania" textFill="#2343e4">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ListView fx:id="mTaskComments" layoutX="50.0" layoutY="345.0" prefHeight="172.0" prefWidth="500.0" stylesheets="@../styles/boss.css" />
-                        <TextField fx:id="mMyComment" layoutX="50.0" layoutY="527.0" onInputMethodTextChanged="#handleCommentChange" prefWidth="377.0" promptText="treść komentarza..." styleClass="my-comment" stylesheets="@../styles/boss.css" />
-                        <Button layoutX="444.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#addNewComment" styleClass="add-new-task-btn" text="dodaj komentarz">
+                        <TextField fx:id="mMyComment" layoutX="50.0" layoutY="546.0" onInputMethodTextChanged="#handleCommentChange" prefWidth="377.0" promptText="treść komentarza..." styleClass="my-comment" stylesheets="@../styles/boss.css" />
+                        <Button layoutX="443.0" layoutY="547.0" mnemonicParsing="false" onMouseClicked="#addNewComment" styleClass="add-new-task-btn" text="dodaj komentarz">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <ScrollPane layoutX="50.0" layoutY="336.0" prefHeight="200.0" prefWidth="500.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="482.0">
+                                 <children>
+                                    <VBox fx:id="mTaskComments" prefHeight="200.0" prefWidth="479.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                        <TextField fx:id="mTaskTitleInCommentsPanel" layoutX="30.0" layoutY="13.0" prefHeight="50.0" prefWidth="518.0" styleClass="task-title-textfield" text="Błąd" />
                      </children>
                   </Pane>
                   <Pane fx:id="mInvitationPanel" layoutX="496.0" layoutY="91.0" prefHeight="459.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css" visible="false">
