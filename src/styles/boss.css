@@ -135,6 +135,16 @@
     -fx-text-fill: #2343e4;
 }
 
+.task-title-textfield {
+    -fx-background-color: #1c1c1e;
+    -fx-border-width: 1px;
+    -fx-border-color: #fff;
+    -fx-font-family: Righteous;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2343e4;
+}
+
 .project-list-item {
     -fx-background-color: #fff;
     -fx-text-fill: #2343E4;
@@ -288,4 +298,8 @@
 
 .add-user-to-task-btn {
     -fx-text-fill: #2343e4;
+}
+
+.comments-list {
+    -fx-background-color: #1c1c1e;
 }
