@@ -41,7 +41,7 @@
                         <String fx:value="user" />
                      </styleClass></Label>
                   <Label fx:id="mPrivilegeUser" layoutX="634.0" layoutY="32.0" styleClass="user-type" stylesheets="@../styles/admin.css" text="administrator" />
-                  <Pane fx:id="mNotificationsCircle" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css">
+                  <Pane fx:id="mNotificationsCircle" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css" visible="false">
                      <children>
                         <Label fx:id="mNotificationsCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
                      </children>
@@ -51,7 +51,7 @@
                         <Image url="@../imgs/home.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notification-icon">
+                  <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notification-icon" visible="false">
                      <image>
                         <Image url="@../imgs/notification-bell.png" />
                      </image>

@@ -188,6 +188,12 @@
     -fx-cursor: hand;
 }
 
+.red-btn {
+    -fx-text-fill: #fff;
+    -fx-background-color: #ff0000;
+    -fx-cursor: hand;
+}
+
 .comments-panel {
     -fx-pref-width: 600px;
     -fx-pref-height: 600px;
@@ -302,4 +308,14 @@
 
 .comments-list {
     -fx-background-color: #1c1c1e;
+}
+
+.generate-pdf-btn {
+    -fx-cursor: hand;
+    -fx-font-family: "Righteous";
+    -fx-text-fill: #2343e4;
+    -fx-padding: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+    -fx-background-color: #fff;
 }

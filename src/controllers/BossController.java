@@ -6,7 +6,6 @@ import backend.requestObjects.RqStatus;
 import backend.requestObjects.RqUser;
 import backend.responseObjects.*;
 import backend.RequestService;
-import com.sun.webkit.WebPage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,15 +27,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.DialogsUtils;
 import java.awt.event.InputMethodEvent;
-import java.io.Console;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import javafx.scene.web.WebView;
-import javafx.scene.web.WebEngine;
-import com.pdfcrowd.*;
 import utils.PdfGenerator;
 
-import java.io.*;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Klasa bazowa dla wszystkich kontrolerów. Zawiera wszystkie elementy wspólne
@@ -68,6 +67,11 @@ public class BossController extends BaseController {
      * Aktywny panel do dodawania nowego taska
      */
     private Pane activeAddNewTaskPane;
+
+    /**
+     * Aktywny panel do dodawania nowego użytkownika do taska
+     */
+    private Pane activeAddNewUserToTaskPane;
 
     /**
      * Zmienna przechowująca referencję do ostatniego rodzica panelu taska
@@ -217,6 +221,9 @@ public class BossController extends BaseController {
 
     @FXML
     public Label mDeleteUserName;
+
+    @FXML
+    protected Label mUserInTaskDetails;
 
     // ------- panel raportów -------
 
@@ -445,7 +452,7 @@ public class BossController extends BaseController {
         closeDeleteStatusPane();
         mAvailableUsersPanel.setVisible(false);
         mInvitationPanel.setVisible(false);
-        mCommentsPanel.setVisible(false);
+        closeTaskDescriptionPanel();
     }
 
     /**
@@ -720,6 +727,7 @@ public class BossController extends BaseController {
         taskTitle.setLayoutX(14.0);
         taskTitle.setLayoutY(7.0);
         taskTitle.getStyleClass().add("task-title");
+        taskTitle.getStyleClass().add("hover-hand-cursor");
 
         taskTitle.setOnMouseClicked(this::showComments);
 
@@ -734,10 +742,12 @@ public class BossController extends BaseController {
 
         // Panel ze skrótem nazwy przydzielonego do taska pracownika
         if (task.getGranted_to() != null) {
-            User user = getUserFromListById(task.getGranted_to());
+            User user = getUserFromListById(task.getGranted_to(), activeProject.getUsers());
 
             if (user != null) {
                 Label userShortcut = getUserAvatar(user);
+                userShortcut.setLayoutX(13.0);
+                userShortcut.setLayoutY(35.0);
                 pane.getChildren().add(userShortcut);
             }
         }
@@ -782,13 +792,15 @@ public class BossController extends BaseController {
      * @param id id szukanego użytkownika
      * @return zwraca obiekt znalezionega użytkownika lub null w przypadku jego nie znalezienia
      */
-    private User getUserFromListById(Integer id) {
-        if (id == null)
-            return null;
+    private User getUserFromListById(Integer id, List<User> list) {
+        if (list != null) {
+            if (id == null)
+                return null;
 
-        for (User user : activeProject.getUsers()) {
-            if (user.getId() == id) {
-                return user;
+            for (User user : activeProject.getUsers()) {
+                if (user.getId() == id) {
+                    return user;
+                }
             }
         }
         return null;
@@ -802,8 +814,6 @@ public class BossController extends BaseController {
     private Label getUserAvatar(User user) {
         Label label = new Label();
         label.setAlignment(Pos.CENTER);
-        label.setLayoutX(13.0);
-        label.setLayoutY(35.0);
         label.getStyleClass().add("user-circle");
 
         if (user != null) {
@@ -814,6 +824,10 @@ public class BossController extends BaseController {
         }
 
         return label;
+    }
+
+    private Label getUserAvatar() {
+        return getUserAvatar(null);
     }
 
     /**
@@ -863,7 +877,7 @@ public class BossController extends BaseController {
         pane.setMaxHeight(150.0);
         pane.setPadding(new Insets(25, 25, 25, 25));
 
-        // Nazwa nowego stausu
+        // Nazwa nowego taska
         TextField newTaskName = new TextField();
         newTaskName.setPromptText("Tytół nowego zadania...");
         newTaskName.setLayoutX(14.0);
@@ -871,6 +885,7 @@ public class BossController extends BaseController {
         newTaskName.setPrefWidth(186.0);
         pane.getChildren().add(newTaskName);
 
+        // Przycisk do zamykania okna
         ImageView closeBtn = new ImageView(new Image("/imgs/close.png"));
         closeBtn.setFitWidth(14.0);
         closeBtn.setFitHeight(14.0);
@@ -878,34 +893,116 @@ public class BossController extends BaseController {
         closeBtn.setLayoutY(14.0);
         closeBtn.getStyleClass().add("hover-hand-cursor");
 
+        AtomicReference<Pane> addNewUserPane = null;
+
         // Funkcja usuwająca panel do dodawania nowego taska z VBox'a
-        closeBtn.setOnMouseClicked(event -> closeActiveAddNewTaskPane());
+        closeBtn.setOnMouseClicked(event ->  closeActiveAddNewTaskPane());
         pane.getChildren().add(closeBtn);
 
-        // Przycisk "Przydziel osobę do zadania
-        Label addUserToTaskBtn = new Label("Przydziel osobę do zadania");
-        addUserToTaskBtn.setLayoutX(53.0);
-        addUserToTaskBtn.setLayoutY(61.0);
-        closeBtn.getStyleClass().add("hover-hand-cursor");
-        addUserToTaskBtn.getStyleClass().add("add-user-to-task-btn");
+        // Przycisk "Przydziel osobę do zadania" (ikona awatara użytkownika)
+        Label addUserToTaskBtn = getUserAvatar();
+        addUserToTaskBtn.setLayoutX(25.0);
+        addUserToTaskBtn.setLayoutY(55.0);
+        addUserToTaskBtn.getStyleClass().add("hover-hand-cursor");
+
+        addUserToTaskBtn.setOnMouseClicked(event -> {
+            activeAddNewUserToTaskPane = getAddUserToNewTaskPane(addUserToTaskBtn);
+
+            parent.getChildren().add(activeAddNewUserToTaskPane);
+        });
+
         pane.getChildren().add(addUserToTaskBtn);
 
         Button addTaskBtn = new Button("Dodaj zadanie");
         addTaskBtn.setLayoutX(79.0);
         addTaskBtn.setLayoutY(100.0);
         addTaskBtn.getStyleClass().add("add-new-task-btn");
-        addTaskBtn.setOnAction( event -> addNewTask( newTaskName.getText() ) );
+        addTaskBtn.setOnAction( event -> {
+            User user = (User) addUserToTaskBtn.getUserData();
+            addNewTask(newTaskName.getText(), user);
+        });
         pane.getChildren().add(addTaskBtn);
 
         parent.getChildren().add(pane);
+    }
+
+    private Pane getAddUserToNewTaskPane(Label userLabel) {
+        Pane pane = new Pane();
+        pane.getStyleClass().add("users-inproject-list");
+        pane.setMaxWidth(250.0);
+        pane.setPadding(new Insets(10, 10, 10, 10));
+
+        // Przycisk do zamykania okna
+        ImageView closeBtn = new ImageView(new Image("/imgs/close.png"));
+        closeBtn.setFitWidth(14.0);
+        closeBtn.setFitHeight(14.0);
+        closeBtn.setLayoutX(229.0);
+        closeBtn.setLayoutY(7.0);
+        closeBtn.getStyleClass().add("hover-hand-cursor");
+
+        // Funkcja usuwająca panel do dodawania nowego taska z VBox'a
+        closeBtn.setOnMouseClicked(event -> closeActiveAddNewUserToTaskPane());
+        pane.getChildren().add(closeBtn);
+
+        // Lista użytkowników
+        ListView<User> listView = new ListView<User>();
+        listView.setMaxWidth(200.0);
+        listView.setMaxHeight(100.0);
+        listView.setLayoutX(22.0);
+        listView.setLayoutY(10.0);
+        listView.getItems().addAll(activeProject.getUsers());
+        pane.getChildren().add(listView);
+
+        // Przycisk "Dodaj użytkownika"
+        Button addUserBtn = new Button("Dodaj/Zmień użytkownika");
+        addUserBtn.setLayoutX(47.0);
+        addUserBtn.setLayoutY(120.0);
+        addUserBtn.getStyleClass().add("add-new-task-btn");
+        addUserBtn.setOnAction( event -> {
+            User user = listView.getSelectionModel().getSelectedItem();
+
+            if (user != null) {
+                userLabel.setText(user.getShortcut());
+                userLabel.setUserData(user);
+                closeActiveAddNewUserToTaskPane();
+            }
+        });
+        pane.getChildren().add(addUserBtn);
+
+        // Przycisk "Dodaj użytkownika"
+        Button removeUserBtn = new Button("Usuń użytkownika");
+        removeUserBtn.setLayoutX(67.0);
+        removeUserBtn.setLayoutY(150.0);
+        removeUserBtn.getStyleClass().add("red-btn");
+        removeUserBtn.setOnAction( event -> {
+            userLabel.setText("+");
+            userLabel.setUserData(null);
+            closeActiveAddNewUserToTaskPane();
+        });
+        pane.getChildren().add(removeUserBtn);
+
+        return pane;
     }
 
     /**
      * Funkcja zamykająca aktywny panel do dodawania nowego taska
      */
     public void closeActiveAddNewTaskPane() {
-        if (activeAddNewTaskPane != null)
+        closeActiveAddNewUserToTaskPane();
+        if (activeAddNewTaskPane != null) {
             removeNodeFromPanel(activeAddNewTaskPane);
+            activeAddNewTaskPane = null;
+        }
+    }
+
+    /**
+     * Funkcja zamykająca aktywny panel do dodawania nowego taska
+     */
+    public void closeActiveAddNewUserToTaskPane() {
+        if (activeAddNewUserToTaskPane != null) {
+            removeNodeFromPanel(activeAddNewUserToTaskPane);
+            activeAddNewUserToTaskPane = null;
+        }
     }
 
     /**
@@ -935,6 +1032,21 @@ public class BossController extends BaseController {
                     mTaskTitleInCommentsPanel.setText(activeTask.getTask_name());
                     mTaskDescription.setText(activeTask.getTask_desc());
 
+                    User user = getUserFromListById(activeTask.getAssigned_to(), activeTask.getUsers());
+                    if (user != null) {
+                        mUserInTaskDetails.setText(user.getShortcut());
+                        mUserInTaskDetails.setUserData(user);
+                    } else {
+                        mUserInTaskDetails.setText("+");
+                    }
+
+                    mUserInTaskDetails.setOnMouseClicked(event -> {
+                        activeAddNewUserToTaskPane = getAddUserToNewTaskPane(mUserInTaskDetails);
+                        activeAddNewUserToTaskPane.setLayoutX(35.0);
+                        activeAddNewUserToTaskPane.setLayoutY(96.0);
+                        mCommentsPanel.getChildren().add(activeAddNewUserToTaskPane);
+                    });
+
                     mCommentsPanel.setVisible(true);
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
@@ -945,13 +1057,16 @@ public class BossController extends BaseController {
         }
     }
 
-    public void addNewTask(String task_name) {
+    public void addNewTask(String task_name, User user) {
         if (!task_name.isEmpty()){
             String domain = getDomain();
             int project_id = activeProject.getProject_id();
             int status_id = selectedStatus.getStatus_id();
             int creator_id = getUserId();
             Integer assigned_to = null;
+
+            if (user != null)
+                assigned_to = user.getId();
 
             RequestService requestService = new RequestService();
             RqTask requestObject = new RqTask(domain, project_id, status_id, creator_id, task_name, assigned_to);
@@ -1035,16 +1150,44 @@ public class BossController extends BaseController {
 
     @FXML
     void editTaskActionEvent(ActionEvent event) {
-        String task_name = selectedTask.getName();
+        String task_name = mTaskTitleInCommentsPanel.getText();
+        String task_desc = mTaskDescription.getText();
+        Integer assigned_to = null;
+
+        // Pobieranie id z elementu, który przechowywuje dane o obiekcie user
+        User user = (User) mUserInTaskDetails.getUserData();
+        if (user != null) {
+            assigned_to = user.getId();
+        }
 
         RqTask requestObject = new RqTask();
 
-        requestObject.setTask_name(task_name);
+        // Jeśli wartości inputów różnią się od tych w tasku, to należy je wstawić do ciała zapytania
+        // aby je zmodyfikować
+        if (!task_name.equals(activeTask.getTask_name()))
+            requestObject.setTask_name(task_name);
 
-        editTask(requestObject);
+        if (!task_desc.equals(activeTask.getTask_desc()))
+            requestObject.setTask_desc(task_desc);
+
+        if (assigned_to == null) {
+            // Jeśli było ustawione id użytkownika (czyli jest różne od null), ustawiamy je na 0 aby go usunąć z taska
+            if (activeTask.getAssigned_to() != null) {
+                requestObject.setAssigned_to(0);
+            }
+        } else {
+            if (!assigned_to.equals(activeTask.getAssigned_to())) {
+                requestObject.setAssigned_to(assigned_to);
+            }
+        }
+
+        boolean isSuccess = editTask(requestObject);
+
+        if (isSuccess)
+            showInfoPanel("Zmodyfikowano informacje o zadaniu.");
     }
 
-    @FXML // TODO funckja do dodawania nowego zadania
+    @FXML
     void addNewTaskActionEvent(ActionEvent event) {}
 
     @FXML
@@ -1071,7 +1214,12 @@ public class BossController extends BaseController {
 
     @FXML
     void hideCommentsPanel(MouseEvent event) {
+        closeTaskDescriptionPanel();
+    }
+
+    private void closeTaskDescriptionPanel() {
         mCommentsPanel.setVisible(false);
+        activeTask = null;
     }
 
     @FXML
@@ -1212,7 +1360,7 @@ public class BossController extends BaseController {
     @FXML
     public void addNewProjectActionEvent(ActionEvent actionEvent) {
         String project_name = mNewProjectInput.getText();
-        if (!project_name.isEmpty()){
+        if (!project_name.isEmpty()) {
             int user_id = getUserId();
             int domain_id = mChooseWorkspace.getValue().getId();
 
@@ -1401,32 +1549,57 @@ public class BossController extends BaseController {
         }
     }
 
-        //TODO WEBVIEW RAPORTY
-        public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
-            WebView webView = new WebView();
+    /**
+     * Metoda do wyświetlania raportów
+     * @param mouseEvent
+     */
+    public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
+        WebView webView = new WebView();
 
-            webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=" + getUserId() + "&type=1&domain=1&params=all");
+        webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=" + getUserId() + "&type=1&domain=1&params=all");
 
-            AnchorPane pane = new AnchorPane(webView);
-            AnchorPane.setTopAnchor(webView, 0.0);
-            AnchorPane.setLeftAnchor(webView, 0.0);
-            AnchorPane.setRightAnchor(webView, 0.0);
-            AnchorPane.setBottomAnchor(webView, 0.0);
+        // Panel główny
+        AnchorPane pane = new AnchorPane(webView);
+        pane.getStylesheets().add("styles/boss.css");
 
-            Scene raportsScene = new Scene(pane);
+        AnchorPane.setTopAnchor(webView, 0.0);
+        AnchorPane.setLeftAnchor(webView, 0.0);
+        AnchorPane.setRightAnchor(webView, 0.0);
+        AnchorPane.setBottomAnchor(webView, 0.0);
 
-            Stage raportsStage = new Stage();
-            raportsStage.setWidth(1024.0);
-            raportsStage.setHeight(800.0);
-            raportsStage.setScene(raportsScene);
-            raportsStage.setTitle("Devslog raports");
-            raportsStage.show();
+        // Przycisk "generuj raport"
+        Button generatePdfBtn = new Button();
+        generatePdfBtn.setText("Generuj raport");
+        generatePdfBtn.getStyleClass().add("generate-pdf-btn");
+        generatePdfBtn.setLayoutX(845);
+        generatePdfBtn.setLayoutY(11);
 
+        // Funkcja służąca do generowania raportów w formacie .pdf
+        generatePdfBtn.setOnAction(event -> {
             try {
-                PdfGenerator.generate("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=15&type=1&domain=1&params=all", "raport.pdf");
+                // Dodawanie daty do nazwy raporu
+                LocalDateTime localDate = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+                String formattedString = localDate.format(formatter);
+
+                String fileName = "report_" + formattedString + ".pdf";
+                PdfGenerator.generate(webView.getEngine().getLocation(), fileName);
+                DialogsUtils.infoDialog("Generowanie raportu", "Wygenerowano raport o nazwie:", fileName);
             } catch (IOException e) {
+                DialogsUtils.errorDialog("Error", "Error message: ", e.getMessage());
                 e.printStackTrace();
             }
-        }
+        });
+        pane.getChildren().add(generatePdfBtn);
+
+        Scene raportsScene = new Scene(pane);
+
+        Stage raportsStage = new Stage();
+        raportsStage.setWidth(1024.0);
+        raportsStage.setHeight(800.0);
+        raportsStage.setScene(raportsScene);
+        raportsStage.setTitle("Devslog reports");
+        raportsStage.show();
+    }
 
 }
