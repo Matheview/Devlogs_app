@@ -303,7 +303,7 @@ class DBConnector(Responses):
             self.query(CREATE_PROJECT.format(keys['user_id'], keys['domain_id'], keys['project_name']))
             project_id = self.query(GET_LAST_PROJECT_ID.format(keys['user_id'], keys['domain_id'], keys['project_name'])).fetchone()
             self.query(CREATE_ACCESS_PROJECT_KIEROWNIK.format(keys['user_id'], keys['domain_id'], project_id[0]))
-            return [True, project_id]
+            return [True, project_id[0]]
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
             self.logs.save_msg(e, localisation="DBConnector.add_project[{0}]".format(exc_tb.tb_lineno),
@@ -547,5 +547,29 @@ class DBConnector(Responses):
         except Exception as e:
             _, _, exc_tb = sys.exc_info()
             self.logs.save_msg(e, localisation="DBConnector.update_user_status[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return False
+
+    def add_user_to_project(self, keys):
+        try:
+            domain_id = self.query(GET_DOMAIN_ID.format(keys['domain'])).fetchone()
+            self.query(ADD_USER_TO_PROJECT.format(keys['user_id'], domain_id[0], keys['project_id'], keys['assigned_to']))
+            return True
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.add_user_to_project[{0}]".format(exc_tb.tb_lineno),
+                               args=keys)
+            return False
+
+    def remove_user_from_project(self, keys):
+        try:
+            result = self.query(CHECK_USER_INSIDE_PROJECT.format(keys['project_id'], keys['assigned_to'])).fetchone()
+            if result:
+                return False
+            self.query(REMOVE_USER_FROM_PROJECT.format(keys['project_id'], keys['assigned_to']))
+            return True
+        except Exception as e:
+            _, _, exc_tb = sys.exc_info()
+            self.logs.save_msg(e, localisation="DBConnector.remove_user_from_project[{0}]".format(exc_tb.tb_lineno),
                                args=keys)
             return False

@@ -1,4 +1,4 @@
-from flask import Flask, json
+from flask import Flask, json, render_template
 from flask_mail import Mail, Message
 from modules.user import *
 from modules.domain import *
@@ -28,6 +28,9 @@ app.add_url_rule('/comments/config', view_func=CommentActions.as_view('commentAc
 app.add_url_rule('/changepassword', view_func=ChangePasswdLink.as_view('changePasswdLink'))
 app.add_url_rule('/domains/register', view_func=DomainsRegister.as_view('registerDomain'))
 app.add_url_rule('/projects/register', view_func=AddProject.as_view('addProject'))
+app.add_url_rule('/projects/adduser', view_func=AddUserToProject.as_view('addUserToProject'))
+app.add_url_rule('/project/users', view_func=GettersUsersFromProject.as_view('gettersUsersFromProject'))
+app.add_url_rule('/project/removeuser', view_func=RemoveUserFromProject.as_view('removeUserFromProject'))
 app.add_url_rule('/users/reset', view_func=GeneratePassword.as_view('generatePassword'))
 app.add_url_rule('/getinfo/tasks', view_func=GetFullTaskInfo.as_view('getFullTaskInfo'))
 app.add_url_rule('/getinfo/domains', view_func=GettersDomains.as_view('getterDomains'))
@@ -39,6 +42,8 @@ app.add_url_rule('/getinfo/users/admin', view_func=GettersUserAdmin.as_view('get
 app.add_url_rule('/getinfo/users/kierownik', view_func=GettersUserKierownik.as_view('getterUserKierownik'))
 app.add_url_rule('/getinfo/users/worker', view_func=GettersUserWorker.as_view('getterUserWorker'))
 app.add_url_rule('/docs', view_func=GettersDocs.as_view('getterDocs'))
+app.add_url_rule('/reports/getdata', view_func=GenerateRaport.as_view('generateRaport'))
+app.add_url_rule('/reports/render', view_func=GenerateRaportTemplate.as_view('generateRaportTemplate'))
 #app.add_url_rule('/projects/register', view_func=DomainsRegister.as_view('registerDomain'))
 #app.add_url_rule('/domains/register', view_func=DomainRegister.as_view('register'))
 

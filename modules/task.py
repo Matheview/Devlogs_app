@@ -43,9 +43,9 @@ class TasksActions(MethodView, Responses):
             if not user:
                 return self.response(202, success=False, msg="Not found privileges as Kierownik")
             task_exists = self.db.query(
-                CHECK_TASK_EXISTS.format(self.keys['task_id'])).fetchone()
-            if not task_exists:
-                return self.response(202, success=False, msg="Task not exists in this project")
+                CHECK_TASK_EXISTS.format(self.keys['task_name'], self.keys['project_id'])).fetchone()
+            if task_exists:
+                return self.response(202, success=False, msg="Task exists in this project")
             result = self.db.create_task(self.keys)
             if not result:
                 return self.response(202, success=False, msg="Unexpected exception: reported")
@@ -87,15 +87,17 @@ class TasksActions(MethodView, Responses):
             user = self.db.check_kierownik(self.keys['creator_id'])
             if not user:
                 return self.response(202, success=False, msg="Not found privileges as Kierownik")
-            task_exists = self.db.query(
-                CHECK_TASK_EXISTS.format(self.keys['task_id'])).fetchone()
+            task_exists = self.db.query(CHECK_TASK_EXISTS.format(self.keys['task_id'], self.keys['project_id'])).fetchone()
             if not task_exists:
                 return self.response(202, success=False, msg="Task not exists in this project")
             print(self.keys['assigned_to'])
             if self.keys['assigned_to'] != -100 and self.keys['assigned_to'] is not None:
-                is_user = self.db.check_user_by_id(self.keys['assigned_to'])
-                if not is_user:
-                    return self.response(202, success=False, msg="User not found")
+                if self.keys['assigned_to'] == 0:
+                    self.db.query(SET_USER_REMOVE_TASK.format(self.keys['task_id']))
+                else:
+                    is_user = self.db.check_user_by_id(self.keys['assigned_to'])
+                    if not is_user:
+                        return self.response(202, success=False, msg="User not found")
             if self.keys['status_id'] != -100:
                 status_exists = self.db.query(
                     CHECK_STATUS_EXISTS.format(self.keys['status_id'], self.keys['project_id'])).fetchone()
@@ -381,7 +383,7 @@ class GetFullTaskInfo(MethodView, Responses):
                 elif self.keys[key] is None or self.keys[key] == "None" or self.keys[key] == "null":
                     return self.response(202, success=False, msg="Value'{0}' cannot be null".format(key))
             task_exists = self.db.query(
-                CHECK_TASK_EXISTS.format(self.keys['task_id'])).fetchone()
+                CHECK_TASK_EXISTS_MIN.format(self.keys['task_id'])).fetchone()
             if not task_exists:
                 return self.response(202, success=False, msg="Task not exists in this project")
             self.info = self.db.get_task_full_info(self.keys)

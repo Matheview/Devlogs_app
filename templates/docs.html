@@ -1025,8 +1025,6 @@
     </div>
     <br>
 
-
-
     <!-- POST   /domains/register 5-->
     <div class="opblock-section">
         <div id="panel-info" >
@@ -1249,8 +1247,6 @@
     </div>
     <br>
 
-
-
     <!-- GET   /getinfo/users 6-->
     <div class="opblock-section">
         <div id="panel-info" >
@@ -1387,7 +1383,6 @@
             
     </div>
     <br>
-
 
     <!-- GET   /getinfo/user?[params] 7-->
     <div class="opblock-section">
@@ -1538,8 +1533,6 @@
     </div>
     <br>
 
-
-
     <!-- GET   /getinfo/domains 8-->
     <div class="opblock-section">
         <div id="panel-info" >
@@ -1676,8 +1669,6 @@
             
     </div>
     <br>
-
-
 
     <!-- PUT   /users/permission 9-->
     <div class="opblock-section">
@@ -1862,7 +1853,6 @@
             
     </div>
     <br>
-
 
     <!-- DELETE   /users/permission 10-->
     <div class="opblock-section">
@@ -2191,7 +2181,6 @@
     </div>
     <br>
 
-
     <!-- GET /getinfo/projects/tasks?[params] 12-->
     <div class="opblock-section">
         <div id="panel-info" >
@@ -2382,7 +2371,6 @@
             
     </div>
     <br>
-
 
     <!-- GET /getinfo/domains?[params] 13-->
     <div class="opblock-section">
@@ -2681,11 +2669,150 @@
     </div>
     <br>
 
-
-    <!-- POST /projects/register 15-->
+    <!-- GET   /project/users?[params] 15-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-post" onclick="hideElement(15)">POST</span>
+            <span class="opblock-section-method-get" onclick="hideElement(15)">GET</span>
+            <span class="opblock-section-method-link">/project/users?[params]</span>
+            <span class="opblock-section-description"> Lista użytkowników wewnątrz domeny/przestrzeni</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">string/int</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id kierownika</td></tr>
+                    <tr><td>domain</td>
+                        <td id="type">string/int</td>
+                        <td id="tak">tak</td>
+                        <td>nazwa obecnej domeny</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Not found users/Users(%d)</td>
+                        <td>wiadomość potwierdzająca</td></tr>
+                    <tr><td>users</td>
+                        <td id="type">List[{user: string, id: int, privilege: Pracownik}]</td>
+                        <td>[{"privilege": "Pracownik", "id": 3, "users": "default user"}]</td>
+                        <td>lista uzytkownikow zarejestrowanych przez administratora</td></tr>
+                    
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane logowania</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+    </div>
+    <br>
+
+    <!-- POST /projects/register 16-->
+    <div class="opblock-section">
+        <div id="panel-info" >
+            <span class="opblock-section-method-post" onclick="hideElement(16)">POST</span>
             <span class="opblock-section-method-link">/projects/register</span>
             <span class="opblock-section-description"> Utworzenie projektu</span>
         </div>
@@ -2830,10 +2957,10 @@
     </div>
     <br>
 
-    <!-- POST /tasks/config 16-->
+    <!-- POST /tasks/config 17-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-post" onclick="hideElement(16)">POST</span>
+            <span class="opblock-section-method-post" onclick="hideElement(17)">POST</span>
             <span class="opblock-section-method-link">/tasks/config</span>
             <span class="opblock-section-description"> utworzenie nowego tasku w projekcie</span>
         </div>
@@ -2994,10 +3121,10 @@
     </div>
     <br>
 
-    <!-- POST /statuses/config 17-->
+    <!-- POST /statuses/config 18-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-post" onclick="hideElement(17)">POST</span>
+            <span class="opblock-section-method-post" onclick="hideElement(18)">POST</span>
             <span class="opblock-section-method-link">/statuses/config</span>
             <span class="opblock-section-description"> utworzenie nowego statusu w projekcie</span>
         </div>
@@ -3143,10 +3270,10 @@
     </div>
     <br>
 
-    <!-- POST /comments/config 18-->
+    <!-- POST /comments/config 19-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-post" onclick="hideElement(18)">POST</span>
+            <span class="opblock-section-method-post" onclick="hideElement(19)">POST</span>
             <span class="opblock-section-method-link">/comments/config</span>
             <span class="opblock-section-description"> utworzenie nowego komentarza w tasku</span>
         </div>
@@ -3283,10 +3410,154 @@
     </div>
     <br>
 
-    <!-- PUT /statuses/config 19-->
+    <!-- POST /projects/adduser 20-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-put" onclick="hideElement(19)">PUT</span>
+            <span class="opblock-section-method-post" onclick="hideElement(20)">POST</span>
+            <span class="opblock-section-method-link">/projects/adduser</span>
+            <span class="opblock-section-description"> dodanie użytkownika do projektu</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id użytkownika dodającego użytkownika - kierownik</td></tr>
+                    <tr><td>project_id</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id projektu do którego ma być dodany user</td></tr>
+                    <tr><td>domain</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>nazwa domeny na której znajduje się kierownik</td></tr>
+                    <tr><td>assigned_to</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id użytkownika dodawanego</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>User added to project</td>
+                        <td>wiadomość potwierdzająca</td></tr> 
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład - komunikat o błędzie</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+            
+    </div>
+    <br>
+
+    <!-- PUT /statuses/config 21-->
+    <div class="opblock-section">
+        <div id="panel-info" >
+            <span class="opblock-section-method-put" onclick="hideElement(21)">PUT</span>
             <span class="opblock-section-method-link">/statuses/config</span>
             <span class="opblock-section-description"> modyfikacja nazwy statusu w projekcie</span>
         </div>
@@ -3432,10 +3703,10 @@
     </div>
     <br>
 
-    <!-- PUT /tasks/config 20-->
+    <!-- PUT /tasks/config 22-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-put" onclick="hideElement(20)">PUT</span>
+            <span class="opblock-section-method-put" onclick="hideElement(22)">PUT</span>
             <span class="opblock-section-method-link">/tasks/config</span>
             <span class="opblock-section-description"> aktualizacja tasku w projekcie</span>
         </div>
@@ -3601,10 +3872,10 @@
     </div>
     <br>
 
-    <!-- PUT /comments/config 21-->
+    <!-- PUT /comments/config 23-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-put" onclick="hideElement(21)">PUT</span>
+            <span class="opblock-section-method-put" onclick="hideElement(23)">PUT</span>
             <span class="opblock-section-method-link">/comments/config</span>
             <span class="opblock-section-description"> aktualizacja komentarza w projekcie</span>
         </div>
@@ -3746,10 +4017,10 @@
     </div>
     <br>
 
-    <!-- DELETE /statuses/config 22-->
+    <!-- DELETE /statuses/config 24-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-delete" onclick="hideElement(22)">DELETE</span>
+            <span class="opblock-section-method-delete" onclick="hideElement(24)">DELETE</span>
             <span class="opblock-section-method-link">/statuses/config</span>
             <span class="opblock-section-description"> usuwanie statusu w projekcie - jeżeli nie zawiera tasków w środku</span>
         </div>
@@ -3891,10 +4162,10 @@
     </div>
     <br>
 
-    <!-- DELETE /tasks/config 23-->
+    <!-- DELETE /tasks/config 25-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-delete" onclick="hideElement(23)">DELETE</span>
+            <span class="opblock-section-method-delete" onclick="hideElement(25)">DELETE</span>
             <span class="opblock-section-method-link">/tasks/config</span>
             <span class="opblock-section-description"> usuwanie tasku w projekcie</span>
         </div>
@@ -4036,10 +4307,10 @@
     </div>
     <br>
 
-    <!-- DELETE /comments/config 24-->
+    <!-- DELETE /comments/config 26-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-delete" onclick="hideElement(24)">DELETE</span>
+            <span class="opblock-section-method-delete" onclick="hideElement(26)">DELETE</span>
             <span class="opblock-section-method-link">/comments/config</span>
             <span class="opblock-section-description"> usuwanie komentarza w tasku</span>
         </div>
@@ -4177,13 +4448,155 @@
     </div>
     <br>
 
+    <!-- DELETE /project/removeuser 27-->
+    <div class="opblock-section">
+        <div id="panel-info" >
+            <span class="opblock-section-method-delete" onclick="hideElement(27)">DELETE</span>
+            <span class="opblock-section-method-link">/project/removeuser</span>
+            <span class="opblock-section-description"> usunięcie użytkownika z projektu - jeżeli nie posiada tasków</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request ----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id użytkownika dodającego użytkownika - kierownik</td></tr>
+                    <tr><td>project_id</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id projektu do którego ma być dodany user</td></tr>
+                    <tr><td>assigned_to</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id użytkownika dodawanego</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>true</td>
+                        <td>powodzenie</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>User removed from project</td>
+                        <td>wiadomość potwierdzająca</td></tr> 
+                </tbody>
+            </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład - komunikat o błędzie</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+            
+    </div>
+    <br>
+
+
+
     <!-- PANEL UŻYTKOWNIKA -->
-    <!-- GET /getinfo/projects?[params] 25 -->
+    <!-- GET /getinfo/projects?[params] 28 -->
     <div class="opblock-section">
         <h2>Panel Użytkownika</h2>
         <hr>
         <div id="panel-info" >
-            <span class="opblock-section-method-get" onclick="hideElement(25)">GET</span>
+            <span class="opblock-section-method-get" onclick="hideElement(28)">GET</span>
             <span class="opblock-section-method-link">/getinfo/projects?[params]</span>
             <span class="opblock-section-description"> Pobranie projektów użytkownika</span>
         </div>
@@ -4321,11 +4734,10 @@
     </div>
     <br>
 
-
-    <!-- GET /getinfo/domains?[params] 26-->
+    <!-- GET /getinfo/domains?[params] 29-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-get" onclick="hideElement(26)">GET</span>
+            <span class="opblock-section-method-get" onclick="hideElement(29)">GET</span>
             <span class="opblock-section-method-link">/getinfo/domains?[params]</span>
             <span class="opblock-section-description"> Lista domen</span>
         </div>
@@ -4459,10 +4871,10 @@
     </div>
     <br>
 
-    <!-- GET /getinfo/projects/tasks?[params] 27-->
+    <!-- GET /getinfo/projects/tasks?[params] 30-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-get" onclick="hideElement(27)">GET</span>
+            <span class="opblock-section-method-get" onclick="hideElement(30)">GET</span>
             <span class="opblock-section-method-link">/getinfo/projects/tasks?[params]</span>
             <span class="opblock-section-description"> Pobranie tasków z projektu</span>
         </div>
@@ -4650,10 +5062,10 @@
     </div>
     <br>
 
-    <!-- GET /getinfo/tasks?[params] 28-->
+    <!-- GET /getinfo/tasks?[params] 31-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-get" onclick="hideElement(28)">GET</span>
+            <span class="opblock-section-method-get" onclick="hideElement(31)">GET</span>
             <span class="opblock-section-method-link">/getinfo/tasks?[params]</span>
             <span class="opblock-section-description"> Pobranie full info o tasku</span>
         </div>
@@ -4810,10 +5222,10 @@
     </div>
     <br>
 
-    <!-- POST /comments/config 29-->
+    <!-- POST /comments/config 32-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-post" onclick="hideElement(29)">POST</span>
+            <span class="opblock-section-method-post" onclick="hideElement(32)">POST</span>
             <span class="opblock-section-method-link">/comments/config</span>
             <span class="opblock-section-description"> utworzenie nowego komentarza w tasku</span>
         </div>
@@ -4950,10 +5362,10 @@
     </div>
     <br>
 
-    <!-- PUT /comments/config 30-->
+    <!-- PUT /comments/config 33-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-put" onclick="hideElement(30)">PUT</span>
+            <span class="opblock-section-method-put" onclick="hideElement(33)">PUT</span>
             <span class="opblock-section-method-link">/comments/config</span>
             <span class="opblock-section-description"> aktualizacja komentarza w projekcie</span>
         </div>
@@ -5095,11 +5507,11 @@
     </div>
     <br>
 
-    <!-- PUT /tasks/update 31-->
+    <!-- PUT /tasks/update 34-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-put" onclick="hideElement(31)">PUT</span>
-            <span class="opblock-section-method-link">/tasks/update/span>
+            <span class="opblock-section-method-put" onclick="hideElement(34)">PUT</span>
+            <span class="opblock-section-method-link">/tasks/update</span>
             <span class="opblock-section-description"> aktualizacja statusu taska w projekcie przez użytkownika</span>
         </div>
         <div id="response-table" style="display: none;">
@@ -5236,10 +5648,10 @@
     </div>
     <br>
 
-    <!-- DELETE /comments/config 32-->
+    <!-- DELETE /comments/config 35-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-delete" onclick="hideElement(32)">DELETE</span>
+            <span class="opblock-section-method-delete" onclick="hideElement(35)">DELETE</span>
             <span class="opblock-section-method-link">/comments/config</span>
             <span class="opblock-section-description"> usuwanie komentarza w tasku</span>
         </div>
@@ -5377,13 +5789,15 @@
     </div>
     <br>
 
+
+
     <!-- NOTIFICATIONS -->
-    <!-- GET /users/notifications 33-->
+    <!-- GET /users/notifications 36-->
     <div class="opblock-section">
         <h2>Powiadomienia</h2>
         <hr>
         <div id="panel-info" >
-            <span class="opblock-section-method-get" onclick="hideElement(33)">GET</span>
+            <span class="opblock-section-method-get" onclick="hideElement(36)">GET</span>
             <span class="opblock-section-method-link">/users/notifications?[params]</span>
             <span class="opblock-section-description"> Powiadomienia dla użytkownika - pobieranie notyfikacji z array'a</span>
         </div>
@@ -5520,11 +5934,10 @@
     </div>
     <br>
 
-
-    <!-- PUT /users/notifications 34-->
+    <!-- PUT /users/notifications 37-->
     <div class="opblock-section">
         <div id="panel-info" >
-            <span class="opblock-section-method-put" onclick="hideElement(34)">PUT</span>
+            <span class="opblock-section-method-put" onclick="hideElement(37)">PUT</span>
             <span class="opblock-section-method-link">/users/notifications</span>
             <span class="opblock-section-description"> Oznaczanie notyfikacji jako przeczytane</span>
         </div>
@@ -5611,6 +6024,539 @@
                         <td>wiadomość potwierdzająca</td></tr>                
                 </tbody>
             </table>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane/brakuje klucza</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+            
+    </div>
+    <br>
+
+    <!-- REPORTS -->
+    <!-- GET /reports/getdata 38-->
+    <div class="opblock-section">
+        <h2>Raporty</h2>
+        <hr>
+        <div id="panel-info" >
+            <span class="opblock-section-method-get" onclick="hideElement(38)">GET</span>
+            <span class="opblock-section-method-link">/reports/getdata</span>
+            <span class="opblock-section-description">3 typy raportów</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request 1st type of report: Projects inside domain----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">id</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id kierownika</td></tr>
+                    <tr><td>type</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>typ 1 - przesłać wartość int: 1</td></tr>
+                    <tr><td>domain</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id domeny</td></tr>
+                    <tr><td>params</td>
+                        <td id="type">string</td>
+                        <td id="tak">tak</td>
+                        <td>jedna z opcji: all/mine [wszystkie/tylko kierownika]</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3>Request 2nd type of report: Tasks inside domain[short]----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">id</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id kierownika</td></tr>
+                    <tr><td>type</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>typ 1 - przesłać wartość int: 1</td></tr>
+                    <tr><td>domain</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id domeny</td></tr>
+                    <tr><td>project_id</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id projektu, dla którego ma być zwrócona struktura</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3>Request 3rd type of report: Tasks inside domain[extended]----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">id</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id kierownika</td></tr>
+                    <tr><td>type</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>typ 1 - przesłać wartość int: 1</td></tr>
+                    <tr><td>domain</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id domeny</td></tr>
+                    <tr><td>project_id</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id projektu, dla którego ma być zwrócona struktura</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <div class="code">
+                <pre>
+            <code>
+                {
+                    "data": {
+                        "projects": [
+                            {
+                                "projectCreateDate": "Fri, 01 May 2020 00:05:17 GMT",
+                                "project_creator_id": 2,
+                                "project_id": 1,
+                                "project_name": "Project Test 1",
+                                "project_users_count": 1,
+                                "tasks": [
+                                    {
+                                        "status_id": 5,
+                                        "task_create_date": "Sat, 16 May 2020 15:18:56 GMT",
+                                        "task_deadline": null,
+                                        "task_id": 5,
+                                        "task_name": "Test task 2",
+                                        "task_priority": null,
+                                        "user_assigned_id": 3
+                                    },
+                                    {
+                                        "status_id": 4,
+                                        "task_create_date": "Sat, 16 May 2020 17:22:50 GMT",
+                                        "task_deadline": null,
+                                        "task_id": 7,
+                                        "task_name": "Test task 3",
+                                        "task_priority": null,
+                                        "user_assigned_id": 3
+                                    },
+                                    {
+                                        "status_id": 4,
+                                        "task_create_date": "Sat, 16 May 2020 17:25:50 GMT",
+                                        "task_deadline": null,
+                                        "task_id": 9,
+                                        "task_name": "Test task 4",
+                                        "task_priority": null,
+                                        "user_assigned_id": null
+                                    },
+                                    {
+                                        "status_id": 6,
+                                        "task_create_date": "Sun, 31 May 2020 12:23:42 GMT",
+                                        "task_deadline": null,
+                                        "task_id": 10,
+                                        "task_name": "Test task 5",
+                                        "task_priority": null,
+                                        "user_assigned_id": null
+                                    },
+                                    {
+                                        "status_id": 4,
+                                        "task_create_date": "Sun, 31 May 2020 15:58:16 GMT",
+                                        "task_deadline": null,
+                                        "task_id": 11,
+                                        "task_name": "Test task 11",
+                                        "task_priority": null,
+                                        "user_assigned_id": null
+                                    }
+                                ],
+                                "tasks_count": 5
+                            }
+                        ],
+                        "projects_count": 1,
+                        "statuses": [
+                            {
+                                "status_desc": "Dobra robota Olek !",
+                                "status_id": 5
+                            },
+                            {
+                                "status_desc": "doto",
+                                "status_id": 4
+                            },
+                            {
+                                "status_desc": "done",
+                                "status_id": 6
+                            }
+                        ],
+                        "users": [
+                            {
+                                "granted_id": 3,
+                                "userIsBoss": false,
+                                "userName": "Jakub Rucki",
+                                "user_shortcut": "JR"
+                            }
+                        ]
+                    },
+                    "msg": "Report found",
+                    "success": true
+                }
+            </code>
+            </pre>
+            </div>
+            <br><br>
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane/brakuje klucza</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">body</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>success</td>
+                        <td id="type">bool</td>
+                        <td>false</td>
+                        <td>błąd</td></tr>
+                    <tr><td>msg</td>
+                        <td id="type">string</td>
+                        <td>Unexpected exception: reported</td>
+                        <td>Nieoczekiwany bład</td></tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+            
+    </div>
+    <br>
+
+    <!-- GET /reports/render 39-->
+    <div class="opblock-section">
+        <div id="panel-info" >
+            <span class="opblock-section-method-get" onclick="hideElement(39)">GET</span>
+            <span class="opblock-section-method-link">/reports/render</span>
+            <span class="opblock-section-description">3 typy raportów w formie html</span>
+        </div>
+        <div id="response-table" style="display: none;">
+            <div>
+                <h3>Request 1st type of report: Projects inside domain----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">id</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id kierownika</td></tr>
+                    <tr><td>type</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>typ 1 - przesłać wartość int: 1</td></tr>
+                    <tr><td>domain</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id domeny</td></tr>
+                    <tr><td>params</td>
+                        <td id="type">string</td>
+                        <td id="tak">tak</td>
+                        <td>jedna z opcji: all/mine [wszystkie/tylko kierownika]</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3>Request 2nd type of report: Tasks inside domain[short]----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">id</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id kierownika</td></tr>
+                    <tr><td>type</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>typ 1 - przesłać wartość int: 1</td></tr>
+                    <tr><td>domain</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id domeny</td></tr>
+                    <tr><td>project_id</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id projektu, dla którego ma być zwrócona struktura</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3>Request 3rd type of report: Tasks inside domain[extended]----></h3>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not required for now</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">params</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="30%">Parameters</td>
+                        <td width="15%">Type</td>
+                        <td width="15%">Required</td>
+                        <td width="40%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td>user_id</td>
+                        <td id="type">id</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id kierownika</td></tr>
+                    <tr><td>type</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>typ 1 - przesłać wartość int: 1</td></tr>
+                    <tr><td>domain</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>obecnie id domeny</td></tr>
+                    <tr><td>project_id</td>
+                        <td id="type">int</td>
+                        <td id="tak">tak</td>
+                        <td>id projektu, dla którego ma być zwrócona struktura</td></tr>
+                </tbody>
+            </table>
+            <div>
+                <h3><---- Response</h3>
+            </div>
+            
+            <div style="display: inline-block">
+                <div>Response: <font style="color:rgb(36, 180, 0);">200</font> - dane poprawne</div>
+            </div>
+            <table>
+                <thead id="response-table-thead">
+                    <tr><td colspan="4">header</td></tr>
+                </thead>
+                <thead id="response-table-thead">
+                    <tr><td width="20%">Parameter</td>
+                        <td width="15%">Type</td>
+                        <td width="20%">Value</td>
+                        <td width="45%">Description</td></tr>
+                </thead>
+                <tbody id="response-table-tbody">
+                    <tr><td colspan="4" style="font-style: italic;">not returned</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <div class="code">
+                <code> Templatka html z wygenerowanymi danymi - wersja by Klaudiusz</code>
+            </pre>
+            </div>
             <br><br>
             <div style="display: inline-block">
                 <div>Response: <font style="color:rgb(162, 180, 0);">202</font> - błędne dane/brakuje klucza</div>

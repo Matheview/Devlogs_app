@@ -30,6 +30,7 @@ ADD_NOTIFY_PERMISSION_GRANTED = """INSERT INTO notifications(domain_id, user_id,
 #                          (SELECT id FROM users WHERE email='{1}'),
 #                          CONCAT('Użytkownik ', (SELECT name FROM users WHERE email='{1}'), ' dodał Ciebie do przestrzeni roboczej {0}'),
 #                          False, NOW())"""
+ADD_USER_TO_PROJECT = """INSERT INTO accesses(creator_id, domain_id, project_id, privilege_id, granted_to, created_at) VALUES ({0}, {1}, {2}, 3, {3}, NOW());"""
 GET_PROJECTS_PLUS_USER_COUNTS = """SELECT COUNT(u.name), p.id, p.project_name, d.domain_desc,
        (SELECT pr.privilege FROM accesses ac INNER JOIN privileges pr ON ac.privilege_id = pr.id WHERE ac.project_id=p.id AND ac.granted_to='{0}')
     FROM accesses acc
@@ -43,17 +44,20 @@ CHANGE_PASSWORD = "UPDATE users SET password='{0}' WHERE id={1}"
 CHECK_PRIV = "SELECT id FROM privileges WHERE privilege='{0}'"
 CHECK_CAN_REMOVE_STATUS = """SELECT id FROM tasks WHERE status_id='{1}' AND project_id='{0}'"""
 CHECK_DOMAIN_AVAILABLE = "SELECT id FROM domains WHERE domain_desc='{0}'"
-CHECK_DOMAIN_EXIST = "SELECT id FROM domains WHERE id='{0}'"
+CHECK_DOMAIN_EXIST = "SELECT id FROM domains WHERE id='{0}' OR domain_desc='{0}'"
+CHECK_DOMAIN_EXIST_BY_NAME = "SELECT id FROM domains WHERE domain_desc='{0}'"
 CHECK_USER_EXIST = "SELECT id FROM users WHERE id='{0}' OR name='{0}' OR email='{0}'"
 CHECK_ADMIN_EXIST = "SELECT id, granted_to FROM accesses WHERE granted_to=(SELECT id FROM users WHERE id='{0}' OR name='{0}' OR email='{0}') AND privilege_id=1"
 CHECK_KIEROWNIK_EXIST = "SELECT id FROM accesses WHERE granted_to=(SELECT id FROM users WHERE id='{0}' OR email='{0}' or name='{0}') AND privilege_id=2"
 CHECK_TOKEN = "SELECT CASE WHEN TIMESTAMPDIFF(HOUR, created_at, NOW()) < 24 THEN token ELSE 'ExpiredTokenAfter24Hours' END FROM loginactions WHERE user_id='{}' ORDER BY created_at DESC LIMIT 1"
 CHECK_PERMISSION = "SELECT id FROM accesses WHERE granted_to='{0}' AND domain_id=(SELECT id FROM domains WHERE domain_desc='{1}')"
-CHECK_TASK_EXISTS = """SELECT id FROM tasks WHERE id='{0}'"""
+CHECK_TASK_EXISTS = """SELECT id FROM tasks WHERE (id='{0}' OR task_title='{0}') AND project_id='{1}'"""
+CHECK_TASK_EXISTS_MIN = """SELECT id FROM tasks WHERE (id='{0}' OR task_title='{0}')"""
 CHECK_COMMENT_IS_USER = "SELECT id FROM comments WHERE id='{0}' AND user_id='{1}'"
 CHECK_STATUS_EXISTS = """SELECT id FROM statuses WHERE id='{0}' AND project_id='{1}'"""
 CHECK_USER_EXISTS = """SELECT id FROM users WHERE email='{0}'"""
 CHECK_USER_EXIST_BY_ID = """SELECT id FROM users WHERE id='{0}'"""
+CHECK_USER_INSIDE_PROJECT = """SELECT id FROM tasks WHERE project_id={0} AND assigned_id={1} LIMIT 1"""
 CHECK_PROJECT_EXIST = """SELECT id FROM projects WHERE project_name='{0}' AND domain_id={1}"""
 CREATE_USER = "INSERT INTO users(email, password, name, created_at) VALUES ('{0}', '{1}', '{2}', NOW())"
 CREATE_DOMAIN = "INSERT INTO domains(domain_desc, creator_id, created_at) VALUES ('{0}', {1}, NOW())"
@@ -63,7 +67,7 @@ CREATE_ACCESS_DOMAIN = """INSERT INTO accesses(creator_id, domain_id, privilege_
                                 ({3}, (SELECT id FROM domains WHERE domain_desc='{1}'), 
                                 (SELECT id FROM privileges WHERE privilege='{2}'), 
                                 {0}, NOW());"""
-CREATE_ACCESS_PROJECT_KIEROWNIK = """INSERT INTO accesses(creator_id, domain_id, privilege_id, granted_to, created_at) VALUES ({0}, {1}, {2}, {0}, NOW());"""
+CREATE_ACCESS_PROJECT_KIEROWNIK = """INSERT INTO accesses(creator_id, domain_id, project_id, privilege_id, granted_to, created_at) VALUES ({0}, {1}, {2}, 2, {0}, NOW());"""
 CREATE_PERMISSION = """INSERT INTO accesses(creator_id, granted_to, domain_id, privilege_id, created_at) VALUES ('{0}' ,'{2}' ,(SELECT id FROM domains WHERE domain_desc='{3}') ,(SELECT id FROM privileges WHERE privilege='{1}') , NOW());"""
 CREATE_PROJECT = """INSERT INTO projects(creator_id, project_name, domain_id, created_at) VALUES ({0}, '{2}', {1}, NOW())"""
 CREATE_STATUS = """INSERT INTO statuses(status_desc, project_id, created_at) VALUES ('{0}', '{1}', NOW())"""
@@ -82,6 +86,8 @@ GET_COMMENTS_FROM_TASK = """SELECT id, comment_desc, user_id, created_at FROM co
 GET_CREATED_STATUS_ID = "SELECT id FROM statuses WHERE project_id={0} AND status_desc='{1}'"
 GET_DOMAINS = "SELECT DISTINCT d.id, d.domain_desc FROM accesses acc INNER JOIN domains d on acc.domain_id = d.id WHERE acc.granted_to='{0}' ORDER BY d.id DESC;"
 GET_DOMAIN = "SELECT id FROM domains WHERE creator_id={0} AND domain_desc='{1}'"
+GET_DOMAIN_ID = "SELECT id FROM domains WHERE domain_desc='{0}' LIMIT 1"
+GET_DOMAIN_NAME_BY_ID = """SELECT domain_desc FROm domains WHERE id={0}"""
 GET_FULL_TASK_INFO = """SELECT t.id, task_title, task_desc, deadline, t.created_at, p.priority_desc, assigned_id FROM tasks t
     LEFT JOIN priorities p on t.priority_id = p.id
     WHERE t.id='{0}'"""
@@ -95,11 +101,28 @@ GET_USER_AFTER_CREATE = """SELECT id FROM users WHERE email='{0}' AND password='
 GET_USER_INFO_ALL = """SELECT usr.name, usr.email, usr.created_at FROM users usr WHERE id={0}"""
 GET_USERS_FROM_PROJECT = ""
 GET_USERS_FROM_TASK = ""
+GET_PROJECT_LIST_TO_ALL = """SELECT x.project_name, x.id, x.creator_id, x.created_at FROM
+    (SELECT project_name, id, creator_id, created_at FROM projects WHERE domain_id={0}) as x;"""
+GET_PROJECT_LIST_TO_MINE = """SELECT x.project_name, x.id, x.creator_id, x.created_at FROM
+    (SELECT project_name, id, creator_id, created_at FROM projects WHERE id={0}) as x;"""
+GET_USER_COUNT_INSIDE_PROJECT = """SELECT COUNT(DISTINCT assigned_id) FROM tasks WHERE project_id={0} AND assigned_id IS NOT NULL;"""
+GET_TASKS_FROM_PROJECT = """SELECT tasks.id, task_title, tasks.created_at, deadline, p.priority_desc, status_id, assigned_id FROM tasks LEFT JOIN priorities p on tasks.priority_id = p.id WHERE project_id={0};"""
+GET_STATUSES_FROM_DOMAIN_WHERE_PROJECTS = """SELECT id, status_desc FROM statuses WHERE id in (SELECT status_id FROM tasks WHERE tasks.project_id IN (SELECT id FROM projects WHERE domain_id={0}))"""
+GET_STATUSES_FROM_PROJECT_WHERE_PROJECTS = """SELECT id, status_desc FROM statuses WHERE id in (SELECT status_id FROM tasks WHERE tasks.project_id IN (SELECT id FROM projects WHERE id={0}))"""
+GET_ALL_USERS_INSIDE_DOMAIN = """SELECT DISTINCT creator_id, granted_to, u.name, CASE WHEN privilege_id=2 THEN True ELSE False END FROM accesses INNER JOIN users u ON accesses.granted_to = u.id WHERE domain_id={0}"""
+GET_ALL_USERS_INSIDE_PROJECT = """SELECT DISTINCT creator_id, granted_to, u.name, CASE WHEN privilege_id=2 THEN True ELSE False END FROM accesses INNER JOIN users u ON accesses.granted_to = u.id WHERE project_id={0}"""
+GET_USERNAME_BY_ID = """SELECT name FROM users WHERE id={0}"""
 GET_USERS_FROM_DOMAIN = """SELECT usr.id, usr.name, priv.privilege FROM accesses ac
                                 INNER JOIN privileges priv on ac.privilege_id = priv.id
                                 INNER JOIN users usr on ac.granted_to = usr.id
                                 WHERE ac.creator_id={0} AND granted_to !={0}
                                 ORDER BY usr.id DESC;"""
+GET_USERS_FROM_DOMAIN_KIEROWNIK = """SELECT DISTINCT x.id, x.name, x.privilege FROM (SELECT usr.id, usr.name, priv.privilege FROM accesses ac
+    INNER JOIN privileges priv on ac.privilege_id = priv.id
+    INNER JOIN users usr on ac.granted_to = usr.id
+    WHERE ac.domain_id=(SELECT acc.domain_id FROM accesses acc WHERE acc.granted_to={0} AND acc.domain_id=(SELECT id FROM domains WHERE domain_desc='{1}') LIMIT 1)
+    ORDER BY usr.id DESC) as x;"""
+CHECK_USER_ADDED_TO_PROJECT = """SELECT id FROM accesses WHERE granted_to={0} AND project_id={1}"""
 GET_PROJECT_USERS_PRIVILEGES = """SELECT DISTINCT acc.granted_to, usr.name, pr.privilege FROM accesses acc
     INNER JOIN users usr ON acc.granted_to=usr.id 
     INNER JOIN privileges pr ON acc.privilege_id=pr.id 
@@ -137,13 +160,16 @@ GET_USER_INFO = """SELECT x.id, x.name, x.email, y.privilege, z.domain_desc FROM
                         d
                         RIGHT JOIN domains z on w.domain_id = z.id
                         WHERE w.granted_to='{0}'"""
+IS_USER_ADDED_TO_PROJECT = """SELECT id FROM accesses WHERE project_id={0} AND granted_to={1}"""
 MARK_NOTIFY_AS_READED = "UPDATE notifications SET is_readed=true WHERE id={0} AND user_id=(SELECT id FROM users WHERE email='{1}' OR id='{1}')"
 SAVE_ERROR_LOGS_TO_DB = """INSERT INTO errorlogs(class, args, msg, created_at) VALUES ('{}', '{}', '{}', NOW())"""
+SET_USER_REMOVE_TASK = "UPDATE tasks SET assigned_id=NULL WHERE id='{0}';"
 REMOVE_COMMENT = "DELETE FROM comments WHERE id='{0}'"
 REMOVE_COMMENTS_FROM_TASK = "DELETE FROM comments WHERE task_id='{0}'"
 REMOVE_PERMISSION = "DELETE FROM accesses WHERE granted_to='{1}' AND domain_id=(SELECT id FROM domains WHERE domain_desc='{0}')"
 REMOVE_STATUS = """DELETE FROM statuses WHERE project_id='{0}' AND id='{1}'"""
 REMOVE_TASK = """DELETE FROM tasks WHERE id='{0}'"""
+REMOVE_USER_FROM_PROJECT = """DELETE FROM accesses WHERE project_id={0} AND granted_to={1}"""
 UPDATE_COMMENT = """UPDATE comments SET comment_desc='{2}' WHERE id='{0}' AND user_id='{1}';"""
 UPDATE_PERMISSION = "UPDATE accesses SET privilege_id=(SELECT id FROM privileges WHERE privilege='{1}'), creator_id='{0}' WHERE granted_to='{2}' AND domain_id=(SELECT id FROM domains WHERE domain_desc='{3}')"
 UPDATE_STATUS = """UPDATE statuses SET status_desc='{2}' WHERE project_id='{0}' AND id='{1}'"""
