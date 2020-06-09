@@ -309,3 +309,13 @@
 .comments-list {
     -fx-background-color: #1c1c1e;
 }
+
+.generate-pdf-btn {
+    -fx-cursor: hand;
+    -fx-font-family: "Righteous";
+    -fx-text-fill: #2343e4;
+    -fx-padding: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: #2343e4;
+    -fx-background-color: #fff;
+}

@@ -28,6 +28,8 @@ import javafx.stage.Stage;
 import utils.DialogsUtils;
 import java.awt.event.InputMethodEvent;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import javafx.scene.web.WebView;
 import utils.PdfGenerator;
@@ -1547,32 +1549,57 @@ public class BossController extends BaseController {
         }
     }
 
-        //TODO WEBVIEW RAPORTY
-        public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
-            WebView webView = new WebView();
+    /**
+     * Metoda do wyświetlania raportów
+     * @param mouseEvent
+     */
+    public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
+        WebView webView = new WebView();
 
-            webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=" + getUserId() + "&type=1&domain=1&params=all");
+        webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=" + getUserId() + "&type=1&domain=1&params=all");
 
-            AnchorPane pane = new AnchorPane(webView);
-            AnchorPane.setTopAnchor(webView, 0.0);
-            AnchorPane.setLeftAnchor(webView, 0.0);
-            AnchorPane.setRightAnchor(webView, 0.0);
-            AnchorPane.setBottomAnchor(webView, 0.0);
+        // Panel główny
+        AnchorPane pane = new AnchorPane(webView);
+        pane.getStylesheets().add("styles/boss.css");
 
-            Scene raportsScene = new Scene(pane);
+        AnchorPane.setTopAnchor(webView, 0.0);
+        AnchorPane.setLeftAnchor(webView, 0.0);
+        AnchorPane.setRightAnchor(webView, 0.0);
+        AnchorPane.setBottomAnchor(webView, 0.0);
 
-            Stage raportsStage = new Stage();
-            raportsStage.setWidth(1024.0);
-            raportsStage.setHeight(800.0);
-            raportsStage.setScene(raportsScene);
-            raportsStage.setTitle("Devslog raports");
-            raportsStage.show();
+        // Przycisk "generuj raport"
+        Button generatePdfBtn = new Button();
+        generatePdfBtn.setText("Generuj raport");
+        generatePdfBtn.getStyleClass().add("generate-pdf-btn");
+        generatePdfBtn.setLayoutX(845);
+        generatePdfBtn.setLayoutY(11);
 
+        // Funkcja służąca do generowania raportów w formacie .pdf
+        generatePdfBtn.setOnAction(event -> {
             try {
-                PdfGenerator.generate("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=15&type=1&domain=1&params=all", "raport.pdf");
+                // Dodawanie daty do nazwy raporu
+                LocalDateTime localDate = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+                String formattedString = localDate.format(formatter);
+
+                String fileName = "report_" + formattedString + ".pdf";
+                PdfGenerator.generate(webView.getEngine().getLocation(), fileName);
+                DialogsUtils.infoDialog("Generowanie raportu", "Wygenerowano raport o nazwie:", fileName);
             } catch (IOException e) {
+                DialogsUtils.errorDialog("Error", "Error message: ", e.getMessage());
                 e.printStackTrace();
             }
-        }
+        });
+        pane.getChildren().add(generatePdfBtn);
+
+        Scene raportsScene = new Scene(pane);
+
+        Stage raportsStage = new Stage();
+        raportsStage.setWidth(1024.0);
+        raportsStage.setHeight(800.0);
+        raportsStage.setScene(raportsScene);
+        raportsStage.setTitle("Devslog reports");
+        raportsStage.show();
+    }
 
 }
