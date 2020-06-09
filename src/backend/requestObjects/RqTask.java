@@ -3,8 +3,8 @@ package backend.requestObjects;
 public class RqTask {
     private String domain;
     private int project_id;
-    private Integer task_id;
-    private int status_id;
+    private int task_id;
+    private Integer status_id;
     private int creator_id;
     private String task_name;
     private String task_desc;
@@ -45,11 +45,11 @@ public class RqTask {
         this.project_id = project_id;
     }
 
-    public int getStatus_id() {
+    public Integer getStatus_id() {
         return status_id;
     }
 
-    public void setStatus_id(int status_id) {
+    public void setStatus_id(Integer status_id) {
         this.status_id = status_id;
     }
 
@@ -77,11 +77,11 @@ public class RqTask {
         this.assigned_to = assigned_to;
     }
 
-    public Integer getTask_id() {
+    public int getTask_id() {
         return task_id;
     }
 
-    public void setTask_id(Integer task_id) {
+    public void setTask_id(int task_id) {
         this.task_id = task_id;
     }
 

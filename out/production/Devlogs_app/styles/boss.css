@@ -188,6 +188,12 @@
     -fx-cursor: hand;
 }
 
+.red-btn {
+    -fx-text-fill: #fff;
+    -fx-background-color: #ff0000;
+    -fx-cursor: hand;
+}
+
 .comments-panel {
     -fx-pref-width: 600px;
     -fx-pref-height: 600px;
