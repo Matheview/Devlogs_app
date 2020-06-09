@@ -1404,14 +1404,24 @@ public class BossController extends BaseController {
         //TODO WEBVIEW RAPORTY
         public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
             WebView webView = new WebView();
+            //TODO tu zabawa z buttonem ---------------------------------
+            Button generatePdfBtn = new Button();
+            generatePdfBtn.setText("Generuj raport");
+            generatePdfBtn.getStyleClass().add("generate-pdf-btn");
+            generatePdfBtn.setLayoutX(845);
+            generatePdfBtn.setLayoutY(11);
+            //TODO -----------------------------------------------------^
 
             webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=" + getUserId() + "&type=1&domain=1&params=all");
 
             AnchorPane pane = new AnchorPane(webView);
+            pane.getStylesheets().add("/styles/boss.css"); //TODO próba nadania arkusza styli do pane
             AnchorPane.setTopAnchor(webView, 0.0);
             AnchorPane.setLeftAnchor(webView, 0.0);
             AnchorPane.setRightAnchor(webView, 0.0);
             AnchorPane.setBottomAnchor(webView, 0.0);
+            //TODO tu dodaję button do anchora
+            pane.getChildren().add(generatePdfBtn);
 
             Scene raportsScene = new Scene(pane);
 
