@@ -1403,6 +1403,7 @@ public class BossController extends BaseController {
 
         //TODO WEBVIEW RAPORTY
         public void showPdfGeneratorPanel(MouseEvent mouseEvent) {
+            Integer index = 0; //TODO do poprawki generowanie indexu i linku końcowego do raportów
             WebView webView = new WebView();
             //TODO tu zabawa z buttonem ---------------------------------
             Button generatePdfBtn = new Button();
@@ -1410,6 +1411,14 @@ public class BossController extends BaseController {
             generatePdfBtn.getStyleClass().add("generate-pdf-btn");
             generatePdfBtn.setLayoutX(845);
             generatePdfBtn.setLayoutY(11);
+            generatePdfBtn.setOnAction(event -> {
+                try {
+                    PdfGenerator.generate(webView.getEngine().getLocation(), "raport"+ index +".pdf");
+                    index++;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
             //TODO -----------------------------------------------------^
 
             webView.getEngine().load("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=" + getUserId() + "&type=1&domain=1&params=all");
@@ -1432,11 +1441,7 @@ public class BossController extends BaseController {
             raportsStage.setTitle("Devslog raports");
             raportsStage.show();
 
-            try {
-                PdfGenerator.generate("http://ssh-vps.nazwa.pl:4742/reports/render?user_id=15&type=1&domain=1&params=all", "raport.pdf");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         }
 
 }
