@@ -1,4 +1,6 @@
-package backend.responseObjects;
+package backend.dataObjects;
+
+import java.util.List;
 
 public class User {
 
@@ -8,6 +10,26 @@ public class User {
     private String shortcut;
     private String user;
     private String name;
+
+    /**
+     * Metoda służaca do wyszukiwania użytkownika na liście
+     * @param id id szukanego użytkownika
+     * @param list lista z użytkownikami
+     * @return zwraca obiekt znalezionega użytkownika lub null w przypadku jego nie znalezienia
+     */
+    public static User getUserFromListById(Integer id, List<User> list) {
+        if (list != null) {
+            if (id == null)
+                return null;
+
+            for (User user : list) {
+                if (user.getId() == id) {
+                    return user;
+                }
+            }
+        }
+        return null;
+    }
 
     public User(int id, String privilege, String shortcut, String user) {
         this.id = id;

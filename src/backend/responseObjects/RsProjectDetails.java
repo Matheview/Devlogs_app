@@ -1,5 +1,8 @@
 package backend.responseObjects;
 
+import backend.dataObjects.Status;
+import backend.dataObjects.User;
+
 import java.util.List;
 
 public class RsProjectDetails extends RsProject {

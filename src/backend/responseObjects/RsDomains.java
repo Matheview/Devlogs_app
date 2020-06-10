@@ -1,5 +1,7 @@
 package backend.responseObjects;
 
+import backend.dataObjects.Domain;
+
 import java.util.List;
 
 // Klasa w której przechowywana jest odpowiedź serwera na zopytanie

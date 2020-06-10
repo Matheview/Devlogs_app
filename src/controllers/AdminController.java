@@ -2,8 +2,8 @@ package controllers;
 
 import backend.requestObjects.RequestData;
 import backend.responseObjects.RsUserInfo;
-import backend.responseObjects.User;
-import backend.responseObjects.Domain;
+import backend.dataObjects.User;
+import backend.dataObjects.Domain;
 import backend.RequestService;
 import backend.responseObjects.ResponseObject;
 import backend.responseObjects.RsDomains;
@@ -14,10 +14,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import utils.DialogsUtils;
 import utils.RegexUtils;
 

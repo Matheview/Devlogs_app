@@ -1,11 +1,10 @@
 package controllers;
 
-import backend.requestObjects.RqNewProject;
-import backend.requestObjects.RqTask;
-import backend.requestObjects.RqStatus;
-import backend.requestObjects.RqUser;
+import backend.requestObjects.*;
 import backend.responseObjects.*;
+import backend.dataObjects.*;
 import backend.RequestService;
+import components.CommentPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -711,7 +710,7 @@ public class BossController extends BaseController {
     }
 
     /**
-     * Metode zwracajjąca panel zawierający dane o statusie
+     * Metode zwracajjąca panel zawierający dane o tasku
      * @param task obiekt taska
      * @return panel z informacjami o tasku
      */
@@ -742,7 +741,7 @@ public class BossController extends BaseController {
 
         // Panel ze skrótem nazwy przydzielonego do taska pracownika
         if (task.getGranted_to() != null) {
-            User user = getUserFromListById(task.getGranted_to(), activeProject.getUsers());
+            User user = User.getUserFromListById(task.getGranted_to(), activeProject.getUsers());
 
             if (user != null) {
                 Label userShortcut = getUserAvatar(user);
@@ -785,25 +784,6 @@ public class BossController extends BaseController {
         pane.getChildren().add(editIcon);
 
         return pane;
-    }
-
-    /**
-     * Metoda służaca do wyszukiwania użytkownika na liście w szczegółach aktywnego projektu
-     * @param id id szukanego użytkownika
-     * @return zwraca obiekt znalezionega użytkownika lub null w przypadku jego nie znalezienia
-     */
-    private User getUserFromListById(Integer id, List<User> list) {
-        if (list != null) {
-            if (id == null)
-                return null;
-
-            for (User user : activeProject.getUsers()) {
-                if (user.getId() == id) {
-                    return user;
-                }
-            }
-        }
-        return null;
     }
 
     /**
@@ -1032,7 +1012,7 @@ public class BossController extends BaseController {
                     mTaskTitleInCommentsPanel.setText(activeTask.getTask_name());
                     mTaskDescription.setText(activeTask.getTask_desc());
 
-                    User user = getUserFromListById(activeTask.getAssigned_to(), activeTask.getUsers());
+                    User user = User.getUserFromListById(activeTask.getAssigned_to(), activeTask.getUsers());
                     if (user != null) {
                         mUserInTaskDetails.setText(user.getShortcut());
                         mUserInTaskDetails.setUserData(user);
@@ -1046,6 +1026,12 @@ public class BossController extends BaseController {
                         activeAddNewUserToTaskPane.setLayoutY(96.0);
                         mCommentsPanel.getChildren().add(activeAddNewUserToTaskPane);
                     });
+
+                    mTaskComments.getChildren().removeAll();
+                    for (Comment comment : activeTask.getComments()) {
+                        CommentPane commentPane = new CommentPane(comment, activeTask.getUsers());
+                        mTaskComments.getChildren().add(commentPane);
+                    }
 
                     mCommentsPanel.setVisible(true);
                 } else if (!response.isSuccess())

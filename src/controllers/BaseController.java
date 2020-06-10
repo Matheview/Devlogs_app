@@ -1,7 +1,6 @@
 package controllers;
 
 import backend.CurrentlyLoggedAccount;
-import backend.responseObjects.Domain;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;

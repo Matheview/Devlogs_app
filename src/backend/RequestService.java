@@ -2,6 +2,7 @@ package backend;
 
 import backend.requestObjects.*;
 import backend.responseObjects.*;
+import backend.dataObjects.*;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 

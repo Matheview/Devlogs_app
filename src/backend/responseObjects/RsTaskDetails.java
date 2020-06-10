@@ -1,5 +1,8 @@
 package backend.responseObjects;
 
+import backend.dataObjects.Comment;
+import backend.dataObjects.User;
+
 import java.util.List;
 
 public class RsTaskDetails extends BaseResponseObject {
