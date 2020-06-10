@@ -1,5 +1,9 @@
 package backend.responseObjects;
 
+import backend.dataObjects.Domain;
+import backend.dataObjects.Notifications;
+import backend.dataObjects.User;
+
 import java.util.List;
 
 public class ResponseObject

@@ -142,7 +142,7 @@
     -fx-font-family: Righteous;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2343e4;
+    -fx-text-fill: #4363ff;
 }
 
 .project-list-item {
@@ -160,7 +160,7 @@
     -fx-pref-width: 30px;
     -fx-pref-height: 30px;
     -fx-border-width: 2px;
-    -fx-border-color: #2343e4;
+    -fx-border-color: #4363ff;
     -fx-border-radius: 50%;
     -fx-text-fill: #2343e4;
     -fx-font-weight: bold;
@@ -204,6 +204,15 @@
     -fx-background-radius: 20px;
 }
 
+.task-comments-scroll-pane {
+    -fx-background-color: #1c1c1e;
+    -fx-border-width: 0px;
+}
+
+.task-comments {
+    -fx-background-color: #1c1c1e;
+}
+
 .description-area {
     -fx-pref-width: 500px;
     -fx-pref-height: 100px;
@@ -214,7 +223,16 @@
     -fx-pref-width: 380px;
     -fx-border-width: 1px;
     -fx-border-color: #fff;
-    -fx-prompt-text-fill: #fff;
+    -fx-text-fill: #000;
+}
+
+.comment-author {
+    -fx-text-fill: #4363ff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.comment-content {
     -fx-text-fill: #fff;
 }
 

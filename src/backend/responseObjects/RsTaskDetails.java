@@ -1,5 +1,8 @@
 package backend.responseObjects;
 
+import backend.dataObjects.Comment;
+import backend.dataObjects.User;
+
 import java.util.List;
 
 public class RsTaskDetails extends BaseResponseObject {
@@ -83,5 +86,20 @@ public class RsTaskDetails extends BaseResponseObject {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "RsTaskDetails{" +
+                "task_id=" + task_id +
+                ", task_name='" + task_name + '\'' +
+                ", task_desc='" + task_desc + '\'' +
+                ", deadline='" + deadline + '\'' +
+                ", created_at='" + created_at + '\'' +
+                ", priority_desc='" + priority_desc + '\'' +
+                ", assigned_to=" + assigned_to +
+                ", users=" + users +
+                ", comments=" + comments +
+                '}';
     }
 }

@@ -1,5 +1,7 @@
 package backend.responseObjects;
 
+import backend.dataObjects.Domain;
+
 import java.util.List;
 
 public class RsUserInfo extends BaseResponseObject {

@@ -61,7 +61,7 @@
                               <Image url="@../imgs/logout.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="mWelcomeUserName" layoutX="420.0" layoutY="18.0" prefHeight="45.0" prefWidth="255.0" text="Edyta !" textFill="#2343e4">
+                        <Label fx:id="mWelcomeUserName" layoutX="420.0" layoutY="18.0" prefHeight="45.0" prefWidth="255.0" textFill="#2343e4">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -366,27 +366,27 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ImageView fitHeight="45.0" fitWidth="70.0" layoutX="32.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="45.0" fitWidth="70.0" layoutX="28.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imgs/comment.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="84.0" layoutY="300.0" text="komentarze do zadania" textFill="#2343e4">
+                        <Label layoutX="84.0" layoutY="287.0" text="komentarze do zadania" textFill="#2343e4">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
                         <TextField fx:id="mMyComment" layoutX="50.0" layoutY="546.0" onInputMethodTextChanged="#handleCommentChange" prefWidth="377.0" promptText="treść komentarza..." styleClass="my-comment" stylesheets="@../styles/boss.css" />
-                        <Button layoutX="443.0" layoutY="547.0" mnemonicParsing="false" onMouseClicked="#addNewComment" styleClass="add-new-task-btn" text="dodaj komentarz">
+                        <Button layoutX="443.0" layoutY="547.0" mnemonicParsing="false" onAction="#addNewComment" styleClass="add-new-task-btn" text="dodaj komentarz">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ScrollPane layoutX="50.0" layoutY="336.0" prefHeight="200.0" prefWidth="500.0">
+                        <ScrollPane layoutX="50.0" layoutY="336.0" prefHeight="200.0" prefWidth="500.0" styleClass="task-comments-scroll-pane">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="482.0">
                                  <children>
-                                    <VBox fx:id="mTaskComments" prefHeight="200.0" prefWidth="479.0" />
+                                    <VBox fx:id="mTaskComments" prefHeight="200.0" prefWidth="479.0" styleClass="task-comments" stylesheets="@../styles/boss.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </content>

@@ -1,4 +1,4 @@
-package backend.responseObjects;
+package backend.dataObjects;
 
 public class Task {
     private int task_id;

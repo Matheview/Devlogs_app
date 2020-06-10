@@ -1,4 +1,4 @@
-package backend.responseObjects;
+package backend.dataObjects;
 
 import java.util.List;
 

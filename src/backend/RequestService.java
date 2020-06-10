@@ -732,4 +732,26 @@ public class RequestService {
 		return responseObject;
 	}
 
+	/**
+	 * Metoda sluzaca do dodawania komentarza pod projektem
+	 * @param newComment obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
+	 */
+	public BaseResponseObject addCommentToTask(RqNewComment newComment) throws IOException {
+		HttpURLConnection connection = getConnection("/comments/config", "POST");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(newComment);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
 }
