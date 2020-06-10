@@ -384,9 +384,9 @@
                         </Button>
                         <ScrollPane layoutX="50.0" layoutY="336.0" prefHeight="200.0" prefWidth="500.0" styleClass="task-comments-scroll-pane">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="482.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" styleClass="task-comments">
                                  <children>
-                                    <VBox fx:id="mTaskComments" prefHeight="200.0" prefWidth="479.0" styleClass="task-comments" stylesheets="@../styles/boss.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <VBox fx:id="mTaskComments" minHeight="200.0" prefWidth="483.0" styleClass="task-comments" stylesheets="@../styles/boss.css" />
                                  </children>
                               </AnchorPane>
                           </content>
