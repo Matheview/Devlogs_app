@@ -2,7 +2,6 @@ package backend;
 
 import backend.requestObjects.*;
 import backend.responseObjects.*;
-import backend.dataObjects.*;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 
@@ -721,6 +720,28 @@ public class RequestService {
 
 		Gson gson = new Gson();
 		String jsonInputString = gson.toJson(task);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda sluzaca do dodawania komentarza pod projektem
+	 * @param newComment obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
+	 */
+	public BaseResponseObject addCommentToTask(RqNewComment newComment) throws IOException {
+		HttpURLConnection connection = getConnection("/comments/config", "POST");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(newComment);
 
 		sendJSON(connection, jsonInputString);
 

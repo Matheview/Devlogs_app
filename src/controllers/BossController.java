@@ -33,7 +33,6 @@ import java.util.Collections;
 import javafx.scene.web.WebView;
 import utils.PdfGenerator;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -1027,7 +1026,8 @@ public class BossController extends BaseController {
                         mCommentsPanel.getChildren().add(activeAddNewUserToTaskPane);
                     });
 
-                    mTaskComments.getChildren().removeAll();
+                    mTaskComments.getChildren().clear();
+
                     for (Comment comment : activeTask.getComments()) {
                         CommentPane commentPane = new CommentPane(comment, activeTask.getUsers());
                         mTaskComments.getChildren().add(commentPane);
@@ -1103,6 +1103,7 @@ public class BossController extends BaseController {
             if (response.getMsg().equals("))
                 showErrorPanel("Błąd:");
             else */if (response.isSuccess()) {
+                refreshTaskDetails();
                 refreshProjectDetails(getSelectedProject());
                 return true;
             } else if (!response.isSuccess())
@@ -1131,8 +1132,31 @@ public class BossController extends BaseController {
     @FXML
     public void checkNewProjectInputValue(javafx.scene.input.InputMethodEvent inputMethodEvent) {}
 
-    @FXML // TODO funckja do dodawania nowego komentarza
-    void addNewComment(MouseEvent event) {}
+    @FXML
+    void addNewComment(ActionEvent event) {
+        String comment_desc = mMyComment.getText();
+
+        if (!comment_desc.isEmpty()) {
+            int user_id = getUserId();
+            int task_id = activeTask.getTask_id();
+
+            RequestService requestService = new RequestService();
+            RqNewComment requestObject = new RqNewComment(user_id, task_id, comment_desc);
+
+            BaseResponseObject response;
+            try {
+                response = requestService.addCommentToTask(requestObject);
+
+                if (response.isSuccess()) {
+                    refreshTaskDetails();
+                } else if (!response.isSuccess())
+                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+            } catch (IOException e) {
+                DialogsUtils.shortErrorDialog("Błąd", "Nie można dodać komentarza do zadania. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            }
+        }
+    }
 
     @FXML
     void editTaskActionEvent(ActionEvent event) {

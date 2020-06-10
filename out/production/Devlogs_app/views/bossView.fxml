@@ -377,7 +377,7 @@
                            </font>
                         </Label>
                         <TextField fx:id="mMyComment" layoutX="50.0" layoutY="546.0" onInputMethodTextChanged="#handleCommentChange" prefWidth="377.0" promptText="treść komentarza..." styleClass="my-comment" stylesheets="@../styles/boss.css" />
-                        <Button layoutX="443.0" layoutY="547.0" mnemonicParsing="false" onMouseClicked="#addNewComment" styleClass="add-new-task-btn" text="dodaj komentarz">
+                        <Button layoutX="443.0" layoutY="547.0" mnemonicParsing="false" onAction="#addNewComment" styleClass="add-new-task-btn" text="dodaj komentarz">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
