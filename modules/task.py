@@ -287,7 +287,7 @@ class CommentActions(MethodView, Responses):
             if not is_user:
                 return self.response(202, success=False, msg="User not found")
             task_exists = self.db.query(
-                CHECK_TASK_EXISTS.format(self.keys['task_id'])).fetchone()
+                CHECK_TASK_EXISTS_COMMENT.format(self.keys['task_id'])).fetchone()
             if not task_exists:
                 return self.response(202, success=False, msg="Task not exists in this project")
             removed = self.db.add_comment(self.keys)
@@ -420,10 +420,14 @@ class UpdateStatusUser(MethodView, Responses):
     def get(self):
         return self.method_not_allowed("UpdateStatusUser.get", 'get')
 
-    def post(self):
+    def put(self):
         try:
             for key in ['task_id', 'status_id', 'user_id']:
-                self.keys[key] = request.args.get(key)
+                if request.data != b'':
+                    self.keys[key] = request.json[key]
+                else:
+                    self.keys[key] = request.args.get(key)
+                    self.keys[key] = request.args.get(key)
                 if not self.keys[key] or self.keys[key] is None:
                     return self.response(202, success=False, msg="Key '{0}' not found".format(key))
                 elif self.keys[key] == 0 or self.keys[key] == "":
@@ -431,11 +435,11 @@ class UpdateStatusUser(MethodView, Responses):
                 elif self.keys[key] is None or self.keys[key] == "None" or self.keys[key] == "null":
                     return self.response(202, success=False, msg="Value'{0}' cannot be null".format(key))
             task_exists = self.db.query(
-                CHECK_TASK_EXISTS.format(self.keys['task_id'])).fetchone()
+                CHECK_TASK_EXISTS_COMMENT.format(self.keys['task_id'])).fetchone()
             if not task_exists:
                 return self.response(202, success=False, msg="Task not exists in this project")
             task_is_user = self.db.query(
-                CHECK_COMMENT_IS_USER.format(self.keys['comment_id'], self.keys['user_id'])).fetchone()
+                CHECK_TASK_IS_USER.format(self.keys['task_id'], self.keys['user_id'])).fetchone()
             if not task_is_user:
                 return self.response(202, success=False, msg="Comment not allow to user")
             result = self.db.update_user_status(self.keys)
@@ -447,7 +451,7 @@ class UpdateStatusUser(MethodView, Responses):
             self.logs.save_msg(e, localisation="GetFullTaskInfo.get[{0}]".format(exc_tb.tb_lineno), args=self.keys)
             return self.response(202, success=False, msg="Unexpected exception: reported")
 
-    def put(self):
+    def post(self):
         return self.method_not_allowed("UpdateStatusUser.put", 'put')
 
     def delete(self):
