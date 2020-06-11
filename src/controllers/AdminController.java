@@ -193,6 +193,9 @@ public class AdminController extends BaseController {
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy domen z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
+        } catch (Exception e) {
+            DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
+            e.printStackTrace();
         }
 
         try {
@@ -231,6 +234,9 @@ public class AdminController extends BaseController {
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy użytkowników z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
+        } catch (Exception e) {
+            DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -261,6 +267,9 @@ public class AdminController extends BaseController {
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać informacji o użytkowniku. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -407,6 +416,9 @@ public class AdminController extends BaseController {
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego użytkownika. Błąd połączenia z serwerem.");
                 e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
+                e.printStackTrace();
             }
         }
     }
@@ -438,6 +450,9 @@ public class AdminController extends BaseController {
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowej przestrzeni. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -529,6 +544,9 @@ public class AdminController extends BaseController {
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można odebrać użytkownikowi uprawnień. Błąd połączenia z serwerem.");
             e.printStackTrace();
+        } catch (Exception e) {
+            DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -562,6 +580,9 @@ public class AdminController extends BaseController {
                 DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można zmienić uprawnień użytkownikowi. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
             e.printStackTrace();
         }
     }

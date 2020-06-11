@@ -1149,10 +1149,14 @@ public class BossController extends BaseController {
 
                 if (response.isSuccess()) {
                     refreshTaskDetails();
+                    mMyComment.clear();
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można dodać komentarza do zadania. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -1271,6 +1275,9 @@ public class BossController extends BaseController {
         } catch (IOException e) {
             DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy użytkowników z serwera. Błąd połączenia z serwerem.");
             e.printStackTrace();
+        } catch (Exception e) {
+            DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -1305,6 +1312,9 @@ public class BossController extends BaseController {
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można dodać użytkownika do projektu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
                 e.printStackTrace();
             }
         } else {
@@ -1344,6 +1354,9 @@ public class BossController extends BaseController {
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można usunąć użytkownika do projektu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
                 e.printStackTrace();
             }
         } else {
@@ -1389,6 +1402,9 @@ public class BossController extends BaseController {
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego projektu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
                 e.printStackTrace();
             }
         } else {
@@ -1487,6 +1503,9 @@ public class BossController extends BaseController {
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można stworzyć nowego statusu. Błąd połączenia z serwerem.");
                 e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
+                e.printStackTrace();
             }
         }
     }
@@ -1525,6 +1544,9 @@ public class BossController extends BaseController {
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można zmienić nazwy statusu. Błąd połączenia z serwerem.");
                 e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
+                e.printStackTrace();
             }
         }
     }
@@ -1554,6 +1576,9 @@ public class BossController extends BaseController {
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
                 DialogsUtils.shortErrorDialog("Błąd", "Nie można usunąć statusu. Błąd połączenia z serwerem.");
+                e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -1596,7 +1621,10 @@ public class BossController extends BaseController {
                 PdfGenerator.generate(webView.getEngine().getLocation(), fileName);
                 DialogsUtils.infoDialog("Generowanie raportu", "Wygenerowano raport o nazwie:", fileName);
             } catch (IOException e) {
-                DialogsUtils.errorDialog("Error", "Error message: ", e.getMessage());
+                DialogsUtils.errorDialog("Błąd", "Nie można wygenerować raportu: ", e.getMessage());
+                e.printStackTrace();
+            } catch (Exception e) {
+                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
                 e.printStackTrace();
             }
         });
