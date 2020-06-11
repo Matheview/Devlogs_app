@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" stylesheets="@../styles/boss.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserController">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <AnchorPane fx:id="mWrapper" prefHeight="768.0" prefWidth="1024.0" styleClass="wrapper">
+         <children>
+            <Pane fx:id="mRootPane" prefHeight="768.0" prefWidth="1024.0">
+               <children>
+                  <Pane fx:id="mNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/logo.png" />
+                           </image>
+                        </ImageView>
+                        <Pane fx:id="mNotificationsCircle" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css" visible="false">
+                           <children>
+                              <Label fx:id="mNotificationsCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
+                           </children>
+                        </Pane>
+                        <ImageView fx:id="mHomeIcon" fitHeight="150.0" fitWidth="30.0" layoutX="843.0" layoutY="25.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="homeIcon">
+                           <image>
+                              <Image url="@../imgs/home.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mNotificationsIcon" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notificationIcon" visible="false">
+                           <image>
+                              <Image url="@../imgs/notification-bell.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mLogoutIcon" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@../imgs/logout.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="mWelcomeUserName" layoutX="420.0" layoutY="18.0" prefHeight="45.0" prefWidth="255.0" textFill="#2343e4">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="344.0" layoutY="18.0" text="Witaj">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="mPrivilegeUser" layoutX="694.0" layoutY="33.0" text="pracownik" textFill="#2343e4" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mProjectNavbar" prefHeight="80.0" prefWidth="1024.0" styleClass="navbar" stylesheets="@../styles/admin.css" visible="false">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="250.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/logo.png" />
+                           </image>
+                        </ImageView>
+                        <Pane fx:id="mNotificationsCircle1" layoutX="905.0" layoutY="46.0" onMouseClicked="#showNotificationsPanel" prefHeight="200.0" prefWidth="200.0" style="-fx-cursor: hand;" styleClass="notification-circle" stylesheets="@../styles/admin.css" visible="false">
+                           <children>
+                              <Label fx:id="mNotificationsCounter1" alignment="CENTER" contentDisplay="CENTER" layoutX="6.5" layoutY="1.0" onMouseClicked="#showNotificationPanel" styleClass="notification-counter" stylesheets="@../styles/admin.css" text="0" textAlignment="CENTER" />
+                           </children>
+                        </Pane>
+                        <ImageView fx:id="mHomeIcon1" fitHeight="150.0" fitWidth="30.0" layoutX="805.0" layoutY="25.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="homeIcon">
+                           <image>
+                              <Image url="@../imgs/home.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="mNotificationsIcon1" fitHeight="150.0" fitWidth="30.0" layoutX="900.0" layoutY="10.0" onMouseClicked="#showNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="notificationIcon" visible="false">
+                           <image>
+                              <Image url="@../imgs/notification-bell.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mLogoutIcon1" fitHeight="150.0" fitWidth="30.0" layoutX="962.0" layoutY="26.0" onMouseClicked="#logoutUser" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@../imgs/logout.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="mProjectTitle" layoutX="301.0" layoutY="19.0" prefHeight="45.0" prefWidth="374.0" text="Nazwa projektu" textFill="#2343e4">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="689.0" layoutY="27.0" onMouseClicked="#showInvitationPanel" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/team.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mMain" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" styleClass="main" stylesheets="@../styles/admin.css">
+                     <children>
+                        <Pane layoutX="58.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="your-projects" stylesheets="@../styles/boss.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="85.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" styleClass="project-image">
+                                 <image>
+                                    <Image url="@../imgs/projects.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="90.0" layoutY="197.0" styleClass="project-label" stylesheets="@../styles/boss.css" text="Twoje projekty" />
+                              <ListView fx:id="mProjectsList" layoutX="60.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0" styleClass="projects-list" stylesheets="@../styles/boss.css" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="404.0" layoutY="94.0" prefHeight="200.0" prefWidth="550.0" styleClass="new-projects" stylesheets="@../styles/boss.css" />
+                        <Pane fx:id="mNotificationsPanel" layoutX="724.0" layoutY="-80.0" prefHeight="300.0" prefWidth="200.0" styleClass="notifications-container" stylesheets="@../styles/notification.css" visible="false">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imgs/notification-bell.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="mCloseNotificationPanelIcon" fitHeight="14.0" fitWidth="20.0" layoutX="264.0" layoutY="20.0" onMouseClicked="#closeNotificationsPanel" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="xIcon">
+                                 <image>
+                                    <Image url="@../imgs/close.png" />
+                                 </image>
+                              </ImageView>
+                              <ListView fx:id="mNotificationsList" layoutX="35.0" layoutY="105.0" prefHeight="180.0" prefWidth="230.0" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <ScrollPane fx:id="mInProjectContainer" layoutY="80.0" prefHeight="688.0" prefWidth="1024.0" visible="false">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <Pane minHeight="688.0" minWidth="1024.0" styleClass="project-container" stylesheets="@../styles/boss.css">
+                                 <children>
+                                    <HBox fx:id="mStatusesList" layoutX="14.0" layoutY="24.0">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" spacing="10.0">
+                                             <children>
+                                                <Pane prefHeight="100.0" prefWidth="300.0" styleClass="tasks-list" stylesheets="@../styles/boss.css">
+                                                   <children>
+                                                      <Label layoutX="47.0" layoutY="5.0" styleClass="topic-name" text="do zrobienia" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane fx:id="mTask" maxWidth="300.0" prefHeight="100.0" prefWidth="300.0" styleClass="task-view" stylesheets="@../styles/boss.css">
+                                                   <children>
+                                                      <Label fx:id="mTaskTitle" layoutX="14.0" layoutY="7.0" styleClass="task-title" stylesheets="@../styles/boss.css" text="zaprojektowanie logiki systemu" wrapText="true">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="mTaskStartDate" layoutX="14.0" layoutY="74.0" styleClass="start-date" stylesheets="@../styles/boss.css" text="14/05/2020" />
+                                                      <Label fx:id="mTaskDeadline" layoutX="96.0" layoutY="74.0" styleClass="deadline" stylesheets="@../styles/boss.css" text="15/05/2020" />
+                                                      <Pane fx:id="mTaskPriority" layoutX="281.0" layoutY="9.0" prefHeight="7.0" prefWidth="6.0" styleClass="priority" stylesheets="@../styles/boss.css" />
+                                                      <Label fx:id="mTaskCommentsCount" alignment="CENTER" contentDisplay="CENTER" layoutX="233.0" layoutY="74.0" prefHeight="20.0" prefWidth="20.0" styleClass="comments-count" stylesheets="@../styles/boss.css" text="0">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="35.0" prefHeight="30.0" prefWidth="30.0" styleClass="user-circle" stylesheets="@../styles/boss.css" text="CG" />
+                                                      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="253.0" layoutY="54.0" onMouseClicked="#showComments" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../imgs/cloud.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <Pane fx:id="mPdfGeneratorPanel" layoutX="14.0" layoutY="11.0" prefHeight="650.0" prefWidth="980.0" styleClass="pdf-panel" stylesheets="@../styles/pdfGenerator.css" visible="false">
+                                       <children>
+                                          <ImageView fitHeight="20.0" fitWidth="40.0" layoutX="946.0" layoutY="14.0" onMouseClicked="#closePdfGeneratorPanel" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imgs/close.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                              </Pane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Pane fx:id="mCommentsPanel" layoutX="331.0" layoutY="100.0" prefHeight="627.0" prefWidth="200.0" styleClass="comments-panel" stylesheets="@../styles/boss.css" visible="false">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="20.0" layoutX="558.0" layoutY="18.0" onMouseClicked="#hideCommentsPanel" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label fx:id="mUserInTaskDetails" alignment="CENTER" contentDisplay="CENTER" layoutX="35.0" layoutY="76.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../styles/boss.css" text="+">
+                           <styleClass>
+                              <String fx:value="user-circle" />
+                              <String fx:value="hover-hand-cursor" />
+                           </styleClass></Label>
+                        <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="30.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/description.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="84.0" layoutY="112.0" text="szczegółowy opis zadania" textFill="#2343e4">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="mTaskDescription" layoutX="50.0" layoutY="161.0" prefHeight="136.0" prefWidth="643.0" promptText="dodaj bardziej szczegółowy opis zadania..." styleClass="description-area" stylesheets="@../styles/boss.css" />
+                        <Button layoutX="461.0" layoutY="275.0" mnemonicParsing="false" onAction="#editTaskActionEvent" styleClass="add-new-task-btn" text="zapisz zmiany">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <ImageView fitHeight="45.0" fitWidth="70.0" layoutX="28.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/comment.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="84.0" layoutY="287.0" text="komentarze do zadania" textFill="#2343e4">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="mMyComment" layoutX="50.0" layoutY="546.0" onInputMethodTextChanged="#handleCommentChange" prefWidth="377.0" promptText="treść komentarza..." styleClass="my-comment" stylesheets="@../styles/boss.css" />
+                        <Button layoutX="443.0" layoutY="547.0" mnemonicParsing="false" onAction="#addNewComment" styleClass="add-new-task-btn" text="dodaj komentarz">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <ScrollPane layoutX="50.0" layoutY="336.0" prefHeight="200.0" prefWidth="500.0" styleClass="task-comments-scroll-pane">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" styleClass="task-comments">
+                                 <children>
+                                    <VBox fx:id="mTaskComments" minHeight="200.0" prefWidth="483.0" styleClass="task-comments" stylesheets="@../styles/boss.css" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                        <TextField fx:id="mTaskTitleInCommentsPanel" layoutX="30.0" layoutY="13.0" prefHeight="50.0" prefWidth="518.0" styleClass="task-title-textfield" text="Błąd" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mInvitationPanel" layoutX="496.0" layoutY="91.0" prefHeight="292.0" prefWidth="200.0" styleClass="all-users-list-panel" stylesheets="@../styles/boss.css" visible="false">
+                     <children>
+                        <Label layoutX="83.0" layoutY="13.0" styleClass="users-in-project-title" stylesheets="@../styles/boss.css" text="Użytkownicy w projekcie" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <ListView fx:id="mUsersInProjectList" layoutX="40.0" layoutY="60.0" prefHeight="200.0" prefWidth="320.0" styleClass="users-in-project-list" stylesheets="@../styles/boss.css" />
+                        <ImageView fitHeight="45.0" fitWidth="14.0" layoutX="372.0" layoutY="14.0" onMouseClicked="#closeInvitationPanel" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="mInfoPanel" layoutY="80.0" prefHeight="100.0" prefWidth="1024.0" styleClass="info-panel" stylesheets="@../styles/admin.css" visible="false">
+                     <children>
+                        <ImageView fx:id="mInfoIcon" fitHeight="53.0" fitWidth="53.0" layoutX="86.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/info.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="mTextInfoPanel" layoutX="166.0" layoutY="42.0" styleClass="info-panel-text" text="Panel informacyjny" wrapText="true" />
+                        <Button fx:id="mCloseInfoButton" layoutX="834.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#acceptInfoPanel" styleClass="creator-btn" text="OK" />
+                        <ImageView fx:id="mCLoseInfoPanelIcon" fitHeight="14.0" fitWidth="14.0" layoutX="982.0" layoutY="17.0" onMouseClicked="#closeInfoPanel" pickOnBounds="true" preserveRatio="true" styleClass="close-icon">
+                           <image>
+                              <Image url="@../imgs/close.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>

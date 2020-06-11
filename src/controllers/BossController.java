@@ -38,222 +38,70 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * Klasa bazowa dla wszystkich kontrolerów. Zawiera wszystkie elementy wspólne
  */
-public class BossController extends BaseController {
-
-    /**
-     * Projekt, którego szczegóły są obecnie wyświetlane
-     */
-    private RsProjectDetails activeProject;
-
-    /**
-     * Status, który został wybrany do np. edycji lub usunięcia
-     */
-    private Status selectedStatus;
-
-    /**
-     * Task, który został wybrany do np. edycji lub usunięcia
-     */
-    private Task selectedTask;
-
-    /**
-     * Task, którego szczegóły są obecnie wyświetlane (zawiera więcej informacji niż selectedTask)
-     * Pobierany jest w momencie użycia metody refreshTaskDetails()
-     */
-    private RsTaskDetails activeTask;
-
-    /**
-     * Aktywny panel do dodawania nowego taska
-     */
-    private Pane activeAddNewTaskPane;
-
-    /**
-     * Aktywny panel do dodawania nowego użytkownika do taska
-     */
-    private Pane activeAddNewUserToTaskPane;
-
-    /**
-     * Zmienna przechowująca referencję do ostatniego rodzica panelu taska
-     */
-    private VBox lastParent;
-
-    /**
-     * Zmienna przechowująca referencję do następnego rodzica panelu taska
-     */
-    private VBox nextParent;
+public class BossController extends UserController {
 
     @FXML
-    private ListView<Project> mProjectsList;
+    protected ComboBox<Domain> mChooseWorkspace;
 
     @FXML
-    private TextField mNewProjectInput;
+    protected TextField mNewProjectInput;
 
     @FXML
-    private ComboBox<Domain> mChooseWorkspace;
+    protected Button mAddNewProject;
 
     @FXML
-    private Button mAddNewProject;
+    protected Pane mEditStatusPane;
 
     @FXML
-    private ImageView mCloseNotificationPanelIcon;
+    protected TextField mEditStatusNameTextField;
 
     @FXML
-    private ScrollPane mInProjectContainer;
+    protected Pane mDeleteStatusPane;
 
     @FXML
-    private Pane mAddNewTask;
-
-
-    @FXML
-    private Pane mNewTaskPanel;
+    protected Label mDeleteStatusName;
 
     @FXML
-    private Label mTaskTitle;
+    protected Pane mNewStatusPane;
 
     @FXML
-    private CheckBox mLowPriority;
+    protected TextField mNewStatusName;
 
     @FXML
-    private CheckBox mMediumPriority;
+    protected Pane mAvailableUsersPanel; // panel z dostępnymi userami w domenie do dodania do projektu
 
     @FXML
-    private CheckBox mHighPriority;
+    protected Pane mDeleteUserPane;
 
     @FXML
-    private Pane mUsersInProjectPanel;
+    protected Label mDeleteUserName;
 
     @FXML
-    private ListView<?> mUsersInTaskList;
+    protected Pane mAddNewTask;
 
     @FXML
-    private Pane mTask;
+    protected ListView<User> mUsersInDomainList;
 
     @FXML
-    private Label mTaskStartDate;
+    protected Pane mNewTaskPanel;
 
     @FXML
-    private Label mTaskDeadline;
+    protected CheckBox mLowPriority;
 
     @FXML
-    private Pane mTaskPriority;
+    protected CheckBox mMediumPriority;
 
     @FXML
-    private Label mTaskCommentsCount;
+    protected CheckBox mHighPriority;
 
     @FXML
-    private Pane mCommentsPanel;
+    protected Pane mUsersInProjectPanel;
 
     @FXML
-    private TextField mTaskTitleInCommentsPanel;
+    protected ListView<?> mUsersInTaskList;
 
     @FXML
-    private TextArea mTaskDescription;
-
-    @FXML
-    private VBox mTaskComments;
-
-    @FXML
-    private TextField mMyComment;
-
-    @FXML
-    private Pane mInvitationPanel;
-
-    @FXML
-    private ListView<User> mUsersInProjectList;
-
-    @FXML
-    private TextField mInvitationInput;
-
-    @FXML
-    private TextField mInputTaskTitle;
-
-    @FXML
-    private Label mProjectTitle;
-
-    @FXML
-    private Pane mProjectNavbar;
-
-    @FXML
-    private Pane mRootPane;
-
-    @FXML
-    private HBox mStatusesList;
-
-    @FXML
-    public Pane mInfoPanel;
-
-    @FXML
-    public ImageView mInfoIcon;
-
-    @FXML
-    public Label mTextInfoPanel;
-
-    @FXML
-    public Button mCloseInfoButton;
-
-    @FXML
-    public ImageView mCLoseInfoPanelIcon;
-
-    @FXML
-    public Pane mNewStatusPane;
-
-    @FXML
-    public TextField mNewStatusName;
-
-    @FXML
-    public Pane mEditStatusPane;
-
-    @FXML
-    public TextField mEditStatusNameTextField;
-
-    @FXML
-    public Pane mDeleteStatusPane;
-
-    @FXML
-    public Label mDeleteStatusName;
-
-    @FXML
-    public ListView<User> mUsersInDomainList;
-
-    @FXML
-    public Pane mDeleteUserPane;
-
-    @FXML
-    public Label mDeleteUserName;
-
-    @FXML
-    protected Label mUserInTaskDetails;
-
-    // ------- panel raportów -------
-
-    @FXML
-    private Pane mPdfGeneratorPanel;
-
-    @FXML
-    private Label mRaportUserCounter; // licznik osób w projekcie
-
-    @FXML
-    private Label mRaportTaskCounter; // licznik zadań w projekcie
-
-    @FXML
-    private PieChart mRaportPieChart; // zmienna do wykresu kołowego pokazująca podział zadań ze względu na status : https://docs.oracle.com/javafx/2/charts/pie-chart.htm
-
-    @FXML
-    private ProgressBar mRaportProgressBar; // zmienna do progress bara ukazującego wizualny stan czasu ( dni) pozostałych do końca projektu, pasuje wyliczać na podstawie daty zaczęcia, zakończenia oraz dnia dzisiejszego ile jeszcze dni pozostało i przypisaywać wartość : https://docs.oracle.com/javafx/2/ui_controls/progress.htm
-
-    @FXML
-    private Label mRaportTaskStartDate; // zmienna do daty rozpoczęcia
-
-    @FXML
-    private Label mRaportTaskEndDate; // zmienna do daty zakończenia
-
-    @FXML
-    private Label mTimeTotheEnd; // zmienna do przechowywania info ile dni zostało
-
-    @FXML
-    private Label mRaportCurrentDate; // zmienna do daty dzisiejszej , wszystkie daty generować do foramtu dzień/miesiąc/rok
-
-    @FXML
-    private Pane mAvailableUsersPanel; // panel z dostępnymi userami w domenie do dodania do projektu
+    protected TextField mInputTaskTitle;
 
 
     //Views initialize
@@ -267,40 +115,9 @@ public class BossController extends BaseController {
      */
     @Override
     public void refresh() {
+        super.refresh();
+
         RequestService requestService = new RequestService();
-
-        RsProjects projects;
-        try {
-            projects = requestService.getUserProjects(getUserId());
-            mProjectsList.getItems().clear();
-            mProjectsList.getItems().addAll(projects.getProjects());
-
-            // funkcja nadająca elementom listy klasę css
-            mProjectsList.setCellFactory(lv -> new ListCell<>() {
-                @Override
-                protected void updateItem(Project project, boolean empty) {
-                    super.updateItem(project, empty);
-                    if (empty) {
-                        setText(null);
-                    } else {
-                        setText(project.toString());
-
-                        // Funkcja nasłuchująca, jaki projekt na liście został kliknięty. Otiera panel z informacjami o projekcie
-                        setOnMouseClicked(event -> {
-                            showProjectDetails();
-
-                            refreshProjectDetails(getSelectedProject());
-                        });
-                    }
-                    // nadanie elementowi listy klasy css
-                    getStyleClass().add("project-list-item");
-                    getStyleClass().add("hover-hand-cursor");
-                }
-            });
-        } catch (IOException e) {
-            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać listy projektów z serwera. Błąd połączenia z serwerem.");
-            e.printStackTrace();
-        }
 
         RsDomains domains;
         try {
@@ -314,38 +131,10 @@ public class BossController extends BaseController {
     }
 
     /**
-     * Metoda zwracająca aktualnie wybrany projekt na liście
-     */
-    public Project getSelectedProject() {
-        return mProjectsList.getSelectionModel().getSelectedItem();
-    }
-
-    /**
      * Metoda zwracająca aktualnie wybranego użytkownika na liście użytkowników w projekcie
      */
     public User getSelectedUserInProjectList() {
         return mUsersInProjectList.getSelectionModel().getSelectedItem();
-    }
-
-    /**
-     * Pokaż panel ze szczegółami projektu
-     */
-    public void showProjectDetails() {
-        mInProjectContainer.setVisible(true);
-        mProjectNavbar.setVisible(true);
-        mNavbar.setVisible(false);
-        mMain.setVisible(false);
-    }
-
-    /**
-     * Ukryj panel ze szczegółami projektu
-     */
-    public void hideProjectDetails() {
-        closeAllPanels();
-        mInProjectContainer.setVisible(false);
-        mProjectNavbar.setVisible(false);
-        mNavbar.setVisible(true);
-        mMain.setVisible(true);
     }
 
     /**
@@ -444,55 +233,20 @@ public class BossController extends BaseController {
     /**
      * Funkcja zamykająca wszystkie pomniejsze panele
      */
+    @Override
     public void closeAllPanels() {
         closeNewStatusPane();
         closeEditStatusPane();
         closeDeleteStatusPane();
         mAvailableUsersPanel.setVisible(false);
-        mInvitationPanel.setVisible(false);
-        closeTaskDescriptionPanel();
-    }
-
-    /**
-     * Funkcja wyświetlająca powiadomienie z informacją
-     */
-    public void showInfoPanel(String message) {
-        mInfoPanel.setVisible(true);
-
-        mInfoIcon.setImage(new Image("/imgs/info.png"));
-
-        mTextInfoPanel.getStyleClass().clear();
-        mTextInfoPanel.getStyleClass().add("info-panel-text");
-        mTextInfoPanel.setText(message);
-
-        mCloseInfoButton.getStyleClass().clear();
-        mCloseInfoButton.getStyleClass().add("creator-btn");
-
-        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close.png"));
-    }
-
-    /**
-     * Funkcja wyświetlająca powiadomienie o błędzie
-     */
-    public void showErrorPanel(String message) {
-        mInfoPanel.setVisible(true);
-
-        mInfoIcon.setImage(new Image("/imgs/warn.png"));
-
-        mTextInfoPanel.getStyleClass().clear();
-        mTextInfoPanel.getStyleClass().add("error-panel-text");
-        mTextInfoPanel.setText(message);
-
-        mCloseInfoButton.getStyleClass().clear();
-        mCloseInfoButton.getStyleClass().add("error-btn");
-
-        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close-red.png"));
+        super.closeAllPanels();
     }
 
     /**
      * Funkcja odświeżająca panel ze szczegółami projektu
      * @param project projekt do załadowania w panelu
      */
+    @Override
     public void refreshProjectDetails(Project project) {
         if (project != null) {
             RequestService requestService = new RequestService();
@@ -628,6 +382,7 @@ public class BossController extends BaseController {
                     vBox.getChildren().add(addStatus);
                     mStatusesList.getChildren().add(vBox);
 
+                    // Lista użytkowników w projekcie
                     mUsersInProjectList.getItems().clear();
                     mUsersInProjectList.getItems().addAll(activeProject.getUsers());
 
@@ -641,29 +396,12 @@ public class BossController extends BaseController {
     }
 
     /**
-     * Metoda zwracająca standardowy dla tej aplikacji VBox
-     * @return standardoty VBox
-     */
-    private VBox getVBox() {
-        VBox vBox = new VBox();
-        vBox.setPadding(new Insets(10, 10, 10, 10));
-        vBox.setSpacing(10);
-        vBox.setAlignment(Pos.TOP_CENTER);
-
-        return vBox;
-    }
-
-    /**
-     * Metoda zwracajjąca panel zawierający nazwę statusu
+     * Metoda zwracajjąca panel zawierający nazwę statusu (wraz z przyciskami do edycji i usuwania statusu)
      * @param title nazwa statusu
      * @return panel z tytułem statusu
      */
     private Pane getStatusTitlePane(String title, String icon) {
-        // Panel statusu
-        Pane pane = new Pane();
-        pane.getStyleClass().add("tasks-list");
-
-        pane.setPadding(new Insets(5, 5, 5, 5));
+        Pane pane = getStatusTitlePane(title);
 
         // Ikona
         ImageView editIcon = new ImageView(new Image(icon));
@@ -698,115 +436,7 @@ public class BossController extends BaseController {
             pane.getChildren().add(trashIcon);
         }
 
-        // Tytuł statusu
-        Label titleLabel = new Label(title);
-        titleLabel.setLayoutX(47.0);
-        titleLabel.setLayoutY(5.0);
-        titleLabel.getStyleClass().add("topic-name");
-        pane.getChildren().add(titleLabel);
-
         return pane;
-    }
-
-    /**
-     * Metode zwracajjąca panel zawierający dane o tasku
-     * @param task obiekt taska
-     * @return panel z informacjami o tasku
-     */
-    private Pane getTaskPane(Task task) {
-        // Panel taska
-        Pane pane = new Pane();
-        pane.setUserData(task);
-        pane.getStyleClass().add("task-view");
-        pane.setPadding(new Insets(10, 10, 10, 10));
-
-        // Tytuł taska
-        Label taskTitle = new Label(task.getName());
-        taskTitle.setLayoutX(14.0);
-        taskTitle.setLayoutY(7.0);
-        taskTitle.getStyleClass().add("task-title");
-        taskTitle.getStyleClass().add("hover-hand-cursor");
-
-        taskTitle.setOnMouseClicked(this::showComments);
-
-        pane.getChildren().add(taskTitle);
-
-        // Panel z priorytetem
-        Pane priority = new Pane();
-        priority.setLayoutX(281.0);
-        priority.setLayoutY(9.0);
-        priority.getStyleClass().add("priority");
-        pane.getChildren().add(priority);
-
-        // Panel ze skrótem nazwy przydzielonego do taska pracownika
-        if (task.getGranted_to() != null) {
-            User user = User.getUserFromListById(task.getGranted_to(), activeProject.getUsers());
-
-            if (user != null) {
-                Label userShortcut = getUserAvatar(user);
-                userShortcut.setLayoutX(13.0);
-                userShortcut.setLayoutY(35.0);
-                pane.getChildren().add(userShortcut);
-            }
-        }
-
-        // Data utworzenia
-        //Label startDate = new Label(task.getCreated_at());
-        //startDate.setLayoutX(14.0);
-        //startDate.setLayoutY(74.0);
-        //startDate.getStyleClass().add("start-date");
-        //pane.getChildren().add(startDate);
-
-        // Deadline
-        if (task.getDeadline() != null) {
-            Label deadline = new Label(task.getDeadline());
-            deadline.setLayoutX(14.0);
-            deadline.setLayoutY(74.0);
-            deadline.getStyleClass().add("deadline");
-            pane.getChildren().add(deadline);
-        }
-
-        // Liczba komentarzy
-        Label commentsCount = new Label(Integer.toString(task.getComments_count()));
-        commentsCount.setAlignment(Pos.CENTER);
-        commentsCount.setLayoutX(233.0);
-        commentsCount.setLayoutY(74.0);
-        commentsCount.getStyleClass().add("comments-count");
-        pane.getChildren().add(commentsCount);
-
-        // Ikona komentarza
-        ImageView editIcon = new ImageView(new Image("/imgs/cloud.png"));
-        editIcon.setFitWidth(30.0);
-        editIcon.setFitHeight(30.0);
-        editIcon.setLayoutX(253.0);
-        editIcon.setLayoutY(54.0);
-        pane.getChildren().add(editIcon);
-
-        return pane;
-    }
-
-    /**
-     * Metoda do rysowania awatara użytkownika ze skrótem jego nazwy lub plusem w środku
-     * @param user użytkownik, którego awatar ma być narysowany
-     * @return awatar ze skrótem nazwy użytkownika lub z plusem, jeśli użytkownik wynosi null
-     */
-    private Label getUserAvatar(User user) {
-        Label label = new Label();
-        label.setAlignment(Pos.CENTER);
-        label.getStyleClass().add("user-circle");
-
-        if (user != null) {
-            label.setText(user.getShortcut());
-            label.setUserData(user);
-        } else {
-            label.setText("+");
-        }
-
-        return label;
-    }
-
-    private Label getUserAvatar() {
-        return getUserAvatar(null);
     }
 
     /**
@@ -834,14 +464,6 @@ public class BossController extends BaseController {
         pane.getChildren().add(addTaskLabel);
 
         return pane;
-    }
-
-    private Object getParentData(Event event) {
-        return ( (Node)event.getSource() ).getParent().getUserData();
-    }
-
-    private Object getParentData(Node node) {
-        return node.getParent().getUserData();
     }
 
     /**
@@ -995,6 +617,7 @@ public class BossController extends BaseController {
     /**
      * Metoda służąca do odświeżania panelu ze szczegółowymi informacjami o tasku
      */
+    @Override
     public void refreshTaskDetails() {
         if ( selectedTask != null ) {
             int task_id = selectedTask.getTask_id();
@@ -1008,9 +631,13 @@ public class BossController extends BaseController {
                 if (response.isSuccess()) {
                     activeTask = response;
 
+                    // Tytuł taska
                     mTaskTitleInCommentsPanel.setText(activeTask.getTask_name());
+
+                    // Opis taska
                     mTaskDescription.setText(activeTask.getTask_desc());
 
+                    // Wyświetlenie awataru użytkownika
                     User user = User.getUserFromListById(activeTask.getAssigned_to(), activeTask.getUsers());
                     if (user != null) {
                         mUserInTaskDetails.setText(user.getShortcut());
@@ -1019,6 +646,7 @@ public class BossController extends BaseController {
                         mUserInTaskDetails.setText("+");
                     }
 
+                    // Panel do dodawania użytkownika do taska
                     mUserInTaskDetails.setOnMouseClicked(event -> {
                         activeAddNewUserToTaskPane = getAddUserToNewTaskPane(mUserInTaskDetails);
                         activeAddNewUserToTaskPane.setLayoutX(35.0);
@@ -1026,6 +654,7 @@ public class BossController extends BaseController {
                         mCommentsPanel.getChildren().add(activeAddNewUserToTaskPane);
                     });
 
+                    // Wyświetlanie komentarzy
                     mTaskComments.getChildren().clear();
 
                     for (Comment comment : activeTask.getComments()) {
@@ -1033,6 +662,7 @@ public class BossController extends BaseController {
                         mTaskComments.getChildren().add(commentPane);
                     }
 
+                    // Wyświetlenie panelu ze szczegółami taska
                     mCommentsPanel.setVisible(true);
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
@@ -1076,50 +706,6 @@ public class BossController extends BaseController {
         }
     }
 
-    private void addTaskToNewStatus() {
-        Integer status_id = ((Status) nextParent.getUserData()).getStatus_id();
-
-        RqTask requestObject = new RqTask();
-        requestObject.setStatus_id(status_id);
-
-        editTask(requestObject);
-    }
-
-    /**
-     * Metoda do edycji taska.
-     * @param requestObject RqTask, który zostanie przekonwertowany na ciało zapytania.
-     */
-    public boolean editTask(RqTask requestObject) {
-        requestObject.setDomain(getDomain());
-        requestObject.setProject_id(activeProject.getProject_id());
-        requestObject.setTask_id(selectedTask.getTask_id());
-        requestObject.setCreator_id(getUserId());
-
-        RequestService requestService = new RequestService();
-        BaseResponseObject response;
-        try {
-            response = requestService.editTask(requestObject);
-            /*
-            if (response.getMsg().equals("))
-                showErrorPanel("Błąd:");
-            else */if (response.isSuccess()) {
-                refreshTaskDetails();
-                refreshProjectDetails(getSelectedProject());
-                return true;
-            } else if (!response.isSuccess())
-                DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
-        } catch (IOException e) {
-            DialogsUtils.shortErrorDialog("Błąd", "Nie można przenieść zadania do innego statusu statusu. Błąd połączenia z serwerem.");
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @FXML
-    void backToHome(MouseEvent event) {
-        hideProjectDetails();
-    }
-
     @FXML
     void checkNewProjectInputValue(InputMethodEvent event) {}
 
@@ -1131,75 +717,6 @@ public class BossController extends BaseController {
 
     @FXML
     public void checkNewProjectInputValue(javafx.scene.input.InputMethodEvent inputMethodEvent) {}
-
-    @FXML
-    void addNewComment(ActionEvent event) {
-        String comment_desc = mMyComment.getText();
-
-        if (!comment_desc.isEmpty()) {
-            int user_id = getUserId();
-            int task_id = activeTask.getTask_id();
-
-            RequestService requestService = new RequestService();
-            RqNewComment requestObject = new RqNewComment(user_id, task_id, comment_desc);
-
-            BaseResponseObject response;
-            try {
-                response = requestService.addCommentToTask(requestObject);
-
-                if (response.isSuccess()) {
-                    refreshTaskDetails();
-                    mMyComment.clear();
-                } else if (!response.isSuccess())
-                    DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
-            } catch (IOException e) {
-                DialogsUtils.shortErrorDialog("Błąd", "Nie można dodać komentarza do zadania. Błąd połączenia z serwerem.");
-                e.printStackTrace();
-            } catch (Exception e) {
-                DialogsUtils.errorDialog("Błąd", "Coś poszło nie tak...", e.getMessage());
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @FXML
-    void editTaskActionEvent(ActionEvent event) {
-        String task_name = mTaskTitleInCommentsPanel.getText();
-        String task_desc = mTaskDescription.getText();
-        Integer assigned_to = null;
-
-        // Pobieranie id z elementu, który przechowywuje dane o obiekcie user
-        User user = (User) mUserInTaskDetails.getUserData();
-        if (user != null) {
-            assigned_to = user.getId();
-        }
-
-        RqTask requestObject = new RqTask();
-
-        // Jeśli wartości inputów różnią się od tych w tasku, to należy je wstawić do ciała zapytania
-        // aby je zmodyfikować
-        if (!task_name.equals(activeTask.getTask_name()))
-            requestObject.setTask_name(task_name);
-
-        if (!task_desc.equals(activeTask.getTask_desc()))
-            requestObject.setTask_desc(task_desc);
-
-        if (assigned_to == null) {
-            // Jeśli było ustawione id użytkownika (czyli jest różne od null), ustawiamy je na 0 aby go usunąć z taska
-            if (activeTask.getAssigned_to() != null) {
-                requestObject.setAssigned_to(0);
-            }
-        } else {
-            if (!assigned_to.equals(activeTask.getAssigned_to())) {
-                requestObject.setAssigned_to(assigned_to);
-            }
-        }
-
-        boolean isSuccess = editTask(requestObject);
-
-        if (isSuccess)
-            showInfoPanel("Zmodyfikowano informacje o zadaniu.");
-    }
 
     @FXML
     void addNewTaskActionEvent(ActionEvent event) {}
@@ -1214,50 +731,20 @@ public class BossController extends BaseController {
         mUsersInProjectPanel.setVisible(false);
     }
 
-    @FXML // TODO funkcja do generowania pdfa, ale jak to zrobimy to nie mam pojęcia
+    @FXML
     void generatePdf(MouseEvent event) {}
 
-    @FXML // TODO funkcja sprawdzająca stan inputa komentarza jeśli bedzie potrzebna
-    void handleCommentChange(InputMethodEvent event) {}
-
-    @FXML // TODO funkcja sprawdzająca stan inputa do zaproszenia poprzez email / username jeśli bedzie potrzeba
-    void handleInvitationInputChange(InputMethodEvent event) {}
-
-    @FXML // TODO funkcja sprawdzająca stan inputa zmiany tytułu zadania jeśli będzie potrzebna
-    void handleTitleTaskChange(InputMethodEvent event) {}
-
     @FXML
-    void hideCommentsPanel(MouseEvent event) {
-        closeTaskDescriptionPanel();
-    }
-
-    private void closeTaskDescriptionPanel() {
-        mCommentsPanel.setVisible(false);
-        activeTask = null;
-    }
+    void handleInvitationInputChange(InputMethodEvent event) {}
 
     @FXML
     void sendInvitation(MouseEvent event) {}
 
+    @Override
     @FXML
-    void showComments(MouseEvent event) {
-        selectedTask = (Task) getParentData(event);
-        closeAllPanels();
-        refreshTaskDetails();
-    }
-
-    @FXML
-    void showInvitationPanel(MouseEvent event) {
-        closeAllPanels();
-        mInvitationPanel.setVisible(true);
-
-        refreshProjectDetails(getSelectedProject());
-    }
-
-    @FXML
-    void closeInvitationPanel(MouseEvent event) {
+    protected void closeInvitationPanel(MouseEvent event) {
         mAvailableUsersPanel.setVisible(false);
-        mInvitationPanel.setVisible(false);
+        super.closeInvitationPanel(event);
     }
 
     @FXML
@@ -1370,15 +857,12 @@ public class BossController extends BaseController {
     }
 
     @FXML
-    void showUsersInProject(MouseEvent event) {
+    protected void showUsersInProject(MouseEvent event) {
         mUsersInProjectPanel.setVisible(true);
     }
 
     @FXML
     public void handleInvitationInputChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {}
-
-    @FXML
-    public void handleCommentChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {}
 
     @FXML
     public void addNewProjectActionEvent(ActionEvent actionEvent) {
@@ -1421,28 +905,8 @@ public class BossController extends BaseController {
     public void changeNameOfGroupTask(MouseEvent mouseEvent) {}
 
     @FXML
-    public void handleTitleTaskChange(javafx.scene.input.InputMethodEvent inputMethodEvent) {
-        //TODO funckja, sprawdzająca zawartość inputa do zmiany tytułu tasku, jeśli potrzebna
-    }
-
-    @FXML
     public void addNewGroupTask(MouseEvent mouseEvent) {
         showNewStatusPane();
-    }
-
-    @FXML
-    public void closePdfGeneratorPanel(MouseEvent event) {
-        mPdfGeneratorPanel.setVisible(false);
-    }
-
-    @FXML
-    public void closeInfoPanel(MouseEvent event) {
-        mInfoPanel.setVisible(false);
-    }
-
-    @FXML
-    public void acceptInfoPanel(MouseEvent event) {
-        mInfoPanel.setVisible(false);
     }
 
     @FXML  // Funkcja zamykająca panel do tworzenia nowego statusu

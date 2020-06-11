@@ -80,25 +80,6 @@ public class AdminController extends BaseController {
     @FXML
     private ImageView mCloseNotificationPanelIcon;
 
-    // Zmienne do popapów informacyjnych ->
-
-    @FXML
-    private Pane mInfoPanel;
-
-    @FXML
-    private ImageView mInfoIcon;
-    // Tutaj trzeba będzie zmieniać src zdjęcia w zależności czy to informacja czy warning
-
-    @FXML
-    private Label mTextInfoPanel;
-    // Do tej zmiennej trzeba przypisywać tekst informacji w zależności od tego co użytkownik zrobił źle np. podał słabe hasło lub nie podał w ogóle itd.
-
-    @FXML
-    private Button mCloseInfoButton;
-
-    @FXML
-    private ImageView mCLoseInfoPanelIcon;
-
     // Zmienne do popapu z informacjami o danym userze
 
     @FXML

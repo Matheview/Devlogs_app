@@ -30,7 +30,7 @@ public class Controller extends Application {
     private static final String PATH_IMAGES = "/imgs/";
     private static final String ADMIN_VIEW = "../views/adminView.fxml";
     private static final String BOSS_VIEW = "../views/bossView.fxml";
-    private static final String PM_VIEW = "../views/SecondView.fxml";
+    private static final String USER_VIEW = "../views/UserView.fxml";
 
     public static CurrentlyLoggedAccount currAcc;
 
@@ -196,10 +196,10 @@ public class Controller extends Application {
                     logowaniePane(ADMIN_VIEW, "panel administratora", ro);
                     ((Node)(e.getSource())).getScene().getWindow().hide();
                 } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Kierownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                   logowaniePane(BOSS_VIEW, "panel kierownikaierownik", ro);
+                   logowaniePane(BOSS_VIEW, "panel kierownika", ro);
                     ((Node)(e.getSource())).getScene().getWindow().hide();
                 } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Pracownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                    logowaniePane(PM_VIEW, "panel użytkownika", ro);
+                    logowaniePane(USER_VIEW, "panel użytkownika", ro);
                     ((Node)(e.getSource())).getScene().getWindow().hide();
                 } else {
                     visibleErrorPopUp(true);
