@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -274,11 +273,6 @@ public class UserController extends BaseController {
                                     taskPane.setLayoutY(0);
                                     lastParent.getChildren().add(taskPane);
 
-                                    ObservableList<Node> workingCollection = FXCollections.observableArrayList(lastParent.getChildren());
-                                    int lastElementIndex = workingCollection.size() - 1;
-                                    Collections.swap(workingCollection, lastElementIndex - 1, lastElementIndex);
-                                    lastParent.getChildren().setAll(workingCollection);
-
                                     addTaskToNewStatus();
                                 }
                             });
@@ -374,9 +368,6 @@ public class UserController extends BaseController {
                         CommentPane commentPane = new CommentPane(comment, activeTask.getUsers());
                         mTaskComments.getChildren().add(commentPane);
                     }
-
-                    // Wyświetlenie panelu ze szczegółami taska
-                    mCommentsPanel.setVisible(true);
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
@@ -571,19 +562,18 @@ public class UserController extends BaseController {
      * @param requestObject RqTask, który zostanie przekonwertowany na ciało zapytania.
      */
     protected boolean editTask(RqTask requestObject) {
-        requestObject.setDomain(getDomain());
-        requestObject.setProject_id(activeProject.getProject_id());
         requestObject.setTask_id(selectedTask.getTask_id());
-        requestObject.setCreator_id(getUserId());
+        requestObject.setUser_id(getUserId());
 
         RequestService requestService = new RequestService();
         BaseResponseObject response;
         try {
-            response = requestService.editTask(requestObject);
-            /*
-            if (response.getMsg().equals("))
-                showErrorPanel("Błąd:");
-            else */if (response.isSuccess()) {
+            response = requestService.updateTask(requestObject);
+
+            if (response.getMsg().equals("Comment not allow to user")) {
+                showErrorPanel("Błąd: nie można zmieniać statusu zadań, do których nie jest się przydzielonym.");
+                refreshProjectDetails(getSelectedProject());
+            } else if (response.isSuccess()) {
                 refreshTaskDetails();
                 refreshProjectDetails(getSelectedProject());
                 return true;
@@ -675,6 +665,9 @@ public class UserController extends BaseController {
         selectedTask = (Task) getParentData(event);
         closeAllPanels();
         refreshTaskDetails();
+
+        // Wyświetlenie panelu ze szczegółami taska
+        mCommentsPanel.setVisible(true);
     }
 
     @FXML

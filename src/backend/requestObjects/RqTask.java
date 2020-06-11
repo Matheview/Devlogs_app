@@ -5,7 +5,8 @@ public class RqTask {
     private int project_id;
     private int task_id;
     private Integer status_id;
-    private int creator_id;
+    private Integer creator_id;
+    private Integer user_id;
     private String task_name;
     private String task_desc;
     private Integer assigned_to;
@@ -53,12 +54,20 @@ public class RqTask {
         this.status_id = status_id;
     }
 
-    public int getCreator_id() {
+    public Integer getCreator_id() {
         return creator_id;
     }
 
-    public void setCreator_id(int creator_id) {
+    public void setCreator_id(Integer creator_id) {
         this.creator_id = creator_id;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public String getTask_name() {
@@ -106,10 +115,14 @@ public class RqTask {
         return "RqTask{" +
                 "domain='" + domain + '\'' +
                 ", project_id=" + project_id +
+                ", task_id=" + task_id +
                 ", status_id=" + status_id +
                 ", creator_id=" + creator_id +
+                ", user_id=" + user_id +
                 ", task_name='" + task_name + '\'' +
+                ", task_desc='" + task_desc + '\'' +
                 ", assigned_to=" + assigned_to +
+                ", priority_desc='" + priority_desc + '\'' +
                 '}';
     }
 }

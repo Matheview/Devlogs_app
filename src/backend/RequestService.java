@@ -66,31 +66,23 @@ public class RequestService {
 	 * @param jsonInputString -> email, password, domain
 	 * @return ResponseObject - success, msg, privilege, username, user_id
 	 */
-	public ResponseObject requestLoginSuccess(String jsonInputString)
-	{
+	public ResponseObject requestLoginSuccess(String jsonInputString) throws IOException {
 		ResponseObject ro = new ResponseObject();
-		try {
-			HttpURLConnection conn = this.getConnection("/users/login", "POST");
-			OutputStream os = conn.getOutputStream();
-			os.write(jsonInputString.getBytes(CHARSET));
-			os.close();
 
-			InputStream in = new BufferedInputStream(conn.getInputStream());
-			String result = IOUtils.toString(in, CHARSET);
+		HttpURLConnection conn = this.getConnection("/users/login", "POST");
+		OutputStream os = conn.getOutputStream();
+		os.write(jsonInputString.getBytes(CHARSET));
+		os.close();
 
-			Gson gson = new Gson();
-			ro = gson.fromJson(result, ResponseObject.class);
+		InputStream in = new BufferedInputStream(conn.getInputStream());
+		String result = IOUtils.toString(in, CHARSET);
 
-			in.close();
-			conn.disconnect();
+		Gson gson = new Gson();
+		ro = gson.fromJson(result, ResponseObject.class);
 
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		in.close();
+		conn.disconnect();
+
 		return ro;
 	}
 
@@ -711,12 +703,34 @@ public class RequestService {
 	}
 
 	/**
-	 * Metoda sluzaca do edycji taska
+	 * Metoda sluzaca do edycji taska (dla kierownika)
 	 * @param task obiekt zawierający dane, które zostaną wysłane w body requesta
 	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
 	 */
 	public BaseResponseObject editTask(RqTask task) throws IOException {
 		HttpURLConnection connection = getConnection("/tasks/config", "PUT");
+
+		Gson gson = new Gson();
+		String jsonInputString = gson.toJson(task);
+
+		sendJSON(connection, jsonInputString);
+
+		String result = getServerResponse(connection);
+
+		BaseResponseObject responseObject = gson.fromJson(result, BaseResponseObject.class);
+
+		connection.disconnect();
+
+		return responseObject;
+	}
+
+	/**
+	 * Metoda sluzaca do edycji taska (dla użytkownika)
+	 * @param task obiekt zawierający dane, które zostaną wysłane w body requesta
+	 * @return Odpowiedź z serwera w postaci ResponseObject lub klasy pochodnej zawierającej pola: success, msg, itd.
+	 */
+	public BaseResponseObject updateTask(RqTask task) throws IOException {
+		HttpURLConnection connection = getConnection("/tasks/update", "PUT");
 
 		Gson gson = new Gson();
 		String jsonInputString = gson.toJson(task);

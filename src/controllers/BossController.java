@@ -8,13 +8,11 @@ import components.CommentPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -313,6 +311,8 @@ public class BossController extends UserController {
                                     taskPane.setLayoutY(0);
                                     lastParent.getChildren().add(taskPane);
 
+                                    // Zamiana tasku z przedostatnim elementem w HBox'ie
+                                    // (ponieważ przedostatni element to przycisk do dodawania nowego taska)
                                     ObservableList<Node> workingCollection = FXCollections.observableArrayList(lastParent.getChildren());
                                     int lastElementIndex = workingCollection.size() - 1;
                                     Collections.swap(workingCollection, lastElementIndex - 1, lastElementIndex);
@@ -661,9 +661,6 @@ public class BossController extends UserController {
                         CommentPane commentPane = new CommentPane(comment, activeTask.getUsers());
                         mTaskComments.getChildren().add(commentPane);
                     }
-
-                    // Wyświetlenie panelu ze szczegółami taska
-                    mCommentsPanel.setVisible(true);
                 } else if (!response.isSuccess())
                     DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
             } catch (IOException e) {
@@ -704,6 +701,37 @@ public class BossController extends UserController {
         } else {
             showErrorPanel("Błąd: Proszę podać nazwę nowego zadania.");
         }
+    }
+
+    /**
+     * Metoda do edycji taska.
+     * @param requestObject RqTask, który zostanie przekonwertowany na ciało zapytania.
+     */
+    @Override
+    protected boolean editTask(RqTask requestObject) {
+        requestObject.setDomain(getDomain());
+        requestObject.setProject_id(activeProject.getProject_id());
+        requestObject.setTask_id(selectedTask.getTask_id());
+        requestObject.setCreator_id(getUserId());
+
+        RequestService requestService = new RequestService();
+        BaseResponseObject response;
+        try {
+            response = requestService.editTask(requestObject);
+            /*
+            if (response.getMsg().equals("))
+                showErrorPanel("Błąd:");
+            else */if (response.isSuccess()) {
+                refreshTaskDetails();
+                refreshProjectDetails(getSelectedProject());
+                return true;
+            } else if (!response.isSuccess())
+                DialogsUtils.errorDialog("Błąd", "Błąd z serwera", response.getMsg());
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można przenieść zadania do innego statusu statusu. Błąd połączenia z serwerem.");
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @FXML

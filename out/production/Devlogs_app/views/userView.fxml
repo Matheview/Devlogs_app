@@ -243,7 +243,7 @@
                            </font>
                         </Label>
                         <TextArea fx:id="mTaskDescription" layoutX="50.0" layoutY="161.0" prefHeight="136.0" prefWidth="643.0" promptText="dodaj bardziej szczegółowy opis zadania..." styleClass="description-area" stylesheets="@../styles/boss.css" />
-                        <Button layoutX="461.0" layoutY="275.0" mnemonicParsing="false" onAction="#editTaskActionEvent" styleClass="add-new-task-btn" text="zapisz zmiany">
+                        <Button disable="true" layoutX="461.0" layoutY="275.0" mnemonicParsing="false" onAction="#editTaskActionEvent" styleClass="add-new-task-btn" text="zapisz zmiany">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

@@ -22,6 +22,7 @@ import backend.requestObjects.RequestData;
 import backend.RequestService;
 import backend.responseObjects.ResponseObject;
 import sample.AppInfo;
+import utils.DialogsUtils;
 
 import java.io.IOException;
 
@@ -185,30 +186,38 @@ public class Controller extends Application {
                 Gson json = new Gson();
                 String jsonInputString = json.toJson(mDataLogin);
                 RequestService rs = new RequestService();
-                ResponseObject ro = rs.requestLoginSuccess(jsonInputString);
 
-                if(ro.isSuccess())
-                {
-                    currAcc = new CurrentlyLoggedAccount(ro.getUser_id(), ro.getUsername(), ro.getPrivilege(), mDomain.getText());
-                }
+                ResponseObject ro = null;
+                try {
+                    ro = rs.requestLoginSuccess(jsonInputString);
 
-                if (ro.getPrivilege() != null && ro.getPrivilege().equals("Administrator") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                    logowaniePane(ADMIN_VIEW, "panel administratora", ro);
-                    ((Node)(e.getSource())).getScene().getWindow().hide();
-                } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Kierownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                   logowaniePane(BOSS_VIEW, "panel kierownika", ro);
-                    ((Node)(e.getSource())).getScene().getWindow().hide();
-                } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Pracownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                    logowaniePane(USER_VIEW, "panel użytkownika", ro);
-                    ((Node)(e.getSource())).getScene().getWindow().hide();
-                } else {
-                    visibleErrorPopUp(true);
-                    mBtnClose.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent actionEvent) {
-                            visibleErrorPopUp(false);
+                    if(ro.isSuccess())
+                    {
+                        currAcc = new CurrentlyLoggedAccount(ro.getUser_id(), ro.getUsername(), ro.getPrivilege(), mDomain.getText());
+
+                        if (ro.getPrivilege() != null && ro.getPrivilege().equals("Administrator") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
+                            logowaniePane(ADMIN_VIEW, "panel administratora", ro);
+                            ((Node)(e.getSource())).getScene().getWindow().hide();
+                        } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Kierownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
+                            logowaniePane(BOSS_VIEW, "panel kierownika", ro);
+                            ((Node)(e.getSource())).getScene().getWindow().hide();
+                        } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Pracownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
+                            logowaniePane(USER_VIEW, "panel użytkownika", ro);
+                            ((Node)(e.getSource())).getScene().getWindow().hide();
+                        } else {
+                            visibleErrorPopUp(true);
+                            mBtnClose.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent actionEvent) {
+                                    visibleErrorPopUp(false);
+                                }
+                            });
                         }
-                    });
+                    } else if (!ro.isSuccess())
+                        DialogsUtils.errorDialog("Błąd", "Błąd z serwera", ro.getMsg());
+                } catch (IOException ex) {
+                    DialogsUtils.shortErrorDialog("Błąd", "Nie można się zalogować. Błąd połączenia z serwerem.");
+                    ex.printStackTrace();
                 }
             }
         });
