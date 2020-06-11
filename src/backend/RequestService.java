@@ -12,7 +12,7 @@ import java.net.URL;
 
 public class RequestService {
 
-    private static final String ADDRESS = "http://ssh-vps.nazwa.pl:4742"; // adres serwera
+    public static String ADDRESS; // adres serwera
 	private static final String CHARSET = "UTF-8";	// Kodowanie tekstu używane przy zapytaniach i odpowiedziach Http
 
 	/**

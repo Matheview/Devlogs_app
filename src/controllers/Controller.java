@@ -24,10 +24,13 @@ import backend.responseObjects.ResponseObject;
 import sample.AppInfo;
 import utils.DialogsUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Controller extends Application {
 
+    public static final String URL_FILE = "url.txt";
     private static final String PATH_IMAGES = "/imgs/";
     private static final String ADMIN_VIEW = "../views/adminView.fxml";
     private static final String BOSS_VIEW = "../views/bossView.fxml";
@@ -131,6 +134,22 @@ public class Controller extends Application {
     }
     //Views initialize
     public void initialize() {
+        File file = new File(URL_FILE);
+        try {
+            // Jeśli plik istnieje, pobierz jego zawartość
+            if (!file.createNewFile()) {
+                Scanner in = new Scanner(file);
+                RequestService.ADDRESS = in.nextLine();
+                in.close();
+            // jeśli nie istnieje, stwórz go
+            } else {
+                DialogsUtils.infoDialog("Utworzono plik", "Utorzono plik: " + URL_FILE, "Proszę wpisać adres URL serwera w pliku " + URL_FILE + " i zrestartować aplikację.");
+            }
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać adresu URL z pliku " + URL_FILE);
+            e.printStackTrace();
+        }
+
         mPopupPwd.setVisible(false);
 
         mRemindPwd.setOnAction(new EventHandler<ActionEvent>() {
