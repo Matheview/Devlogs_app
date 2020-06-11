@@ -2,8 +2,10 @@ package controllers;
 
 import backend.CurrentlyLoggedAccount;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -60,6 +62,22 @@ public class BaseController {
 
     @FXML
     protected ListView<?> mNotificationsList;
+
+    // Zmienne do popapów informacyjnych ->
+    @FXML
+    protected Pane mInfoPanel;
+
+    @FXML
+    protected ImageView mInfoIcon;
+
+    @FXML
+    protected Label mTextInfoPanel;
+
+    @FXML
+    protected Button mCloseInfoButton;
+
+    @FXML
+    protected ImageView mCLoseInfoPanelIcon;
 
 
     /**
@@ -124,6 +142,42 @@ public class BaseController {
         Stage stage = (Stage) mLogoutIcon.getScene().getWindow();
         // do what you have to do
         stage.close();
+    }
+
+    /**
+     * Funkcja wyświetlająca powiadomienie z informacją
+     */
+    public void showInfoPanel(String message) {
+        mInfoPanel.setVisible(true);
+
+        mInfoIcon.setImage(new Image("/imgs/info.png"));
+
+        mTextInfoPanel.getStyleClass().clear();
+        mTextInfoPanel.getStyleClass().add("info-panel-text");
+        mTextInfoPanel.setText(message);
+
+        mCloseInfoButton.getStyleClass().clear();
+        mCloseInfoButton.getStyleClass().add("creator-btn");
+
+        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close.png"));
+    }
+
+    /**
+     * Funkcja wyświetlająca powiadomienie o błędzie
+     */
+    public void showErrorPanel(String message) {
+        mInfoPanel.setVisible(true);
+
+        mInfoIcon.setImage(new Image("/imgs/warn.png"));
+
+        mTextInfoPanel.getStyleClass().clear();
+        mTextInfoPanel.getStyleClass().add("error-panel-text");
+        mTextInfoPanel.setText(message);
+
+        mCloseInfoButton.getStyleClass().clear();
+        mCloseInfoButton.getStyleClass().add("error-btn");
+
+        mCLoseInfoPanelIcon.setImage(new Image("/imgs/close-red.png"));
     }
 
     @FXML

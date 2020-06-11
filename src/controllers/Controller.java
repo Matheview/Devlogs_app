@@ -22,15 +22,19 @@ import backend.requestObjects.RequestData;
 import backend.RequestService;
 import backend.responseObjects.ResponseObject;
 import sample.AppInfo;
+import utils.DialogsUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Controller extends Application {
 
+    public static final String URL_FILE = "url.txt";
     private static final String PATH_IMAGES = "/imgs/";
     private static final String ADMIN_VIEW = "../views/adminView.fxml";
     private static final String BOSS_VIEW = "../views/bossView.fxml";
-    private static final String PM_VIEW = "../views/SecondView.fxml";
+    private static final String USER_VIEW = "../views/UserView.fxml";
 
     public static CurrentlyLoggedAccount currAcc;
 
@@ -130,6 +134,22 @@ public class Controller extends Application {
     }
     //Views initialize
     public void initialize() {
+        File file = new File(URL_FILE);
+        try {
+            // Jeśli plik istnieje, pobierz jego zawartość
+            if (!file.createNewFile()) {
+                Scanner in = new Scanner(file);
+                RequestService.ADDRESS = in.nextLine();
+                in.close();
+            // jeśli nie istnieje, stwórz go
+            } else {
+                DialogsUtils.infoDialog("Utworzono plik", "Utorzono plik: " + URL_FILE, "Proszę wpisać adres URL serwera w pliku " + URL_FILE + " i zrestartować aplikację.");
+            }
+        } catch (IOException e) {
+            DialogsUtils.shortErrorDialog("Błąd", "Nie można pobrać adresu URL z pliku " + URL_FILE);
+            e.printStackTrace();
+        }
+
         mPopupPwd.setVisible(false);
 
         mRemindPwd.setOnAction(new EventHandler<ActionEvent>() {
@@ -185,30 +205,38 @@ public class Controller extends Application {
                 Gson json = new Gson();
                 String jsonInputString = json.toJson(mDataLogin);
                 RequestService rs = new RequestService();
-                ResponseObject ro = rs.requestLoginSuccess(jsonInputString);
 
-                if(ro.isSuccess())
-                {
-                    currAcc = new CurrentlyLoggedAccount(ro.getUser_id(), ro.getUsername(), ro.getPrivilege(), mDomain.getText());
-                }
+                ResponseObject ro = null;
+                try {
+                    ro = rs.requestLoginSuccess(jsonInputString);
 
-                if (ro.getPrivilege() != null && ro.getPrivilege().equals("Administrator") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                    logowaniePane(ADMIN_VIEW, "panel administratora", ro);
-                    ((Node)(e.getSource())).getScene().getWindow().hide();
-                } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Kierownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                   logowaniePane(BOSS_VIEW, "panel kierownikaierownik", ro);
-                    ((Node)(e.getSource())).getScene().getWindow().hide();
-                } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Pracownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
-                    logowaniePane(PM_VIEW, "panel użytkownika", ro);
-                    ((Node)(e.getSource())).getScene().getWindow().hide();
-                } else {
-                    visibleErrorPopUp(true);
-                    mBtnClose.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent actionEvent) {
-                            visibleErrorPopUp(false);
+                    if(ro.isSuccess())
+                    {
+                        currAcc = new CurrentlyLoggedAccount(ro.getUser_id(), ro.getUsername(), ro.getPrivilege(), mDomain.getText());
+
+                        if (ro.getPrivilege() != null && ro.getPrivilege().equals("Administrator") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
+                            logowaniePane(ADMIN_VIEW, "panel administratora", ro);
+                            ((Node)(e.getSource())).getScene().getWindow().hide();
+                        } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Kierownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
+                            logowaniePane(BOSS_VIEW, "panel kierownika", ro);
+                            ((Node)(e.getSource())).getScene().getWindow().hide();
+                        } else if (ro.getPrivilege() != null && ro.getPrivilege().equals("Pracownik") && mDataLogin.getDomain().equals(mDomain.getText()) && mDataLogin.getEmail().equals(mUsername.getText()) && mDataLogin.getPassword().equals(mPassword.getText())) {
+                            logowaniePane(USER_VIEW, "panel użytkownika", ro);
+                            ((Node)(e.getSource())).getScene().getWindow().hide();
+                        } else {
+                            visibleErrorPopUp(true);
+                            mBtnClose.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent actionEvent) {
+                                    visibleErrorPopUp(false);
+                                }
+                            });
                         }
-                    });
+                    } else if (!ro.isSuccess())
+                        DialogsUtils.errorDialog("Błąd", "Błąd z serwera", ro.getMsg());
+                } catch (IOException ex) {
+                    DialogsUtils.shortErrorDialog("Błąd", "Nie można się zalogować. Błąd połączenia z serwerem.");
+                    ex.printStackTrace();
                 }
             }
         });
