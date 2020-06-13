@@ -19,21 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ffcafb0-1c43-47dd-8b5f-cc164ce4ec31" name="Default Changelist" comment="">
+    <list default="true" id="05b18e5a-1ae8-458a-9c44-b91a7370feeb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/Domain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/ResponseObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/ResponseObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/backend/responseObjects/RsDomains.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/backend/responseObjects/RsDomains.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/controllers/BossController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Devlogs_app/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Devlogs_app/views/adminView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/Domain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/Domain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/ResponseObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/ResponseObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/responseObjects/RsDomains.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/responseObjects/RsDomains.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BossController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/adminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/adminView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/RequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/RequestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +32,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -51,7 +41,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1alYxGAj2Cgli0WLyrxNuYdn60k" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -59,29 +51,49 @@
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="true" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/views" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="IntelliLang.Advanced" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="backend" />
+      <recent name="utils" />
+    </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="backend.responseObjects" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\Uniwersytet_Rzeszowski\Programowanie_zespolowe\Devlogs_app\src\views" />
+      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\assets" />
+      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\views" />
+      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\styles" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\assets" />
+      <recent name="C:\Users\Fyrr\Desktop\Devlogs_app-master\src\controllers" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="sample.Main" />
       <module name="Devlogs_app" />
-      <option name="VM_PARAMETERS" value="--module-path lib\javafx-sdk-14.0.1\lib --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path lib\javafx-sdk-14.0.1\lib --add-modules javafx.controls,javafx.fxml,javafx.web,javafx.graphics,javafx.media" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="sample.*" />
@@ -92,9 +104,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Raports$WebViewExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sample.Raports$WebViewExample" />
+      <module name="Devlogs_app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in Devlogs_app" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Devlogs_app" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Raports$WebViewExample" />
+      <item itemvalue="JUnit.All in Devlogs_app" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Raports$WebViewExample" />
+        <item itemvalue="JUnit.All in Devlogs_app" />
       </list>
     </recent_temporary>
   </component>
@@ -103,7 +143,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="3ffcafb0-1c43-47dd-8b5f-cc164ce4ec31" name="Default Changelist" comment="" />
+      <changelist id="05b18e5a-1ae8-458a-9c44-b91a7370feeb" name="Default Changelist" comment="" />
       <created>1587311892021</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -127,12 +167,33 @@
       <workItem from="1588590105335" duration="80000" />
       <workItem from="1588590325842" duration="33000" />
       <workItem from="1588590393751" duration="1032000" />
-      <workItem from="1588591914052" duration="2841000" />
+      <workItem from="1588591914052" duration="5009000" />
+      <workItem from="1588599482445" duration="7093000" />
+      <workItem from="1588624262903" duration="630000" />
+      <workItem from="1588627463074" duration="5907000" />
+      <workItem from="1588675789762" duration="1243000" />
+      <workItem from="1588677295698" duration="322000" />
+      <workItem from="1589216000185" duration="48000" />
+      <workItem from="1589216095039" duration="7039000" />
+      <workItem from="1589274774086" duration="33000" />
+      <workItem from="1589277252421" duration="18189000" />
+      <workItem from="1589314559735" duration="3605000" />
+      <workItem from="1589362848409" duration="16185000" />
+      <workItem from="1589453727519" duration="9132000" />
+      <workItem from="1589483548820" duration="1174000" />
+      <workItem from="1589484752163" duration="1337000" />
+      <workItem from="1589539308912" duration="19755000" />
+      <workItem from="1589623226741" duration="10974000" />
+      <workItem from="1589718458536" duration="20435000" />
+      <workItem from="1589900659692" duration="198000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.css" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -147,18 +208,34 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="140" y="117" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588590470730">
+    <state x="420" y="0" key="#General" timestamp="1589482427822">
       <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="420" y="0" key="#General/0.0.1536.824@0.0.1536.824" timestamp="1589482427822" />
+    <state x="361" y="70" width="814" height="729" key="#Intentions" timestamp="1589556047947">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="70" width="814" height="729" key="#Intentions/0.0.1536.824@0.0.1536.824" timestamp="1589556047947" />
+    <state x="175" y="148" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591221680893">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="140" y="117" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1588590470730" />
-    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1588506625973">
+    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1591897701548">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1588506625973" />
-    <state x="599" y="123" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1587313440916">
+    <state x="537" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1591897701548" />
+    <state x="499" y="172" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1589557059512">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="599" y="123" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1536.824@0.0.1536.824" timestamp="1587313440916" />
+    <state x="499" y="172" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1589557059512" />
+    <state x="599" y="123" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1589556419033">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="599" y="123" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1536.824@0.0.1536.824" timestamp="1589556419033" />
+    <state x="430" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1591804773613">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="430" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1591804773613" />
     <state x="471" y="167" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1587322054686">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -167,37 +244,67 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="536" y="287" key="DetectedRootsChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1587313532411" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1588366931837">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1591641326472">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588366931837" />
-    <state width="1493" height="161" key="GridCell.Tab.0.bottom" timestamp="1588594650325">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1591641326472" />
+    <state width="1493" height="164" key="GridCell.Tab.0.bottom" timestamp="1591903631758">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state width="1493" height="161" key="GridCell.Tab.0.center" timestamp="1588594650325">
+    <state width="1493" height="164" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591903631758" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
+    <state width="1493" height="164" key="GridCell.Tab.0.center" timestamp="1591903631758">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state width="1493" height="161" key="GridCell.Tab.0.left" timestamp="1588594650325">
+    <state width="1493" height="164" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1591903631758" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
+    <state width="1493" height="164" key="GridCell.Tab.0.left" timestamp="1591903631758">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state width="1493" height="161" key="GridCell.Tab.0.right" timestamp="1588594650325">
+    <state width="1493" height="164" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1591903631758" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363820" />
+    <state width="1493" height="164" key="GridCell.Tab.0.right" timestamp="1591903631758">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="161" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588594650325" />
-    <state x="154" y="0" width="1231" height="824" key="SettingsEditor" timestamp="1588505067326">
+    <state width="1493" height="164" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1591903631758" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589233363821" />
+    <state x="584" y="346" key="ReplaceDuplicatesPrompt" timestamp="1591699057403">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="154" y="0" width="1231" height="824" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1588505067326" />
-    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1587313103345">
+    <state x="584" y="346" key="ReplaceDuplicatesPrompt/0.0.1536.824@0.0.1536.824" timestamp="1591699057403" />
+    <state x="142" y="0" width="1231" height="824" key="SettingsEditor" timestamp="1591641338159">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1536.824@0.0.1536.824" timestamp="1587313103345" />
+    <state x="142" y="0" width="1231" height="824" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1591641338159" />
+    <state x="193" y="0" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589218314059" />
+    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1589572576534">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1536.824@0.0.1536.824" timestamp="1589572576534" />
+    <state x="623" y="384" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040@0.0.1920.1040" timestamp="1591219680076" />
+    <state x="540" y="192" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1589570855858">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="540" y="192" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1589570855858" />
+    <state x="771" y="162" key="extract.method.dialog" timestamp="1591698863595">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="771" y="162" key="extract.method.dialog/0.0.1536.824@0.0.1536.824" timestamp="1591698863595" />
     <state x="209" y="73" key="new project wizard" timestamp="1588254456902">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="209" y="73" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1588254456902" />
+    <state x="475" y="169" key="refactoring.ChangeSignatureDialog" timestamp="1591813859259">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="475" y="169" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1591813859259" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1589463837605">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1589463837605" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1591631489508">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1591631489508" />
   </component>
 </project>

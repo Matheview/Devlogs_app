@@ -1,7 +1,11 @@
 package backend.responseObjects;
 
+import backend.dataObjects.Project;
+
 import java.util.List;
 
+// Klasa w której przechowywana jest odpowiedź serwera na zopytanie
+// o pobranie listy projektów
 public class RsProjects extends BaseResponseObject {
     private List<Project> projects;
 

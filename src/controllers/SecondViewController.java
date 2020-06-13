@@ -1,6 +1,5 @@
 package controllers;
 
-import backend.ResponseObject;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
@@ -14,7 +13,8 @@ public class SecondViewController extends BaseController {
     private Text mPrivilegeUser;
 
     public void initialize(){
-
+        mPrivilegeUser.setText(Controller.currAcc.getPrivilege());
+        
     }
 
 }

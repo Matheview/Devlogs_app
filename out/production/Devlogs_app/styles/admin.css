@@ -1,92 +1,188 @@
-
 .main {
-    -fx-background-color: #1C1C1E;
+  -fx-background-color: #1c1c1e;
 }
 
 .navbar {
-    -fx-background-color: #FFFFFF;
+  -fx-background-color: #ffffff;
 }
 
 .welcome {
-    -fx-font-family: "Lato";
-    -fx-font-size: 30px;
+  -fx-font-family: "Lato";
+  -fx-font-size: 30px;
 }
 
 .user {
-    -fx-text-fill: #2343E4;
+  -fx-text-fill: #2343e4;
 }
 
 .user-type {
-    -fx-font-family: "Lato";
-    -fx-text-fill: #2343E4;
+  -fx-font-family: "Lato";
+  -fx-text-fill: #2343e4;
 }
 
 .notification-circle {
-    -fx-pref-width: 20px;
-    -fx-pref-height: 20px;
-    -fx-background-color: #FFFFFF;
-    -fx-border-radius: 20px;
-    -fx-border-width: 1px;
-    -fx-border-color:#2343E4;
+  -fx-pref-width: 20px;
+  -fx-pref-height: 20px;
+  -fx-background-color: #ffffff;
+  -fx-border-radius: 20px;
+  -fx-border-width: 1px;
+  -fx-border-color: #2343e4;
 }
 
 .notification-counter {
-    -fx-text-fill: #2343E4;
-    -fx-font-family: "Lato";
+  -fx-text-fill: #2343e4;
+  -fx-font-family: "Lato";
 }
 
 .user-creator {
-    -fx-pref-width: 280px;
-    -fx-pref-height: 500px;
-    -fx-background-color: #FFFFFF;
-    -fx-background-radius: 30px;
+  -fx-pref-width: 280px;
+  -fx-pref-height: 500px;
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 30px;
 }
 
 .workspace-creator {
-    -fx-pref-width: 320px;
-    -fx-pref-height: 350px;
-    -fx-background-color: #FFFFFF;
-    -fx-background-radius: 30px;
+  -fx-pref-width: 320px;
+  -fx-pref-height: 350px;
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 30px;
 }
 
 .information-container {
-    -fx-pref-width: 280px;
-    -fx-pref-height: 500px;
-    -fx-background-color: #FFFFFF;
-    -fx-background-radius: 30px;
+  -fx-pref-width: 280px;
+  -fx-pref-height: 500px;
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 30px;
 }
 
 .text-input {
-    -fx-pref-width: 220px;
-    -fx-pref-height: 40px;
-    -fx-background-color: #1C1C1E;
-    -fx-text-fill: #FFFFFF;
+  -fx-pref-width: 220px;
+  -fx-pref-height: 40px;
+  -fx-background-color: #1c1c1e;
+  -fx-text-fill: #ffffff;
 }
 
 .search-input {
-    -fx-background-color: #FFFFFF;
-    -fx-border-width: 1px;
-    -fx-border-color: #1C1C1E;
-    -fx-prompt-text-fill: #1C1C1E;
-    -fx-color-label-visible: #1C1C1E;
+  -fx-background-color: #ffffff;
+  -fx-border-width: 1px;
+  -fx-border-color: #1c1c1e;
+  -fx-prompt-text-fill: #1c1c1e;
+  -fx-text-fill: #1c1c1e;
+  -fx-color-label-visible: #1c1c1e;
 }
 
 .user-type-label {
-    -fx-text-fill: #2343E4;
+  -fx-text-fill: #2343e4;
+}
+
+.user-info {
+  -fx-pref-width: 400px;
+  -fx-pref-height: 550px;
+  -fx-background-color: #1c1c1e;
+  -fx-background-radius: 30px;
 }
 
 .information-label {
-    -fx-font-family: "Righteous";
-    -fx-font-weight: bold;
+  -fx-font-family: "Righteous";
+  -fx-font-weight: bold;
 }
 
 .checkbox-input {
-    -fx-text-fill: #2343E4;
+  -fx-text-fill: #2343e4;
 }
 
 .creator-btn {
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: #2343E4;
-    -fx-padding: 10px 20px;
-    -fx-font-family: Righteous;
+  -fx-text-fill: #ffffff;
+  -fx-background-color: #2343e4;
+  -fx-padding: 10px 20px;
+  -fx-font-family: "Righteous";
+  -fx-cursor: hand;
 }
+
+.error-btn {
+  -fx-text-fill: #ffffff;
+  -fx-background-color: #DE2121;
+  -fx-padding: 10px 20px;
+  -fx-font-family: "Righteous";
+  -fx-cursor: hand;
+}
+
+.close-icon {
+  -fx-cursor: hand;
+}
+
+.info-panel {
+  -fx-background-color: #fff;
+  -fx-border-style: solid none solid none;
+  -fx-border-width: 2px;
+  -fx-border-color: #1c1c1e;
+}
+
+.info-panel-text {
+  -fx-font-family: "Righteous";
+  -fx-font-size: 14px;
+  -fx-text-fill: #2343e4;
+}
+
+.error-panel-text {
+  -fx-font-family: "Righteous";
+  -fx-font-size: 14px;
+  -fx-text-fill: #DE2121;
+}
+
+.domain-list-item {
+  -fx-background-color: #000;
+}
+
+.domain-list-item {
+  -fx-background-color: #ffffff;
+  -fx-text-fill: #2343e4;
+  -fx-border-color: #2343e4;
+  -fx-margin: 10px 0;
+  -fx-cursor: hand;
+}
+
+.user-list-item {
+  -fx-background-color: #ffffff;
+  -fx-text-fill: #2343e4;
+  -fx-border-color: #2343e4;
+  -fx-margin: 10px 0;
+  -fx-cursor: hand;
+}
+
+.user-profile {
+   -fx-font-size: 20px;
+}
+
+.user-profile-name {
+  -fx-font-size: 30px;
+  -fx-text-fill: #2343e4;
+  -fx-text-alignment: center;
+}
+
+.user-data {
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+}
+
+.profile-delete {
+  -fx-text-fill: #DE2121;
+  -fx-font-weight: bold;
+  -fx-cursor: hand;
+}
+
+.delete-icon {
+   -fx-cursor: hand;
+}
+
+.change-status-btn {
+  -fx-background-color: #2343e4;
+  -fx-text-fill: #fff;
+  -fx-padding: 4px 8px;
+  -fx-cursor: hand;
+}
+
+.workspaces-list {
+    -fx-text-fill: #000;
+}
+
