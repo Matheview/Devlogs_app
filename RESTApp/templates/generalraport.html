@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/devslogRaports/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <title>Devlogs | raporty</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logotype">
+          <img src="/static/devslogRaports/imgs/presentation2.png" alt="raports" class="thumbnail" />
+          <img src="/static/devslogRaports/imgs/logo.png" alt="logotype" class="logo" />
+          <h1>Raporty</h1>
+        </div>
+      </header>
+      <main class="raports">
+       <div class="project__view">
+         <a href="{{back_link}}">
+          <i class="fas fa-times close"></i>
+         </a>
+        <h2 class="project__title">
+          {{data['projects'][0]['project_name']}}
+        </h2>
+        <form action="#" class="specific__project__form">
+          <!--radio inputy do parametryzacji raportów-->
+         <ul class="raport__mode">
+           <li><a href="{{link_general}}" class="active">Raport ogólny</a></li>
+           <li><a href="{{link_detailed}}">Raport szczegółowy</a></li>
+         </ul>
+        </form>
+        <div class="project__date__info">
+          <i class="fas fa-calendar-day"></i>
+          <p class="project__date">
+            Data założenia projektu:
+          </p>
+          <!--Tu data założenia projektu-->
+          <p class="date">{{data['projects'][0]['projectCreateDate']}}</p>
+        </div>
+        <div class="project__author__info">
+          <i class="fas fa-user-tie"></i>
+          <p class="project__author">
+            Założyciel projektu:
+          </p>
+          <!--Tu założyciel projektu-->
+          <p class="author">{{data['projects'][0]['project_creator_name']}}</p>
+        </div>
+        <h3 class="tasks__header">
+          <i class="fas fa-tasks"></i> Zadania w projekcie
+        </h3>
+        <!----------------------Tu pojemnik na taski------------------------>
+        <div class="project__tasks__info">
+          <div class="tasks__container">
+            <!--Tu pojedynczy task-->
+            {% for item in data['projects'][0]['tasks'] %}
+            <div class="task">
+              <i class="fas fa-thumbtack task__icon"></i>
+              <div class="task__title__box">
+                <span class="box__header">Tytuł zadania:</span>
+                <p class="task__name">{{item['task_name']}}</p>
+                <!--Tu nazwa tasku-->
+              </div>
+              <div class="task__status__box">
+                <span class="box__header">Status zadania: </span>
+                {% for status in data['statuses'] %}
+                {% if status['status_id'] == item['status_id'] %}
+                <p class="task__status">{{status['status_desc']}}</p>
+                {% endif %}
+                {% endfor %}
+                <!--Tu w jakim statusie jest task-->
+              </div>
+              <div class="task__priority__box">
+                <span class="box__header">Priorytet:</span>
+                {% if item['task_priority'] is none %}
+                  <p class="task__priority null"></p>
+                {% endif %}
+                {% if item['task_priority'] == 'niski' %}
+                  <p class="task__priority low"></p>
+                {% endif %}
+                {% if item['task_priority'] == 'średni' %}
+                  <p class="task__priority mid"></p>
+                {% endif %}
+                {% if item['task_priority'] == 'wysoki' %}
+                  <p class="task__priority high"></p>
+                {% endif %}
+                <!--Tu status tasku, jeśli jest to nadawana będzie klasa css odpowiednio:  low (niski priorytet), mid (średni), high (wysoki); low będzie nadawało kolor zielony, mid pomarańcz, a high jakiegoś reda  -->
+              </div>
+              <div class="users__in__task">
+                <!-- Tu pojemnik na Userów przypisanych do tasku; jeśli tacy są-->
+                <span class="users__header">Osoby:</span>
+                <div class="task__users">
+                  <div class="task__user">
+                    <!--user 1-->
+                    <p class="user__name">{{item['user_assigned_name']}}</p>
+                    <!-- Nazwa usera-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+       </div>
+      </main>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+      integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/static/devslogRaports/script.js"></script>
+  </body>
+</html>
