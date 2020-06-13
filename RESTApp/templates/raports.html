@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/devslogRaports/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <title>Devlogs | raporty</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logotype">
+          <img
+            src="/static/devslogRaports/imgs/presentation2.png"
+            alt="raports"
+            class="thumbnail"
+          />
+          <img
+            src="/static/devslogRaports/imgs/logo.png"
+            alt="logotype"
+            class="logo"
+          />
+          <h1>Raporty</h1>
+        </div>
+      </header>
+      <main class="raports">
+        <form action="#" class="raports__form">
+          <!--TODO {{usera}}-->
+          <p class="boss" id="raportsBoss">{{ data['kierownik_name'] }}</p>
+          <ul class="main__raports__mode">
+            <li>
+              <a href="{{link_all}}" class="{{'active' if all else 'mine'}}"
+                >Wszystkie projekty</a
+              >
+            </li>
+            <li>
+              <a href="{{link_mine}}" class="{{'mine' if all else 'active'}}"
+                >Moje projekty</a
+              >
+            </li>
+          </ul>
+        </form>
+        <section class="projects__list" id="projectsList">
+          {% for item in data['projects'] %}
+          <div class="project" id="{{loop.index-1}}">
+            <h2>{{ item['project_name'] }}</h2>
+            <div class="info__container tasks__info">
+              <i class="fas fa-tasks"></i>
+              <p class="tasks">{{ item['tasks_count'] }}</p>
+            </div>
+            <div class="info__container users__info">
+              <i class="fas fa-users"></i>
+              <p class="users">{{ item['project_users_count'] }}</p>
+            </div>
+            <div class="info__container date__info">
+              <i class="fas fa-calendar-day"></i>
+              <p class="date">{{ item['projectCreateDate'] }}</p>
+            </div>
+            <div class="project__into" }>
+              <!--TODO wstrzyk do hrefa jako odnośnik do projektu-->
+              <a href="{{item['project_url']}}" class="into__project">
+                <i class="fas fa-arrow-right"> </i>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+        </section>
+      </main>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+      integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/static/devslogRaports/script.js"></script>
+  </body>
+</html>

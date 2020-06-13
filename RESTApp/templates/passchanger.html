@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Devlogs | zmiana hasła</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logotype">
+          <img src="/static/imgs/logo.png" alt="logotype" />
+        </div>
+      </header>
+      <main>
+        <div class="password-change-container">
+          <h2>Ustaw swoje nowe hasło</h2>
+          <form action="/changepassword" method="POST">
+            <input
+	      name="new-password"
+              type="password"
+              placeholder="podaj nowe hasło..."
+              class="new-password"
+            />
+            <input
+              name="repeat-new-password"
+              type="password"
+              placeholder="powtórz hasło..."
+              class="repeat-new-password"
+            />
+            <input type="submit" class="button" value="Zmień hasło" />
+            <input id="token" name="token" type="hidden" value="{{token}}" />
+          </form>
+          <div class="{{style}}" {{hidden}}> 
+              {{msg}}
+          </div>
+          <div class="loader">
+            <img src="/static/imgs/loader.svg" alt="loading icon" />
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="/static/main.js"></script>
+  </body>
+</html>
